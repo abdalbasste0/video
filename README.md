@@ -9,7 +9,14 @@ and publishes it to **YouTube, TikTok and Instagram**. Work starts at **08:00** 
 The factory is a **private app just for you**: a control panel that opens in your browser, runs on your own computer only
 (`127.0.0.1`, so no other device can reach it), and is protected by a password you set the first time you run it.
 
-**Create the desktop shortcut (once):**
+**Easiest way: one file on your desktop** — download the file for your system from the `launchers/` folder and put it on your desktop:
+- Windows: `launchers/VideoFactory-Windows.bat`
+- Mac: `launchers/VideoFactory-Mac.command`
+
+Double-click it: the first time it installs everything (Git, Python, FFmpeg, the project and its libraries) and creates the
+«مصنع الفيديو» icon. After that, every time you open it, it updates the project automatically and opens the app.
+
+**Or create the desktop shortcut by hand (once):**
 ```bash
 python -m factory shortcut
 ```
