@@ -1,0 +1,17 @@
+# Runs the factory permanently on a Linux server (it starts itself at 08:00 every day)
+# Install:
+#   sudo cp deploy/video-factory.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now video-factory
+[Unit]
+Description=Story Video Factory (stickman / mystery / riddles)
+After=network-online.target
+
+[Service]
+WorkingDirectory=/opt/video
+ExecStart=/usr/bin/python3 -m factory serve
+Restart=always
+RestartSec=30
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
