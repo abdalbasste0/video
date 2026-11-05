@@ -1,0 +1,14 @@
+# Core (works on Windows, Linux, and Android/Termux)
+pyyaml>=6.0
+python-dotenv>=1.0
+requests>=2.31
+anthropic>=0.70        # Script Agent + revision-note routing (optional: template fallback without key)
+edge-tts>=6.1.12       # Voice Agent (free, Arabic + English voices, word timestamps)
+
+# Optional — publishing to YouTube (only after YOUR approval)
+# google-api-python-client>=2.120
+# google-auth-oauthlib>=1.2
+
+# Optional — Windows only: CapCut export automation
+# pywinauto>=0.6.8 ; sys_platform == "win32"
+# pyautogui>=0.9.54 ; sys_platform == "win32"
