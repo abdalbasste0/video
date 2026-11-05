@@ -8,6 +8,7 @@ from __future__ import annotations
 from pydantic import BaseModel, Field
 
 from .. import llm
+from ..config import settings
 from ..state import Job, history
 from .base import ProductionBot
 
@@ -67,6 +68,8 @@ class TrendScout(ProductionBot):
         cat = unit["category"]
         prompt = (
             f"تاريخ اليوم: {job.day.isoformat()}\nالفئة: {CATEGORIES[cat]}\n"
+            f"لغة الفيديو والجمهور المستهدف: {settings.language_name} — ابحث فيما ينتشر لدى هذا الجمهور، "
+            f"واكتب title و hook بهذه اللغة، أما why_viral فاكتبه بالعربية للمالك.\n"
             f"زاوية البحث: {unit['angle']}\n"
             f"ملاحظات المالك: {job.brief.get('notes', 'لا يوجد')}\n"
             f"موضوع مقترح من المالك (إن وجد): {job.brief.get('topic', 'لا يوجد')}\n"

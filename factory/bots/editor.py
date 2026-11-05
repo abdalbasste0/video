@@ -147,8 +147,21 @@ class Editor(ProductionBot):
                    "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", final)
 
         thumb = self._thumbnail(job, final)
-        job.put("video", {"path": str(final), "duration": round(duration(final), 2),
+        vertical = self._vertical_version(job, final)
+        job.put("video", {"path": str(final), "duration": round(duration(final), 2), "vertical": str(vertical),
                           "thumbnail": str(thumb), "music": str(music) if music else None})
+
+    def _vertical_version(self, job: Job, final: Path) -> Path:
+        """A 9:16 version for TikTok and Instagram Reels: the video centred over a blurred copy of itself as the background."""
+        if settings.video_format == "vertical":
+            return final
+        out = job.dir / "final_vertical.mp4"
+        fc = ("[0:v]split=2[bg][fg];"
+              "[bg]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=25:2,eq=brightness=-0.12[b];"
+              "[fg]scale=1080:-2[f];[b][f]overlay=(W-w)/2:(H-h)/2,setsar=1[v]")
+        ffmpeg("-i", final, "-filter_complex", fc, "-map", "[v]", "-map", "0:a", "-c:v", "libx264", "-preset", "medium",
+               "-crf", "21", "-pix_fmt", "yuv420p", "-c:a", "copy", "-movflags", "+faststart", out)
+        return out
 
     # ------------------------------------------------------------------
     def _pick_music(self, job: Job) -> Path | None:

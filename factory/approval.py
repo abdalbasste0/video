@@ -180,6 +180,9 @@ class ApprovalDesk:
         if not parsed:
             return False
         status, value, note = parsed
+        if self.pending == "final_review" and status == "approved":
+            from .publishers import platforms_from_text
+            value = ",".join(platforms_from_text(text))  # empty = every enabled platform
         record_decision(job, self.pending, status, value, note, by="telegram")
         self.tg.send(f"✔️ تم تسجيل قرارك على «{self.pending}»: {'موافقة' if status == 'approved' else 'رفض/تعديل'}")
         return True

@@ -12,6 +12,7 @@ import json
 import threading
 import time
 from datetime import datetime
+from pathlib import Path
 from typing import Literal, Optional
 
 from pydantic import BaseModel
@@ -20,7 +21,7 @@ from .. import llm
 from ..approval import ApprovalDesk, Telegram, pop_commands, read_decision
 from ..config import HELPER_TRIGGER_RATIO, PUBLISH_HARD_LIMIT, SCHEDULE, WORK_START, Stage, settings
 from ..log import log
-from ..publisher import publish_youtube
+from ..publishers import NAMES_AR, PLATFORMS, Post, enabled_platforms, publish_all
 from ..state import Job, add_history
 from .base import ProductionBot
 from .editor import Editor
@@ -32,6 +33,7 @@ from .trend_scout import CATEGORIES, TrendScout
 from .voice import VoiceBot
 
 STAGES = {s.key: s for s in SCHEDULE}
+DAY_STARTED = "بدأ يوم العمل"
 REDO_ORDER = ["script", "voice", "media", "edit", "qa"]
 
 
@@ -292,7 +294,9 @@ class Manager:
             text = (f"🎬 الفيديو النهائي جاهز للمراجعة ({v['duration']:.0f} ثانية)\n\n"
                     f"العنوان: {s['title']}\n\nالوصف:\n{self._description(job)}\n\nالوسوم: {', '.join(s['tags'])}\n\n"
                     f"تقرير الفحص (البوت السادس):\n{qa_lines}\n\n"
-                    "هل أنشر الآن؟ «موافق» للنشر، أو «رفض: ملاحظاتك» للتعديل.")
+                    f"سيُنشر على: {'، '.join(NAMES_AR[p] for p in enabled_platforms()) or 'لا توجد منصة مضبوطة'}\n"
+                    "هل أنشر الآن؟ «موافق» للنشر على الكل، أو «موافق يوتيوب تيكتوك» لمنصات محددة، "
+                    "أو «رفض: ملاحظاتك» للتعديل.")
             files = [v["thumbnail"], job.get("preview_sheet", ""), v["path"]]
             self.desk.ask(job, "final_review", text, files=[f for f in files if f])
             d = self._wait_owner(job, "final_review")
@@ -343,35 +347,45 @@ class Manager:
         credits = sorted({m["credit"] for m in job.get("media", []) if not m["credit"].startswith("stickman")})
         desc = s["description"]
         if credits:
-            desc += "\n\n🎞️ مصادر اللقطات:\n" + "\n".join(credits)
+            desc += ("\n\n🎞️ Footage credits:\n" if settings.language == "en" else "\n\n🎞️ مصادر اللقطات:\n") + "\n".join(credits)
         desc += "\n\n" + " ".join("#" + t.replace(" ", "_") for t in s["tags"][:5])
         return desc
 
     # ======================================================================
     # Publishing — guarded by the owner's approval
     # ======================================================================
-    def publish(self, job: Job, *, allow_late: bool = False) -> dict | None:
+    def publish(self, job: Job, *, allow_late: bool = False, platforms: list[str] | None = None) -> dict | None:
         d = read_decision(job, "final_review")
         if not d or d["status"] != "approved":
             raise PermissionError("لا يمكن النشر: لا توجد موافقة نهائية من المالك على هذا الفيديو.")
-        if job.get("published"):
-            log.info("Already published: %s", job.get("published")["url"])
-            return job.get("published")
         if settings.now() >= settings.at(PUBLISH_HARD_LIMIT, job.day) and not allow_late:
             msg = ("⏰ وصلت موافقتك بعد الساعة 13:00. لم أنشر تلقائياً حفاظاً على القاعدة. "
-                   "للنشر رغم التأخير: python -m factory publish --late")
+                   "للنشر رغم التأخير: من التطبيق زر «انشر رغم التأخير» أو python -m factory publish --late")
             self.tg.send(msg)
             job.event(self.name, msg)
             return None
+        # Platforms: whatever the owner named in the approval, otherwise every enabled platform
+        chosen = platforms or [p for p in (d.get("value") or "").split(",") if p in PLATFORMS] or enabled_platforms()
+        if not chosen:
+            raise RuntimeError("لا توجد منصة نشر مضبوطة. أضف بيانات يوتيوب/تيك توك/إنستغرام في الإعدادات.")
         s, v = job.get("script"), job.get("video")
-        from pathlib import Path
-        result = publish_youtube(Path(v["path"]), Path(v["thumbnail"]), s["title"], self._description(job), s["tags"])
-        job.put("published", result)
-        job.set_stage("publish", status="done", finished=settings.now().strftime("%H:%M:%S"))
-        add_history({"date": job.day.isoformat(), "title": s["title"], "category": job.brief.get("category"),
-                     "url": result["url"]})
-        self.tg.send(f"🚀 تم النشر: {result['url']}")
-        return result
+        post = Post(video=Path(v["path"]), vertical_video=Path(v["vertical"]) if v.get("vertical") else None,
+                    thumbnail=Path(v["thumbnail"]), title=s["title"], description=self._description(job), tags=s["tags"])
+        results = publish_all(post, chosen, already=job.get("published") or {})
+        job.put("published", results)
+        ok = {k: r for k, r in results.items() if r.get("url")}
+        failed = {k: r for k, r in results.items() if r.get("error")}
+        if ok:
+            job.set_stage("publish", status="done" if not failed else "partial",
+                          finished=settings.now().strftime("%H:%M:%S"))
+            add_history({"date": job.day.isoformat(), "title": s["title"], "category": job.brief.get("category"),
+                         "urls": {k: r["url"] for k, r in ok.items()}})
+        lines = [f"🚀 {NAMES_AR[k]}: {r['url']}" for k, r in ok.items()]
+        lines += [f"❌ {NAMES_AR[k]}: {r['error']}" for k, r in failed.items()]
+        msg = "نتيجة النشر:\n" + "\n".join(lines)
+        self.tg.send(msg)
+        job.event(self.name, msg)
+        return results
 
     # ======================================================================
     # The full workday
@@ -387,7 +401,7 @@ class Manager:
                 time.sleep(2)
 
         self.tick()  # read any instructions the owner sent before work started
-        job.event(self.name, "بدأ يوم العمل")
+        job.event(self.name, DAY_STARTED)
         brief = json.dumps(job.brief, ensure_ascii=False) if job.brief else "لا توجد تعليمات خاصة (سأختار الأفضل)"
         self.tg.send(f"☀️ بدأ العمل. تعليمات اليوم: {brief}\nسأستشيرك قبل كل خطوة مهمة وقبل أي نشر.")
 

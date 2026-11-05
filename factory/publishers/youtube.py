@@ -1,4 +1,4 @@
-"""Publish to YouTube (called only by bot 9, and only after the owner's final approval).
+"""Publish to YouTube.
 
 Uses the YouTube Data API v3 directly with a refresh token (resumable upload, then thumbnail).
 The refresh token is created once — see README.md under "YouTube setup".
@@ -10,8 +10,8 @@ from pathlib import Path
 
 import requests
 
-from .config import env, settings
-from .log import log
+from ..config import env, settings
+from ..log import log
 
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 UPLOAD_URL = "https://www.googleapis.com/upload/youtube/v3/videos"
@@ -29,11 +29,17 @@ def _access_token() -> str:
     return r.json()["access_token"]
 
 
-def publish_youtube(video: Path, thumbnail: Path | None, title: str, description: str, tags: list[str]) -> dict:
+def configured() -> bool:
+    return bool(settings.yt_client_id and settings.yt_client_secret and settings.yt_refresh_token)
+
+
+def publish(post) -> dict:
+    """post: factory.publishers.Post. YouTube gets the main video (landscape or vertical, depending on the factory setting)."""
+    video, thumbnail, title, description, tags = post.video, post.thumbnail, post.title, post.description, post.tags
     if settings.dry_run:
         log.info("[dry-run] would have published to YouTube: %s", title)
         return {"platform": "youtube", "id": "DRY_RUN", "url": "https://youtube.com/watch?v=DRY_RUN"}
-    if not (settings.yt_client_id and settings.yt_client_secret and settings.yt_refresh_token):
+    if not configured():
         raise RuntimeError("بيانات YouTube غير مضبوطة في .env")
 
     token = _access_token()

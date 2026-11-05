@@ -12,17 +12,24 @@ import json
 from pydantic import BaseModel, Field
 
 from .. import llm
+from ..config import settings
 from ..state import Job
 from .base import ProductionBot
 
 POSES = ["standing", "walking", "running", "thinking", "shocked", "pointing", "sitting", "sad", "happy"]
 
-SYSTEM = (
-    "أنت كاتب سكريبتات يوتيوب عربي محترف متخصص في قصص ستيك مان والغموض والألغاز. "
-    "تكتب بالعربية الفصحى المبسطة بأسلوب سردي مشوق، جمل قصيرة تناسب التعليق الصوتي، "
-    "خطاف قوي في أول 5 ثوان، تصاعد للتشويق، ونهاية تدفع للتعليق والاشتراك. "
-    "لا تخترع حقائق تاريخية: أي تاريخ أو وقت أو رقم يجب أن يكون قابلاً للتحقق."
-)
+
+
+def system_prompt() -> str:
+    lang = settings.language_name
+    return (
+        "You are a professional YouTube scriptwriter specialised in stickman stories, mystery stories and riddles. "
+        f"Write EVERY viewer-facing field (narration, title, description, tags, thumbnail_text, on_screen_text) in {lang}. "
+        "Narration is read aloud by a voice-over artist: short, punchy spoken sentences, vivid storytelling, "
+        "a strong hook in the first 5 seconds, rising suspense, and an ending that invites comments and subscriptions. "
+        "Use punctuation (commas, ellipses, question marks) to guide natural pacing for the voice. "
+        "Never invent historical facts: every date, time, number and real name must be verifiable."
+    )
 
 
 class Scene(BaseModel):
@@ -56,6 +63,22 @@ class ClaimCheck(BaseModel):
 
 
 def _mock_script(title: str) -> dict:
+    if settings.language == "en":
+        return {
+            "title": "The Man Who Vanished From a Locked Room",
+            "description": "A true mystery that still has no answer... watch until the end.",
+            "tags": ["mystery", "stories", "riddles"],
+            "thumbnail_text": "VANISHED from a LOCKED room!",
+            "scenes": [
+                {"narration": "The door was locked from the inside... and the room was completely empty.", "visual_type": "stickman",
+                 "visual_query_en": "locked door dark room", "stickman_pose": "shocked", "on_screen_text": "LOCKED ROOM", "mood": "suspense"},
+                {"narration": "That morning, the whole village woke up to very strange news.", "visual_type": "stock",
+                 "visual_query_en": "foggy village morning", "stickman_pose": "standing", "mood": "calm"},
+                {"narration": "So think carefully... how did he get out? Drop your answer in the comments.", "visual_type": "stickman",
+                 "visual_query_en": "thinking", "stickman_pose": "thinking", "on_screen_text": "Your answer?", "mood": "dramatic"},
+            ],
+            "claims": [{"claim": "The story happened in 1931", "kind": "date"}],
+        }
     return {
         "title": title,
         "description": "قصة غامضة حقيقية… شاهد حتى النهاية.",
@@ -86,7 +109,8 @@ class ScriptWriter(ProductionBot):
         feedback = job.brief.get("script_feedback", "")
         prompt = (
             f"الفكرة المعتمدة من المالك:\n{json.dumps(idea, ensure_ascii=False, indent=2)}\n\n"
-            f"المدة المستهدفة: حوالي {minutes} دقيقة (≈ {int(minutes * 140)} كلمة).\n"
+            f"المدة المستهدفة: حوالي {minutes} دقيقة (≈ {int(minutes * (150 if settings.language == 'en' else 140))} كلمة).\n"
+            f"لغة الفيديو والتعليق الصوتي: {settings.language_name}\n"
             f"ملاحظات المالك: {job.brief.get('notes', 'لا يوجد')}\n"
             f"تعليمات خاصة لك من المالك: {self.owner_note(job) or 'لا يوجد'}\n"
             + (f"ملاحظات المالك على النسخة السابقة (يجب تطبيقها): {feedback}\n" if feedback else "")
@@ -94,7 +118,7 @@ class ScriptWriter(ProductionBot):
               "لقصص ستيك مان استخدم visual_type=stickman لمعظم المشاهد. "
               "استخرج في claims كل تاريخ أو وقت أو رقم أو اسم حقيقي ورد في النص لتدقيقه."
         )
-        draft = llm.ask_json(SYSTEM, prompt, Script, web_search=True, mock=_mock_script(idea["title"]))
+        draft = llm.ask_json(system_prompt(), prompt, Script, web_search=True, mock=_mock_script(idea["title"]))
         job.put("script_draft", draft.model_dump())
         return [c.model_dump() for c in draft.claims] or [{"claim": "", "kind": "none"}]
 
@@ -120,5 +144,5 @@ class ScriptWriter(ProductionBot):
             "قم بتحرير احترافي نهائي: صحح كل معلومة خاطئة، احذف أو صِغ بحذر ما لا يمكن التحقق منه، "
             "حسّن الإيقاع والخطاف والانتقالات، ووحّد الأسلوب. أبقِ نفس بنية المشاهد."
         )
-        final = llm.ask_json(SYSTEM, prompt, Script, mock=draft)
+        final = llm.ask_json(system_prompt(), prompt, Script, mock=draft)
         job.put("script", final.model_dump())

@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مصنع الفيديو</title>
+<link rel="icon" href="/icon.png">
+<style>
+:root{
+  --bg:#f4f5f8;--card:#fff;--ink:#16181d;--muted:#667085;--line:#e4e7ec;--brand:#5b3df5;--brand-ink:#fff;
+  --ok:#12a150;--warn:#d97706;--bad:#dc2626;--soft:#eef0ff;--chip:#f2f4f7;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0f1115;--card:#181b22;--ink:#eceef3;--muted:#98a2b3;--line:#2a2f3a;--brand:#7c64ff;--brand-ink:#fff;
+  --ok:#32d583;--warn:#fdb022;--bad:#f97066;--soft:#221f3d;--chip:#232733;
+}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 "Segoe UI",Tahoma,"Noto Sans Arabic",system-ui,sans-serif}
+button,input,textarea,select{font:inherit;color:inherit}
+.hidden{display:none!important}
+header{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:12px;padding:10px 20px;flex-wrap:wrap}
+header img{width:34px;height:34px;border-radius:8px}
+header h1{font-size:18px;margin:0}
+.grow{flex:1}
+.clock{color:var(--muted);font-variant-numeric:tabular-nums}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;background:var(--chip);font-size:13px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.dot.on{background:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 25%,transparent)}
+.btn{border:1px solid var(--line);background:var(--card);padding:8px 14px;border-radius:10px;cursor:pointer}
+.btn:hover{border-color:var(--brand)}
+.btn.primary{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.btn.danger{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 40%,var(--line))}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+nav{display:flex;gap:4px;padding:0 20px;background:var(--card);border-bottom:1px solid var(--line);overflow-x:auto}
+nav button{border:0;background:none;padding:12px 14px;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap}
+nav button.active{color:var(--ink);border-bottom-color:var(--brand);font-weight:600}
+main{max-width:1150px;margin:0 auto;padding:20px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:18px}
+.card h2{font-size:16px;margin:0 0 12px}
+.muted{color:var(--muted)}
+.timeline{list-style:none;margin:0;padding:0}
+.timeline li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px dashed var(--line)}
+.timeline li:last-child{border:0}
+.st{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;flex:none;background:var(--chip);font-size:14px}
+.st.done{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+.st.running{background:color-mix(in srgb,var(--brand) 18%,transparent);color:var(--brand);animation:pulse 1.4s infinite}
+.st.failed{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+.st.pending{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+@keyframes pulse{50%{opacity:.5}}
+.tl-title{font-weight:600}
+.tl-meta{font-size:13px;color:var(--muted)}
+.approval{border:2px solid var(--warn);background:color-mix(in srgb,var(--warn) 6%,var(--card))}
+.idea{display:flex;gap:10px;padding:12px;border:1px solid var(--line);border-radius:12px;margin-bottom:10px;cursor:pointer}
+.idea:has(input:checked){border-color:var(--brand);background:var(--soft)}
+.idea .score{margin-inline-start:auto;font-weight:700;color:var(--brand);white-space:nowrap}
+.scene{padding:8px 12px;border-inline-start:3px solid var(--brand);background:var(--chip);border-radius:6px;margin:6px 0}
+.ltr{direction:ltr;text-align:left;unicode-bidi:plaintext}
+textarea,input[type=text],input[type=password]{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg)}
+textarea{min-height:80px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.videos{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+@media (max-width:700px){.videos{grid-template-columns:1fr}}
+video,.videos img{width:100%;border-radius:10px;background:#000}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{padding:8px;border-bottom:1px solid var(--line);text-align:start;vertical-align:top}
+.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+.events{max-height:380px;overflow:auto;font-size:13px}
+.events div{padding:5px 0;border-bottom:1px solid var(--line)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);
+  padding:10px 18px;border-radius:10px;opacity:0;transition:.25s;pointer-events:none;z-index:20}
+.toast.show{opacity:1}
+.login{max-width:380px;margin:12vh auto;text-align:center}
+.login img{width:72px;border-radius:16px}
+.empty{color:var(--muted);text-align:center;padding:24px}
+.plat{display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);border-radius:10px}
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:700px){.settings-grid{grid-template-columns:1fr}}
+label.f span{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
+a{color:var(--brand)}
+</style>
+</head>
+<body>
+
+<!-- ============ Login / setup ============ -->
+<section id="auth" class="hidden">
+  <div class="login card">
+    <img src="/icon.png" alt="">
+    <h2 id="authTitle">تسجيل الدخول</h2>
+    <p class="muted" id="authHint">هذا التطبيق خاص بك وحدك.</p>
+    <form id="authForm">
+      <input type="password" id="pw1" placeholder="كلمة المرور" autocomplete="current-password" required>
+      <input type="password" id="pw2" placeholder="أعد كتابة كلمة المرور" class="hidden" style="margin-top:8px" autocomplete="new-password">
+      <button class="btn primary" style="width:100%;margin-top:12px">دخول</button>
+      <p class="bad" id="authErr"></p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ The app ============ -->
+<section id="app" class="hidden">
+<header>
+  <img src="/icon.png" alt="">
+  <h1>مصنع الفيديو</h1>
+  <span class="chip"><span class="dot" id="runDot"></span><span id="runText">—</span></span>
+  <span class="chip" id="dryChip" hidden>وضع تجريبي</span>
+  <span class="grow"></span>
+  <span class="clock" id="clock"></span>
+  <button class="btn primary" id="startBtn">▶ ابدأ الآن</button>
+  <button class="btn" id="logoutBtn">خروج</button>
+</header>
+<nav id="tabs">
+  <button data-tab="today" class="active">اليوم</button>
+  <button data-tab="commands">الأوامر</button>
+  <button data-tab="publish">النشر</button>
+  <button data-tab="history">السجل</button>
+  <button data-tab="settings">الإعدادات</button>
+</nav>
+
+<main>
+  <!-- Today -->
+  <div data-panel="today">
+    <div id="approvalBox"></div>
+    <div class="grid">
+      <div>
+        <div class="card">
+          <h2>مراحل اليوم <span class="muted" id="dayLabel"></span></h2>
+          <ul class="timeline" id="timeline"></ul>
+        </div>
+        <div class="card" id="videoCard" hidden>
+          <h2>الفيديو الحالي</h2>
+          <div class="videos">
+            <video id="vidMain" controls preload="metadata"></video>
+            <video id="vidVert" controls preload="metadata"></video>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <h2>فريق البوتات</h2>
+          <div id="helpers" class="muted">بوتات المساعدة ٧ و ٨ في وضع الاستعداد.</div>
+        </div>
+        <div class="card">
+          <h2>تعليمات اليوم</h2>
+          <div id="brief" class="muted">لا توجد تعليمات — سيختار البوت الأول الأفضل.</div>
+        </div>
+        <div class="card">
+          <h2>سجل الأحداث</h2>
+          <div class="events" id="events"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Commands -->
+  <div data-panel="commands" class="hidden">
+    <div class="card">
+      <h2>أرسل تعليمات للبوت التاسع (المدير)</h2>
+      <p class="muted">اكتب بالعربية كما تتكلم. يمكنك الإرسال في أي وقت، حتى في الليلة السابقة.</p>
+      <textarea id="cmdText" placeholder="مثال: اليوم قصة ستيك مان عن النجاح بعد الفشل، مدتها 5 دقائق"></textarea>
+      <div class="row" style="margin-top:10px">
+        <button class="btn primary" id="cmdSend">إرسال</button>
+        <span class="grow"></span>
+        <button class="btn quick" data-cmd="اليوم قصة ستيك مان">ستيك مان</button>
+        <button class="btn quick" data-cmd="اليوم قصة غموض">غموض</button>
+        <button class="btn quick" data-cmd="اليوم لغز">ألغاز</button>
+        <button class="btn quick" data-cmd="توقف">⏸ إيقاف مؤقت</button>
+        <button class="btn quick" data-cmd="استمر">⏵ استئناف</button>
+        <button class="btn quick danger" data-cmd="إلغاء عمل اليوم">إلغاء اليوم</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2>أمثلة</h2>
+      <ul class="muted">
+        <li>البوت الرابع استخدم لقطات ليلية مظلمة فقط</li>
+        <li>اجعل مدة الفيديو 8 دقائق واجعل النهاية مفتوحة</li>
+        <li>البوت الأول ركّز على الألغاز البوليسية القصيرة</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Publishing -->
+  <div data-panel="publish" class="hidden">
+    <div class="card">
+      <h2>المنصات</h2>
+      <div class="row" id="platforms"></div>
+      <p class="muted" style="margin-top:10px">المنصة غير المضبوطة تحتاج بياناتها من تبويب «الإعدادات».
+        تيك توك وإنستغرام يأخذان النسخة العمودية 9:16 تلقائياً.</p>
+    </div>
+    <div class="card">
+      <h2>نتيجة نشر اليوم</h2>
+      <div id="pubResults" class="muted">لم يُنشر شيء اليوم بعد.</div>
+      <div class="row" style="margin-top:12px">
+        <button class="btn" id="pubRetry">إعادة محاولة المنصات الفاشلة</button>
+        <button class="btn danger" id="pubLate">انشر رغم تجاوز الساعة <span id="limitLbl"></span></button>
+      </div>
+      <p class="muted">النشر لا يتم أبداً بدون موافقتك النهائية على الفيديو.</p>
+    </div>
+  </div>
+
+  <!-- History -->
+  <div data-panel="history" class="hidden">
+    <div class="card">
+      <h2>الفيديوهات المنشورة</h2>
+      <table><thead><tr><th>التاريخ</th><th>العنوان</th><th>الروابط</th></tr></thead><tbody id="historyBody"></tbody></table>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <div data-panel="settings" class="hidden">
+    <div class="card">
+      <h2>المفاتيح والإعدادات</h2>
+      <p class="muted">المفاتيح السرية لا تُعرض أبداً بعد حفظها. اترك الحقل فارغاً للإبقاء على القيمة الحالية.</p>
+      <form id="settingsForm"><div class="settings-grid" id="settingsGrid"></div>
+        <button class="btn primary" style="margin-top:14px">حفظ</button></form>
+    </div>
+    <div class="card">
+      <h2>تغيير كلمة المرور</h2>
+      <form id="pwForm" class="row">
+        <input type="password" id="pwOld" placeholder="الحالية" style="max-width:220px">
+        <input type="password" id="pwNew" placeholder="الجديدة (8 أحرف+)" style="max-width:220px">
+        <button class="btn">تغيير</button>
+      </form>
+    </div>
+  </div>
+</main>
+</section>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let state = null, approvalKey = "", pollTimer = null, passwordSet = true;
+
+async function api(path, body){
+  const opt = body === undefined ? {} : {method:"POST", headers:{"Content-Type":"application/json","X-VF":"1"}, body:JSON.stringify(body)};
+  const r = await fetch(path, opt);
+  const data = await r.json().catch(() => ({}));
+  if (r.status === 401 && !path.includes("login")) { showAuth(); throw new Error("auth"); }
+  if (!r.ok) throw new Error(data.error || "خطأ");
+  return data;
+}
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),2600); }
+async function act(path, body){ try{ const d = await api(path, body); toast(d.message || "تم"); refresh(); return d; } catch(e){ if(e.message!=="auth") toast("⚠️ " + e.message); } }
+
+// ---------------- Login ----------------
+function showAuth(){
+  clearInterval(pollTimer);
+  $("#app").classList.add("hidden"); $("#auth").classList.remove("hidden");
+  $("#authTitle").textContent = passwordSet ? "تسجيل الدخول" : "إنشاء كلمة مرور";
+  $("#authHint").textContent = passwordSet ? "هذا التطبيق خاص بك وحدك." : "أول تشغيل: اختر كلمة مرور (8 أحرف على الأقل). لن يدخل أحد غيرك.";
+  $("#pw2").classList.toggle("hidden", passwordSet);
+}
+$("#authForm").onsubmit = async e => {
+  e.preventDefault(); $("#authErr").textContent = "";
+  try{
+    if (!passwordSet){
+      if ($("#pw1").value !== $("#pw2").value) throw new Error("كلمتا المرور غير متطابقتين");
+      await api("/api/setup", {password: $("#pw1").value});
+    } else await api("/api/login", {password: $("#pw1").value});
+    $("#pw1").value = $("#pw2").value = ""; startApp();
+  }catch(err){ $("#authErr").textContent = err.message; }
+};
+$("#logoutBtn").onclick = async () => { await api("/api/logout", {}); passwordSet = true; showAuth(); };
+
+// ---------------- Tabs ----------------
+$("#tabs").onclick = e => {
+  const b = e.target.closest("button[data-tab]"); if(!b) return;
+  document.querySelectorAll("#tabs button").forEach(x => x.classList.toggle("active", x===b));
+  document.querySelectorAll("[data-panel]").forEach(p => p.classList.toggle("hidden", p.dataset.panel !== b.dataset.tab));
+  if (b.dataset.tab === "settings") loadSettings();
+};
+
+// ---------------- Rendering ----------------
+const ICON = {done:"✓", running:"●", failed:"✕", partial:"!", pending:"?"};
+function render(s){
+  state = s;
+  $("#clock").textContent = s.now.slice(11,16);
+  $("#dayLabel").textContent = "— " + s.date;
+  $("#runDot").classList.toggle("on", s.running);
+  $("#runText").textContent = s.running ? (s.paused ? "متوقف مؤقتاً" : "المصنع يعمل") : "في الانتظار (يبدأ 08:00)";
+  $("#dryChip").hidden = !s.dry_run;
+  $("#limitLbl").textContent = s.publish_limit;
+
+  $("#timeline").innerHTML = s.stages.map(st => {
+    const cls = st.approval === "pending" ? "pending" : (st.status || "");
+    const appr = st.approval ? ` · الموافقة: ${({approved:"✅ تمت",rejected:"🔁 تعديل",pending:"⏳ بانتظارك",timeout:"⌛ انتهى الوقت"})[st.approval]||st.approval}` : "";
+    const time = st.finished ? ` · انتهى ${st.finished}` : st.started ? ` · بدأ ${st.started}` : "";
+    const err = st.error ? `<div class="bad" style="font-size:13px">${esc(st.error)}</div>` : "";
+    return `<li><span class="st ${cls}">${ICON[cls]||"·"}</span><div><div class="tl-title">${esc(st.title)}</div>
+      <div class="tl-meta">الموعد ${st.deadline} · ${esc(st.bot)}${time}${appr}</div>${err}</div></li>`;
+  }).join("");
+
+  const busy = s.helpers.filter(h => h.busy);
+  $("#helpers").innerHTML = busy.length ? busy.map(h => `🆘 <b>${esc(h.title)}</b> يساعد ${esc(h.assisting)}`).join("<br>")
+    : "بوتات المساعدة ٧ و ٨ في وضع الاستعداد.";
+  const b = Object.entries(s.brief || {}).filter(([k]) => ["category","topic","minutes","notes"].includes(k));
+  $("#brief").innerHTML = b.length ? b.map(([k,v]) => `<div><b>${({category:"الفئة",topic:"الموضوع",minutes:"المدة",notes:"ملاحظات"})[k]}:</b> ${esc(v)}</div>`).join("")
+    : "لا توجد تعليمات — سيختار البوت الأول الأفضل.";
+  $("#events").innerHTML = s.events.map(e => `<div><span class="muted">${e.t}</span> <b>${esc(e.who)}</b> ${esc(e.msg)}</div>`).join("") || '<div class="empty">لا أحداث بعد</div>';
+
+  if (s.video && s.video.url && s.pending !== "final_review"){
+    $("#videoCard").hidden = false;
+    setSrc($("#vidMain"), s.video.url); setSrc($("#vidVert"), s.video.vertical_url);
+  } else $("#videoCard").hidden = true;
+
+  renderApproval(s);
+  renderPublish(s);
+  $("#historyBody").innerHTML = s.history.map(h => `<tr><td>${h.date}</td><td class="ltr">${esc(h.title)}</td><td>${
+    Object.entries(h.urls || (h.url ? {youtube:h.url} : {})).map(([k,u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${k}</a>`).join(" · ")}</td></tr>`).join("")
+    || `<tr><td colspan="3" class="empty">لا يوجد منشورات بعد</td></tr>`;
+}
+function setSrc(v, url){ if(!url){ v.hidden=true; return; } v.hidden=false; if(v.dataset.src!==url){ v.dataset.src=url; v.src=url; } }
+
+function renderApproval(s){
+  const key = s.pending ? s.pending + JSON.stringify(s.pending==="research"?s.ideas:s.pending==="script"?s.script:s.video) : "";
+  if (key === approvalKey) return;   // don't wipe what you are typing
+  approvalKey = key;
+  const box = $("#approvalBox");
+  if (!s.pending){ box.innerHTML = ""; return; }
+  const rejectUI = `<div style="margin-top:14px"><textarea id="rejNote" placeholder="ملاحظاتك للتعديل (اختياري عند الموافقة)"></textarea></div>`;
+  let html = "";
+  if (s.pending === "research"){
+    html = `<h2>🔎 اختر فكرة فيديو اليوم</h2>` + s.ideas.map((i,n) => `
+      <label class="idea"><input type="radio" name="idea" value="${n+1}" ${n===0?"checked":""}>
+        <div><div class="tl-title ltr">${esc(i.title)}</div><div class="ltr muted">${esc(i.hook)}</div>
+        <div style="font-size:13px">${esc(i.why_viral)}</div>
+        <div style="font-size:12px" class="ltr">${(i.sources||[]).slice(0,2).map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a>`).join(" ")}</div></div>
+        <span class="score">${i.virality_score}/10</span></label>`).join("") + rejectUI +
+      `<div class="row" style="margin-top:10px"><button class="btn primary" id="apOk">اعتمد الفكرة المختارة</button>
+       <button class="btn danger" id="apNo">أريد أفكاراً أخرى</button></div>`;
+  } else if (s.pending === "script"){
+    const sc = s.script || {scenes:[]};
+    html = `<h2>✍️ راجع السكريبت</h2>
+      <div class="ltr"><b>${esc(sc.title)}</b><div class="muted">Thumbnail: ${esc(sc.thumbnail_text)}</div></div>
+      <h3 style="font-size:14px">تدقيق التواريخ والأوقات</h3>` +
+      (s.fact_checks.length ? `<table>${s.fact_checks.map(c => `<tr><td class="ltr">${esc(c.claim)}</td><td class="${c.verdict==="correct"?"ok":c.verdict==="wrong"?"bad":"warn"}">${esc(c.verdict)}</td><td class="ltr">${esc(c.correction)}</td></tr>`).join("")}</table>` : `<p class="muted">لا توجد تواريخ أو أرقام للتدقيق.</p>`) +
+      `<h3 style="font-size:14px">النص (${sc.scenes.length} مشهد)</h3>` +
+      sc.scenes.map((x,n) => `<div class="scene ltr"><b>${n+1}.</b> ${esc(x.narration)} <span class="muted">[${esc(x.visual_type)}: ${esc(x.visual_query_en)}]</span></div>`).join("") +
+      rejectUI + `<div class="row" style="margin-top:10px"><button class="btn primary" id="apOk">اعتمد السكريبت</button>
+      <button class="btn danger" id="apNo">أرسل التعديلات</button></div>`;
+  } else if (s.pending === "final_review"){
+    const v = s.video || {}, sc = s.script || {}, qa = (s.qa_report||{}).checks || [];
+    const plats = s.platforms.filter(p => p.configured);
+    html = `<h2>🎬 الفيديو النهائي — هل ننشر؟</h2>
+      <div class="videos"><video controls preload="metadata" src="${esc(v.url)}"></video>
+        <div><img src="${esc(v.thumbnail_url)}" alt="thumbnail">${v.vertical_url && v.vertical_url!==v.url ? `<video controls preload="metadata" src="${esc(v.vertical_url)}" style="margin-top:8px;max-height:320px"></video>`:""}</div></div>
+      <div class="ltr" style="margin-top:12px"><b>${esc(sc.title)}</b><div class="muted" style="white-space:pre-wrap">${esc(sc.description)}</div></div>
+      <h3 style="font-size:14px">تقرير الفحص (البوت السادس)</h3>
+      <table>${qa.map(c => `<tr><td>${c.ok?'<span class="ok">✓</span>':'<span class="warn">!</span>'} ${esc(c.check)}</td><td>${esc(c.detail)}</td></tr>`).join("")}</table>
+      ${s.preview_sheet ? `<img src="${esc(s.preview_sheet)}" style="width:100%;border-radius:10px;margin-top:10px" alt="">` : ""}
+      <h3 style="font-size:14px">انشر على</h3>
+      <div class="row">${plats.map(p => `<label class="plat"><input type="checkbox" name="plat" value="${p.key}" ${p.enabled?"checked":""}> ${esc(p.name)}</label>`).join("") || '<span class="bad">لا توجد منصة مضبوطة — أضف البيانات من الإعدادات.</span>'}</div>` +
+      rejectUI + `<div class="row" style="margin-top:10px"><button class="btn primary" id="apOk">✅ موافق — انشر</button>
+      <button class="btn danger" id="apNo">🔁 أرسل التعديلات</button></div>`;
+  }
+  box.innerHTML = `<div class="card approval">${html}</div>`;
+  $("#apOk").onclick = () => {
+    let value = "";
+    if (s.pending === "research") value = (document.querySelector("input[name=idea]:checked")||{}).value || "1";
+    if (s.pending === "final_review"){
+      const sel = [...document.querySelectorAll("input[name=plat]:checked")].map(x => x.value);
+      if (!sel.length) return toast("اختر منصة واحدة على الأقل");
+      value = sel.join(",");
+    }
+    act("/api/decision", {stage: s.pending, status: "approved", value, note: $("#rejNote").value});
+  };
+  $("#apNo").onclick = () => {
+    const note = $("#rejNote").value.trim();
+    if (!note) { $("#rejNote").focus(); return toast("اكتب ملاحظاتك أولاً"); }
+    act("/api/decision", {stage: s.pending, status: "rejected", note});
+  };
+}
+
+function renderPublish(s){
+  $("#platforms").innerHTML = s.platforms.map(p => `<span class="plat">${p.configured ? '<span class="ok">●</span>' : '<span class="muted">○</span>'}
+    ${esc(p.name)} <span class="muted" style="font-size:12px">${p.configured ? (p.enabled ? "مفعّل" : "مضبوط لكنه غير مفعّل") : "غير مضبوط"}</span></span>`).join("");
+  const res = Object.values(s.published || {});
+  $("#pubResults").innerHTML = res.length ? res.map(r => r.error
+      ? `<div class="bad">✕ ${esc(r.platform)}: ${esc(r.error)}</div>`
+      : `<div class="ok">✓ ${esc(r.platform)}: <a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.url)}</a></div>`).join("")
+    : "لم يُنشر شيء اليوم بعد.";
+}
+
+// ---------------- Actions ----------------
+$("#startBtn").onclick = () => act("/api/start", {});
+$("#cmdSend").onclick = async () => { const t = $("#cmdText").value.trim(); if(!t) return; await act("/api/command", {text:t}); $("#cmdText").value=""; };
+document.querySelectorAll(".quick").forEach(b => b.onclick = () => act("/api/command", {text: b.dataset.cmd}));
+$("#pubRetry").onclick = () => act("/api/publish", {});
+$("#pubLate").onclick = () => { if (confirm("النشر بعد الموعد المحدد؟ (بموافقتك النهائية فقط)")) act("/api/publish", {late:true}); };
+
+async function loadSettings(){
+  const items = await api("/api/settings");
+  $("#settingsGrid").innerHTML = items.map(i => `<label class="f"><span>${esc(i.label)} ${i.set ? '<b class="ok">✓ محفوظ</b>' : ''}</span>
+    <input type="${i.secret?"password":"text"}" class="ltr" name="${i.key}" value="${esc(i.value)}" placeholder="${i.secret && i.set ? "••••••••  (محفوظ)" : i.key}" autocomplete="off"></label>`).join("");
+}
+$("#settingsForm").onsubmit = async e => {
+  e.preventDefault();
+  const body = {}; new FormData(e.target).forEach((v,k) => { if (String(v).trim()) body[k] = String(v).trim(); });
+  await act("/api/settings", body); loadSettings();
+};
+$("#pwForm").onsubmit = async e => { e.preventDefault(); await act("/api/password", {old: $("#pwOld").value, new: $("#pwNew").value}); $("#pwOld").value=$("#pwNew").value=""; };
+
+async function refresh(){ try { render(await api("/api/state")); } catch(e){} }
+function startApp(){
+  $("#auth").classList.add("hidden"); $("#app").classList.remove("hidden");
+  refresh(); clearInterval(pollTimer); pollTimer = setInterval(refresh, 3000);
+}
+(async () => {
+  const a = await api("/api/auth");
+  passwordSet = a.password_set;
+  a.authed ? startApp() : showAuth();
+})();
+</script>
+</body>
+</html>

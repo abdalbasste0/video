@@ -1,5 +1,6 @@
 """Factory command line.
 
+  python -m factory app                 # the private app (control panel) + runs the factory — the desktop shortcut opens this
   python -m factory serve               # runs permanently: work starts every day at 08:00
   python -m factory run [--now]         # one workday (--now starts immediately)
   python -m factory command "..."       # send an instruction to bot 9 (the manager)
@@ -28,6 +29,9 @@ def main(argv: list[str] | None = None) -> int:
     r = sub.add_parser("run", help="تشغيل يوم عمل واحد")
     r.add_argument("--now", action="store_true", help="ابدأ فوراً بدل انتظار الساعة 8")
     sub.add_parser("serve", help="تشغيل دائم: يبدأ العمل يومياً الساعة 8 صباحاً")
+    ap_app = sub.add_parser("app", help="التطبيق الخاص: لوحة التحكم + تشغيل المصنع")
+    ap_app.add_argument("--no-browser", action="store_true", help="لا تفتح المتصفح تلقائياً")
+    sub.add_parser("shortcut", help="أنشئ اختصاراً على سطح المكتب")
     c = sub.add_parser("command", help="أرسل تعليمات للبوت التاسع")
     c.add_argument("text")
     sub.add_parser("status")
@@ -39,6 +43,7 @@ def main(argv: list[str] | None = None) -> int:
     j.add_argument("note", nargs="?", default="")
     p = sub.add_parser("publish")
     p.add_argument("--late", action="store_true", help="انشر حتى لو تجاوزنا الساعة 13:00")
+    p.add_argument("--platforms", default="", help="youtube,tiktok,instagram (الافتراضي: كل المنصات المفعلة)")
     args = ap.parse_args(argv)
 
     if args.cmd in ("approve", "reject"):
@@ -56,6 +61,17 @@ def main(argv: list[str] | None = None) -> int:
         print("تم إرسال التعليمات للبوت التاسع (سيقرؤها خلال ثوان إن كان المصنع يعمل).")
         return 0
 
+    if args.cmd == "app":
+        from .app.server import serve
+        serve(open_browser=not args.no_browser)
+        return 0
+
+    if args.cmd == "shortcut":
+        import runpy
+        from .config import ROOT
+        runpy.run_path(str(ROOT / "scripts" / "install_shortcut.py"), run_name="__main__")
+        return 0
+
     from .bots.manager import Manager
 
     if args.cmd == "status":
@@ -65,7 +81,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "publish":
         m = Manager()
         m.job = Job()
-        res = m.publish(m.job, allow_late=args.late)
+        plats = [x.strip() for x in args.platforms.split(",") if x.strip()] or None
+        res = m.publish(m.job, allow_late=args.late, platforms=plats)
         print(res or "لم يتم النشر.")
         return 0
 

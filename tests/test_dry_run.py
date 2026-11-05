@@ -54,14 +54,16 @@ def test_full_day():
     job = Job()
     assert job.brief.get("category") == "mystery", job.brief
     from factory.state import history
-    assert history()[-1]["url"].endswith("DRY_RUN")
+    assert history()[-1]["urls"]["youtube"].endswith("DRY_RUN")
     assert job.brief.get("script_feedback") == "اجعل الخطاف أقوى"
     assert job.get("chosen_idea")["title"] == job.get("ideas")[1]["title"]
     video = Path(job.get("video")["path"])
     assert video.exists() and video.stat().st_size > 10_000
     assert Path(job.get("video")["thumbnail"]).exists()
     assert job.get("qa_report")["passed"], job.get("qa_report")
-    assert job.get("published")["id"] == "DRY_RUN"
+    pub = job.get("published")
+    assert set(pub) == {"youtube", "tiktok", "instagram"} and all(r["id"] == "DRY_RUN" for r in pub.values()), pub
+    assert Path(job.get("video")["vertical"]).exists()
     print("OK:", video, job.get("video"))
     print(m.status_text(job))
 

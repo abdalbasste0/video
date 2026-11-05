@@ -63,7 +63,8 @@ HELPER_TRIGGER_RATIO = 0.6
 @dataclass
 class Settings:
     timezone: ZoneInfo = field(default_factory=lambda: ZoneInfo(env("FACTORY_TIMEZONE", "Africa/Cairo")))
-    language: str = field(default_factory=lambda: env("FACTORY_LANGUAGE", "ar"))
+    # Video language (narration, subtitles, title, description). Messages to the owner always stay in Arabic.
+    language: str = field(default_factory=lambda: env("FACTORY_LANGUAGE", "en"))
     video_format: str = field(default_factory=lambda: env("FACTORY_FORMAT", "landscape"))
     dry_run: bool = field(default_factory=lambda: env("FACTORY_DRY_RUN", "0") == "1")
 
@@ -90,6 +91,11 @@ class Settings:
 
     workspace: Path = ROOT / "workspace"
     music_dir: Path = ROOT / "assets" / "music"
+
+    @property
+    def language_name(self) -> str:
+        return {"en": "English", "ar": "Arabic (Modern Standard, simple)", "fr": "French", "es": "Spanish"}.get(
+            self.language, self.language)
 
     @property
     def resolution(self) -> tuple[int, int]:
@@ -123,3 +129,35 @@ class Settings:
 
 
 settings = Settings()
+
+
+ENV_FILE = ROOT / ".env"
+
+
+def save_env(updates: dict[str, str]) -> None:
+    """Updates values in .env (used by the app's settings page) and applies them immediately without a restart."""
+    lines = ENV_FILE.read_text(encoding="utf-8").splitlines() if ENV_FILE.exists() else []
+    done = set()
+    for i, raw in enumerate(lines):
+        key = raw.split("=", 1)[0].strip()
+        if "=" in raw and not raw.lstrip().startswith("#") and key in updates:
+            lines[i] = f"{key}={updates[key]}"
+            done.add(key)
+    lines += [f"{k}={v}" for k, v in updates.items() if k not in done]
+    ENV_FILE.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    try:
+        ENV_FILE.chmod(0o600)  # the file holds secret keys
+    except OSError:
+        pass
+    os.environ.update(updates)
+    reload_settings()
+
+
+def reload_settings() -> None:
+    """Re-reads the settings in place (every module holds a reference to the same settings object)."""
+    keep = {"workspace": settings.workspace, "music_dir": settings.music_dir}
+    fresh = Settings()
+    for k, v in vars(fresh).items():
+        setattr(settings, k, v)
+    for k, v in keep.items():
+        setattr(settings, k, v)
