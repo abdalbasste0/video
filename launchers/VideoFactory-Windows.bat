@@ -100,19 +100,35 @@ try {
     & $py -m pip install --disable-pip-version-check -q -r requirements.txt
     if ($LASTEXITCODE -ne 0) { throw 'فشل تثبيت مكتبات Python.' }
 
-    # 4) The desktop icon (first time only)
-    if ($first) {
-        Say 'جارٍ إنشاء أيقونة «مصنع الفيديو» على سطح المكتب...'
-        & $py -m factory shortcut
-    }
+    # 4) The desktop icon (recreated if it was deleted or never created)
+    Say 'جارٍ تجهيز أيقونة «مصنع الفيديو» على سطح المكتب...'
+    & $py -m factory shortcut
 
-    # 5) Open the app with no black window
+    # 5) Open the app with no black window, then make sure it actually started
     $pyw = Join-Path (Split-Path $py) 'pythonw.exe'
     if (-not (Test-Path $pyw)) { $pyw = $py }
+    $errFile = Join-Path $Dir 'workspace\app-error.txt'
     Start-Process -FilePath $pyw -ArgumentList @('-m', 'factory', 'app') -WorkingDirectory $Dir
-    Say 'تم! سيفتح التطبيق في المتصفح خلال ثوانٍ.'
+    Say 'جارٍ فتح التطبيق...'
+    $ok = $false
+    for ($i = 0; $i -lt 30; $i++) {
+        Start-Sleep -Seconds 1
+        try {
+            $r = Invoke-WebRequest -UseBasicParsing -TimeoutSec 2 -Uri 'http://127.0.0.1:8765/api/auth'
+            if ($r.StatusCode -eq 200) { $ok = $true; break }
+        } catch {}
+        if (Test-Path $errFile) { break }
+    }
+    if (-not $ok) {
+        $details = ''
+        if (Test-Path $errFile) { $details = (Get-Content $errFile -Raw -Encoding UTF8) }
+        Write-Host $details -ForegroundColor Red
+        $tail = (($details -split "`n") | Select-Object -Last 3) -join "`n"
+        throw ("التطبيق لم يعمل.`n" + $tail)
+    }
+    Say 'تم! التطبيق يعمل الآن في المتصفح: http://127.0.0.1:8765'
     if ($first) {
-        Box "تم التثبيت بنجاح ✅`n`nسيفتح التطبيق الآن في المتصفح.`nمن المرة القادمة افتح المصنع من أيقونة «مصنع الفيديو» على سطح المكتب."
+        Box "تم التثبيت بنجاح ✅`n`nالتطبيق مفتوح الآن في المتصفح.`nمن المرة القادمة افتح المصنع من أيقونة «مصنع الفيديو» على سطح المكتب."
     }
     Start-Sleep -Seconds 3
     try { Stop-Transcript | Out-Null } catch {}

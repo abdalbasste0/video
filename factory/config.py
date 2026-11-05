@@ -5,7 +5,7 @@ import os
 from dataclasses import dataclass, field
 from datetime import date, datetime, time
 from pathlib import Path
-from zoneinfo import ZoneInfo
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -60,9 +60,17 @@ PUBLISH_HARD_LIMIT = time(13, 0)
 HELPER_TRIGGER_RATIO = 0.6
 
 
+def _load_timezone(name: str):
+    """The requested time zone; if its data is missing (e.g. Windows without tzdata), use the computer's local time zone."""
+    try:
+        return ZoneInfo(name)
+    except (ZoneInfoNotFoundError, ValueError):
+        return datetime.now().astimezone().tzinfo
+
+
 @dataclass
 class Settings:
-    timezone: ZoneInfo = field(default_factory=lambda: ZoneInfo(env("FACTORY_TIMEZONE", "Africa/Cairo")))
+    timezone: ZoneInfo = field(default_factory=lambda: _load_timezone(env("FACTORY_TIMEZONE", "Africa/Cairo")))
     # Video language (narration, subtitles, title, description). Messages to the owner always stay in Arabic.
     language: str = field(default_factory=lambda: env("FACTORY_LANGUAGE", "en"))
     video_format: str = field(default_factory=lambda: env("FACTORY_FORMAT", "landscape"))

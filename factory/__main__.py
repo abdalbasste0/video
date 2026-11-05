@@ -15,10 +15,13 @@ import argparse
 import sys
 import time
 from datetime import timedelta
+from pathlib import Path
 
 from .approval import push_command, record_decision
 from .config import WORK_START, settings
 from .state import Job
+
+ROOT_DIR = Path(__file__).resolve().parent.parent
 
 STAGE_ALIASES = {"final": "final_review", "idea": "research", "ideas": "research", "video": "final_review"}
 
@@ -62,8 +65,16 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.cmd == "app":
-        from .app.server import serve
-        serve(open_browser=not args.no_browser)
+        err_file = ROOT_DIR / "workspace" / "app-error.txt"
+        try:
+            err_file.unlink(missing_ok=True)
+            from .app.server import serve
+            serve(open_browser=not args.no_browser)
+        except Exception:
+            import traceback
+            err_file.parent.mkdir(parents=True, exist_ok=True)
+            err_file.write_text(traceback.format_exc(), encoding="utf-8")
+            raise
         return 0
 
     if args.cmd == "shortcut":
