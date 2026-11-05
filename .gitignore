@@ -1,0 +1,12 @@
+.env
+__pycache__/
+*.pyc
+projects/
+factory.db
+*.log
+youtube_token.json
+client_secret.json
+logs/
+heartbeat.txt
+bot_state.json
+learned_draft_structure.json

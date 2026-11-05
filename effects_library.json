@@ -1,0 +1,28 @@
+{
+  "_comment": "CapCut resource IDs. Values with resource_id=null are SKIPPED in the draft (so it always opens). Run `python main.py learn-draft <your_sample_draft_folder>` to auto-fill these from your own CapCut drafts. 'ffmpeg' keys are the phone/FFmpeg render equivalent.",
+  "transitions": {
+    "fade":      {"name": "Dissolve",  "resource_id": null, "effect_id": null, "path": "", "duration_us": 400000, "is_overlap": true,  "ffmpeg": "fade"},
+    "slide":     {"name": "Slide Left","resource_id": null, "effect_id": null, "path": "", "duration_us": 400000, "is_overlap": true,  "ffmpeg": "slideleft"},
+    "zoom":      {"name": "Zoom In",   "resource_id": null, "effect_id": null, "path": "", "duration_us": 400000, "is_overlap": true,  "ffmpeg": "zoomin"},
+    "whip":      {"name": "Whip Pan",  "resource_id": null, "effect_id": null, "path": "", "duration_us": 300000, "is_overlap": true,  "ffmpeg": "wipeleft"}
+  },
+  "text_animations": {
+    "in_pop":    {"name": "Pop Up",    "type": "in",   "resource_id": null, "path": "", "duration_us": 300000},
+    "in_fade":   {"name": "Fade In",   "type": "in",   "resource_id": null, "path": "", "duration_us": 300000},
+    "out_fade":  {"name": "Fade Out",  "type": "out",  "resource_id": null, "path": "", "duration_us": 250000},
+    "loop_pulse":{"name": "Pulse",     "type": "loop", "resource_id": null, "path": "", "duration_us": 800000}
+  },
+  "video_effects": {
+    "film_grain":  {"name": "Film Grain",  "resource_id": null, "effect_id": null, "path": "", "ffmpeg": "noise=alls=6:allf=t"},
+    "vignette":    {"name": "Vignette",    "resource_id": null, "effect_id": null, "path": "", "ffmpeg": "vignette=PI/5"},
+    "glow":        {"name": "Glow",        "resource_id": null, "effect_id": null, "path": "", "ffmpeg": ""},
+    "light_leak":  {"name": "Light Leak",  "resource_id": null, "effect_id": null, "path": "", "ffmpeg": ""},
+    "camera_shake":{"name": "Shake",       "resource_id": null, "effect_id": null, "path": "", "ffmpeg": ""},
+    "blur":        {"name": "Blur",        "resource_id": null, "effect_id": null, "path": "", "ffmpeg": "gblur=sigma=2"}
+  },
+  "filters": {
+    "channel_look": {"name": "Channel Look", "resource_id": null, "effect_id": null, "path": "", "ffmpeg": "eq=contrast=1.06:saturation=1.08:gamma=1.02"}
+  },
+  "stickers": {},
+  "fonts": {}
+}
