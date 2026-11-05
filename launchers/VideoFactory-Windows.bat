@@ -8,32 +8,32 @@ setlocal
 set "REPO=https://github.com/abdalbasste0/video.git"
 set "BRANCH=claude/automated-story-video-factory-uvvyxr"
 set "DIR=%USERPROFILE%\VideoFactory"
-title Video Factory
+title مصنع الفيديو
 
 set MISSING=0
-where git >nul 2>nul || (echo [*] Installing Git... & winget install -e --id Git.Git --accept-package-agreements --accept-source-agreements & set MISSING=1)
-where python >nul 2>nul || (echo [*] Installing Python... & winget install -e --id Python.Python.3.12 --accept-package-agreements --accept-source-agreements & set MISSING=1)
-where ffmpeg >nul 2>nul || (echo [*] Installing FFmpeg... & winget install -e --id Gyan.FFmpeg --accept-package-agreements --accept-source-agreements & set MISSING=1)
+where git >nul 2>nul || (echo [*] جارٍ تثبيت Git... & winget install -e --id Git.Git --accept-package-agreements --accept-source-agreements & set MISSING=1)
+where python >nul 2>nul || (echo [*] جارٍ تثبيت Python... & winget install -e --id Python.Python.3.12 --accept-package-agreements --accept-source-agreements & set MISSING=1)
+where ffmpeg >nul 2>nul || (echo [*] جارٍ تثبيت FFmpeg... & winget install -e --id Gyan.FFmpeg --accept-package-agreements --accept-source-agreements & set MISSING=1)
 if "%MISSING%"=="1" (
   echo.
-  echo [!] Required programs were installed. Close this window and double-click this file again.
+  echo [!] تم تثبيت البرامج المطلوبة. أغلق هذه النافذة وافتح الملف مرة ثانية.
   pause
   exit /b
 )
 
 if not exist "%DIR%\.git" (
-  echo [*] Downloading the project...
-  git clone --branch "%BRANCH%" "%REPO%" "%DIR%" || (echo [x] Download failed. Make sure you are signed in to GitHub. & pause & exit /b 1)
+  echo [*] جارٍ تحميل المشروع...
+  git clone --branch "%BRANCH%" "%REPO%" "%DIR%" || (echo [x] فشل التحميل. تأكد من تسجيل الدخول إلى GitHub. & pause & exit /b 1)
   cd /d "%DIR%"
-  python -m pip install --upgrade -r requirements.txt || (echo [x] Failed to install the libraries. & pause & exit /b 1)
+  python -m pip install --upgrade -r requirements.txt || (echo [x] فشل تثبيت المكتبات. & pause & exit /b 1)
   python -m factory shortcut
 ) else (
   cd /d "%DIR%"
-  echo [*] Checking for updates...
+  echo [*] جارٍ التحقق من التحديثات...
   git pull --ff-only
   python -m pip install -q -r requirements.txt
 )
 
-echo [*] Opening the Video Factory app...
+echo [*] جارٍ فتح تطبيق مصنع الفيديو...
 start "" pythonw -m factory app
 exit /b
