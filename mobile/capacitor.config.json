@@ -1,0 +1,6 @@
+{
+  "appId": "app.horrorfactory.mobile",
+  "appName": "مصنع الرعب",
+  "webDir": "www",
+  "android": { "allowMixedContent": false }
+}

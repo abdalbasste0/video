@@ -1,0 +1,23 @@
+# Publishes the app to GitHub Pages so it can be opened and installed on any phone or computer.
+name: Deploy web app
+on:
+  push:
+    branches: [main, claude/video-production-factory-v03t54]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency: { group: pages, cancel-in-progress: true }
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: { name: github-pages, url: '${{ steps.d.outputs.page_url }}' }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+        with: { enablement: true }
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: app }
+      - id: d
+        uses: actions/deploy-pages@v4

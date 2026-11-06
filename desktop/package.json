@@ -1,0 +1,27 @@
+{
+  "name": "horror-factory",
+  "productName": "مصنع الرعب",
+  "version": "1.0.0",
+  "description": "مصنع فيديوهات آلي بعشرة روبوتات — رعب، جريمة، ألغاز",
+  "main": "main.js",
+  "author": "Horror Factory",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --publish never"
+  },
+  "devDependencies": {
+    "electron": "33.2.1",
+    "electron-builder": "25.1.8"
+  },
+  "build": {
+    "appId": "app.horrorfactory.desktop",
+    "productName": "HorrorFactory",
+    "files": ["main.js", "package.json"],
+    "extraResources": [{ "from": "../app", "to": "app" }],
+    "win": { "target": ["nsis", "portable"], "icon": "../app/icons/icon-512.png" },
+    "mac": { "target": ["dmg"], "icon": "../app/icons/icon-512.png", "category": "public.app-category.video" },
+    "linux": { "target": ["AppImage"], "icon": "../app/icons/icon-512.png", "category": "AudioVideo" },
+    "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true }
+  }
+}
