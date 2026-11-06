@@ -313,7 +313,7 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/oauth/youtube/callback":
             return self._youtube_callback()
         if path == "/api/auth":
-            return self._json({"authed": self._authed(), "password_set": password_is_set()})
+            return self._json({"authed": self._authed(), "password_set": password_is_set(), "version": VERSION})
         if not self._authed():
             return self._json({"error": "unauthorized"}, 401)
         if path == "/api/state":
@@ -379,6 +379,13 @@ class Handler(BaseHTTPRequestHandler):
             return self._json({"error": "forbidden"}, 403)
         body = self._body()
 
+        if path == "/api/shutdown":
+            if not hmac.compare_digest(str(body.get("token", "")), _LOCK_TOKEN):
+                return self._json({"error": "forbidden"}, 403)
+            self._json({"ok": True})
+            log.info("Closing this copy of the app so it can be replaced with the update")
+            threading.Timer(0.3, lambda: os._exit(0)).start()
+            return
         if path == "/api/setup":
             if password_is_set():
                 return self._json({"error": "كلمة المرور مضبوطة مسبقاً"}, 400)
@@ -475,7 +482,70 @@ class Handler(BaseHTTPRequestHandler):
 
 
 # ===========================================================================
+class AppServer(ThreadingHTTPServer):
+    """On Windows, Python allows two programs to share one port (SO_REUSEADDR), so requests can reach an old copy.
+    We prevent that with an exclusive port binding, so a second copy can't open alongside the first."""
+    daemon_threads = True
+    allow_reuse_address = os.name != "nt"
+
+    def server_bind(self):
+        import socket
+        if os.name == "nt" and hasattr(socket, "SO_EXCLUSIVEADDRUSE"):
+            self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_EXCLUSIVEADDRUSE, 1)
+        super().server_bind()
+
+
+def code_version() -> str:
+    """A fingerprint of the code on disk: it changes with every update, so an outdated running copy can be detected."""
+    h = hashlib.sha256()
+    pkg = Path(__file__).resolve().parent.parent
+    for f in sorted(pkg.rglob("*")):
+        if f.is_file() and f.suffix in {".py", ".html"}:
+            h.update(f.relative_to(pkg).as_posix().encode())
+            h.update(f.read_bytes())
+    return h.hexdigest()[:16]
+
+
+VERSION = code_version()
+_LOCK_TOKEN = secrets.token_urlsafe(24)
+_HTTPD: "AppServer | None" = None
+
+
+def _lock_file() -> Path:
+    return settings.workspace / "app.lock"
+
+
+def _replace_old_copy(port: int) -> bool:
+    """If an older copy of the app is running, ask it to close (using the secret in app.lock) and wait until the port frees up."""
+    import urllib.request
+    try:
+        info = json.loads(_lock_file().read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return False
+    if info.get("version") == VERSION:
+        return False  # the same version → it's already up to date
+    log.info("An older copy of the app is running (%s) → closing it and starting the update (%s)", info.get("version"), VERSION)
+    try:
+        req = urllib.request.Request(f"http://127.0.0.1:{port}/api/shutdown", method="POST",
+                                     data=json.dumps({"token": info.get("token", "")}).encode(),
+                                     headers={"Content-Type": "application/json", "X-VF": "1"})
+        urllib.request.urlopen(req, timeout=5).read()
+    except Exception as e:  # noqa: BLE001
+        log.warning("Could not close the old copy automatically: %s", e)
+        return False
+    for _ in range(40):
+        time.sleep(0.25)
+        try:
+            import socket
+            with socket.create_connection(("127.0.0.1", port), timeout=0.3):
+                pass
+        except OSError:
+            return True  # the port is free now
+    return False
+
+
 def serve(open_browser: bool = True, run_factory: bool = True) -> None:
+    global _HTTPD
     host = env("APP_HOST", "127.0.0.1")
     port = int(env("APP_PORT", "8765"))
     url = f"http://127.0.0.1:{port}/"
@@ -484,16 +554,24 @@ def serve(open_browser: bool = True, run_factory: bool = True) -> None:
     fh.setFormatter(logging.Formatter("%(asctime)s [%(threadName)s] %(levelname)s %(message)s"))
     log.addHandler(fh)
     try:
-        httpd = ThreadingHTTPServer((host, port), Handler)
+        httpd = AppServer((host, port), Handler)
     except OSError:
-        # The app is already running → just open it
-        log.info("The app is already running at %s", url)
-        if open_browser:
-            webbrowser.open(url)
-        return
+        if not _replace_old_copy(port):
+            # The same version is already running → just open it
+            log.info("The app is already running at %s", url)
+            if open_browser:
+                webbrowser.open(url)
+            return
+        httpd = AppServer((host, port), Handler)
+    _HTTPD = httpd
+    _lock_file().write_text(json.dumps({"version": VERSION, "token": _LOCK_TOKEN, "pid": os.getpid()}), encoding="utf-8")
+    try:
+        _lock_file().chmod(0o600)
+    except OSError:
+        pass
     if run_factory:
         RUNNER.start()
-    log.info("🏭 The factory app is running at %s", url)
+    log.info("🏭 The factory app (version %s) is running at %s", VERSION, url)
     if open_browser:
         threading.Timer(1.0, lambda: webbrowser.open(url)).start()
     try:
