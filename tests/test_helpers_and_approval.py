@@ -61,7 +61,18 @@ def test_parse_reply():
     assert parse_reply("كيف الحال؟") is None
 
 
+def test_keyword_commands():
+    from factory.bots.manager import _keyword_command as k
+    assert k("توقف").action == "pause"
+    assert k("استمر").action == "resume"
+    assert k("استئناف").action == "resume"
+    # Words like "توقف" ("stop") inside a normal question must not pause the factory
+    assert k("لماذا توقف المصنع من الليلة الماضية؟").action != "pause"
+    assert k("ابدأ الآن").action == "start_now"
+
+
 if __name__ == "__main__":
+    test_keyword_commands()
     test_helpers_join_when_late()
     test_no_helpers_when_on_time()
     test_parse_reply()

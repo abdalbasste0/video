@@ -71,6 +71,14 @@ class Job:
     def brief(self) -> dict[str, Any]:
         return self.data["brief"]
 
+    def reset_run(self) -> None:
+        """Clear the results of a previous run on the same day (keeps the owner's instructions) before a fresh start."""
+        with _lock:
+            self.data.update(stages={}, artifacts={}, halt_reason="")
+            self.save()
+        for f in (self.dir / "approvals").glob("*.json"):
+            f.unlink(missing_ok=True)
+
     def update_brief(self, **fields: Any) -> None:
         with _lock:
             self.data["brief"].update({k: v for k, v in fields.items() if v not in (None, "")})
@@ -90,3 +98,28 @@ def add_history(entry: dict) -> None:
         items = history() + [entry]
         settings.workspace.mkdir(parents=True, exist_ok=True)
         (settings.workspace / "history.json").write_text(json.dumps(items, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+# ---------------------------------------------------------------------------
+# The active workday: if a run started late at night and continued past midnight, the panel and approvals
+# keep following the same day instead of jumping to a new, empty one.
+# ---------------------------------------------------------------------------
+def _active_file() -> Path:
+    return settings.workspace / "active_day.txt"
+
+
+def set_active(day: date) -> None:
+    settings.workspace.mkdir(parents=True, exist_ok=True)
+    _active_file().write_text(day.isoformat(), encoding="utf-8")
+
+
+def clear_active() -> None:
+    _active_file().unlink(missing_ok=True)
+
+
+def current_job() -> "Job":
+    """The job running now if there is one; otherwise today's job."""
+    try:
+        return Job(date.fromisoformat(_active_file().read_text(encoding="utf-8").strip()))
+    except (OSError, ValueError):
+        return Job()

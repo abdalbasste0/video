@@ -29,7 +29,7 @@ from .. import config
 from ..approval import push_command, read_decision, record_decision
 from ..config import PUBLISH_HARD_LIMIT, SCHEDULE, WORK_START, env, save_env, settings
 from ..log import log
-from ..state import Job, history
+from ..state import Job, current_job, history
 
 STATIC = Path(__file__).parent / "static"
 SESSION_TTL = 12 * 3600
@@ -139,13 +139,22 @@ class FactoryRunner(threading.Thread):
         self.kick = threading.Event()
         self.running_day = False
         self.last_error = ""
+        self.auto_tried: set = set()
 
     def start_now(self) -> str:
         if self.running_day and self.manager:
+            if self.manager.paused:
+                self.manager.paused = False
+                return "تم: استؤنف العمل."
             self.manager.start_now = True
-            return "تم: سيبدأ العمل فوراً."
+            return "المصنع يعمل بالفعل."
         self.kick.set()
         return "تم: بدأ يوم العمل الآن."
+
+    def resume(self) -> str:
+        if self.manager:
+            self.manager.paused = False
+        return "تم الاستئناف ▶"
 
     def run(self) -> None:
         from ..bots.manager import DAY_STARTED, Manager
@@ -155,7 +164,9 @@ class FactoryRunner(threading.Thread):
             started = any(e.get("msg") == DAY_STARTED for e in job.data.get("events", []))
             now = settings.now()
             in_window = settings.at(WORK_START) - timedelta(minutes=10) <= now < settings.at(PUBLISH_HARD_LIMIT)
-            if self.kick.is_set() or (in_window and not started):
+            auto = in_window and not started and job.day not in self.auto_tried
+            if self.kick.is_set() or auto:
+                self.auto_tried.add(job.day)
                 forced = self.kick.is_set()
                 self.kick.clear()
                 self.manager = Manager()
@@ -190,15 +201,16 @@ def _media_url(path: str | None) -> str | None:
 def build_state() -> dict:
     from ..publishers import NAMES_AR, PLATFORMS, enabled_platforms
 
-    job = Job()
+    job = current_job()
     a = job.data["artifacts"]
+    sched = job.data.get("schedule", {})
     stages = []
     pending = None
     for s in SCHEDULE:
         st = job.stage(s.key)
         if st.get("approval") == "pending" and not read_decision(job, s.key):
             pending = s.key
-        stages.append({"key": s.key, "title": s.title_ar, "bot": s.bot, "deadline": s.deadline.strftime("%H:%M"),
+        stages.append({"key": s.key, "title": s.title_ar, "bot": s.bot, "deadline": sched.get(s.key, s.deadline.strftime("%H:%M")),
                        "needs_approval": s.needs_approval, **st})
     video = dict(a.get("video") or {})
     if video:
@@ -213,6 +225,7 @@ def build_state() -> dict:
         "running": RUNNER.running_day,
         "paused": bool(m and m.paused),
         "last_error": RUNNER.last_error,
+        "halt_reason": "" if RUNNER.running_day else job.data.get("halt_reason", ""),
         "brief": job.brief,
         "stages": stages,
         "pending": pending,
@@ -232,7 +245,7 @@ def build_state() -> dict:
         "language": settings.language,
         "format": settings.video_format,
         "dry_run": settings.dry_run,
-        "publish_limit": PUBLISH_HARD_LIMIT.strftime("%H:%M"),
+        "publish_limit": sched.get("publish", PUBLISH_HARD_LIMIT.strftime("%H:%M")),
     }
 
 
@@ -377,7 +390,7 @@ class Handler(BaseHTTPRequestHandler):
             stage, status = body.get("stage"), body.get("status")
             if stage not in {"research", "script", "final_review"} or status not in {"approved", "rejected"}:
                 return self._json({"error": "bad request"}, 400)
-            record_decision(Job(), stage, status, str(body.get("value", "")), str(body.get("note", "")), by="app")
+            record_decision(current_job(), stage, status, str(body.get("value", "")), str(body.get("note", "")), by="app")
             return self._json({"ok": True, "message": "تم تسجيل قرارك ✔"})
         if path == "/api/command":
             text = str(body.get("text", "")).strip()
@@ -387,10 +400,12 @@ class Handler(BaseHTTPRequestHandler):
             return self._json({"ok": True, "message": "تم إرسال التعليمات للبوت التاسع"})
         if path == "/api/start":
             return self._json({"ok": True, "message": RUNNER.start_now()})
+        if path == "/api/resume":
+            return self._json({"ok": True, "message": RUNNER.resume()})
         if path == "/api/publish":
             from ..bots.manager import Manager
             m = RUNNER.manager or Manager()
-            job = Job()
+            job = current_job()
             m.job = job
             plats = [p for p in body.get("platforms", []) if isinstance(p, str)] or None
             try:

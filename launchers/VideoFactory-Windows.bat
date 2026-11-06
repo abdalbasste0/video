@@ -108,6 +108,13 @@ try {
     $pyw = Join-Path (Split-Path $py) 'pythonw.exe'
     if (-not (Test-Path $pyw)) { $pyw = $py }
     $errFile = Join-Path $Dir 'workspace\app-error.txt'
+    # Close the app if an older copy is running, so the update takes effect
+    try {
+        Get-CimInstance Win32_Process -Filter "Name='pythonw.exe' OR Name='python.exe'" |
+            Where-Object { $_.CommandLine -like '*factory app*' } |
+            ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
+        Start-Sleep -Seconds 1
+    } catch {}
     Start-Process -FilePath $pyw -ArgumentList @('-m', 'factory', 'app') -WorkingDirectory $Dir
     Say 'جارٍ فتح التطبيق...'
     $ok = $false

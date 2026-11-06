@@ -69,6 +69,8 @@ td,th{padding:8px;border-bottom:1px solid var(--line);text-align:start;vertical-
 .ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
 .events{max-height:380px;overflow:auto;font-size:13px}
 .events div{padding:5px 0;border-bottom:1px solid var(--line)}
+.halt{border:2px solid var(--bad);background:color-mix(in srgb,var(--bad) 6%,var(--card))}
+.paused{border:2px solid var(--warn);background:color-mix(in srgb,var(--warn) 6%,var(--card))}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);
   padding:10px 18px;border-radius:10px;opacity:0;transition:.25s;pointer-events:none;z-index:20}
 .toast.show{opacity:1}
@@ -108,6 +110,7 @@ a{color:var(--brand)}
   <span class="chip" id="dryChip" hidden>وضع تجريبي</span>
   <span class="grow"></span>
   <span class="clock" id="clock"></span>
+  <button class="btn primary hidden" id="resumeBtn">⏵ استئناف</button>
   <button class="btn primary" id="startBtn">▶ ابدأ الآن</button>
   <button class="btn" id="logoutBtn">خروج</button>
 </header>
@@ -122,6 +125,11 @@ a{color:var(--brand)}
 <main>
   <!-- Today -->
   <div data-panel="today">
+    <div class="card halt hidden" id="haltBox"><b>🛑 <span id="haltText"></span></b>
+      <div class="row" style="margin-top:10px"><button class="btn primary" id="haltStart">▶ ابدأ من جديد</button>
+      <button class="btn" id="haltSettings">⚙️ الإعدادات</button></div></div>
+    <div class="card paused hidden" id="pausedBox"><b>⏸ المصنع متوقف مؤقتاً.</b> البوتات تنتظر حتى تضغط «استئناف».
+      <div class="row" style="margin-top:10px"><button class="btn primary" id="pausedResume">⏵ استئناف العمل</button></div></div>
     <div id="approvalBox"></div>
     <div class="grid">
       <div>
@@ -283,6 +291,12 @@ function render(s){
   $("#runDot").classList.toggle("on", s.running);
   $("#runText").textContent = s.running ? (s.paused ? "متوقف مؤقتاً" : "المصنع يعمل") : "في الانتظار (يبدأ 08:00)";
   $("#dryChip").hidden = !s.dry_run;
+  const paused = s.running && s.paused;
+  $("#resumeBtn").classList.toggle("hidden", !paused);
+  $("#pausedBox").classList.toggle("hidden", !paused);
+  $("#startBtn").classList.toggle("hidden", s.running);
+  $("#haltBox").classList.toggle("hidden", !s.halt_reason);
+  $("#haltText").textContent = s.halt_reason || "";
   $("#limitLbl").textContent = s.publish_limit;
 
   $("#timeline").innerHTML = s.stages.map(st => {
@@ -387,6 +401,9 @@ function renderPublish(s){
 
 // ---------------- Actions ----------------
 $("#startBtn").onclick = () => act("/api/start", {});
+$("#haltStart").onclick = () => act("/api/start", {});
+$("#resumeBtn").onclick = $("#pausedResume").onclick = () => act("/api/resume", {});
+$("#haltSettings").onclick = () => document.querySelector('#tabs button[data-tab=settings]').click();
 $("#cmdSend").onclick = async () => { const t = $("#cmdText").value.trim(); if(!t) return; await act("/api/command", {text:t}); $("#cmdText").value=""; };
 document.querySelectorAll(".quick").forEach(b => b.onclick = () => act("/api/command", {text: b.dataset.cmd}));
 $("#pubRetry").onclick = () => act("/api/publish", {});

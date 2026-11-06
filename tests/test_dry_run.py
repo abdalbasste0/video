@@ -11,7 +11,7 @@ import time
 from pathlib import Path
 
 os.environ["FACTORY_DRY_RUN"] = "1"
-os.environ["FACTORY_FAKE_NOW"] = "08:00"
+os.environ["FACTORY_FAKE_NOW"] = os.environ.get("FAKE_NOW", "08:00")
 os.environ.pop("TELEGRAM_BOT_TOKEN", None)
 
 from factory import config  # noqa: E402

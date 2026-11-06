@@ -19,7 +19,7 @@ from pathlib import Path
 
 from .approval import push_command, record_decision
 from .config import WORK_START, settings
-from .state import Job
+from .state import Job, current_job
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 
@@ -51,7 +51,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.cmd in ("approve", "reject"):
         stage = STAGE_ALIASES.get(args.stage, args.stage)
-        job = Job()
+        job = current_job()
         if args.cmd == "approve":
             record_decision(job, stage, "approved", value=args.value)
         else:
@@ -86,12 +86,12 @@ def main(argv: list[str] | None = None) -> int:
     from .bots.manager import Manager
 
     if args.cmd == "status":
-        print(Manager().status_text(Job()))
+        print(Manager().status_text(current_job()))
         return 0
 
     if args.cmd == "publish":
         m = Manager()
-        m.job = Job()
+        m.job = current_job()
         plats = [x.strip() for x in args.platforms.split(",") if x.strip()] or None
         res = m.publish(m.job, allow_late=args.late, platforms=plats)
         print(res or "لم يتم النشر.")

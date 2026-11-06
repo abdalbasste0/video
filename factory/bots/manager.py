@@ -11,7 +11,7 @@ from __future__ import annotations
 import json
 import threading
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Literal, Optional
 
@@ -22,7 +22,7 @@ from ..approval import ApprovalDesk, Telegram, pop_commands, read_decision
 from ..config import HELPER_TRIGGER_RATIO, PUBLISH_HARD_LIMIT, SCHEDULE, WORK_START, Stage, settings
 from ..log import log
 from ..publishers import NAMES_AR, PLATFORMS, Post, enabled_platforms, publish_all
-from ..state import Job, add_history
+from ..state import Job, add_history, clear_active, set_active
 from .base import ProductionBot
 from .editor import Editor
 from .helpers import make_helpers
@@ -61,15 +61,16 @@ COMMAND_SYSTEM = (
 def _keyword_command(text: str) -> OwnerCommand:
     """Simple keyword-based fallback parser (used in test mode or if Claude is unavailable)."""
     t = text.strip()
+    starts = lambda *ws: any(t.lower().startswith(w) for w in ws)  # noqa: E731
+    if starts("استمر", "استأنف", "استئناف", "كمل", "resume"):
+        return OwnerCommand(action="resume", reply_ar="تم الاستئناف.")
     if any(w in t for w in ("الحالة", "وين وصلت", "status")):
         return OwnerCommand(action="status")
-    if any(w in t for w in ("توقف", "أوقف", "pause")):
+    if starts("توقف", "أوقف", "اوقف", "إيقاف", "pause"):
         return OwnerCommand(action="pause", reply_ar="تم الإيقاف المؤقت.")
-    if any(w in t for w in ("استمر", "استأنف", "resume")):
-        return OwnerCommand(action="resume", reply_ar="تم الاستئناف.")
-    if any(w in t for w in ("ألغ", "الغاء", "إلغاء", "cancel")):
+    if starts("ألغ", "الغ", "الغاء", "إلغاء", "cancel"):
         return OwnerCommand(action="cancel", reply_ar="تم إلغاء عمل اليوم.")
-    if any(w in t for w in ("ابدأ الآن", "ابدا الان", "start")):
+    if starts("ابدأ", "ابدا", "start"):
         return OwnerCommand(action="start_now", reply_ar="سنبدأ الآن.")
     cat = "stickman" if "ستيك" in t else "mystery" if "غموض" in t else "riddles" if "لغز" in t or "ألغاز" in t else None
     return OwnerCommand(action="set_brief", category=cat, notes=t, reply_ar="تم تسجيل تعليماتك لفيديو اليوم.")
@@ -89,6 +90,11 @@ class Manager:
         self.start_now = False
         self.job: Job | None = None
         self._last_reminder = 0.0
+        self.shift = timedelta(0)  # how far the schedule moves when the run starts outside the normal window
+
+    def at(self, t, day=None) -> datetime:
+        """The time of a stage's deadline in this run (the fixed schedule, or shifted for a run started by hand)."""
+        return settings.at(t, day or (self.job.day if self.job else None)) + self.shift
 
     # ======================================================================
     # Owner messages
@@ -142,7 +148,7 @@ class Manager:
             st = job.stage(s.key)
             icon = {"done": "✅", "running": "⏳", "failed": "❌"}.get(st.get("status", ""), "▫️")
             extra = f" (موافقة: {st['approval']})" if st.get("approval") else ""
-            lines.append(f"{icon} {s.title_ar} — الموعد {s.deadline:%H:%M}{extra}")
+            lines.append(f"{icon} {s.title_ar} — الموعد {self.at(s.deadline, job.day):%H:%M}{extra}")
         for h in self.helpers:
             if h.busy:
                 lines.append(f"🆘 {h.name} يساعد {h.assisting}")
@@ -170,7 +176,7 @@ class Manager:
                 return False
             bot = self._bot(key)
             started = settings.now()
-            deadline = settings.at(stage.deadline, job.day)
+            deadline = self.at(stage.deadline, job.day)
             job.set_stage(key, status="running", bot=bot.name, started=started.strftime("%H:%M:%S"), attempt=attempt)
             log.info("▶ %s (%s) — deadline %s", stage.title_ar, bot.name, stage.deadline)
 
@@ -183,7 +189,7 @@ class Manager:
                 self._supervise(job, bot, started, deadline, force=attempt > 1)
                 if settings.now() > deadline and not warned:
                     warned = True
-                    msg = f"⚠️ تأخير: مرحلة «{stage.title_ar}» تجاوزت موعدها {stage.deadline:%H:%M}. المساعدون يعملون عليها."
+                    msg = f"⚠️ تأخير: مرحلة «{stage.title_ar}» تجاوزت موعدها {deadline:%H:%M}. المساعدون يعملون عليها."
                     job.event(self.name, msg)
                     self.tg.send(msg)
                 t.join(timeout=1.0)
@@ -240,7 +246,7 @@ class Manager:
 
     def _wait_owner(self, job: Job, stage: str) -> dict:
         self._last_reminder = 0.0
-        return self.desk.wait(job, stage, settings.at(PUBLISH_HARD_LIMIT, job.day), on_tick=self._approval_tick)
+        return self.desk.wait(job, stage, self.at(PUBLISH_HARD_LIMIT, job.day), on_tick=self._approval_tick)
 
     def research_and_choose(self, job: Job) -> bool:
         for _round in range(3):
@@ -358,8 +364,8 @@ class Manager:
         d = read_decision(job, "final_review")
         if not d or d["status"] != "approved":
             raise PermissionError("لا يمكن النشر: لا توجد موافقة نهائية من المالك على هذا الفيديو.")
-        if settings.now() >= settings.at(PUBLISH_HARD_LIMIT, job.day) and not allow_late:
-            msg = ("⏰ وصلت موافقتك بعد الساعة 13:00. لم أنشر تلقائياً حفاظاً على القاعدة. "
+        if settings.now() >= self.at(PUBLISH_HARD_LIMIT, job.day) and not allow_late:
+            msg = (f"⏰ وصلت موافقتك بعد موعد النشر {self.at(PUBLISH_HARD_LIMIT, job.day):%H:%M}. لم أنشر تلقائياً حفاظاً على القاعدة. "
                    "للنشر رغم التأخير: من التطبيق زر «انشر رغم التأخير» أو python -m factory publish --late")
             self.tg.send(msg)
             job.event(self.name, msg)
@@ -390,6 +396,22 @@ class Manager:
     # ======================================================================
     # The full workday
     # ======================================================================
+    def missing_keys(self) -> list[str]:
+        """Keys that must be set before starting (in Arabic, as the owner sees them in Settings)."""
+        if settings.dry_run:
+            return []
+        from ..config import env
+        need = {"ANTHROPIC_API_KEY": "مفتاح Claude", "ELEVENLABS_API_KEY": "مفتاح ElevenLabs",
+                "ELEVENLABS_VOICE_ID": "معرّف صوت ElevenLabs"}
+        return [label for key, label in need.items() if not env(key)]
+
+    def halt(self, job: Job, reason: str) -> None:
+        """Stop the day with a clear reason, shown in the app and on Telegram."""
+        job.data["halt_reason"] = reason
+        job.save()
+        job.event(self.name, "🛑 " + reason)
+        self.tg.send("🛑 " + reason)
+
     def run_day(self, start_now: bool = False) -> None:
         self.job = job = Job()
         self.start_now = start_now
@@ -401,14 +423,51 @@ class Manager:
                 time.sleep(2)
 
         self.tick()  # read any instructions the owner sent before work started
+        missing = self.missing_keys()
+        if missing:
+            self.halt(job, "لم يبدأ العمل: أدخل في تبويب «الإعدادات»: " + "، ".join(missing) + " ثم اضغط «ابدأ الآن».")
+            return
+
+        if any(e.get("msg") == DAY_STARTED for e in job.data.get("events", [])):
+            job.reset_run()  # a second run on the same day starts clean
+
+        # A run started by hand outside the normal window (at night, for example) gets the same 5-hour
+        # schedule counted from now, instead of deadlines that have already passed.
+        now = settings.now()
+        if now > settings.at(WORK_START, job.day) + timedelta(minutes=15) and now >= settings.at(PUBLISH_HARD_LIMIT, job.day) - timedelta(hours=1):
+            self.shift = now - settings.at(WORK_START, job.day)
+        elif now < settings.at(WORK_START, job.day):
+            self.shift = now - settings.at(WORK_START, job.day)
+        job.data["schedule"] = {st.key: self.at(st.deadline, job.day).strftime("%H:%M") for st in SCHEDULE}
+        job.save()
+
+        set_active(job.day)
+        try:
+            self._run(job)
+        finally:
+            clear_active()
+
+    def _run(self, job: Job) -> None:
         job.event(self.name, DAY_STARTED)
         brief = json.dumps(job.brief, ensure_ascii=False) if job.brief else "لا توجد تعليمات خاصة (سأختار الأفضل)"
-        self.tg.send(f"☀️ بدأ العمل. تعليمات اليوم: {brief}\nسأستشيرك قبل كل خطوة مهمة وقبل أي نشر.")
+        self.tg.send(f"☀️ بدأ العمل. تعليمات اليوم: {brief}\nموعد النشر: قبل {self.at(PUBLISH_HARD_LIMIT, job.day):%H:%M}. "
+                     "سأستشيرك قبل كل خطوة مهمة وقبل أي نشر.")
 
         ok = (self.research_and_choose(job) and self.write_and_approve_script(job)
               and all(self.run_stage(job, k) for k in ("voice", "media", "edit", "qa")))
-        if not ok or self.cancelled:
-            self.tg.send("🛑 توقف عمل اليوم قبل الوصول للنشر.\n" + self.status_text(job))
+        if self.cancelled:
+            self.halt(job, "تم إلغاء عمل اليوم بطلبك.")
+            return
+        if not ok:
+            failed = next((s for s in SCHEDULE if job.stage(s.key).get("status") == "failed"), None)
+            timeout = next((s for s in SCHEDULE if job.stage(s.key).get("approval") == "timeout"), None)
+            if failed:
+                reason = f"توقف العمل: فشلت مرحلة «{failed.title_ar}». السبب: {job.stage(failed.key).get('error', '')}"
+            elif timeout:
+                reason = f"توقف العمل: انتهى وقت انتظار موافقتك على «{timeout.title_ar}»."
+            else:
+                reason = "توقف العمل قبل الوصول للنشر."
+            self.halt(job, reason + " يمكنك الضغط على «ابدأ الآن» للمحاولة من جديد.")
             return
         decision = self.final_review(job)
         if decision == "approved":
