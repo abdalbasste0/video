@@ -82,6 +82,7 @@ td,th{padding:8px;border-bottom:1px solid var(--line);text-align:start;vertical-
 @media (max-width:700px){.settings-grid{grid-template-columns:1fr}}
 label.f span{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
 a{color:var(--brand)}
+a.btn{text-decoration:none;display:inline-block}
 </style>
 </head>
 <body>
@@ -223,6 +224,12 @@ a{color:var(--brand)}
       <p class="muted">المفاتيح السرية لا تُعرض أبداً بعد حفظها. اترك الحقل فارغاً للإبقاء على القيمة الحالية.</p>
       <form id="settingsForm"><div class="settings-grid" id="settingsGrid"></div>
         <button class="btn primary" style="margin-top:14px">حفظ</button></form>
+    </div>
+    <div class="card">
+      <h2>ربط حساب يوتيوب</h2>
+      <p class="muted">بعد إدخال <b>YouTube Client ID</b> و <b>Client Secret</b> في الأعلى والضغط على «حفظ»، اضغط الزر وسجّل الدخول بحساب جوجل الخاص بقناتك.</p>
+      <div class="row"><a class="btn primary" id="ytConnect" href="/api/youtube/connect">🔗 ربط حساب يوتيوب</a>
+        <span id="ytStatus" class="muted"></span></div>
     </div>
     <div class="card">
       <h2>تغيير كلمة المرور</h2>
@@ -411,6 +418,9 @@ $("#pubLate").onclick = () => { if (confirm("النشر بعد الموعد ال
 
 async function loadSettings(){
   const items = await api("/api/settings");
+  const yt = k => (items.find(i => i.key === k) || {}).set;
+  $("#ytStatus").innerHTML = yt("YOUTUBE_REFRESH_TOKEN") ? '<b class="ok">✓ الحساب مربوط</b>'
+    : (yt("YOUTUBE_CLIENT_ID") && yt("YOUTUBE_CLIENT_SECRET")) ? "جاهز للربط" : "أدخل Client ID و Client Secret أولاً";
   $("#settingsGrid").innerHTML = items.map(i => `<label class="f"><span>${esc(i.label)} ${i.set ? '<b class="ok">✓ محفوظ</b>' : ''}</span>
     <input type="${i.secret?"password":"text"}" class="ltr" name="${i.key}" value="${esc(i.value)}" placeholder="${i.secret && i.set ? "••••••••  (محفوظ)" : i.key}" autocomplete="off"></label>`).join("");
 }

@@ -23,7 +23,8 @@ from datetime import timedelta
 from http import cookies
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import unquote, urlparse
+from html import escape as _h
+from urllib.parse import parse_qs, unquote, urlparse
 
 from .. import config
 from ..approval import push_command, read_decision, record_decision
@@ -309,6 +310,8 @@ class Handler(BaseHTTPRequestHandler):
         if path in ("/icon.png", "/favicon.ico"):
             icon = config.ROOT / "assets" / "icon.png"
             return self._send(200, icon.read_bytes(), "image/png") if icon.exists() else self._send(404, b"", "text/plain")
+        if path == "/oauth/youtube/callback":
+            return self._youtube_callback()
         if path == "/api/auth":
             return self._json({"authed": self._authed(), "password_set": password_is_set()})
         if not self._authed():
@@ -320,6 +323,17 @@ class Handler(BaseHTTPRequestHandler):
                                 "value": "" if sec else env(k)} for k, label, sec in SETTING_KEYS])
         if path.startswith("/media/"):
             return self._media(unquote(path[len("/media/"):]))
+        if path == "/api/youtube/connect":
+            from . import youtube_oauth
+            try:
+                url = youtube_oauth.start_url()
+            except RuntimeError as e:
+                return self._page("لم يتم الربط", str(e), ok=False)
+            self.send_response(302)
+            self.send_header("Location", url)
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+            return
         self._json({"error": "not found"}, 404)
 
     def _media(self, rel: str) -> None:
@@ -428,6 +442,31 @@ class Handler(BaseHTTPRequestHandler):
             set_password(new)
             return self._json({"ok": True, "message": "تم تغيير كلمة المرور"})
         self._json({"error": "not found"}, 404)
+
+    def _page(self, title: str, msg: str, ok: bool = True) -> None:
+        icon = "✅" if ok else "⚠️"
+        html = (f'<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">'
+                f'<meta name="viewport" content="width=device-width, initial-scale=1"><title>{_h(title)}</title>'
+                '<style>body{font:16px/1.7 "Segoe UI",Tahoma,sans-serif;background:#f4f5f8;color:#16181d;margin:0}'
+                '.c{max-width:520px;margin:12vh auto;background:#fff;border:1px solid #e4e7ec;border-radius:14px;padding:28px;text-align:center}'
+                'a{display:inline-block;margin-top:14px;background:#5b3df5;color:#fff;padding:10px 18px;border-radius:10px;text-decoration:none}'
+                '@media (prefers-color-scheme:dark){body{background:#0f1115;color:#eceef3}.c{background:#181b22;border-color:#2a2f3a}}</style>'
+                f'</head><body><div class="c"><h2>{icon} {_h(title)}</h2><p>{_h(msg)}</p>'
+                '<a href="/">ارجع إلى التطبيق</a></div></body></html>')
+        self._send(200 if ok else 400, html.encode(), "text/html; charset=utf-8")
+
+    def _youtube_callback(self) -> None:
+        # The session cookie isn't sent on the redirect back from Google (SameSite=Strict); protection relies on a
+        # single-use random state value that expires after 10 minutes and is created only from a logged-in session.
+        from . import youtube_oauth
+        q = parse_qs(urlparse(self.path).query)
+        if "error" in q:
+            return self._page("لم يتم الربط", "ألغيت الموافقة في صفحة جوجل. يمكنك المحاولة مرة أخرى من الإعدادات.", ok=False)
+        try:
+            channel = youtube_oauth.finish(q.get("state", [""])[0], q.get("code", [""])[0])
+        except Exception as e:  # noqa: BLE001
+            return self._page("لم يتم الربط", str(e), ok=False)
+        return self._page("تم ربط يوتيوب", f"تم ربط القناة «{channel}» بنجاح." if channel else "تم ربط حساب يوتيوب بنجاح.")
 
     def _login_ok(self) -> None:
         tok = SESSIONS.new()
