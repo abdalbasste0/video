@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مصنع المنتجات الرقمية</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a production line — a numbered station rail on top, one workbench below, outputs printed as "job tickets". */
+:root{
+  --bg:#eef1ee;          /* cool workshop paper */
+  --panel:#ffffff;
+  --ink:#16302b;         /* deep bottle-green ink */
+  --muted:#5b6b66;
+  --line:#cfd8d4;
+  --accent:#c8641e;      /* stamped-copper */
+  --accent-ink:#ffffff;
+  --soft:#f6e6d8;
+  --good:#2f7a4a; --warn:#a86a00; --bad:#b3362c;
+  --good-bg:#e3f1e7; --warn-bg:#f8edd6; --bad-bg:#f6e0dd;
+  --f-display:"Readex Pro","IBM Plex Sans Arabic",Tahoma,sans-serif;
+  --f-body:"IBM Plex Sans Arabic",Tahoma,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1917;--panel:#16231f;--ink:#e3ece8;--muted:#9bb0a9;--line:#2a3b36;
+  --accent:#e58a45;--accent-ink:#1a0e05;--soft:#3a2617;
+  --good:#6fcf8e;--warn:#e7b04a;--bad:#f08b80;--good-bg:#173323;--warn-bg:#3a2d12;--bad-bg:#3d1c19;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1917;--panel:#16231f;--ink:#e3ece8;--muted:#9bb0a9;--line:#2a3b36;
+  --accent:#e58a45;--accent-ink:#1a0e05;--soft:#3a2617;
+  --good:#6fcf8e;--warn:#e7b04a;--bad:#f08b80;--good-bg:#173323;--warn-bg:#3a2d12;--bad-bg:#3d1c19;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 var(--f-body)}
+.wrap{max-width:1080px;margin:0 auto;padding-block:20px 60px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);line-height:1.3;text-wrap:balance;margin:0}
+h1{font-size:clamp(1.6rem,4vw,2.3rem)}
+h2{font-size:1.35rem}
+h3{font-size:1.05rem}
+p{margin:0}
+.muted{color:var(--muted)}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+header.top{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:end;justify-content:space-between;padding-bottom:16px;border-bottom:2px solid var(--ink)}
+header.top .src{font-size:.85rem;color:var(--muted);max-width:52ch}
+.stamp{justify-self:start;display:inline-block;font-family:var(--f-display);font-size:.78rem;border:1.5px solid var(--accent);color:var(--accent);padding:2px 8px;border-radius:4px;transform:rotate(-2deg)}
+
+/* station rail */
+nav.rail{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;margin:18px 0 22px}
+nav.rail button{all:unset;cursor:pointer;display:flex;flex-direction:column;gap:2px;padding:10px 10px 8px;border-top:4px solid var(--line);color:var(--muted);font-family:var(--f-display);font-size:.9rem}
+nav.rail button .n{font-family:var(--f-mono);font-size:.75rem;font-variant-numeric:tabular-nums}
+nav.rail button:hover{color:var(--ink);border-top-color:var(--muted)}
+nav.rail button[aria-selected="true"]{color:var(--ink);border-top-color:var(--accent)}
+nav.rail button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:760px){nav.rail{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:420px){nav.rail{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+section.station{display:grid;gap:18px}
+.intro{display:grid;gap:6px;max-width:70ch}
+.lesson{font-size:.88rem;background:var(--soft);padding:10px 14px;border-radius:var(--r);max-width:75ch}
+.lesson b{font-family:var(--f-display)}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:18px;align-items:start}
+@media (max-width:820px){.grid2{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:12px;min-width:0}
+
+label{display:grid;gap:4px;font-size:.85rem;font-weight:600}
+input,select,textarea{font:inherit;font-weight:400;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;width:100%}
+textarea{min-height:70px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+.row>*{flex:1 1 140px;min-width:0}
+.btn{font:600 .92rem var(--f-display);cursor:pointer;border:0;border-radius:8px;padding:9px 16px;background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+
+/* job ticket output */
+.ticket{background:var(--panel);border:1px dashed var(--muted);border-radius:var(--r);padding:16px;display:grid;gap:10px;min-width:0}
+.ticket .tag{font-family:var(--f-display);font-size:.8rem;font-weight:600;color:var(--accent)}
+.ticket ol,.ticket ul{margin:0;padding-inline-start:20px;display:grid;gap:4px}
+.ticket pre{white-space:pre-wrap;font:inherit;margin:0;background:var(--bg);padding:10px;border-radius:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:.8rem;padding:2px 10px;border-radius:99px;background:var(--bg);border:1px solid var(--line)}
+.pill{display:inline-block;font-size:.78rem;font-weight:600;padding:1px 10px;border-radius:99px}
+.pill.good{background:var(--good-bg);color:var(--good)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.alert{padding:8px 12px;border-radius:8px;font-size:.88rem}
+.alert.warn{background:var(--warn-bg);color:var(--warn)}
+.alert.bad{background:var(--bad-bg);color:var(--bad)}
+.alert.good{background:var(--good-bg);color:var(--good)}
+
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{text-align:start;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-display);font-weight:600;color:var(--muted);font-size:.8rem}
+td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;direction:ltr;text-align:end}
+.x{all:unset;cursor:pointer;color:var(--bad);padding:0 6px}
+
+/* funnel */
+.funnel{display:grid;gap:8px}
+.stage{display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px}
+.stage .who{font-family:var(--f-display);font-weight:700}
+.stage .role{font-size:.78rem;color:var(--accent);font-family:var(--f-mono)}
+.arrow{text-align:center;color:var(--muted);font-size:.85rem}
+@media (max-width:520px){.stage{grid-template-columns:minmax(0,1fr)}}
+
+/* meter */
+.meter{display:grid;gap:4px}
+.bar{height:10px;background:var(--bg);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.bar>i{display:block;height:100%;background:var(--accent)}
+
+/* calendar */
+.cal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.day{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px;display:grid;gap:4px;font-size:.84rem}
+.day.orig{border-color:var(--accent)}
+.day.done{opacity:.55}
+.day .d{font-family:var(--f-mono);font-size:.75rem;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+.day input{width:auto}
+
+footer{margin-top:40px;font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+.toast{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:8px;font-size:.9rem}
+@media (prefers-reduced-motion:no-preference){section.station{animation:in .25s ease-out}@keyframes in{from{transform:translateY(4px)}to{transform:none}}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div style="display:grid;gap:6px">
+    <span class="stamp">خط إنتاج · 8 محطات</span>
+    <h1>مصنع المنتجات الرقمية</h1>
+    <p class="muted">من الفكرة إلى البيع: بحث، منتج، إعلان، حساب احترافي، قمع مبيعات، تحليل، وخطة نشر.</p>
+  </div>
+  <p class="src">مبني على استراتيجية دورة «المنتجات الرقمية» (موح ديزاين، ساعتان): المحتوى القصير يجلب الناس، تيليغرام يجمعهم، المحتوى الطويل يبني الثقة، ثم البيع.</p>
+</header>
+
+<nav class="rail" role="tablist" id="rail"></nav>
+<main id="stage"></main>
+
+<footer>كل ما تكتبه يُحفظ في متصفحك فقط. القوالب نقطة بداية؛ أعد صياغتها بلهجة جمهورك وأسلوبك.</footer>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+/* ---------- storage helpers ---------- */
+const KEY='dpf-v1';
+let S={};
+try{S=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){S={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function toast(t){const el=$('#toast');el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,1800)}
+function copy(text,el){
+  const ok=()=>toast('تم النسخ');
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(ok,()=>fallback())}else fallback();
+  function fallback(){if(el){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);toast('النص محدد، انسخه يدويًا')}}
+}
+function field(id,def){return S[id]!==undefined?S[id]:def}
+function bind(root){root.querySelectorAll('[data-k]').forEach(el=>{
+  const k=el.dataset.k; if(S[k]!==undefined) el.value=S[k];
+  el.addEventListener('input',()=>{S[k]=el.value;save()});
+})}
+
+/* ---------- shared profile (feeds every station) ---------- */
+const P=()=>({
+  skill:field('skill','الطبخ الجزائري التقليدي'),
+  exp:field('exp','أطبخ منذ 10 سنوات وأعلّم أخواتي وصفات العائلة'),
+  aud:field('aud','الجزائريات المتزوجات حديثًا في فرنسا'),
+  pain:field('pain','لا يعرفن تحضير الأطباق التقليدية مثل الشخشوخة'),
+  dial:field('dial','الدارجة الجزائرية'),
+  cur:field('cur','دج'),
+  kw:field('kw','وصفات جزائرية'),
+  word:field('word','وصفة'),
+  name:field('name','أم ياسين للطبخ'),
+});
+
+/* ---------- stations ---------- */
+const ST=[
+ {id:'idea',t:'الفكرة',render:renderIdea},
+ {id:'research',t:'البحث',render:renderResearch},
+ {id:'product',t:'المنتج',render:renderProduct},
+ {id:'ad',t:'الإعلان',render:renderAd},
+ {id:'profile',t:'الحساب',render:renderProfile},
+ {id:'funnel',t:'القمع',render:renderFunnel},
+ {id:'stats',t:'التحليل',render:renderStats},
+ {id:'plan',t:'خطة 30 يوم',render:renderPlan},
+];
+// rail shows 8 stations; adjust grid
+document.documentElement.style.setProperty('--n',ST.length);
+function go(id){
+  if(!ST.find(s=>s.id===id)) id=ST[0].id;
+  S.tab=id;save();
+  $('#rail').innerHTML=ST.map((s,i)=>`<button role="tab" aria-selected="${s.id===id}" data-id="${s.id}"><span class="n">${String(i+1).padStart(2,'0')}</span>${s.t}</button>`).join('');
+  $('#rail').style.gridTemplateColumns='';
+  $('#rail').querySelectorAll('button').forEach(b=>b.onclick=()=>{location.hash=b.dataset.id});
+  const st=ST.find(s=>s.id===id);
+  const m=$('#stage');m.innerHTML='';const sec=document.createElement('section');sec.className='station';m.appendChild(sec);
+  st.render(sec);bind(sec);
+}
+window.addEventListener('hashchange',()=>go(location.hash.slice(1)));
+
+/* 01 — idea */
+function renderIdea(el){
+  el.innerHTML=`
+  <div class="intro"><h2>من تجربتك إلى منتج يُباع</h2>
+  <p class="muted">لا تحتاج شهادة. الناس تشتري تجربة عشتها وحلًا لسؤال يتكرر. اكتب ما تعرفه ولمن، والمصنع يقترح المنتجات.</p></div>
+  <p class="lesson"><b>من الدورة:</b> امرأة تبيع وصفات جزائرية لبنات الجالية، شاب صوّر لايف أمام برج خليفة وصار يبيع دليل السفر، مدخّن سابق يبيع طريقة الإقلاع. كل سؤال يتكرر عند الناس هو منتج.</p>
+  <div class="grid2">
+   <form class="panel" id="f-idea">
+    <label>مهارتك أو مجالك<input id="i-skill" data-k="skill" value="${esc(P().skill)}"></label>
+    <label>تجربتك الشخصية فيه<textarea id="i-exp" data-k="exp">${esc(P().exp)}</textarea></label>
+    <label>جمهورك بالضبط<input id="i-aud" data-k="aud" value="${esc(P().aud)}"></label>
+    <label>مشكلتهم أو سؤالهم المتكرر<input id="i-pain" data-k="pain" value="${esc(P().pain)}"></label>
+    <div class="row">
+     <label>لهجة المحتوى<select id="i-dial" data-k="dial">${['الدارجة الجزائرية','اللهجة المغربية','اللهجة التونسية','اللهجة المصرية','اللهجة الخليجية','العربية الفصحى'].map(o=>`<option ${o===P().dial?'selected':''}>${o}</option>`).join('')}</select></label>
+     <label>العملة<input id="i-cur" data-k="cur" value="${esc(P().cur)}"></label>
+    </div>
+    <div class="btns"><button class="btn" type="submit">اصنع الأفكار</button></div>
+   </form>
+   <div id="o-idea" style="display:grid;gap:12px;min-width:0"></div>
+  </div>`;
+  const out=$('#o-idea',el);
+  const run=()=>{const p=P();out.innerHTML=ideas(p).map(x=>`
+    <div class="ticket"><span class="tag">${x.type}</span><h3>${esc(x.title)}</h3>
+    <p>${esc(x.promise)}</p><p class="muted" style="font-size:.85rem">${esc(x.why)}</p></div>`).join('')+
+    `<div class="ticket"><span class="tag">سلّم التطور</span><ol>
+     <li><b>بيع الخدمة</b>: تنفّذ ${esc(p.skill)} للناس مقابل أجر.</li>
+     <li><b>تعليم المهارة</b>: دورة، كتاب، استشارة. هنا يبدأ الدخل وأنت نائم.</li>
+     <li><b>برنامج باشتراك</b> (SaaS): تطبيق يعمل شهريًا بدونك.</li></ol></div>`};
+  $('#f-idea',el).onsubmit=e=>{e.preventDefault();run()};run();
+}
+function ideas(p){return[
+ {type:'دورة تدريبية',title:`دورة: ${p.skill} من الصفر لـ${p.aud}`,promise:`فيديوهات قصيرة مرتبة تحل مشكلة: ${p.pain}.`,why:'الأعلى سعرًا والأسهل في بناء الثقة، لأن الزبون يراك ويسمعك.'},
+ {type:'كتاب إلكتروني',title:`الدليل العملي: ${p.pain.replace(/^لا /,'كيف لا ')}`,promise:`ملف PDF يلخص تجربتك (${p.exp.slice(0,60)}…) في خطوات قابلة للتطبيق.`,why:'منتج دخول بسعر منخفض، يُرسل بضغطة زر ولا يُرجع ولا يُخزَّن.'},
+ {type:'استشارة',title:`جلسة خاصة مع خبير ${p.skill}`,promise:`ساعة مباشرة لحل حالة ${p.aud} الخاصة.`,why:'سعرها بالساعة ومرتفع، وتكشف لك أسئلة جمهورك لتصنع منها الدورة القادمة.'},
+]}
+
+/* 02 — research */
+function renderResearch(el){
+  const p=P();S.refs=S.refs||[
+   {u:'مثال: صانع محتوى طبخ جزائري',v:7200000,l:177000,h:'يعرض الطبق النهائي أولًا ثم الوصفة',n:'نفس الفكرة بلهجتي + تغيير اللقطة كل 3 ثوان'},
+  ];
+  S.tags=S.tags||[{t:'#طبخ_جزائري',c:400000},{t:'#اكسبلور_جزائري',c:2500000}];
+  const q=encodeURIComponent(p.kw);
+  el.innerHTML=`
+  <div class="intro"><h2>ابحث عن الفيديوهات الناجحة وأعد صياغتها</h2>
+  <p class="muted">تسعة فيديوهات من كل عشرة: فكرة مُجرّبة من صانع محتوى في مجالك (حتى من بلد آخر) تعيد سردها بلهجتك وأسلوبك. الفيديو العاشر من إبداعك.</p></div>
+  <div class="grid2">
+   <div class="panel">
+    <label>كلمة البحث في مجالك<input id="r-kw" data-k="kw" value="${esc(p.kw)}"></label>
+    <div class="btns" id="r-links"></div>
+    <p class="muted" style="font-size:.85rem">رتّب حسب الأكثر مشاهدة. خذ الفيديوهات التي تفوق مشاهداتها عدد متابعي صاحبها بكثير.</p>
+    <h3>فاحص الهاشتاغ</h3>
+    <p class="muted" style="font-size:.85rem">استعمل هاشتاغات من مجالك وأقل من مليون فيديو. الهاشتاغ الضخم أو البعيد عن مجالك يرسل فيديوك لجمهور اختبار خاطئ فينهار وقت المشاهدة.</p>
+    <div class="row"><input id="t-name" placeholder="#هاشتاغ"><input id="t-count" type="number" min="0" placeholder="عدد الفيديوهات"></div>
+    <button class="btn ghost" id="t-add" type="button">أضف الهاشتاغ</button>
+    <div id="t-list" class="chips"></div>
+   </div>
+   <div class="panel">
+    <h3>دفتر المراجع الرائجة</h3>
+    <div class="row"><input id="ref-u" placeholder="الرابط أو اسم الصانع"><input id="ref-v" type="number" min="0" placeholder="المشاهدات"><input id="ref-l" type="number" min="0" placeholder="الإعجابات"></div>
+    <input id="ref-h" placeholder="الخطّاف: ماذا قال/عرض في أول ثانيتين؟">
+    <input id="ref-n" placeholder="كيف ستعيد صياغته بأسلوبك؟">
+    <button class="btn" id="ref-add" type="button">احفظ المرجع</button>
+    <div class="tablewrap"><table><thead><tr><th>المرجع</th><th>مشاهدات</th><th>تفاعل</th><th>الخطّاف وخطتك</th><th></th></tr></thead><tbody id="ref-body"></tbody></table></div>
+   </div>
+  </div>`;
+  const links=()=>{const k=encodeURIComponent($('#r-kw',el).value);$('#r-links',el).innerHTML=
+   [['تيك توك',`https://www.tiktok.com/search/video?q=${k}`],['يوتيوب Shorts',`https://www.youtube.com/results?search_query=${k}+%23shorts`],['يوتيوب',`https://www.youtube.com/results?search_query=${k}`],['إنستغرام',`https://www.instagram.com/explore/search/keyword/?q=${k}`],['فيسبوك',`https://www.facebook.com/search/videos/?q=${k}`]]
+   .map(([n,u])=>`<a class="btn ghost" style="text-decoration:none" target="_blank" rel="noopener" href="${u}">${n} ↗</a>`).join('')};
+  $('#r-kw',el).addEventListener('input',links);links();
+  const fmt=n=>Number(n||0).toLocaleString('en-US');
+  const drawRefs=()=>{$('#ref-body',el).innerHTML=S.refs.map((r,i)=>{const er=r.v?r.l/r.v*100:0;return`<tr><td>${esc(r.u)}</td><td class="num">${fmt(r.v)}</td><td class="num">${er.toFixed(1)}%</td><td>${esc(r.h)}<br><span class="muted">${esc(r.n)}</span></td><td><button class="x" aria-label="حذف" data-i="${i}">✕</button></td></tr>`}).join('')||'<tr><td colspan="5" class="muted">لا مراجع بعد.</td></tr>';
+   $('#ref-body',el).querySelectorAll('.x').forEach(b=>b.onclick=()=>{S.refs.splice(+b.dataset.i,1);save();drawRefs()})};
+  $('#ref-add',el).onclick=()=>{const u=$('#ref-u',el).value.trim();if(!u){toast('اكتب الرابط أولًا');return}
+   S.refs.unshift({u,v:+$('#ref-v',el).value||0,l:+$('#ref-l',el).value||0,h:$('#ref-h',el).value,n:$('#ref-n',el).value});save();drawRefs();
+   ['#ref-u','#ref-v','#ref-l','#ref-h','#ref-n'].forEach(s=>$(s,el).value='')};
+  const drawTags=()=>{$('#t-list',el).innerHTML=S.tags.map((t,i)=>{const c=t.c<1e6?'good':'bad';return`<span class="chip">${esc(t.t)} <span class="pill ${c}">${t.c<1e6?'مناسب':'مزدحم'}</span> <button class="x" data-i="${i}" aria-label="حذف">✕</button></span>`}).join('');
+   $('#t-list',el).querySelectorAll('.x').forEach(b=>b.onclick=()=>{S.tags.splice(+b.dataset.i,1);save();drawTags()})};
+  $('#t-add',el).onclick=()=>{let t=$('#t-name',el).value.trim();if(!t)return;if(!t.startsWith('#'))t='#'+t.replace(/\s+/g,'_');S.tags.push({t,c:+$('#t-count',el).value||0});save();drawTags();$('#t-name',el).value='';$('#t-count',el).value=''};
+  drawRefs();drawTags();
+}
+
+/* 03 — product */
+function renderProduct(el){
+  const p=P();
+  el.innerHTML=`
+  <div class="intro"><h2>ابنِ المنتج</h2>
+  <p class="muted">الدورة والكتاب والاستشارة مجرد قوالب تضع فيها معلومة يطلبها جمهورك. اختر القالب والمصنع يجهز الهيكل والتسعير وصفحة البيع.</p></div>
+  <div class="grid2">
+   <form class="panel" id="f-prod">
+    <label>نوع المنتج<select id="p-type" data-k="ptype"><option>دورة تدريبية</option><option>كتاب إلكتروني</option><option>استشارة</option></select></label>
+    <label>اسم المنتج<input id="p-name" data-k="pname" value="${esc(field('pname',`أسرار ${p.skill}`))}"></label>
+    <label>النتيجة التي يحصل عليها الزبون<input id="p-res" data-k="pres" value="${esc(field('pres',`تحضر 10 أطباق تقليدية بثقة خلال 30 يومًا`))}"></label>
+    <div class="row">
+     <label>عدد الوحدات / الفصول<input id="p-mods" data-k="pmods" type="number" min="3" max="12" value="${esc(field('pmods',6))}"></label>
+     <label>السعر (${esc(p.cur)})<input id="p-price" data-k="pprice" type="number" min="0" value="${esc(field('pprice',3500))}"></label>
+    </div>
+    <div class="btns"><button class="btn" type="submit">جهّز المنتج</button></div>
+    <p class="alert warn">احمِ نفسك قانونيًا قبل البيع: سجّل نشاطك (بطاقة مقاول ذاتي أو سجل تجاري حسب بلدك) وسلّم دائمًا ما وعدت به بالضبط.</p>
+   </form>
+   <div id="o-prod" style="display:grid;gap:12px;min-width:0"></div>
+  </div>`;
+  const run=()=>{const p=P();const type=$('#p-type',el).value,name=$('#p-name',el).value,res=$('#p-res',el).value,n=Math.min(12,Math.max(3,+$('#p-mods',el).value||6)),price=+$('#p-price',el).value||0;
+   const unit=type==='كتاب إلكتروني'?'الفصل':type==='استشارة'?'المحور':'الوحدة';
+   const base=['التشخيص: أين أنت الآن ولماذا فشلت المحاولات السابقة','الأساسيات التي لا يشرحها أحد','الطريقة خطوة بخطوة (التطبيق الأول)','الأخطاء الشائعة وكيف تتجنبها','حالات حقيقية من تجربتي','خطة 30 يومًا للتطبيق','أدوات وقوالب جاهزة','أسئلة متكررة','التقدم للمستوى التالي','دراسة حالة متقدمة','مراجعة شاملة','الخطوة القادمة'];
+   const mods=base.slice(0,n);
+   const ladder=[['منتج دخول (كتاب)',Math.round(price*.3)],['المنتج الأساسي',price],['الاستشارة / المرافقة',Math.round(price*3)]];
+   const page=`${name}\n\nلـ${p.aud} اللي ${p.pain}.\nفي هذا ${type==='كتاب إلكتروني'?'الكتاب':type==='استشارة'?'اللقاء':'البرنامج'}: ${res}.\n\nماذا ستتعلم:\n${mods.map(m=>'• '+m.split(':')[0]).join('\n')}\n\nلماذا مني؟ ${p.exp}.\nالسعر: ${price.toLocaleString('en-US')} ${p.cur} — يصلك فورًا بعد الدفع.`;
+   $('#o-prod',el).innerHTML=`
+    <div class="ticket"><span class="tag">هيكل ${esc(type)}</span><h3>${esc(name)}</h3><ol>${mods.map((m,i)=>`<li><b>${unit} ${i+1}:</b> ${esc(m)}</li>`).join('')}</ol></div>
+    <div class="ticket"><span class="tag">سلّم الأسعار</span><div class="tablewrap"><table><tbody>${ladder.map(([a,b])=>`<tr><td>${a}</td><td class="num">${b.toLocaleString('en-US')} ${esc(p.cur)}</td></tr>`).join('')}</tbody></table></div></div>
+    <div class="ticket"><span class="tag">نص صفحة البيع</span><pre id="sale">${esc(page)}</pre><div class="btns"><button class="btn ghost" type="button" id="c-sale">انسخ النص</button></div></div>`;
+   $('#c-sale',el).onclick=()=>copy(page,$('#sale',el));
+  };
+  if(S.ptype) $('#p-type',el).value=S.ptype;
+  $('#f-prod',el).onsubmit=e=>{e.preventDefault();run()};run();
+}
+
+/* 04 — ad / script */
+const HOOKS=[
+ {k:'contrast',t:'الرفض الصادم',f:p=>`لو يعطوني وظيفة براتب كبير، والله نرفضها بلا تردد… وراح نقولك علاش.`},
+ {k:'result',t:'النتيجة أولًا',f:p=>`[اعرض النتيجة النهائية على الشاشة] هذا اللي راح تقدر تديره بعد ما تكمل الفيديو.`},
+ {k:'warn',t:'تحذير',f:p=>`حذاري تبدا في ${p.skill} قبل ما تعرف هذه الحاجة.`},
+ {k:'mistakes',t:'الأخطاء',f:p=>`3 أخطاء يطيح فيها أي واحد يبدا في ${p.skill}، والثالث هو الأخطر.`},
+ {k:'secret',t:'سؤال معلّق',f:p=>`شحال ربحت من ${p.skill} هذا الشهر؟ الرقم في آخر الفيديو.`},
+ {k:'story',t:'قبل/بعد',f:p=>`قبل عام كنت ${p.pain.replace(/^لا /,'ما ')}… شوف وين وصلت درك.`},
+];
+const RISKY=[/مليون|ملايين|ملاين/,/في (نهار|يوم|ساعة)/,/مضمون/,/100\s*%/,/اربح|ربح سريع|بدون مجهود/];
+function renderAd(el){
+  const p=P();
+  el.innerHTML=`
+  <div class="intro"><h2>اصنع الإعلان: خطّاف ← قيمة ← إجابة ← دعوة</h2>
+  <p class="muted">التسويق هنا محتوى، لا إعلان ممول. الخطّاف يقرر في أول ثانية هل يكمل المشاهد. القيمة تحكي القصة دون كشف الجواب. الإجابة تأتي في النهاية. الدعوة تقول له ماذا يفعل.</p></div>
+  <div class="grid2">
+   <form class="panel" id="f-ad">
+    <label>نوع الخطّاف<select id="a-hook" data-k="hook">${HOOKS.map(h=>`<option value="${h.k}">${h.t}</option>`).join('')}</select></label>
+    <label>القيمة: ماذا ستشرح؟<textarea id="a-val" data-k="aval">${esc(field('aval',`مقدمو الخدمات يربحون أكثر من التاجر نفسه، لأن الطلب على ${p.skill} يكبر كل يوم.`))}</textarea></label>
+    <label>الإجابة التي ينتظرها المشاهد<input id="a-pay" data-k="apay" value="${esc(field('apay','لأن المهارة تجيب لي ضعف الراتب وأنا في داري'))}"></label>
+    <div class="row">
+     <label>الدعوة<select id="a-cta" data-k="acta"><option value="bio">الرابط في البايو (مستحسن)</option><option value="tg">انضم لقناة التيليغرام</option><option value="word">علّق بكلمة (رد آلي)</option></select></label>
+     <label>كلمة التعليق<input id="a-word" data-k="word" value="${esc(p.word)}"></label>
+    </div>
+    <label>مدة الفيديو (ثانية)<input id="a-len" data-k="alen" type="number" min="10" max="180" value="${esc(field('alen',30))}"></label>
+    <div class="btns"><button class="btn" type="submit">اكتب السكريبت</button></div>
+   </form>
+   <div id="o-ad" style="display:grid;gap:12px;min-width:0"></div>
+  </div>`;
+  if(S.hook)$('#a-hook',el).value=S.hook; if(S.acta)$('#a-cta',el).value=S.acta;
+  const run=()=>{const p=P();const h=HOOKS.find(x=>x.k===$('#a-hook',el).value);const val=$('#a-val',el).value,pay=$('#a-pay',el).value,cta=$('#a-cta',el).value,word=$('#a-word',el).value||'كلمة',len=Math.max(10,+$('#a-len',el).value||30);
+   const ctaText={bio:'إذا حبيت تتعلم الطريقة كاملة، الرابط في البايو.',tg:'كل التفاصيل والدورة المجانية في قناة التيليغرام، الرابط في البايو.',word:`علّق بكلمة «${word}» ونبعثلك الدورة المجانية في الخاص.`}[cta];
+   const hook=h.f(p);
+   const parts=[['0–2ث','الخطّاف',hook],[`2–${Math.round(len*.75)}ث`,'القيمة',val],[`${Math.round(len*.75)}–${len-3}ث`,'الإجابة',pay],[`${len-3}–${len}ث`,'الدعوة',ctaText]];
+   const shots=Math.ceil(len/3);
+   const script=parts.map(x=>`[${x[0]}] ${x[1]}: ${x[2]}`).join('\n');
+   const caption=`${hook.replace(/\[.*?\]\s*/,'')}\n\n${ctaText}\n\n${(S.tags||[]).filter(t=>t.c<1e6).map(t=>t.t).join(' ')}`;
+   const flags=RISKY.filter(r=>r.test(script+caption));
+   const prompt=`أنت كاتب سكريبتات فيديو قصير. اكتب 3 نسخ لفيديو ${len} ثانية بـ${p.dial} لجمهور: ${p.aud}.\nالبنية: خطّاف (أول ثانيتين) ← قيمة (لا تكشف الجواب) ← إجابة في النهاية ← دعوة.\nالخطّاف المرجعي: ${hook}\nالقيمة: ${val}\nالإجابة: ${pay}\nالدعوة: ${ctaText}\nأضف لكل نسخة قائمة لقطات تتغير كل 3 ثوان. تجنّب أرقام الأرباح المبالغ فيها والوعود المضمونة.`;
+   $('#o-ad',el).innerHTML=`
+    ${cta==='word'?`<p class="alert warn">طلب التعليق بكلمة يفتح الباب للمنتحلين: سيردون باسمك على المعلّقين. تيك توك لا يوفر ردًا آليًا. استعمله في إنستغرام وفيسبوك فقط، وبعد تجاوز 1000 متابع.</p>`:''}
+    ${flags.length?`<p class="alert bad">في النص عبارات مالية قد تعتبرها المنصة احتيالًا وتغلق الحساب (أرقام كبيرة، ربح في يوم، «مضمون»). خففها.</p>`:`<p class="alert good">لا توجد عبارات مالية خطرة في النص.</p>`}
+    <div class="ticket"><span class="tag">السكريبت · ${len} ثانية</span><div class="tablewrap"><table><tbody>${parts.map(x=>`<tr><td class="num" style="white-space:nowrap">${x[0]}</td><td><b>${x[1]}</b><br>${esc(x[2])}</td></tr>`).join('')}</tbody></table></div>
+     <div class="btns"><button class="btn ghost" type="button" id="c-s">انسخ السكريبت</button></div></div>
+    <div class="ticket"><span class="tag">قائمة اللقطات · ${shots} لقطة (تغيير كل 3 ثوان)</span>
+     <div class="chips">${Array.from({length:shots},(_,i)=>`<span class="chip"><span class="mono">${i*3}</span>ث ${['وجه للكاميرا','لقطة قريبة','نص على الشاشة','B-roll','النتيجة','زاوية ثانية'][i%6]}</span>`).join('')}</div></div>
+    <div class="ticket"><span class="tag">الوصف + الهاشتاغات</span><pre id="cap">${esc(caption)}</pre><div class="btns"><button class="btn ghost" type="button" id="c-c">انسخ الوصف</button></div></div>
+    <div class="ticket"><span class="tag">برومبت جاهز لمساعد ذكاء اصطناعي</span><pre id="pr">${esc(prompt)}</pre><div class="btns"><button class="btn ghost" type="button" id="c-p">انسخ البرومبت</button></div></div>`;
+   $('#c-s',el).onclick=()=>copy(script);$('#c-c',el).onclick=()=>copy(caption,$('#cap',el));$('#c-p',el).onclick=()=>copy(prompt,$('#pr',el));
+  };
+  $('#f-ad',el).onsubmit=e=>{e.preventDefault();run()};run();
+}
+
+/* 05 — profile */
+function renderProfile(el){
+  const p=P();
+  const checks=[
+   'اسم واضح يحفظه الناس (اسم الشهرة)',
+   'الاسم الحقيقي في الحساب لتسهيل التوثيق',
+   'صورة شخصية احترافية وهوية بصرية موحدة',
+   'بايو يقول: لمن، ماذا يحصل، أين يبدأ',
+   'رابط واحد: قناة تيليغرام أولًا (تيك توك يفتح الرابط بعد 1000 متابع)',
+   'هايلايتس منظمة: مصادر مجانية، دورة مجانية، آراء',
+   'سطر «احذروا المنتحلين» إذا كان مجالك عن المال',
+  ];
+  S.pc=S.pc||{};
+  el.innerHTML=`
+  <div class="intro"><h2>حساب احترافي يقنع بالمتابعة</h2>
+  <p class="muted">الزائر القادم من فيديو انتشر يقرر في ثوانٍ: هل هذا الحساب سيفيدني؟ الصورة، الاسم، البايو والهايلايتس هي الجواب.</p></div>
+  <div class="grid2">
+   <div class="panel">
+    <label>اسم الحساب<input id="b-name" data-k="name" value="${esc(p.name)}"></label>
+    <label>الوعد الأساسي<input id="b-prom" data-k="bprom" value="${esc(field('bprom',`طريقك لـ${p.skill} بلا تعقيد`))}"></label>
+    <label>ماذا تنشر يوميًا<input id="b-daily" data-k="bdaily" value="${esc(field('bdaily','وصفة سهلة كل يوم'))}"></label>
+    <label><span><input type="checkbox" id="b-warn" style="width:auto" ${field('bwarn','1')==='1'?'checked':''}> أضف تحذير المنتحلين</span></label>
+    <h3>قائمة التحقق</h3>
+    <div style="display:grid;gap:6px" id="checks">${checks.map((c,i)=>`<label style="font-weight:400;display:flex;gap:8px;align-items:start"><input type="checkbox" style="width:auto;margin-top:6px" data-c="${i}" ${S.pc[i]?'checked':''}> ${c}</label>`).join('')}</div>
+   </div>
+   <div id="o-bio" style="display:grid;gap:12px;min-width:0"></div>
+  </div>`;
+  const run=()=>{const p=P();const bio=`${$('#b-prom',el).value}\n${p.skill} لـ${p.aud}، من تجربة حقيقية\n${$('#b-daily',el).value}\n👇 ابدأ من هنا مجانًا${$('#b-warn',el).checked?'\n⚠️ احذروا المنتحلين، هذا حسابي الوحيد':''}`;
+   const done=Object.values(S.pc).filter(Boolean).length;
+   $('#o-bio',el).innerHTML=`<div class="ticket"><span class="tag">البايو · ${bio.length} حرف ${bio.length>150?'<span class="pill warn">طويل لإنستغرام (150)</span>':'<span class="pill good">مناسب</span>'}</span><h3>${esc(p.name)}</h3><pre id="bio">${esc(bio)}</pre><div class="btns"><button class="btn ghost" type="button" id="c-bio">انسخ البايو</button></div></div>
+    <div class="ticket"><span class="tag">جاهزية الحساب</span><div class="meter"><div class="bar"><i style="width:${done/checks.length*100}%"></i></div><span class="mono">${done} / ${checks.length}</span></div></div>`;
+   $('#c-bio',el).onclick=()=>copy(bio,$('#bio',el));};
+  el.addEventListener('input',run);
+  $('#b-warn',el).onchange=()=>{S.bwarn=$('#b-warn',el).checked?'1':'0';save();run()};
+  el.querySelectorAll('[data-c]').forEach(c=>c.onchange=()=>{S.pc[c.dataset.c]=c.checked;save();run()});
+  run();
+}
+
+/* 06 — funnel */
+function renderFunnel(el){
+  const p=P();
+  const stages=[
+   ['تيك توك','جلب الناس','أسهل منصة للانتشار: تعرض فيديوك لغير المتابعين أولًا. بعد 10 إلى 15 فيديو تصنّفك في مجالك وتظهر لكل من يبحث عنه.'],
+   ['إنستغرام','المبيعات','يصعب البدء من صفر متابع. انقل متابعي تيك توك إليه. هنا يعمل الرد الآلي على كلمة في التعليقات.'],
+   ['تيليغرام','تجميع الجمهور','قناتك الخاصة: تنشر فيها روابط الفيديوهات الطويلة وتبيع في أي وقت. فيديو بمليون مشاهدة قد يجلب آلاف المشتركين.'],
+   ['يوتيوب','بناء الثقة','المحتوى الطويل (دورة مجانية، 15 إلى 90 دقيقة) هو ما يجعل الغريب يثق بك.'],
+   ['البيع','المنتج الرقمي',`عرض ${field('pname','منتجك')} لجمهور يثق بك. يصل بضغطة زر ويدفع بضغطة زر.`],
+   ['فيسبوك','العلاقات','للتواصل وجلب العلاقات وتقديم النصائح، لا للبيع المباشر.'],
+  ];
+  el.innerHTML=`
+  <div class="intro"><h2>قمع المبيعات</h2>
+  <p class="muted">لكل منصة دور واحد. المحتوى القصير لا يبني ثقة كافية، فوظيفته أن ينقل المشاهد إلى المحتوى الطويل.</p></div>
+  <div class="funnel">${stages.map((s,i)=>`${i&&i<5?'<div class="arrow">↓</div>':''}${i===5?'<div class="arrow muted">إلى جانب الخط</div>':''}<div class="stage"><div><div class="who">${s[0]}</div><div class="role">${s[1]}</div></div><p>${s[2]}</p></div>`).join('')}</div>
+  <div class="grid2">
+   <div class="panel"><h3>حاسبة القمع</h3>
+    <div class="row">
+     <label>مشاهدات الشهر<input id="fu-v" data-k="fuv" type="number" min="0" value="${esc(field('fuv',1000000))}"></label>
+     <label>٪ ينضمون لتيليغرام<input id="fu-j" data-k="fuj" type="number" step="0.1" min="0" value="${esc(field('fuj',0.4))}"></label>
+    </div>
+    <div class="row">
+     <label>٪ يشترون من المشتركين<input id="fu-b" data-k="fub" type="number" step="0.1" min="0" value="${esc(field('fub',2))}"></label>
+     <label>سعر المنتج (${esc(p.cur)})<input id="fu-p" data-k="pprice" type="number" min="0" value="${esc(field('pprice',3500))}"></label>
+    </div>
+    <p class="muted" style="font-size:.85rem">مثال الدورة: فيديو بمليون مشاهدة جلب بين 4000 و5000 مشترك، أي قرابة 0.4٪.</p>
+   </div>
+   <div class="ticket" id="o-fu"></div>
+  </div>`;
+  const run=()=>{const v=+$('#fu-v',el).value||0,j=+$('#fu-j',el).value||0,b=+$('#fu-b',el).value||0,pr=+$('#fu-p',el).value||0;
+   const sub=Math.round(v*j/100),buy=Math.round(sub*b/100),rev=buy*pr,f=n=>n.toLocaleString('en-US');
+   $('#o-fu',el).innerHTML=`<span class="tag">التقدير الشهري</span><div class="tablewrap"><table><tbody>
+    <tr><td>مشاهدات</td><td class="num">${f(v)}</td></tr><tr><td>مشتركون جدد في تيليغرام</td><td class="num">${f(sub)}</td></tr>
+    <tr><td>مشترون</td><td class="num">${f(buy)}</td></tr><tr><td><b>الإيراد</b></td><td class="num"><b>${f(rev)} ${esc(P().cur)}</b></td></tr></tbody></table></div>
+    <p class="muted" style="font-size:.82rem">تقدير للتخطيط فقط. أدخل أرقامك الحقيقية بعد أول شهر.</p>`};
+  el.addEventListener('input',run);run();
+}
+
+/* 07 — stats */
+function renderStats(el){
+  el.innerHTML=`
+  <div class="intro"><h2>شخّص الفيديو كما تراه الخوارزمية</h2>
+  <p class="muted">المنصة تريد إبقاء المشاهد أطول وقت لتعرض الإعلانات. تعرض فيديوك أولًا على مجموعة اختبار (50 إلى 5000 شخص، أغلبهم متابعوك). إذا بقوا شاهدين، توسّع الانتشار.</p></div>
+  <div class="grid2">
+   <div class="panel">
+    <div class="row">
+     <label>مدة الفيديو (ث)<input id="s-len" data-k="slen" type="number" min="1" value="${esc(field('slen',30))}"></label>
+     <label>متوسط وقت المشاهدة (ث)<input id="s-avg" data-k="savg" type="number" min="0" step="0.1" value="${esc(field('savg',19))}"></label>
+    </div>
+    <div class="row">
+     <label>٪ أكملوا للنهاية<input id="s-comp" data-k="scomp" type="number" min="0" max="100" value="${esc(field('scomp',45))}"></label>
+     <label>المشاهدات<input id="s-views" data-k="sviews" type="number" min="0" value="${esc(field('sviews',1000))}"></label>
+    </div>
+    <label>التفاعلات (إعجاب + تعليق + حفظ + مشاركة)<input id="s-eng" data-k="seng" type="number" min="0" value="${esc(field('seng',120))}"></label>
+    <h3>شكل منحنى الاحتفاظ</h3>
+    <select id="s-curve" data-k="scurve">
+     <option value="ok">ثابت تقريبًا بعد البداية</option>
+     <option value="hook">ينهار في أول ثانيتين</option>
+     <option value="value">ينزل تدريجيًا في المنتصف</option>
+     <option value="end">ينهار قبل النهاية</option>
+    </select>
+   </div>
+   <div id="o-st" style="display:grid;gap:12px;min-width:0"></div>
+  </div>`;
+  if(S.scurve)$('#s-curve',el).value=S.scurve;
+  const run=()=>{const len=+$('#s-len',el).value||1,avg=+$('#s-avg',el).value||0,comp=+$('#s-comp',el).value||0,views=+$('#s-views',el).value||0,eng=+$('#s-eng',el).value||0,curve=$('#s-curve',el).value;
+   const wr=Math.min(100,avg/len*100),er=views?eng/views*100:0;
+   const wrLv=wr>=80?['good','إمكانية ترند']:wr>=66?['good','قوي، قد يصل للملايين']:wr>=50?['warn','جيد للمبتدئ']:['bad','ضعيف'];
+   const cLv=comp>=70?['good','ممتاز']:comp>=40?['warn','مقبول']:['bad','ضعيف'];
+   const eLv=er>=10?['good','جيد']:er>=4?['warn','متوسط']:['bad','منخفض'];
+   const tips=[];
+   if(views<200)tips.push(['bad','أقل من 200 مشاهدة بشكل متكرر قد يعني مخالفة (حقوق، قواعد السلامة، أرقام مالية). إن استمر، افتح حسابًا جديدًا.']);
+   if(curve==='hook'||wr<50)tips.push(['warn','الخطّاف ضعيف: ابدأ بالنتيجة أو بجملة تخلق فضولًا. خذ خطّافًا من فيديو رائج في مجالك.']);
+   if(curve==='value')tips.push(['warn','القيمة ضعيفة: غيّر اللقطة كل 3 ثوان، احذف الحشو، ولا تكشف الجواب مبكرًا.']);
+   if(curve==='end'||comp<40)tips.push(['warn','النهاية تُهرّب المشاهد: أجّل الإجابة للنهاية واجعل الدعوة قصيرة.']);
+   if(er>=10&&wr<50)tips.push(['warn','تفاعل عالٍ مع وقت مشاهدة منخفض لن ينشر الفيديو. وقت المشاهدة والإكمال أهم من الإعجابات.']);
+   if(!tips.length)tips.push(['good','الأرقام صحية. انشر فيديوهات مشابهة بنفس البنية وراقب الاتجاه.']);
+   const m=(t,v,lv,txt)=>`<div class="meter"><div style="display:flex;justify-content:space-between;gap:8px"><span>${t}</span><span><span class="mono">${txt}</span> <span class="pill ${lv[0]}">${lv[1]}</span></span></div><div class="bar"><i style="width:${Math.min(100,v)}%"></i></div></div>`;
+   $('#o-st',el).innerHTML=`<div class="ticket"><span class="tag">لوحة الفيديو</span>
+    ${m('متوسط المشاهدة من المدة',wr,wrLv,wr.toFixed(0)+'%')}
+    ${m('نسبة الإكمال',comp,cLv,comp.toFixed(0)+'%')}
+    ${m('معدل التفاعل',er*5,eLv,er.toFixed(1)+'%')}
+    <p class="muted" style="font-size:.82rem">مرجع الدورة: فيديو 30 ثانية بمتوسط 15ث قد يصل لمئات الآلاف، بمتوسط 20ث لملايين، وفوق 25ث يصبح ترند.</p></div>
+    <div class="ticket"><span class="tag">التشخيص</span>${tips.map(t=>`<p class="alert ${t[0]}">${t[1]}</p>`).join('')}</div>`};
+  el.addEventListener('input',run);el.addEventListener('change',run);run();
+}
+
+/* 08 — 30-day plan */
+function renderPlan(el){
+  const p=P();
+  el.innerHTML=`
+  <div class="intro"><h2>خطة 30 يومًا</h2>
+  <p class="muted">فيديو قصير يوميًا. تسعة من كل عشرة مأخوذة من مراجع ناجحة، والعاشر من إبداعك. لا دعوة لكلمة في التعليقات قبل 1000 متابع. الاستمرارية أهم من أي فيديو منفرد.</p></div>
+  <div class="row" style="align-items:end">
+   <label>تاريخ البداية<input id="pl-start" data-k="plstart" type="date" value="${esc(field('plstart',new Date().toISOString().slice(0,10)))}"></label>
+   <div class="btns" style="flex:0 0 auto"><button class="btn ghost" type="button" id="pl-reset">ابدأ من جديد</button></div>
+   <div id="pl-prog" style="flex:2 1 220px"></div>
+  </div>
+  <p class="alert warn" id="pl-confirm" hidden>سيتم مسح علامات الإنجاز. <button class="btn" type="button" id="pl-yes">تأكيد المسح</button> <button class="btn ghost" type="button" id="pl-no">إلغاء</button></p>
+  <div class="cal" id="cal"></div>`;
+  S.done=S.done||{};
+  const topics=['خطأ شائع في '+p.skill,'قبل/بعد','سؤال من التعليقات','نصيحة في 30 ثانية','قصة من تجربتي','أداة أو قالب مجاني','رد على خرافة منتشرة','خلف الكواليس','نتيجة متابع','أسئلة متكررة'];
+  const draw=()=>{const start=new Date($('#pl-start',el).value||Date.now());
+   $('#cal',el).innerHTML=Array.from({length:30},(_,i)=>{const d=new Date(start);d.setDate(d.getDate()+i);const orig=(i+1)%10===0;
+    const extra=i===6||i===13||i===20||i===27?'<br><span class="muted">+ فيديو طويل على يوتيوب ورابطه في تيليغرام</span>':'';
+    return`<div class="day ${orig?'orig':''} ${S.done[i]?'done':''}"><div class="d"><span>اليوم ${i+1} · ${d.toLocaleDateString('ar',{day:'numeric',month:'short'})}</span><input type="checkbox" aria-label="تم" data-d="${i}" ${S.done[i]?'checked':''}></div>
+     <b>${orig?'فكرة أصلية من إبداعك':'إعادة صياغة مرجع رائج'}</b><span>${topics[i%10]}${extra}</span></div>`}).join('');
+   $('#cal',el).querySelectorAll('[data-d]').forEach(c=>c.onchange=()=>{S.done[c.dataset.d]=c.checked;save();draw()});
+   const n=Object.values(S.done).filter(Boolean).length;
+   $('#pl-prog',el).innerHTML=`<div class="meter"><span class="mono">${n} / 30 فيديو</span><div class="bar"><i style="width:${n/30*100}%"></i></div></div>`};
+  $('#pl-start',el).addEventListener('change',draw);
+  $('#pl-reset',el).onclick=()=>{$('#pl-confirm',el).hidden=false};
+  $('#pl-no',el).onclick=()=>{$('#pl-confirm',el).hidden=true};
+  $('#pl-yes',el).onclick=()=>{S.done={};save();$('#pl-confirm',el).hidden=true;draw()};
+  draw();
+}
+
+go(location.hash.slice(1)||S.tab||'idea');
+</script>
+</body>
+</html>
