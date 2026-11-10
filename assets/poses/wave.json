@@ -1,0 +1,29 @@
+{
+ "name": "wave",
+ "type": "cycle",
+ "description": "Waving hello",
+ "duration": 0.8,
+ "stride": 0,
+ "keys": [
+  {
+   "near_arm": [
+    150,
+    175
+   ],
+   "far_arm": [
+    6,
+    4
+   ]
+  },
+  {
+   "near_arm": [
+    145,
+    130
+   ],
+   "far_arm": [
+    6,
+    4
+   ]
+  }
+ ]
+}

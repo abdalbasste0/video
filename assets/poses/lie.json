@@ -1,0 +1,25 @@
+{
+ "name": "lie",
+ "type": "pose",
+ "description": "Lying on the back",
+ "pose": {
+  "torso": -90,
+  "head": -45,
+  "near_arm": [
+   -100,
+   -95
+  ],
+  "far_arm": [
+   -80,
+   -90
+  ],
+  "near_leg": [
+   90,
+   92
+  ],
+  "far_leg": [
+   88,
+   95
+  ]
+ }
+}

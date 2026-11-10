@@ -1,0 +1,17 @@
+{
+ "name": "celebrate",
+ "type": "pose",
+ "description": "Arms up, celebrating",
+ "pose": {
+  "torso": -6,
+  "head": -15,
+  "near_arm": [
+   150,
+   165
+  ],
+  "far_arm": [
+   155,
+   170
+  ]
+ }
+}

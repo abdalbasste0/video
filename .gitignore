@@ -1,0 +1,12 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+output/*
+!output/.gitkeep
+cache/
+data/usage.json
+assets/voices/*.onnx
+assets/voices/*.onnx.json
+.DS_Store

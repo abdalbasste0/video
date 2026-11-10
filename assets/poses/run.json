@@ -1,0 +1,97 @@
+{
+ "name": "run",
+ "type": "cycle",
+ "description": "Fast run cycle (arms pumping)",
+ "duration": 0.56,
+ "stride": "auto",
+ "keys": [
+  {
+   "torso": 16,
+   "head": -8,
+   "near_arm": [
+    -45,
+    10
+   ],
+   "far_arm": [
+    50,
+    110
+   ],
+   "near_leg": [
+    45,
+    15
+   ],
+   "far_leg": [
+    -35,
+    -80
+   ]
+  },
+  {
+   "torso": 18,
+   "head": -8,
+   "near_arm": [
+    0,
+    70
+   ],
+   "far_arm": [
+    0,
+    70
+   ],
+   "near_leg": [
+    -5,
+    -20
+   ],
+   "far_leg": [
+    60,
+    -25
+   ],
+   "hip": [
+    0,
+    -0.03
+   ]
+  },
+  {
+   "torso": 16,
+   "head": -8,
+   "near_arm": [
+    50,
+    110
+   ],
+   "far_arm": [
+    -45,
+    10
+   ],
+   "near_leg": [
+    -35,
+    -80
+   ],
+   "far_leg": [
+    45,
+    15
+   ]
+  },
+  {
+   "torso": 18,
+   "head": -8,
+   "near_arm": [
+    0,
+    70
+   ],
+   "far_arm": [
+    0,
+    70
+   ],
+   "near_leg": [
+    60,
+    -25
+   ],
+   "far_leg": [
+    -5,
+    -20
+   ],
+   "hip": [
+    0,
+    -0.03
+   ]
+  }
+ ]
+}

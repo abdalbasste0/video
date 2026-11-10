@@ -1,0 +1,17 @@
+{
+ "name": "point",
+ "type": "pose",
+ "description": "Pointing forward",
+ "pose": {
+  "torso": 4,
+  "head": -4,
+  "near_arm": [
+   90,
+   90
+  ],
+  "far_arm": [
+   6,
+   4
+  ]
+ }
+}

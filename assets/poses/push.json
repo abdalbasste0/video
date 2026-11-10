@@ -1,0 +1,25 @@
+{
+ "name": "push",
+ "type": "pose",
+ "description": "Pushing something heavy",
+ "pose": {
+  "torso": 30,
+  "head": -15,
+  "near_arm": [
+   80,
+   85
+  ],
+  "far_arm": [
+   85,
+   95
+  ],
+  "near_leg": [
+   30,
+   25
+  ],
+  "far_leg": [
+   -35,
+   -25
+  ]
+ }
+}

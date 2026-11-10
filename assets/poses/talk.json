@@ -1,0 +1,45 @@
+{
+ "name": "talk",
+ "type": "cycle",
+ "description": "Talking with one-hand gestures",
+ "duration": 1.8,
+ "stride": "auto",
+ "keys": [
+  {
+   "torso": 2,
+   "head": -3,
+   "near_arm": [
+    20,
+    70
+   ],
+   "far_arm": [
+    6,
+    4
+   ]
+  },
+  {
+   "torso": 4,
+   "head": 3,
+   "near_arm": [
+    35,
+    95
+   ],
+   "far_arm": [
+    8,
+    6
+   ]
+  },
+  {
+   "torso": 1,
+   "head": -1,
+   "near_arm": [
+    15,
+    55
+   ],
+   "far_arm": [
+    6,
+    4
+   ]
+  }
+ ]
+}

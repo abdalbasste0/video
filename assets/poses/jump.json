@@ -1,0 +1,26 @@
+{
+ "name": "jump",
+ "type": "pose",
+ "description": "Jumping, knees tucked",
+ "pose": {
+  "torso": -5,
+  "head": -10,
+  "near_arm": [
+   150,
+   170
+  ],
+  "far_arm": [
+   140,
+   160
+  ],
+  "near_leg": [
+   90,
+   0
+  ],
+  "far_leg": [
+   70,
+   -20
+  ],
+  "grounded": false
+ }
+}

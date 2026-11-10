@@ -1,0 +1,51 @@
+{
+ "name": "climb",
+ "type": "cycle",
+ "description": "Climbing a wall or ladder",
+ "duration": 1.2,
+ "stride": 0,
+ "keys": [
+  {
+   "torso": 0,
+   "head": -15,
+   "near_arm": [
+    175,
+    175
+   ],
+   "far_arm": [
+    150,
+    120
+   ],
+   "near_leg": [
+    60,
+    -10
+   ],
+   "far_leg": [
+    5,
+    0
+   ],
+   "grounded": false
+  },
+  {
+   "torso": 0,
+   "head": -15,
+   "near_arm": [
+    150,
+    120
+   ],
+   "far_arm": [
+    175,
+    175
+   ],
+   "near_leg": [
+    5,
+    0
+   ],
+   "far_leg": [
+    60,
+    -10
+   ],
+   "grounded": false
+  }
+ ]
+}

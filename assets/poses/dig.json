@@ -1,0 +1,49 @@
+{
+ "name": "dig",
+ "type": "cycle",
+ "description": "Digging / searching the ground",
+ "duration": 1.4,
+ "stride": 0,
+ "keys": [
+  {
+   "torso": 40,
+   "head": 10,
+   "near_arm": [
+    60,
+    40
+   ],
+   "far_arm": [
+    70,
+    50
+   ],
+   "near_leg": [
+    25,
+    -10
+   ],
+   "far_leg": [
+    -15,
+    -25
+   ]
+  },
+  {
+   "torso": 50,
+   "head": 20,
+   "near_arm": [
+    20,
+    10
+   ],
+   "far_arm": [
+    30,
+    15
+   ],
+   "near_leg": [
+    25,
+    -10
+   ],
+   "far_leg": [
+    -15,
+    -25
+   ]
+  }
+ ]
+}

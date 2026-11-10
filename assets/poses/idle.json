@@ -1,0 +1,33 @@
+{
+ "name": "idle",
+ "type": "cycle",
+ "description": "Standing, breathing gently",
+ "duration": 3.2,
+ "stride": "auto",
+ "keys": [
+  {
+   "torso": 0,
+   "head": 0,
+   "near_arm": [
+    -6,
+    -2
+   ],
+   "far_arm": [
+    6,
+    4
+   ]
+  },
+  {
+   "torso": 1.5,
+   "head": 2,
+   "near_arm": [
+    -9,
+    -5
+   ],
+   "far_arm": [
+    9,
+    7
+   ]
+  }
+ ]
+}

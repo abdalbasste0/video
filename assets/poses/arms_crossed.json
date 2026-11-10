@@ -1,0 +1,17 @@
+{
+ "name": "arms_crossed",
+ "type": "pose",
+ "description": "Arms crossed, suspicious",
+ "pose": {
+  "torso": -2,
+  "head": 4,
+  "near_arm": [
+   18,
+   100
+  ],
+  "far_arm": [
+   22,
+   105
+  ]
+ }
+}

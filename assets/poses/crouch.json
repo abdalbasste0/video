@@ -1,0 +1,25 @@
+{
+ "name": "crouch",
+ "type": "pose",
+ "description": "Crouching low",
+ "pose": {
+  "torso": 25,
+  "head": -10,
+  "near_arm": [
+   40,
+   20
+  ],
+  "far_arm": [
+   50,
+   30
+  ],
+  "near_leg": [
+   95,
+   -5
+  ],
+  "far_leg": [
+   70,
+   -30
+  ]
+ }
+}

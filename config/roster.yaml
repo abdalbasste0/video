@@ -1,0 +1,1148 @@
+# ─────────────────────────────────────────────────────────────
+#  The studio: 100 robot employees in 10 departments (10 each).
+#  Each card = one checklist stage run by its department head
+#  (.claude/agents/<department>.md). Outputs go to output/<id>/...
+#  GENERATED once, now hand-editable. `python make.py doctor` validates it.
+# ─────────────────────────────────────────────────────────────
+departments:
+- key: story_room
+  name: Story Room
+  folder: story
+  order: 1
+- key: characters
+  name: Characters
+  folder: characters
+  order: 2
+- key: script
+  name: Script
+  folder: script
+  order: 3
+- key: fact_logic
+  name: Fact & Logic
+  folder: logic
+  order: 4
+- key: storyboard
+  name: Storyboard
+  folder: board
+  order: 5
+- key: art
+  name: Art
+  folder: art
+  order: 6
+- key: animation
+  name: Animation
+  folder: animation
+  order: 7
+- key: sound
+  name: Sound
+  folder: sound
+  order: 8
+- key: qc
+  name: Quality Control
+  folder: qc
+  order: 9
+- key: packaging
+  name: Packaging
+  folder: package
+  order: 10
+roles:
+- id: R001
+  name: Premise Architect
+  department: story_room
+  order: 1
+  mission: Invent one original survival/mystery premise with a clear goal, stakes and setting.
+  input: brief.json + data/history.jsonl
+  output: story/premise.md
+  checklist:
+  - Premise fits in 2 sentences
+  - Setting, goal and stakes are explicit
+  - Not similar to any past episode premise
+- id: R002
+  name: World Builder
+  department: story_room
+  order: 2
+  mission: 'Define the invented place: rules, dangers, resources, map of 4-6 locations.'
+  input: premise.md
+  output: story/world.md
+  checklist:
+  - 4-6 named locations
+  - At least 3 world rules that matter to the plot
+  - All names are invented
+- id: R003
+  name: Mystery Engine
+  department: story_room
+  order: 3
+  mission: 'Design the central mystery: the truth, the false explanation, and how it is uncovered.'
+  input: premise.md, world.md
+  output: story/mystery.md
+  checklist:
+  - One central question stated
+  - The real answer is fixed before writing
+  - A believable false answer exists
+- id: R004
+  name: Clue Planter
+  department: story_room
+  order: 4
+  mission: List 6-10 clues with the scene they appear in and what they point to.
+  input: mystery.md
+  output: story/clues.md
+  checklist:
+  - Every clue is visual or spoken on screen
+  - Each clue appears before its payoff
+  - At least 2 red herrings, fairly resolvable
+- id: R005
+  name: Twist Designer
+  department: story_room
+  order: 5
+  mission: Plan 2-3 twists that recontextualize earlier scenes.
+  input: mystery.md, clues.md
+  output: story/twists.md
+  checklist:
+  - Each twist is set up by an earlier clue
+  - No twist contradicts world rules
+  - Twists are spaced across acts
+- id: R006
+  name: Act Planner
+  department: story_room
+  order: 6
+  mission: Split the story into 5 acts / days with a goal and obstacle per act.
+  input: premise.md, twists.md
+  output: story/acts.md
+  checklist:
+  - Exactly 5 acts
+  - Each act has goal + obstacle + outcome
+  - Stakes rise every act
+- id: R007
+  name: Reveal Scheduler
+  department: story_room
+  order: 7
+  mission: Place a reveal or reversal at least every 90 seconds of runtime.
+  input: acts.md, clues.md
+  output: story/reveal_schedule.md
+  checklist:
+  - Gap between reveals <= 90 s
+  - Biggest reveal lands in act 5
+  - Schedule covers 0-15 min
+- id: R008
+  name: Cold Open Writer
+  department: story_room
+  order: 8
+  mission: 'Write the first 15 seconds: danger or an impossible question.'
+  input: acts.md, twists.md
+  output: story/cold_open.md
+  checklist:
+  - Readable in <= 15 s
+  - Shows danger or impossible question
+  - Does not spoil the final answer
+- id: R009
+  name: Cliffhanger Writer
+  department: story_room
+  order: 9
+  mission: Design the final cliffhanger that leaves one big question open.
+  input: acts.md, mystery.md
+  output: story/cliffhanger.md
+  checklist:
+  - Main mystery of THIS episode is resolved
+  - A new bigger question is opened
+  - Ends on an image, not an explanation
+- id: R010
+  name: Part-2 Hook Writer
+  department: story_room
+  order: 10
+  mission: Write the Part 2 teaser and the comment question.
+  input: cliffhanger.md
+  output: story/part2_hook.md
+  checklist:
+  - Teaser <= 20 words
+  - Comment question is open-ended
+  - No promise the next episode cannot keep
+- id: R011
+  name: Hero Designer
+  department: characters
+  order: 1
+  mission: 'Create the protagonist: want, fear, skill, flaw.'
+  input: premise.md, acts.md
+  output: characters/hero.md
+  checklist:
+  - Has a clear want and a fear
+  - Skill is used to solve the mystery
+  - Flaw causes at least one setback
+- id: R012
+  name: Ally Designer
+  department: characters
+  order: 2
+  mission: Create 1-2 allies with distinct personalities and roles.
+  input: hero.md
+  output: characters/allies.md
+  checklist:
+  - Allies differ in personality from hero
+  - Each ally affects the plot
+  - Max 2 allies
+- id: R013
+  name: Antagonist Designer
+  department: characters
+  order: 3
+  mission: Create the opposing force (person, group or nature) with a logical motive.
+  input: mystery.md
+  output: characters/antagonist.md
+  checklist:
+  - Motive is logical
+  - Has presence in at least 3 acts
+  - Not a copy of a famous villain
+- id: R014
+  name: Secrets Keeper
+  department: characters
+  order: 4
+  mission: Give each main character one secret, and decide when it is revealed.
+  input: hero.md, allies.md, antagonist.md
+  output: characters/secrets.md
+  checklist:
+  - Every main character has a secret
+  - Reveal times match reveal_schedule
+  - Secrets connect to the mystery
+- id: R015
+  name: Relationship Mapper
+  department: characters
+  order: 5
+  mission: Map trust/conflict between characters and how it changes by act.
+  input: all character files
+  output: characters/relationships.md
+  checklist:
+  - Every pair has a relation
+  - At least one relation flips
+  - Changes tied to acts
+- id: R016
+  name: Voice Coach
+  department: characters
+  order: 6
+  mission: 'Write voice notes: speech style, catchphrase-free speech habits, TTS role.'
+  input: character files
+  output: characters/voice_notes.md
+  checklist:
+  - Each speaker mapped to a TTS role
+  - Speech styles are distinct
+  - Written natively in episode language
+- id: R017
+  name: Color Stylist
+  department: characters
+  order: 7
+  mission: Assign one color per stickman from config/characters.yaml.
+  input: characters.yaml, character files
+  output: characters/colors.json
+  checklist:
+  - No two main characters share a color
+  - Colors contrast with planned backgrounds
+  - Extras use extras_color
+- id: R018
+  name: Accessory Stylist
+  department: characters
+  order: 8
+  mission: Assign exactly one accessory per main stickman.
+  input: characters.yaml, colors.json
+  output: characters/accessories.json
+  checklist:
+  - One accessory each
+  - No two share an accessory
+  - Accessory fits the character
+- id: R019
+  name: Name Smith
+  department: characters
+  order: 9
+  mission: Invent names that are easy to say in the episode language.
+  input: character files
+  output: characters/names.json
+  checklist:
+  - Names are invented, not famous
+  - Pronounceable by TTS
+  - No two names start with same sound
+- id: R020
+  name: Cast Sheet Compiler
+  department: characters
+  order: 10
+  mission: Merge everything into the machine-readable cast file.
+  input: all of the above
+  output: characters/characters.json
+  checklist:
+  - Valid JSON matching schema
+  - Every character has name/color/accessory/voice
+  - Max 4 main characters
+- id: R021
+  name: Word Budgeter
+  department: script
+  order: 1
+  mission: Compute target word count from language WPM so narration lands at 15:00.
+  input: languages.yaml, acts.md
+  output: script/word_budget.json
+  checklist:
+  - Target = WPM x 15 +/- 7%
+  - Budget split per act
+  - Includes cold open and outro
+- id: R022
+  name: Cold Open Scripter
+  department: script
+  order: 2
+  mission: Write the final cold open narration and lines.
+  input: cold_open.md
+  output: script/00_cold_open.md
+  checklist:
+  - <= 15 s at language WPM
+  - First sentence is a hook
+  - Leads into title card
+- id: R023
+  name: Act Scripter
+  department: script
+  order: 3
+  mission: Write narration and dialogue for acts 1-5 natively in the episode language.
+  input: acts.md, characters.json
+  output: script/act_*.md
+  checklist:
+  - Native language, not translated
+  - Matches word budget per act
+  - Every scene has a purpose
+- id: R024
+  name: Dialogue Writer
+  department: script
+  order: 4
+  mission: Polish dialogue so each character sounds distinct.
+  input: voice_notes.md, script
+  output: script/dialogue_pass.md
+  checklist:
+  - Speakers distinguishable without names
+  - No line > 25 words
+  - Dialogue moves plot or reveals character
+- id: R025
+  name: Pacing Beat Marker
+  department: script
+  order: 5
+  mission: Tag beats with timestamps; flag any stretch with no change.
+  input: script
+  output: script/beats.json
+  checklist:
+  - Beat every <= 8 s
+  - Reveal every <= 90 s
+  - Timestamps sum to 14-16 min
+- id: R026
+  name: Hook Writer
+  department: script
+  order: 6
+  mission: Insert a retention hook every 60-90 s.
+  input: beats.json
+  output: script/hooks.json
+  checklist:
+  - Hook gap 60-90 s
+  - Hooks are questions or threats
+  - No fake-out hook left unpaid
+- id: R027
+  name: Clue Placer
+  department: script
+  order: 7
+  mission: Mark where each clue is SHOWN on screen in the script.
+  input: clues.md, script
+  output: script/clue_marks.json
+  checklist:
+  - Every clue has an on-screen moment
+  - Clue shown before its answer
+  - Clue marks reference scene ids
+- id: R028
+  name: Comment Question Writer
+  department: script
+  order: 8
+  mission: Write the end-of-video question for the comments.
+  input: part2_hook.md
+  output: script/comment_question.md
+  checklist:
+  - One question
+  - Answerable in one line
+  - Natural in episode language
+- id: R029
+  name: Line Splitter
+  department: script
+  order: 9
+  mission: Split the script into numbered lines with speaker + emotion.
+  input: full script
+  output: script/lines.json
+  checklist:
+  - Every line has speaker, emotion, text
+  - Narrator lines <= 30 words
+  - Valid JSON
+- id: R030
+  name: Script Assembler
+  department: script
+  order: 10
+  mission: Assemble the final readable script and stats.
+  input: all script parts
+  output: script/script.md
+  checklist:
+  - Word count within budget
+  - All 5 acts present
+  - Ends with cliffhanger + question + teaser
+- id: R031
+  name: Plot Hole Hunter
+  department: fact_logic
+  order: 1
+  mission: Find events that could not happen given the world rules.
+  input: script.md, world.md
+  output: logic/plot_holes.md
+  checklist:
+  - Zero unresolved plot holes
+  - Each fix noted with line id
+  - World rules respected
+- id: R032
+  name: Clue Fairness Judge
+  department: fact_logic
+  order: 2
+  mission: Verify a viewer could solve the mystery from shown clues.
+  input: clue_marks.json, mystery.md
+  output: logic/clue_fairness.md
+  checklist:
+  - All clues needed for answer are shown
+  - No clue introduced after its reveal
+  - Red herrings are resolvable
+- id: R033
+  name: Continuity Checker
+  department: fact_logic
+  order: 3
+  mission: Track objects, injuries, clothes, light, weather scene to scene.
+  input: script.md, lines.json
+  output: logic/continuity.md
+  checklist:
+  - Props persist correctly
+  - Time of day consistent
+  - Accessories never change
+- id: R034
+  name: Timeline Keeper
+  department: fact_logic
+  order: 4
+  mission: Build the in-story timeline (Day 1... Day 5) and check it.
+  input: script.md
+  output: logic/timeline.md
+  checklist:
+  - Events in possible order
+  - Day labels match acts
+  - Travel times plausible
+- id: R035
+  name: Character Logic Checker
+  department: fact_logic
+  order: 5
+  mission: Check that choices match each character's want and fear.
+  input: characters.json, script.md
+  output: logic/character_logic.md
+  checklist:
+  - No out-of-character choice without reason
+  - Hero solves via own skill
+  - Antagonist motive consistent
+- id: R036
+  name: Survival Realism Checker
+  department: fact_logic
+  order: 6
+  mission: Check survival details are plausible and not dangerous advice.
+  input: script.md
+  output: logic/realism.md
+  checklist:
+  - No harmful how-to instructions
+  - Physics broadly plausible
+  - Fiction flagged where exaggerated
+- id: R037
+  name: Reveal Consistency Checker
+  department: fact_logic
+  order: 7
+  mission: Check each twist is consistent with what was shown before.
+  input: twists.md, script.md
+  output: logic/reveal_consistency.md
+  checklist:
+  - Twists don't contradict earlier scenes
+  - Setups exist for each payoff
+  - Final answer matches mystery.md
+- id: R038
+  name: Originality Screener
+  department: fact_logic
+  order: 8
+  mission: Compare premise/plot against data/history.jsonl.
+  input: script.md, history.jsonl
+  output: logic/originality.md
+  checklist:
+  - Similarity < 0.6 to all past episodes
+  - No names from known media
+  - No copied lines
+- id: R039
+  name: Sensitivity Reviewer
+  department: fact_logic
+  order: 9
+  mission: Check content is suitable for a general YouTube audience.
+  input: script.md
+  output: logic/sensitivity.md
+  checklist:
+  - No graphic gore
+  - No real people/brands
+  - No hateful stereotypes
+- id: R040
+  name: Logic Sign-off
+  department: fact_logic
+  order: 10
+  mission: Summarize all logic checks and produce review.md for the human.
+  input: all logic reports
+  output: logic/review.md
+  checklist:
+  - All checks pass or are explained
+  - review.md lists what to read
+  - Status set to needs_review
+- id: R041
+  name: Scene Splitter
+  department: storyboard
+  order: 1
+  mission: Divide lines into scenes with location and time of day.
+  input: lines.json, world.md
+  output: board/scenes.json
+  checklist:
+  - Every line belongs to a scene
+  - Each scene has location + time
+  - Scene order matches script
+- id: R042
+  name: Shot Lister
+  department: storyboard
+  order: 2
+  mission: Break scenes into 150-220 shots of 3-8 s.
+  input: scenes.json, lines.json
+  output: board/shots.json
+  checklist:
+  - 150-220 shots
+  - Every shot 3-8 s
+  - Shots cover all audio
+- id: R043
+  name: Camera Planner
+  department: storyboard
+  order: 3
+  mission: Choose framing and camera move per shot (pan, zoom, shake, static).
+  input: shots.json
+  output: board/camera.json
+  checklist:
+  - No static frame > 8 s
+  - Moves motivated by story
+  - Shake only for impact
+- id: R044
+  name: Blocking Planner
+  department: storyboard
+  order: 4
+  mission: 'Place characters: start/end x, facing, walking paths.'
+  input: shots.json, characters.json
+  output: board/blocking.json
+  checklist:
+  - Characters stay in frame or exit on purpose
+  - Facing consistent across cuts
+  - Paths don't overlap badly
+- id: R045
+  name: Pose Picker
+  department: storyboard
+  order: 5
+  mission: Pick a pose from assets/poses for each action.
+  input: blocking.json, poses
+  output: board/poses.json
+  checklist:
+  - Only poses that exist
+  - Pose matches action verb
+  - 'Variety: no pose > 30% of shots'
+- id: R046
+  name: Expression Picker
+  department: storyboard
+  order: 6
+  mission: Pick one of 6 emotions per character per shot.
+  input: lines.json emotions
+  output: board/expressions.json
+  checklist:
+  - Emotion matches line
+  - Uses the 6 supported emotions
+  - Changes at story beats
+- id: R047
+  name: Prop Planner
+  department: storyboard
+  order: 7
+  mission: List props per shot (flashlight, key, map...).
+  input: script.md, continuity.md
+  output: board/props.json
+  checklist:
+  - Every clue prop listed
+  - Props consistent with continuity
+  - Only drawable props
+- id: R048
+  name: Clue Shot Designer
+  department: storyboard
+  order: 8
+  mission: Design close-ups that clearly show each clue.
+  input: clue_marks.json
+  output: board/clue_shots.json
+  checklist:
+  - Every clue has a close-up >= 3 s
+  - Clue readable on phone screen
+  - Shown before the answer
+- id: R049
+  name: Transition Planner
+  department: storyboard
+  order: 9
+  mission: Choose cuts, fades and title cards between scenes and acts.
+  input: scenes.json
+  output: board/transitions.json
+  checklist:
+  - Title card after cold open
+  - Act cards for Day 1-5
+  - No transition > 1 s
+- id: R050
+  name: Storyboard Compiler
+  department: storyboard
+  order: 10
+  mission: Merge all into the render-ready storyboard.
+  input: all above
+  output: board/storyboard.json
+  checklist:
+  - Valid against studio/shots.py schema
+  - Total duration 14-16 min
+  - Every shot renderable
+- id: R051
+  name: Location Painter
+  department: art
+  order: 1
+  mission: Map each location to a background preset and its 3 parallax layers.
+  input: world.md, scenes.json
+  output: art/locations.json
+  checklist:
+  - Every location has a preset
+  - 3 layers (far, mid, near)
+  - Distinct look per location
+- id: R052
+  name: Palette Designer
+  department: art
+  order: 2
+  mission: Choose a color palette per location and act mood.
+  input: locations.json
+  output: art/palettes.json
+  checklist:
+  - Palette contrasts with character colors
+  - Mood shifts by act
+  - Max 6 colors per palette
+- id: R053
+  name: Lighting Designer
+  department: art
+  order: 3
+  mission: 'Assign lighting per shot: day, dusk, night, darkness, flashlight, alarm red.'
+  input: shots.json
+  output: art/lighting.json
+  checklist:
+  - Characters always readable
+  - Dark scenes use flashlight/rim light
+  - Alarm red used for danger only
+- id: R054
+  name: Weather Artist
+  department: art
+  order: 4
+  mission: Add rain, fog, snow, dust where the story needs it.
+  input: scenes.json
+  output: art/weather.json
+  checklist:
+  - Weather consistent with timeline
+  - Does not hide clues
+  - Max 2 effects at once
+- id: R055
+  name: Prop Artist
+  department: art
+  order: 5
+  mission: Map props to drawable prop shapes.
+  input: props.json
+  output: art/prop_art.json
+  checklist:
+  - Every prop drawable by code
+  - Clue props are high contrast
+  - Sizes consistent
+- id: R056
+  name: Title Card Designer
+  department: art
+  order: 6
+  mission: Design the episode title card and Day/Chapter cards.
+  input: acts.md, languages.yaml
+  output: art/title_cards.json
+  checklist:
+  - Correct font for language
+  - RTL alignment for Arabic
+  - Readable at 360p
+- id: R057
+  name: Text Overlay Designer
+  department: art
+  order: 7
+  mission: Design on-screen text (notes, signs, timers) per language.
+  input: clue_shots.json
+  output: art/overlays.json
+  checklist:
+  - Arabic shaped + bidi
+  - Fits safe area
+  - No more than 8 words on screen
+- id: R058
+  name: Image Provider Gatekeeper
+  department: art
+  order: 8
+  mission: If images.provider=gemini, choose which backgrounds to generate, within the cap.
+  input: settings.yaml, locations.json
+  output: art/image_requests.json
+  checklist:
+  - Count <= max_images_per_episode
+  - Prompts describe original scenes
+  - Falls back to code art if off
+- id: R059
+  name: Background Renderer
+  department: art
+  order: 9
+  mission: Pre-render and cache all background layers.
+  input: locations.json, palettes.json
+  output: cache/backgrounds/
+  checklist:
+  - Every location cached
+  - Resolution >= 1.5x frame
+  - No missing layers
+- id: R060
+  name: Art Sign-off
+  department: art
+  order: 10
+  mission: Render a contact sheet of one frame per location and check it.
+  input: all art
+  output: art/art_contact_sheet.png
+  checklist:
+  - Every location shown
+  - Characters readable on each
+  - No text rendering errors
+- id: R061
+  name: Rig Validator
+  department: animation
+  order: 1
+  mission: Validate the stickman rig and every character's look.
+  input: characters.json
+  output: animation/rig_check.md
+  checklist:
+  - All joints present
+  - Accessory renders
+  - Colors match cast sheet
+- id: R062
+  name: Pose Validator
+  department: animation
+  order: 2
+  mission: Check every pose used exists and loads.
+  input: poses.json, assets/poses
+  output: animation/pose_check.md
+  checklist:
+  - All poses found
+  - At least 25 poses in library
+  - No broken angles
+- id: R063
+  name: Motion Tweener
+  department: animation
+  order: 3
+  mission: Interpolate poses with easing; animate on twos.
+  input: poses.json, blocking.json
+  output: animation/motion.json
+  checklist:
+  - Ease in/out on every transition
+  - 24 fps output, poses on twos
+  - No popping between poses
+- id: R064
+  name: Walk Cycle Matcher
+  department: animation
+  order: 4
+  mission: Match walk/run speed to stride so feet don't slide.
+  input: blocking.json
+  output: animation/walk_check.md
+  checklist:
+  - Foot slide < 5 px
+  - Cycle speed matches distance
+  - Start/stop eased
+- id: R065
+  name: Lip Flap Animator
+  department: animation
+  order: 5
+  mission: Drive mouth shapes from voice amplitude.
+  input: voice wavs, lines.json
+  output: animation/lipflap.json
+  checklist:
+  - Mouth closed in silence
+  - Only speaking character moves mouth
+  - Sync offset < 2 frames
+- id: R066
+  name: Face Animator
+  department: animation
+  order: 6
+  mission: Animate brows/eyes for emotions and blinks.
+  input: expressions.json
+  output: animation/faces.json
+  checklist:
+  - 6 emotions supported
+  - Blink every 2-6 s
+  - Emotion change eased
+- id: R067
+  name: Camera Operator
+  department: animation
+  order: 7
+  mission: Apply pan, zoom and shake curves.
+  input: camera.json
+  output: animation/camera_curves.json
+  checklist:
+  - Smooth curves, no jumps
+  - Shake decays
+  - Zoom within 1.0-1.6
+- id: R068
+  name: Effects Animator
+  department: animation
+  order: 8
+  mission: Animate flashlight cones, darkness, alarms, rain, dust.
+  input: lighting.json, weather.json
+  output: animation/fx.json
+  checklist:
+  - Flashlight follows hand
+  - Alarm pulse ~1 Hz
+  - Effects don't hide faces
+- id: R069
+  name: Shot Renderer
+  department: animation
+  order: 9
+  mission: Render every shot in parallel and cache results.
+  input: storyboard.json + all above
+  output: shots/*.mp4
+  checklist:
+  - Every shot rendered
+  - Cache hits reused
+  - Each shot length matches plan
+- id: R070
+  name: Animation Sign-off
+  department: animation
+  order: 10
+  mission: Assemble video track and check total length and black frames.
+  input: shots/*.mp4
+  output: animation/video_only.mp4
+  checklist:
+  - No black/blank frames
+  - Length matches audio +/- 0.1 s
+  - No corrupted shots
+- id: R071
+  name: Narrator Voice
+  department: sound
+  order: 1
+  mission: Generate narrator lines with the language's TTS chain.
+  input: lines.json, languages.yaml
+  output: audio/voice/narrator_*.wav
+  checklist:
+  - All narrator lines generated
+  - Budget check passed before ElevenLabs
+  - Cached by text hash
+- id: R072
+  name: Character Voices
+  department: sound
+  order: 2
+  mission: Generate distinct voices for 2-3 main characters.
+  input: lines.json, characters.json
+  output: audio/voice/char_*.wav
+  checklist:
+  - Each main character distinct voice
+  - Fallback logged if provider lacks voices
+  - No missing lines
+- id: R073
+  name: Voice Editor
+  department: sound
+  order: 3
+  mission: Trim silence, set gaps, measure each line's duration.
+  input: voice wavs
+  output: audio/voice_timeline.json
+  checklist:
+  - Leading/trailing silence trimmed
+  - Gaps 0.2-0.6 s
+  - Durations recorded
+- id: R074
+  name: Music Supervisor
+  department: sound
+  order: 4
+  mission: Pick music beds from assets/music that have .license.txt.
+  input: acts.md, assets/music
+  output: sound/music_plan.json
+  checklist:
+  - Every file has .license.txt
+  - Mood matches act
+  - No music under cold-open first line if it masks voice
+- id: R075
+  name: SFX Designer
+  department: sound
+  order: 5
+  mission: Place SFX cues from assets/sfx at story moments.
+  input: storyboard.json, assets/sfx
+  output: sound/sfx_cues.json
+  checklist:
+  - Every SFX licensed
+  - Cues aligned to shots
+  - Not more than 3 at once
+- id: R076
+  name: Ducking Engineer
+  department: sound
+  order: 6
+  mission: Lower music under voice automatically.
+  input: voice_timeline.json, music_plan.json
+  output: audio/ducking.json
+  checklist:
+  - Music ducks under every line
+  - Smooth 150 ms ramps
+  - No pumping
+- id: R077
+  name: Mixer
+  department: sound
+  order: 7
+  mission: Mix voice, music and SFX into one stereo track.
+  input: all audio
+  output: audio/mix.wav
+  checklist:
+  - No clipping
+  - Voice clearly on top
+  - Stereo 48 kHz
+- id: R078
+  name: Loudness Engineer
+  department: sound
+  order: 8
+  mission: Normalize to -14 LUFS, true peak <= -1 dB.
+  input: audio/mix.wav
+  output: audio/final.wav
+  checklist:
+  - Integrated -14 +/- 1 LUFS
+  - True peak <= -1 dBTP
+  - Duration unchanged
+- id: R079
+  name: Caption Maker
+  department: sound
+  order: 9
+  mission: Create .srt from faster-whisper word timestamps (not burned in).
+  input: audio/final.wav, lines.json
+  output: sound/captions.srt
+  checklist:
+  - Every line captioned
+  - Lines <= language max chars
+  - Timing within 0.3 s
+- id: R080
+  name: Sound Sign-off
+  department: sound
+  order: 10
+  mission: Check license files, loudness report and sync map.
+  input: all audio
+  output: sound/sound_report.md
+  checklist:
+  - All licenses present
+  - Loudness in range
+  - Voice timeline matches storyboard
+- id: R081
+  name: Originality Inspector
+  department: qc
+  order: 1
+  mission: Score originality vs history (similarity < 0.6).
+  input: script.md, history.jsonl
+  output: qc/originality.json
+  checklist:
+  - Similarity < 0.6
+  - Score >= 8
+  - Names unique vs history
+- id: R082
+  name: Repetition Inspector
+  department: qc
+  order: 2
+  mission: Detect repeated phrases, shots and poses.
+  input: script.md, storyboard.json
+  output: qc/repetition.json
+  checklist:
+  - No sentence repeated
+  - No identical consecutive shots
+  - Score >= 8
+- id: R083
+  name: Story Clarity Inspector
+  department: qc
+  order: 3
+  mission: Score story clarity 1-10.
+  input: script.md
+  output: qc/clarity.json
+  checklist:
+  - Viewer can state goal by 2 min
+  - Ending understandable
+  - Score >= 8
+- id: R084
+  name: Mystery Fairness Inspector
+  department: qc
+  order: 4
+  mission: Score fairness of clues 1-10.
+  input: clue_fairness.md, storyboard.json
+  output: qc/fairness.json
+  checklist:
+  - All clues on screen before answer
+  - Score >= 8
+  - Red herrings resolved
+- id: R085
+  name: Pacing Inspector
+  department: qc
+  order: 5
+  mission: Score pacing; fail any static screen > 8 s.
+  input: storyboard.json, final.mp4
+  output: qc/pacing.json
+  checklist:
+  - No static > 8 s
+  - Reveal every <= 90 s
+  - Score >= 8
+- id: R086
+  name: Animation Inspector
+  department: qc
+  order: 6
+  mission: Score smoothness and character distinguishability.
+  input: final.mp4, characters.json
+  output: qc/animation.json
+  checklist:
+  - No popping
+  - Characters distinguishable
+  - Scores >= 8
+- id: R087
+  name: Audio Inspector
+  department: qc
+  order: 7
+  mission: Score audio clarity and loudness.
+  input: audio/final.wav
+  output: qc/audio.json
+  checklist:
+  - -14 LUFS +/- 1
+  - Voice intelligible
+  - Score >= 8
+- id: R088
+  name: Sync Inspector
+  department: qc
+  order: 8
+  mission: Score lip/voice/caption sync.
+  input: final.mp4, captions.srt
+  output: qc/sync.json
+  checklist:
+  - Offset < 2 frames
+  - Captions aligned
+  - Score >= 8
+- id: R089
+  name: Readability & Policy Inspector
+  department: qc
+  order: 9
+  mission: Check on-screen text readability and YouTube policy fit.
+  input: final.mp4, script.md
+  output: qc/policy.json
+  checklist:
+  - Text readable at 360p
+  - No policy risks
+  - Disclosure note planned
+- id: R090
+  name: Chief Inspector
+  department: qc
+  order: 10
+  mission: Combine scores; send work back (max 2 loops) or pass; flag for human.
+  input: all qc files
+  output: qc/scorecard.md
+  checklist:
+  - All scores >= 8 or flagged
+  - Loop count <= 2
+  - Clear rework instructions
+- id: R091
+  name: Title Writer
+  department: packaging
+  order: 1
+  mission: Write 5 title options natively in the episode language; pick best.
+  input: script.md
+  output: package/titles.md
+  checklist:
+  - <= 70 characters
+  - No clickbait lies
+  - Native language
+- id: R092
+  name: Description Writer
+  department: packaging
+  order: 2
+  mission: Write the YouTube description with summary and credits.
+  input: script.md, licenses
+  output: package/description.md
+  checklist:
+  - Summary without spoilers
+  - All music/SFX credits listed
+  - Native language
+- id: R093
+  name: Chapter Maker
+  department: packaging
+  order: 3
+  mission: Create chapter timestamps from acts/days.
+  input: storyboard.json
+  output: package/chapters.txt
+  checklist:
+  - Starts at 00:00
+  - At least 3 chapters, each >= 10 s
+  - Matches final video
+- id: R094
+  name: Tag Researcher
+  department: packaging
+  order: 4
+  mission: Suggest tags and hashtags (no competitor names).
+  input: script.md
+  output: package/tags.txt
+  checklist:
+  - <= 500 characters
+  - No other channels' names
+  - Relevant to story
+- id: R095
+  name: Thumbnail Concept Artist
+  department: packaging
+  order: 5
+  mission: 'Design thumbnail concept: one character, one danger, max 4 words.'
+  input: script.md, characters.json
+  output: package/thumbnail_concept.md
+  checklist:
+  - Max 4 words
+  - High contrast
+  - Matches video content
+- id: R096
+  name: Thumbnail Renderer
+  department: packaging
+  order: 6
+  mission: Render a 1280x720 thumbnail with the rig.
+  input: thumbnail_concept.md
+  output: package/thumbnail.png
+  checklist:
+  - 1280x720
+  - Text shaped correctly (RTL ok)
+  - < 2 MB
+- id: R097
+  name: Disclosure Writer
+  department: packaging
+  order: 7
+  mission: Write the AI/synthetic-content disclosure note.
+  input: settings, tts used
+  output: package/disclosure.md
+  checklist:
+  - Mentions AI voice if used
+  - Mentions animated fiction
+  - Native language
+- id: R098
+  name: Pinned Comment Writer
+  department: packaging
+  order: 8
+  mission: Write the pinned comment with the comment question.
+  input: comment_question.md
+  output: package/pinned_comment.md
+  checklist:
+  - Includes the question
+  - Teases Part 2
+  - Native language
+- id: R099
+  name: Metadata Validator
+  department: packaging
+  order: 9
+  mission: Validate every package file exists and fits YouTube limits.
+  input: package/*
+  output: package/validation.md
+  checklist:
+  - Title <= 100 chars
+  - Description <= 5000 chars
+  - All files present
+- id: R100
+  name: Packaging Sign-off
+  department: packaging
+  order: 10
+  mission: Bundle everything; set status ready_for_final_review. Never uploads.
+  input: all package files
+  output: package/README.md
+  checklist:
+  - final.mp4 + srt + thumbnail present
+  - Status updated
+  - No upload performed

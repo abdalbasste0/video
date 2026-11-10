@@ -1,0 +1,25 @@
+{
+ "name": "cower",
+ "type": "pose",
+ "description": "Cowering, shielding face",
+ "pose": {
+  "torso": 20,
+  "head": 10,
+  "near_arm": [
+   70,
+   150
+  ],
+  "far_arm": [
+   80,
+   160
+  ],
+  "near_leg": [
+   60,
+   -10
+  ],
+  "far_leg": [
+   40,
+   -30
+  ]
+ }
+}

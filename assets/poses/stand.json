@@ -1,0 +1,9 @@
+{
+ "name": "stand",
+ "type": "pose",
+ "description": "Neutral standing",
+ "pose": {
+  "torso": 0,
+  "head": 0
+ }
+}

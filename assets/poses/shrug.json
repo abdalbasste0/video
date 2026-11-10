@@ -1,0 +1,17 @@
+{
+ "name": "shrug",
+ "type": "pose",
+ "description": "Shrugging",
+ "pose": {
+  "torso": 0,
+  "head": 10,
+  "near_arm": [
+   35,
+   130
+  ],
+  "far_arm": [
+   40,
+   135
+  ]
+ }
+}

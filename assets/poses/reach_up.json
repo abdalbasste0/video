@@ -1,0 +1,25 @@
+{
+ "name": "reach_up",
+ "type": "pose",
+ "description": "Reaching up for something",
+ "pose": {
+  "torso": -3,
+  "head": -30,
+  "near_arm": [
+   175,
+   178
+  ],
+  "far_arm": [
+   8,
+   4
+  ],
+  "near_leg": [
+   2,
+   0
+  ],
+  "far_leg": [
+   -8,
+   -20
+  ]
+ }
+}

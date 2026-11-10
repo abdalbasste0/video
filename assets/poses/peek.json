@@ -1,0 +1,25 @@
+{
+ "name": "peek",
+ "type": "pose",
+ "description": "Peeking around a corner",
+ "pose": {
+  "torso": 28,
+  "head": 12,
+  "near_arm": [
+   60,
+   100
+  ],
+  "far_arm": [
+   40,
+   20
+  ],
+  "near_leg": [
+   25,
+   10
+  ],
+  "far_leg": [
+   -20,
+   -10
+  ]
+ }
+}

@@ -1,0 +1,17 @@
+{
+ "name": "point_up",
+ "type": "pose",
+ "description": "Pointing up",
+ "pose": {
+  "torso": -4,
+  "head": -25,
+  "near_arm": [
+   160,
+   175
+  ],
+  "far_arm": [
+   6,
+   4
+  ]
+ }
+}

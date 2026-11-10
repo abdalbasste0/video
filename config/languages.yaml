@@ -1,0 +1,79 @@
+# ─────────────────────────────────────────────────────────────
+#  Languages — add a new one by copying a block and editing it.
+#  The story is WRITTEN natively in this language (never translated).
+#
+#  tts.chain : providers tried in order until one works.
+#     elevenlabs  - paid, best Arabic. Needs ELEVENLABS_API_KEY in .env
+#     kokoro      - free, local, great English/French/Spanish
+#     piper       - free, offline. Needs the voice .onnx file in assets/voices/
+#     espeak      - free, robotic, always-available last resort (testing only)
+#  voices: one entry per speaking role. Each provider has its own voice id.
+# ─────────────────────────────────────────────────────────────
+
+ar:
+  name: "العربية"
+  english_name: Arabic
+  direction: rtl
+  font: assets/fonts/NotoSansArabic-Bold.ttf
+  font_body: assets/fonts/NotoSansArabic-Regular.ttf
+  words_per_minute: 115
+  writing_notes: "Modern Standard Arabic (فصحى مبسطة), short vivid sentences, suspenseful storyteller tone."
+  caption_style: {max_chars_per_line: 38, max_lines: 2, align: right}
+  tts:
+    chain: [elevenlabs, piper, espeak]
+    voices:
+      narrator:   {elevenlabs: pNInz6obpgDQGcFmaJgB, piper: ar_JO-kareem-medium, espeak: "mb-ar2:p=45:s=145"}
+      hero:       {elevenlabs: ErXwobaYiN019PkySvjV, piper: ar_JO-kareem-low,    espeak: "mb-ar1:p=62:s=150"}
+      ally:       {elevenlabs: 21m00Tcm4TlvDq8ikWAM, piper: ar_JO-kareem-medium, espeak: "mb-ar2:p=78:s=155"}
+      antagonist: {elevenlabs: VR6AewLTigWG4xSOukaG, piper: ar_JO-kareem-low,    espeak: "mb-ar1:p=30:s=130"}
+
+en:
+  name: English
+  english_name: English
+  direction: ltr
+  font: assets/fonts/Fredoka-Bold.ttf
+  font_body: assets/fonts/Fredoka-Medium.ttf
+  words_per_minute: 150
+  writing_notes: "Plain conversational English, short punchy sentences, second-person hooks."
+  caption_style: {max_chars_per_line: 42, max_lines: 2, align: center}
+  tts:
+    chain: [kokoro, piper, espeak]
+    voices:
+      narrator:   {kokoro: "a:am_michael", piper: en_US-ryan-high,       espeak: "mb-us2:p=42:s=150"}
+      hero:       {kokoro: "a:am_puck",    piper: en_US-lessac-medium,   espeak: "mb-us3:p=58:s=160"}
+      ally:       {kokoro: "a:af_heart",   piper: en_US-amy-medium,      espeak: "mb-us2:p=80:s=165"}
+      antagonist: {kokoro: "b:bm_george",  piper: en_GB-alan-medium,     espeak: "mb-us3:p=28:s=135"}
+
+fr:
+  name: Français
+  english_name: French
+  direction: ltr
+  font: assets/fonts/Fredoka-Bold.ttf
+  font_body: assets/fonts/Fredoka-Medium.ttf
+  words_per_minute: 155
+  writing_notes: "Français courant, phrases courtes, ton de conteur à suspense."
+  caption_style: {max_chars_per_line: 42, max_lines: 2, align: center}
+  tts:
+    chain: [kokoro, piper, espeak]
+    voices:
+      narrator:   {kokoro: "f:ff_siwis", piper: fr_FR-tom-medium,   espeak: "fr:p=42:s=150"}
+      hero:       {kokoro: "f:ff_siwis", piper: fr_FR-gilles-low,   espeak: "fr:p=60:s=160"}
+      ally:       {kokoro: "f:ff_siwis", piper: fr_FR-siwis-medium, espeak: "fr+f3:p=70:s=160"}
+      antagonist: {kokoro: "f:ff_siwis", piper: fr_FR-tom-medium,   espeak: "fr:p=25:s=135"}
+
+es:
+  name: Español
+  english_name: Spanish
+  direction: ltr
+  font: assets/fonts/Fredoka-Bold.ttf
+  font_body: assets/fonts/Fredoka-Medium.ttf
+  words_per_minute: 160
+  writing_notes: "Español neutro, frases cortas, tono de narrador de misterio."
+  caption_style: {max_chars_per_line: 42, max_lines: 2, align: center}
+  tts:
+    chain: [kokoro, piper, espeak]
+    voices:
+      narrator:   {kokoro: "e:em_alex",  piper: es_ES-davefx-medium, espeak: "es:p=42:s=150"}
+      hero:       {kokoro: "e:em_santa", piper: es_MX-ald-medium,    espeak: "es:p=60:s=160"}
+      ally:       {kokoro: "e:ef_dora",  piper: es_ES-sharvard-medium, espeak: "es+f3:p=72:s=160"}
+      antagonist: {kokoro: "e:em_alex",  piper: es_ES-davefx-medium, espeak: "es:p=25:s=135"}

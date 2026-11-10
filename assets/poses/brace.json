@@ -1,0 +1,25 @@
+{
+ "name": "brace",
+ "type": "pose",
+ "description": "Bracing for impact",
+ "pose": {
+  "torso": -10,
+  "head": -5,
+  "near_arm": [
+   100,
+   140
+  ],
+  "far_arm": [
+   110,
+   150
+  ],
+  "near_leg": [
+   30,
+   10
+  ],
+  "far_leg": [
+   -25,
+   -10
+  ]
+ }
+}

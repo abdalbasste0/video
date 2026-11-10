@@ -1,0 +1,65 @@
+# ─────────────────────────────────────────────────────────────
+#  Stickman Mystery Studio — main settings
+#  Edit values here; no code changes needed.
+# ─────────────────────────────────────────────────────────────
+
+video:
+  width: 1920
+  height: 1080
+  fps: 24
+  animate_on_twos: true        # characters update every 2nd frame (classic cartoon feel)
+  crf: 18                      # x264 quality (lower = better, bigger file). 18 ≈ visually lossless
+  preset: medium               # x264 speed preset
+  supersample: 2               # characters are drawn 2x then shrunk = smooth edges
+
+episode:
+  min_minutes: 14.0
+  target_minutes: 15.0
+  max_minutes: 16.0
+  cold_open_seconds: 15
+  acts: 5
+  reveal_every_seconds: 90     # a new reveal or reversal at least this often
+  hook_every_seconds: [60, 90] # narration hooks window
+  shots_min: 150
+  shots_max: 220
+  shot_seconds: [3, 8]
+  max_static_seconds: 8        # QC fails any screen that does not change for longer
+
+llm:
+  provider: claude_cli         # claude_cli (uses `claude -p`) | anthropic_api
+  claude_cli_command: claude
+  anthropic_model: claude-opus-5-5
+  max_tokens: 16000
+  timeout_seconds: 600
+  retries: 3
+
+tts:
+  # ElevenLabs safety: we count characters BEFORE calling and stop if over budget.
+  monthly_credit_budget: 100000
+  elevenlabs_model: eleven_multilingual_v2
+  credits_per_char: 1.0        # multilingual_v2 = 1 credit / character
+  retries: 3
+
+images:
+  provider: none               # none (draw everything in code) | gemini
+  max_images_per_episode: 0
+
+audio:
+  sample_rate: 48000
+  target_lufs: -14
+  music_volume_db: -18         # music bed level when nobody speaks
+  duck_db: -10                 # extra reduction under voice
+  sfx_volume_db: -8
+
+qc:
+  min_score: 8                 # any score below this = rework
+  max_rework_loops: 2
+  max_similarity: 0.6          # vs data/history.jsonl
+
+render:
+  workers: 0                   # 0 = use all CPU cores
+  cache: true
+
+review:
+  require_script_approval: true
+  require_final_approval: true

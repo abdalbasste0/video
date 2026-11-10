@@ -1,0 +1,17 @@
+{
+ "name": "facepalm",
+ "type": "pose",
+ "description": "Hand over face",
+ "pose": {
+  "torso": 8,
+  "head": 18,
+  "near_arm": [
+   35,
+   168
+  ],
+  "far_arm": [
+   6,
+   4
+  ]
+ }
+}

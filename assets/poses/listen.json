@@ -1,0 +1,17 @@
+{
+ "name": "listen",
+ "type": "pose",
+ "description": "Hand behind ear, listening",
+ "pose": {
+  "torso": 4,
+  "head": -12,
+  "near_arm": [
+   -30,
+   170
+  ],
+  "far_arm": [
+   6,
+   4
+  ]
+ }
+}

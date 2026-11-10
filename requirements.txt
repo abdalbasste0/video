@@ -1,0 +1,15 @@
+# Core (always needed)
+pillow>=10.0
+numpy>=1.26
+pyyaml>=6.0
+requests>=2.31
+python-dotenv>=1.0
+arabic-reshaper>=3.0      # joins Arabic letters correctly
+python-bidi>=0.4.2        # puts right-to-left text in visual order
+
+# Optional - install the ones you plan to use (doctor tells you what is missing)
+# kokoro>=0.7             # free local TTS for en/fr/es  (pip install kokoro soundfile)
+# soundfile>=0.12
+# piper-tts>=1.2          # free offline fallback TTS (needs a voice .onnx in assets/voices/)
+# faster-whisper>=1.0     # word timestamps for .srt captions
+# anthropic>=0.40         # only if llm.provider = anthropic_api

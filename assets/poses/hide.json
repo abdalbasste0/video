@@ -1,0 +1,25 @@
+{
+ "name": "hide",
+ "type": "pose",
+ "description": "Crouched, hiding, hands on head",
+ "pose": {
+  "torso": 35,
+  "head": 10,
+  "near_arm": [
+   150,
+   -140
+  ],
+  "far_arm": [
+   160,
+   -130
+  ],
+  "near_leg": [
+   100,
+   -10
+  ],
+  "far_leg": [
+   90,
+   -20
+  ]
+ }
+}

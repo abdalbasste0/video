@@ -1,0 +1,26 @@
+{
+ "name": "fall",
+ "type": "pose",
+ "description": "Falling backwards, arms flailing",
+ "pose": {
+  "torso": -55,
+  "head": -30,
+  "near_arm": [
+   150,
+   110
+  ],
+  "far_arm": [
+   100,
+   140
+  ],
+  "near_leg": [
+   60,
+   30
+  ],
+  "far_leg": [
+   85,
+   60
+  ],
+  "grounded": false
+ }
+}

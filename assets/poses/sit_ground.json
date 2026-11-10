@@ -1,0 +1,25 @@
+{
+ "name": "sit_ground",
+ "type": "pose",
+ "description": "Sitting on the ground",
+ "pose": {
+  "torso": -5,
+  "head": 0,
+  "near_arm": [
+   20,
+   60
+  ],
+  "far_arm": [
+   30,
+   70
+  ],
+  "near_leg": [
+   80,
+   30
+  ],
+  "far_leg": [
+   90,
+   20
+  ]
+ }
+}

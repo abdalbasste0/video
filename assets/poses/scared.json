@@ -1,0 +1,49 @@
+{
+ "name": "scared",
+ "type": "cycle",
+ "description": "Trembling with hands near face",
+ "duration": 0.24,
+ "stride": 0,
+ "keys": [
+  {
+   "torso": -6,
+   "head": -10,
+   "near_arm": [
+    35,
+    160
+   ],
+   "far_arm": [
+    45,
+    165
+   ],
+   "near_leg": [
+    14,
+    -12
+   ],
+   "far_leg": [
+    -10,
+    -28
+   ]
+  },
+  {
+   "torso": -5,
+   "head": -8,
+   "near_arm": [
+    37,
+    163
+   ],
+   "far_arm": [
+    43,
+    162
+   ],
+   "near_leg": [
+    14,
+    -12
+   ],
+   "far_leg": [
+    -10,
+    -28
+   ]
+  }
+ ]
+}

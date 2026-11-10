@@ -1,0 +1,25 @@
+{
+ "name": "kneel",
+ "type": "pose",
+ "description": "Kneeling on one knee",
+ "pose": {
+  "torso": 8,
+  "head": -4,
+  "near_arm": [
+   50,
+   80
+  ],
+  "far_arm": [
+   30,
+   40
+  ],
+  "near_leg": [
+   85,
+   0
+  ],
+  "far_leg": [
+   0,
+   -90
+  ]
+ }
+}

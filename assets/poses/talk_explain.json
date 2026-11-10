@@ -1,0 +1,33 @@
+{
+ "name": "talk_explain",
+ "type": "cycle",
+ "description": "Explaining with both hands open",
+ "duration": 2.0,
+ "stride": "auto",
+ "keys": [
+  {
+   "torso": 3,
+   "head": -4,
+   "near_arm": [
+    30,
+    80
+   ],
+   "far_arm": [
+    40,
+    95
+   ]
+  },
+  {
+   "torso": 5,
+   "head": 2,
+   "near_arm": [
+    45,
+    110
+   ],
+   "far_arm": [
+    25,
+    70
+   ]
+  }
+ ]
+}

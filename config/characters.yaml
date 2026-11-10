@@ -1,0 +1,40 @@
+# ─────────────────────────────────────────────────────────────
+#  Character look rules.
+#  The Characters department invents a NEW cast for every episode
+#  (written into output/<id>/characters.json) but must pick each
+#  stickman's look from these slots so viewers can always tell them apart.
+# ─────────────────────────────────────────────────────────────
+
+# Body line colors. Bright + mid-dark so they read on dark AND light scenes.
+colors:
+  crimson:  "#e63946"
+  amber:    "#f4a261"
+  teal:     "#2ec4b6"
+  royal:    "#4361ee"
+  violet:   "#9b5de5"
+  lime:     "#8ac926"
+  rose:     "#ff70a6"
+  steel:    "#8d99ae"
+  gold:     "#ffca3a"
+  ink:      "#2b2d42"
+
+# Exactly ONE accessory per character (or none for extras).
+accessories: [cap, fedora, beanie, scarf, badge, glasses, headband, backpack, bowtie, helmet]
+
+rules:
+  max_main_characters: 4
+  no_two_main_share: [color, accessory]   # QC checks this
+  extras_color: steel                     # background crowd
+
+# Cast used by `python make.py demo` (rig test only).
+demo_cast:
+  hero:
+    color: royal
+    accessory: cap
+    voice: hero
+    names: {ar: "نور", en: "Milo", fr: "Milo", es: "Milo"}
+  ally:
+    color: amber
+    accessory: scarf
+    voice: ally
+    names: {ar: "كريم", en: "Tess", fr: "Tess", es: "Tess"}

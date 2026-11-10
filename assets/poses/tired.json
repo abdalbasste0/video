@@ -1,0 +1,25 @@
+{
+ "name": "tired",
+ "type": "pose",
+ "description": "Exhausted slump",
+ "pose": {
+  "torso": 18,
+  "head": 28,
+  "near_arm": [
+   8,
+   4
+  ],
+  "far_arm": [
+   12,
+   6
+  ],
+  "near_leg": [
+   10,
+   -5
+  ],
+  "far_leg": [
+   -6,
+   -12
+  ]
+ }
+}

@@ -1,0 +1,89 @@
+{
+ "name": "sneak",
+ "type": "cycle",
+ "description": "Slow crouched sneak",
+ "duration": 1.6,
+ "stride": "auto",
+ "keys": [
+  {
+   "torso": 22,
+   "head": -14,
+   "near_arm": [
+    20,
+    70
+   ],
+   "far_arm": [
+    35,
+    80
+   ],
+   "near_leg": [
+    45,
+    -5
+   ],
+   "far_leg": [
+    -15,
+    -60
+   ]
+  },
+  {
+   "torso": 24,
+   "head": -14,
+   "near_arm": [
+    25,
+    75
+   ],
+   "far_arm": [
+    30,
+    80
+   ],
+   "near_leg": [
+    20,
+    -35
+   ],
+   "far_leg": [
+    50,
+    -20
+   ]
+  },
+  {
+   "torso": 22,
+   "head": -14,
+   "near_arm": [
+    35,
+    80
+   ],
+   "far_arm": [
+    20,
+    70
+   ],
+   "near_leg": [
+    -15,
+    -60
+   ],
+   "far_leg": [
+    45,
+    -5
+   ]
+  },
+  {
+   "torso": 24,
+   "head": -14,
+   "near_arm": [
+    30,
+    80
+   ],
+   "far_arm": [
+    25,
+    75
+   ],
+   "near_leg": [
+    50,
+    -20
+   ],
+   "far_leg": [
+    20,
+    -35
+   ]
+  }
+ ]
+}

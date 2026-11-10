@@ -1,0 +1,30 @@
+{
+ "name": "sit_chair",
+ "type": "pose",
+ "description": "Sitting on a chair or box",
+ "pose": {
+  "torso": 0,
+  "head": 0,
+  "near_arm": [
+   20,
+   70
+  ],
+  "far_arm": [
+   25,
+   80
+  ],
+  "near_leg": [
+   90,
+   0
+  ],
+  "far_leg": [
+   85,
+   -3
+  ],
+  "hip": [
+   0,
+   0.2
+  ],
+  "grounded": false
+ }
+}

@@ -1,0 +1,25 @@
+{
+ "name": "surprised",
+ "type": "pose",
+ "description": "Jumping back in surprise",
+ "pose": {
+  "torso": -12,
+  "head": -12,
+  "near_arm": [
+   120,
+   150
+  ],
+  "far_arm": [
+   130,
+   160
+  ],
+  "near_leg": [
+   18,
+   0
+  ],
+  "far_leg": [
+   -15,
+   -5
+  ]
+ }
+}

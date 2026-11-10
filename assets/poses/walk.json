@@ -1,0 +1,89 @@
+{
+ "name": "walk",
+ "type": "cycle",
+ "description": "Normal walk cycle",
+ "duration": 1.0,
+ "stride": "auto",
+ "keys": [
+  {
+   "torso": 4,
+   "head": -2,
+   "near_arm": [
+    -28,
+    -12
+   ],
+   "far_arm": [
+    26,
+    48
+   ],
+   "near_leg": [
+    28,
+    18
+   ],
+   "far_leg": [
+    -22,
+    -40
+   ]
+  },
+  {
+   "torso": 6,
+   "head": 0,
+   "near_arm": [
+    -4,
+    10
+   ],
+   "far_arm": [
+    4,
+    14
+   ],
+   "near_leg": [
+    2,
+    -2
+   ],
+   "far_leg": [
+    22,
+    -28
+   ]
+  },
+  {
+   "torso": 4,
+   "head": -2,
+   "near_arm": [
+    26,
+    48
+   ],
+   "far_arm": [
+    -28,
+    -12
+   ],
+   "near_leg": [
+    -22,
+    -40
+   ],
+   "far_leg": [
+    28,
+    18
+   ]
+  },
+  {
+   "torso": 6,
+   "head": 0,
+   "near_arm": [
+    4,
+    14
+   ],
+   "far_arm": [
+    -4,
+    10
+   ],
+   "near_leg": [
+    22,
+    -28
+   ],
+   "far_leg": [
+    2,
+    -2
+   ]
+  }
+ ]
+}
