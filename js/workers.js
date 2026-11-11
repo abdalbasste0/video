@@ -10,6 +10,7 @@ import {
   characterSheetPrompt,
   masterAnimationPrompt,
 } from "./locked.js";
+import { SCENE_SCHEMA, MOTION_BRIEF, MOOD_LABELS } from "./studio.js";
 
 export const WPS = 2.5; // narration speed: words per second
 
@@ -361,6 +362,55 @@ Return JSON: {"thumbnails":[{"idea_ar":"","prompt":""} x3]}.`,
   },
   {
     id: 15,
+    name: "مصمم الحركة",
+    role: "تحريك كل مشهد",
+    kind: "ai",
+    async run(s, ai, progress) {
+      const CHUNK = 10;
+      const specs = [];
+      let outfit = null;
+      for (let i = 0; i < s.beats.length; i += CHUNK) {
+        const chunk = s.beats.slice(i, i + CHUNK);
+        progress?.(`تحريك مشاهد ${i + 1}–${i + chunk.length} من ${s.beats.length}`);
+        const out = await ai({
+          brief: MOTION_BRIEF,
+          input:
+            `الموضوع: ${s.topic}\n` +
+            (s.characterEn ? `MAIN CHARACTER: ${s.characterEn}\n` : "No fixed main character.\n") +
+            (outfit ? `Keep mainOutfit exactly: ${JSON.stringify(outfit)}\n` : "") +
+            `\nBeats with their director notes:\n` +
+            chunk.map((b) => {
+              const p = s.plans?.[b.n - 1];
+              return `${b.n}. ${b.text}` + (p ? `\n   SCENE: ${p.environment}\n   CHARACTERS: ${p.characters}\n   ACTION: ${p.action}` : "");
+            }).join("\n"),
+          schema: SCENE_SCHEMA,
+        });
+        outfit ??= out.mainOutfit;
+        const byN = new Map((out.scenes || []).map((sc) => [sc.n, sc]));
+        chunk.forEach((b, k) => specs.push(byN.get(b.n) || out.scenes?.[k] || null));
+      }
+      s.motion = { outfit: outfit || { shirt: "#e63946", pants: "#1d3557", hat: "none", tie: false, accent: "#ffd166" }, specs };
+    },
+  },
+  {
+    id: 16,
+    name: "استوديو الصوت",
+    role: "التعليق والموسيقى",
+    kind: "input",
+    ready: (s) => !!s.audioSet,
+  },
+  {
+    id: 17,
+    name: "المونتير",
+    role: "الفيديو النهائي",
+    kind: "local",
+    run(s) {
+      s.videoReady = true;
+      s.musicLabel = MOOD_LABELS[s.music || "none"];
+    },
+  },
+  {
+    id: 18,
     name: "مدير التغليف",
     role: "تسليم الباكدج",
     kind: "local",

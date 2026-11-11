@@ -76,7 +76,7 @@ main {
 
 .stations {
   list-style: none; margin: 0; padding: 0;
-  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px;
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px;
 }
 @media (max-width: 1200px) { .stations { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 520px) { .stations { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -198,3 +198,12 @@ dialog::backdrop { background: rgba(0,0,0,.45); }
   position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
   background: var(--ink); color: var(--panel); padding: 8px 18px; border-radius: 99px; font-size: .9rem; z-index: 20;
 }
+
+.stage-wrap { position: relative; }
+#stage { width: 100%; aspect-ratio: 16 / 9; display: block; border-radius: 12px; background: #000; }
+.player { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+.player .time { font-variant-numeric: tabular-nums; color: var(--muted); margin-inline-start: auto; }
+.seek { width: 100%; accent-color: var(--accent); }
+.export-bar { height: 10px; background: var(--line); border-radius: 99px; overflow: hidden; margin: 8px 0; }
+.export-bar > div { height: 100%; width: 0; background: var(--accent); }
+.note { font-size: .88rem; color: var(--muted); }

@@ -1,8 +1,10 @@
 import { WORKERS, WPS, countWords } from "./workers.js";
 import { NICHES, DURATIONS, SCENE_SECONDS } from "./locked.js";
 import { runStation, MODELS, getSample, getDownloads } from "./api.js";
+import { W, H, buildTimeline, renderFrame, scheduleMusic, pickMime, MOOD_LABELS } from "./studio.js";
 
-const STORE_KEY = "stickfactory.project.v1";
+const STORE_KEY = "stickfactory.project.v2";
+const LAST = WORKERS.length;
 const SETTINGS_KEY = "stickfactory.settings.v1";
 const STATUS_AR = {
   idle: "في الانتظار", working: "شغال…", waiting: "محتاج قرارك", done: "خلص ✓", error: "فيه مشكلة", skipped: "متخطّى",
@@ -71,7 +73,7 @@ async function runLine() {
       }
       if (w.needsChoice?.(s)) { setStatus(w.id, "waiting"); select(w.id); break; }
       setStatus(w.id, "done");
-      if (w.id === 15) select(15);
+      if (w.id === LAST) select(LAST);
     }
   } catch (err) {
     const w = WORKERS.find((x) => s.status[x.id] === "working");
@@ -129,8 +131,8 @@ function paintStations() {
     li.querySelector(".status").textContent = STATUS_AR[st];
     li.setAttribute("aria-label", `العامل ${id}: ${WORKERS[id - 1].name} — ${STATUS_AR[st]}`);
   }
-  $("#progress-bar").style.width = `${(done / 15) * 100}%`;
-  $("#progress-text").textContent = `${done} / 15`;
+  $("#progress-bar").style.width = `${(done / LAST) * 100}%`;
+  $("#progress-text").textContent = `${done} / ${LAST}`;
 }
 
 function paintControls() {
@@ -154,6 +156,7 @@ function paintLive() {
 
 function paintBody() {
   copyBuffer = [];
+  if (!exporting) stopPreview();
   const w = WORKERS[selected - 1];
   $("#cr-badge").textContent = w.id;
   $("#cr-title").textContent = w.name;
@@ -260,7 +263,39 @@ const VIEWS = {
   },
   13: () => s.animPrompt ? `<p>ده البرومت الموحد — استخدمه مع كل صورة لتحويلها لمشهد متحرك مدته ${s.sceneSec} ثواني:</p>${promptCard("Master Animation Prompt", s.animPrompt, addCopy(s.animPrompt))}` : "",
   14: () => s.thumbs?.length ? s.thumbs.map((t, i) => `<p><strong>${i + 1}.</strong> ${esc(t.ideaAr)}</p>${promptCard(`Thumbnail ${i + 1}`, t.prompt, addCopy(t.prompt))}`).join("") : "",
-  15: () => s.packageMd ? `<p>الإنجن خلص. الباكدج الكامل جاهز: السكريبت، جدول المشاهد، الكراكتر شيت، ${s.imagePrompts.length} برومت صورة، برومت الأنيميشن الماستر، و3 ثمبنيل.</p>
+  15: () => {
+    if (!s.motion?.specs?.length) return "";
+    const o = s.motion.outfit;
+    return `<p>جهزت حركة ${s.motion.specs.length} مشهد. لبس البطل في الأنيميشن: قميص <span class="chip" style="background:${esc(o.shirt)};color:#fff">${esc(o.shirt)}</span> بنطلون <span class="chip" style="background:${esc(o.pants)};color:#fff">${esc(o.pants)}</span></p>
+      <table><thead><tr><th>#</th><th>المكان</th><th>الشخصيات</th><th>الإكسسوارات</th></tr></thead><tbody>
+      ${s.motion.specs.map((sc, i) => sc ? `<tr><td class="num">${i + 1}</td><td>${esc(sc.bg)} · ${esc(sc.light)}</td><td>${sc.characters.map((c) => `${c.main ? "البطل" : "شخصية"}: ${esc(c.action)} / ${esc(c.emotion)}`).join("<br>")}</td><td>${sc.props.map((p) => esc(p.type)).join("، ")}</td></tr>` : `<tr><td class="num">${i + 1}</td><td colspan="3">ناقص</td></tr>`).join("")}</tbody></table>`;
+  },
+  16: (st) => {
+    const moods = Object.entries(MOOD_LABELS).map(([k, v]) => `<option value="${k}"${(s.music || "calm") === k ? " selected" : ""}>${v}</option>`).join("");
+    const done = st !== "waiting" && s.audioSet;
+    return `${done ? `<div class="meta"><span class="chip">${voice ? "التعليق: " + esc(voice.name) : s.voiceName ? "⚠ ارفع ملف التعليق تاني (" + esc(s.voiceName) + ")" : "من غير تعليق صوتي"}</span><span class="chip">الموسيقى: ${esc(MOOD_LABELS[s.music || "none"])}</span><span class="chip">الترجمة: ${s.captions === false ? "مقفولة" : "شغالة"}</span></div>` : ""}
+      <p>التعليق الصوتي: سجّل السكريبت بصوتك (مثلاً بتطبيق تسجيل الصوت في الموبايل) أو من أي موقع تعليق صوتي، وارفع الملف هنا. المونتير هيظبط مدة كل مشهد على طول التسجيل.</p>
+      <label>ملف التعليق (اختياري)<input type="file" id="voice-file" accept="audio/*" /></label>
+      <p class="note" id="voice-info">${voice ? `✓ ${esc(voice.name)} — ${voice.buffer.duration.toFixed(1)} ثانية` : "لو مارفعتش ملف، الفيديو هيطلع بالترجمة والموسيقى بس."}</p>
+      <label>الموسيقى الخلفية<select id="music">${moods}</select></label>
+      <label style="display:flex;gap:8px;align-items:center;font-weight:600"><input type="checkbox" id="captions" ${s.captions === false ? "" : "checked"} /> ترجمة عربية على الفيديو</label>
+      <div class="row-end"><button class="btn primary" id="audio-go">اعتمد وكمّل للمونتاج</button></div>`;
+  },
+  17: () => {
+    if (!s.videoReady || !s.motion) return "";
+    const mime = pickMime();
+    return `<div class="stage-wrap"><canvas id="stage" width="${W}" height="${H}"></canvas></div>
+      <input type="range" class="seek" id="seek" min="0" max="1000" value="0" aria-label="مكان التشغيل" />
+      <div class="player">
+        <button class="btn" id="play">▶ معاينة</button>
+        <button class="btn primary" id="export" ${mime === null ? "disabled" : ""}>🎬 صدّر الفيديو النهائي</button>
+        <span class="time" id="time">0:00 / 0:00</span>
+      </div>
+      <div class="export-bar" id="export-bar" hidden><div></div></div>
+      <p class="note" id="export-note">${mime === null ? "المتصفح ده مابيدعمش تسجيل الفيديو. جرّب Chrome." : `التصدير بيتسجل في وقت حقيقي (فيديو دقيقة = دقيقة تسجيل). خلّي الصفحة مفتوحة وقدامك لحد ما يخلص. الصيغة: ${mime.startsWith("video/mp4") ? "MP4" : "WebM"}.`}</p>
+      ${s.voiceName && !voice ? `<p class="error-box">ملف التعليق مش متحمّل بعد إعادة فتح الصفحة. ارجع للعامل 16 وارفعه تاني لو عايزه في الفيديو.</p>` : ""}`;
+  },
+  18: () => s.packageMd ? `<p>الإنجن خلص. الباكدج الكامل جاهز: السكريبت، جدول المشاهد، الكراكتر شيت، ${s.imagePrompts.length} برومت صورة، برومت الأنيميشن الماستر، و3 ثمبنيل. والفيديو النهائي تصدّره من عند العامل 17 (المونتير).</p>
       <div class="row-end" style="justify-content:flex-start"><button class="btn primary" id="dl-md">⬇ تحميل الباكدج (.md)</button><button class="btn" data-copy="${addCopy(s.packageMd)}">نسخ الكل</button><button class="btn ghost" id="new-project">مشروع جديد</button></div>` : "",
 };
 
@@ -300,7 +335,25 @@ function bindBody(id) {
     }));
     on("#char-go", () => { const v = val("#char-text"); if (v) submit(8, (x) => { x.characterAr = v; }); else toast("اختار أو اكتب وصف الشخصية"); });
   }
-  if (id === 15) {
+  if (id === 16) {
+    body.querySelector("#voice-file")?.addEventListener("change", async (e) => {
+      const file = e.target.files?.[0]; if (!file) return;
+      const info = body.querySelector("#voice-info"); info.textContent = "بقرأ الملف…";
+      try {
+        const actx = new (window.AudioContext || window.webkitAudioContext)();
+        const buffer = await actx.decodeAudioData(await file.arrayBuffer());
+        actx.close();
+        voice = { name: file.name, buffer };
+        info.textContent = `✓ ${file.name} — ${buffer.duration.toFixed(1)} ثانية`;
+      } catch { voice = null; info.textContent = "مقدرتش أقرا الملف ده. جرّب MP3 أو M4A أو WAV."; }
+    });
+    on("#audio-go", () => submit(16, (x) => {
+      x.audioSet = true; x.voiceName = voice?.name || null;
+      x.music = val("#music") || "none"; x.captions = body.querySelector("#captions").checked;
+    }));
+  }
+  if (id === 17) setupStage(body);
+  if (id === 18) {
     on("#dl-md", async () => {
       const filename = `stickman-${Date.now()}.md`;
       const downloads = await getDownloads();
@@ -336,6 +389,114 @@ async function chooseCharMode(mode) {
   }
 }
 
+
+// ---------- studio (worker 17) ----------
+let voice = null;          // {name, buffer} — kept in memory only
+let preview = null;        // {raf, actx, stopMusic, src}
+let exporting = false;
+
+function timeline() {
+  return buildTimeline(s.beats, s.motion.specs, WPS, voice?.buffer.duration || null);
+}
+const fmt = (sec) => `${Math.floor(sec / 60)}:${String(Math.floor(sec % 60)).padStart(2, "0")}`;
+
+function stopPreview() {
+  if (!preview) return;
+  cancelAnimationFrame(preview.raf);
+  preview.stopMusic?.(); try { preview.src?.stop(); } catch { /* not started */ }
+  preview.actx?.close();
+  preview = null;
+}
+
+function startAudio(actx, dest, from, total) {
+  const at = actx.currentTime + 0.15;
+  let src = null;
+  if (voice) {
+    src = actx.createBufferSource(); src.buffer = voice.buffer; src.connect(dest);
+    src.start(at, Math.min(from, voice.buffer.duration));
+  }
+  const stopMusic = scheduleMusic(actx, dest, s.music || "none", at, Math.max(0.5, total - from));
+  return { at, src, stopMusic };
+}
+
+async function setupStage(body) {
+  const canvas = body.querySelector("#stage"); if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  try { await document.fonts.load("800 44px Cairo"); } catch { /* fallback font */ }
+  const tl = timeline();
+  const seek = body.querySelector("#seek"), time = body.querySelector("#time"), play = body.querySelector("#play");
+  const opts = { captions: s.captions !== false };
+  let pos = 0;
+  const draw = (T) => {
+    renderFrame(ctx, tl, T, s.motion.outfit, opts);
+    seek.value = Math.round((T / tl.total) * 1000);
+    time.textContent = `${fmt(T)} / ${fmt(tl.total)}`;
+  };
+  draw(0);
+
+  seek.addEventListener("input", () => { stopPreview(); play.textContent = "▶ معاينة"; pos = (seek.value / 1000) * tl.total; draw(pos); });
+  play.addEventListener("click", () => {
+    if (preview) { stopPreview(); play.textContent = "▶ معاينة"; return; }
+    if (pos >= tl.total - 0.05) pos = 0;
+    const actx = new (window.AudioContext || window.webkitAudioContext)();
+    const { at, src, stopMusic } = startAudio(actx, actx.destination, pos, tl.total);
+    const from = pos;
+    preview = { actx, src, stopMusic, raf: 0 };
+    play.textContent = "⏸ إيقاف";
+    const tick = () => {
+      const T = from + Math.max(0, actx.currentTime - at);
+      pos = Math.min(T, tl.total); draw(pos);
+      if (T >= tl.total) { stopPreview(); play.textContent = "▶ معاينة"; return; }
+      preview.raf = requestAnimationFrame(tick);
+    };
+    preview.raf = requestAnimationFrame(tick);
+  });
+  body.querySelector("#export").addEventListener("click", () => exportVideo(body, canvas, ctx, tl, opts));
+}
+
+async function exportVideo(body, canvas, ctx, tl, opts) {
+  if (exporting) return;
+  stopPreview();
+  const mime = pickMime();
+  const btn = body.querySelector("#export"), note = body.querySelector("#export-note"), bar = body.querySelector("#export-bar");
+  exporting = true; btn.disabled = true; body.querySelector("#play").disabled = true; bar.hidden = false;
+  const actx = new (window.AudioContext || window.webkitAudioContext)();
+  const dest = actx.createMediaStreamDestination();
+  const stream = new MediaStream([...canvas.captureStream(30).getVideoTracks(), ...dest.stream.getAudioTracks()]);
+  const rec = new MediaRecorder(stream, mime ? { mimeType: mime, videoBitsPerSecond: 5_000_000 } : undefined);
+  const chunks = [];
+  rec.ondataavailable = (e) => e.data.size && chunks.push(e.data);
+  const stopped = new Promise((r) => (rec.onstop = r));
+  renderFrame(ctx, tl, 0, s.motion.outfit, opts);
+  rec.start(1000);
+  const { at, stopMusic } = startAudio(actx, dest, 0, tl.total);
+  // keep the canvas painting even if the screen is idle
+  await new Promise((resolve) => {
+    const tick = () => {
+      const T = Math.max(0, actx.currentTime - at);
+      renderFrame(ctx, tl, Math.min(T, tl.total), s.motion.outfit, opts);
+      bar.firstElementChild.style.width = `${Math.min(100, (T / tl.total) * 100)}%`;
+      note.textContent = `بسجّل الفيديو… ${fmt(T)} من ${fmt(tl.total)} — خلّي الصفحة مفتوحة`;
+      if (T >= tl.total + 0.3) return resolve();
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+  rec.stop(); await stopped; stopMusic(); actx.close();
+  const type = (mime || "video/webm").split(";")[0];
+  const blob = new Blob(chunks, { type });
+  const filename = `stickman-video-${Date.now()}.${type === "video/mp4" ? "mp4" : "webm"}`;
+  note.textContent = `الفيديو جاهز (${(blob.size / 1048576).toFixed(1)} ميجا).`;
+  exporting = false; btn.disabled = false; body.querySelector("#play").disabled = false;
+  const downloads = await getDownloads();
+  if (downloads) {
+    try { await downloads.save({ filename, data: blob }); note.textContent += " اتحفظ ✓"; }
+    catch (e) { if (e?.code !== "declined") note.textContent += " مقدرتش أحفظه هنا."; }
+  } else {
+    const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: filename });
+    a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+  }
+}
 // ---------- chrome ----------
 function toast(msg) {
   const t = Object.assign(document.createElement("div"), { className: "toast", textContent: msg, role: "status" });
@@ -382,5 +543,5 @@ $("#btn-reset").addEventListener("click", resetProject);
 
 // Start on the first station that needs attention.
 const firstOpen = WORKERS.find((w) => !["done", "skipped"].includes(s.status[w.id]));
-select(firstOpen ? firstOpen.id : 15);
+select(firstOpen ? firstOpen.id : LAST);
 canRun().then((ok) => { if (!ok) openSettings(); });
