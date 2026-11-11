@@ -217,3 +217,28 @@ dialog::backdrop { background: rgba(0,0,0,.45); }
 .scene-card .upl { display: inline-flex; align-items: center; }
 .scene-card .err { margin: 0 8px 6px; color: var(--error); font-size: .78rem; }
 .scene-card .err:empty { display: none; }
+
+.tabs { display: flex; gap: 4px; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 4px; }
+.tab { border: 0; background: transparent; color: var(--muted); padding: 6px 14px; border-radius: 9px; cursor: pointer; font-weight: 700; }
+.tab.active { background: var(--panel); color: var(--ink); box-shadow: var(--shadow); }
+body[data-view="quick"] main, body[data-view="quick"] .controls #btn-run, body[data-view="quick"] .controls #btn-stop { display: none; }
+body:not([data-view="quick"]) .quick { display: none; }
+.quick { max-width: 860px; margin: 24px auto; padding: 0 16px; }
+#quick-body { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 24px; box-shadow: var(--shadow); }
+.q-title { font-size: 1.5rem; font-weight: 800; margin: 6px 0 14px; }
+.q-topic { min-height: 130px; font-size: 1.05rem; }
+.q-script { min-height: 360px; font-size: 1rem; line-height: 1.9; }
+.q-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 12px; }
+.btn.big { padding: 12px 24px; font-size: 1.05rem; }
+.steps { list-style: none; display: flex; gap: 8px; padding: 0; margin: 0 0 8px; flex-wrap: wrap; }
+.steps li { display: flex; align-items: center; gap: 6px; color: var(--muted); font-weight: 700; font-size: .9rem; }
+.steps li + li::before { content: "←"; color: var(--line); margin-inline-end: 4px; }
+.steps li span { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 99px; border: 2px solid var(--line); }
+.steps li.now { color: var(--accent); } .steps li.now span { border-color: var(--accent); }
+.steps li.done { color: var(--done); } .steps li.done span { border-color: var(--done); }
+.q-stages { list-style: none; padding: 0; margin: 0 0 12px; display: grid; gap: 8px; }
+.q-stages li { padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; color: var(--muted); }
+.q-stages li.now { border-color: var(--accent); color: var(--ink); font-weight: 700; }
+.q-stages li.done { color: var(--done); }
+.warn-box { border: 1px solid #e0a100; background: rgba(224,161,0,.08); border-radius: 10px; padding: 8px 14px; margin-bottom: 12px; font-size: .9rem; }
+.warn-box p { margin: 4px 0; }

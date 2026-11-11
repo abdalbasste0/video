@@ -19,6 +19,10 @@
         <p>19 عامل · خط إنتاج واحد · من النيتش لحد الفيديو النهائي</p>
       </div>
     </div>
+    <nav class="tabs" aria-label="طريقة العمل">
+      <button class="tab" data-view="quick">⚡ 3 خطوات</button>
+      <button class="tab" data-view="factory">🏭 المصنع الكامل</button>
+    </nav>
     <div class="controls">
       <button id="btn-run" class="btn primary">▶ شغّل المصنع</button>
       <button id="btn-stop" class="btn" hidden>■ وقف</button>
@@ -45,6 +49,8 @@
       </div>
     </form>
   </dialog>
+
+  <section id="quick" class="quick" aria-live="polite"><div id="quick-body"></div></section>
 
   <main>
     <section class="floor" aria-label="أرضية المصنع">

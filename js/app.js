@@ -76,7 +76,12 @@ async function runLine() {
       const st = s.status[w.id];
       if (st === "done" || st === "skipped") continue;
       if (w.skip?.(s)) { setStatus(w.id, "skipped"); continue; }
-      if (w.kind === "input" && !w.ready(s)) { setStatus(w.id, "waiting"); select(w.id); break; }
+      if (w.kind === "input" && !w.ready(s)) {
+        if (s.auto && AUTO[w.id]) {
+          select(w.id); setStatus(w.id, "working"); liveNote = ""; delete lastError[w.id]; paintBody();
+          await AUTO[w.id]();
+        } else { setStatus(w.id, "waiting"); select(w.id); break; }
+      }
       if (st === "waiting" && w.needsChoice?.(s)) { select(w.id); break; }
       if (w.run) {
         select(w.id); setStatus(w.id, "working"); liveNote = ""; delete lastError[w.id]; paintBody();
@@ -85,6 +90,7 @@ async function runLine() {
       if (w.needsChoice?.(s)) { setStatus(w.id, "waiting"); select(w.id); break; }
       setStatus(w.id, "done");
       if (w.id === LAST) select(LAST);
+      if (s.stopAfter === w.id) { s.stopAfter = null; persist(); break; }
     }
   } catch (err) {
     const w = WORKERS.find((x) => s.status[x.id] === "working");
@@ -170,6 +176,7 @@ function paintBody() {
   renderSeq++;
   copyBuffer = [];
   if (!exporting) stopPreview();
+  if (viewMode === "quick") { paintQuick(); paintControls(); return; }
   const w = WORKERS[selected - 1];
   $("#cr-badge").textContent = w.id;
   $("#cr-title").textContent = w.name;
@@ -357,7 +364,7 @@ const VIEWS = {
       <div class="player">
         <button class="btn" id="play">▶ معاينة</button>
         <button class="btn primary" id="export" ${mime === null ? "disabled" : ""}>🎬 صدّر الفيديو النهائي</button>
-        <span class="time" id="time">0:00 / 0:00</span>
+        <span class="time" id="time" dir="ltr">0:00 / 0:00</span>
       </div>
       <div class="export-bar" id="export-bar" hidden><div></div></div>
       <p class="note" id="stage-info"></p>
@@ -747,6 +754,193 @@ async function exportVideo(body, canvas, ctx, tl, opts) {
     a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 5000);
   }
 }
+// ---------- quick mode: 3 steps (idea → review the story → finished video) ----------
+let viewMode = (() => { try { return localStorage.getItem("stickfactory.view") || "quick"; } catch { return "quick"; } })();
+
+const STAGES = [
+  { label: "كتابة القصة", ids: [4, 5] },
+  { label: "تقسيم المشاهد", ids: [7] },
+  { label: "الشخصية وبرومتات الصور", ids: [8, 9, 10, 11, 12, 13, 14] },
+  { label: "حركة الكاميرا", ids: [15] },
+  { label: "توليد الصور", ids: [16] },
+  { label: "التعليق الصوتي", ids: [17] },
+  { label: "المونتاج", ids: [18, 19] },
+];
+
+// Workers that normally wait for a decision; in quick mode they decide on their own.
+const AUTO = {
+  8: async () => { s.charMode = "skip"; },
+  16: async () => {
+    const mcp = await getMcp();
+    s.autoNotes = s.autoNotes || [];
+    if (!mcp) { s.imagesSet = true; s.autoNotes.push("الصور: ElevenLabs مش متاح هنا، فالمشاهد اترسمت بالستيك مان."); return; }
+    let ok = 0, failStreak = 0, lastErr = null;
+    for (const [k, b] of s.beats.entries()) {
+      if (images.has(b.n)) { ok++; continue; }
+      if (abort?.signal.aborted) throw new Error("تم إيقاف العامل.");
+      liveNote = `صورة ${k + 1} من ${s.beats.length}`; paintLive();
+      try {
+        const { blob } = await generateImage(s.imagePrompts[k], s.imageModel || IMAGE_MODELS[0].id, {
+          signal: abort?.signal, onStatus: (sec) => { liveNote = `صورة ${k + 1} من ${s.beats.length} — ${sec}ث`; paintLive(); },
+        });
+        await saveImage(b.n, blob); ok++; failStreak = 0;
+      } catch (e) {
+        if (e?.code === "cancelled") throw new Error("تم إيقاف العامل.");
+        lastErr = e; failStreak++;
+        if (failStreak >= 2) break;   // the service is refusing — stop spending, fall back to drawn scenes
+      }
+    }
+    s.imagesSet = true;
+    if (ok < s.beats.length) s.autoNotes.push(`الصور: اتولد ${ok} من ${s.beats.length}. ${lastErr ? mcpErrorText(lastErr) : ""} المشاهد الناقصة اترسمت بالستيك مان — تقدر تكمّلها من المصنع الكامل (العامل 16).`);
+  },
+  17: async () => {
+    const mcp = await getMcp();
+    s.autoNotes = s.autoNotes || [];
+    s.music = s.style === "explain" ? "calm" : "mystery"; s.captions = true;
+    if (!mcp) { s.voiceMode = "none"; s.audioSet = true; s.autoNotes.push("الصوت: ElevenLabs مش متاح هنا، فالفيديو بالترجمة والموسيقى بس."); return; }
+    const parts = narrationParts(s.beats);
+    const done = [];
+    try {
+      for (const [k, p] of parts.entries()) {
+        liveNote = `جزء ${k + 1} من ${parts.length}`; paintLive();
+        const { blob } = await generateSpeech(p.text, s.voiceId || VOICES[0].id, { signal: abort?.signal, onStatus: (sec) => { liveNote = `جزء ${k + 1} من ${parts.length} — ${sec}ث`; paintLive(); } });
+        const buffer = await decodeAudio(blob);
+        await putBlob(`voice-${p.from}`, blob);
+        done.push({ from: p.from, to: p.to, dur: buffer.duration, buffer });
+      }
+      voiceParts = done; voiceUpload = null;
+      s.voiceMode = "eleven"; s.voiceParts = done.map(({ from, to, dur }) => ({ from, to, dur }));
+    } catch (e) {
+      if (e?.code === "cancelled") throw new Error("تم إيقاف العامل.");
+      s.voiceMode = "none";
+      s.autoNotes.push(`الصوت: ${e?.code === "fetch_blocked" ? "الصوت اتولد بس المتصفح منع تحميله." : mcpErrorText(e)} الفيديو طلع من غير تعليق — تقدر تضيفه من المصنع الكامل (العامل 17).`);
+    }
+    s.audioSet = true;
+  },
+};
+
+function setView(v) {
+  viewMode = v;
+  try { localStorage.setItem("stickfactory.view", v); } catch { /* storage unavailable */ }
+  document.body.dataset.view = v;
+  document.querySelectorAll("[data-view]").forEach((b) => b.classList.toggle("active", b.dataset.view === v));
+  paintAll();
+}
+
+function quickPhase() {
+  if (running) return "running";
+  const st = (id) => s.status[id];
+  if (st(4) !== "done" || st(5) !== "done") return lastError[4] || lastError[5] ? "error" : "start";
+  if (WORKERS.every((w) => ["done", "skipped"].includes(st(w.id)))) return "final";
+  if (WORKERS.some((w) => st(w.id) === "error")) return "error";
+  if (s.reviewed) return "paused";
+  return "review";
+}
+
+function paintQuick() {
+  const box = $("#quick-body"); if (!box) return;
+  const ph = quickPhase();
+  const fx = getFixedCharacter();
+  const stepper = (n) => `<ol class="steps">${["الفكرة", "راجع القصة", "الفيديو"].map((x, i) => `<li class="${i + 1 < n ? "done" : i + 1 === n ? "now" : ""}"><span>${i + 1}</span>${x}</li>`).join("")}</ol>`;
+
+  if (ph === "start") {
+    const durs = DURATIONS.map((d) => `<option value="${d.seconds}"${d.seconds === (s.durationSec || 120) ? " selected" : ""}>${d.label}</option>`).join("");
+    box.innerHTML = `${stepper(1)}
+      <h2 class="q-title">إيه القصة اللي عايز تعملها؟</h2>
+      <textarea id="q-topic" class="q-topic" placeholder="مثال: بحّار محاصر على سفينة مهجورة وسط المحيط، والمية بتخلص، وفيه حد غريب على السفينة…">${esc(s.topic && s.status[4] !== "done" ? s.topic : "")}</textarea>
+      <div class="q-row">
+        <label>المدة<select id="q-dur">${durs}</select></label>
+        <label>الأسلوب<select id="q-style"><option value="story">قصة ستيكمان بالفصول (انت البطل)</option><option value="explain">شرح ومعلومات</option></select></label>
+        <label>اللهجة<select id="q-dialect"><option value="fusha">فصحى مبسطة</option><option value="masri">عامية مصرية</option></select></label>
+      </div>
+      <p class="note">${fx ? `البطل: <strong>${esc(fx.name)}</strong> (الشخصية الثابتة)` : "من غير شخصية ثابتة"} · الصوت والصور من ElevenLabs · تقدر تغيّر أي حاجة من "المصنع الكامل".</p>
+      <div class="row-end"><button class="btn primary big" id="q-write">✍ اكتب القصة</button></div>`;
+    $("#q-write").addEventListener("click", quickStart);
+    return;
+  }
+
+  if (ph === "running") {
+    const cur = WORKERS.find((w) => s.status[w.id] === "working");
+    const stageIdx = cur ? STAGES.findIndex((g) => g.ids.includes(cur.id)) : -1;
+    const writing = cur && cur.id <= 5;
+    box.innerHTML = `${stepper(writing ? 1 : 3)}
+      <h2 class="q-title">${writing ? "بكتب القصة…" : "بصنع الفيديو…"}</h2>
+      <ul class="q-stages">${STAGES.filter((g) => writing ? g.ids[0] <= 5 : g.ids[0] > 5).map((g) => {
+        const i = STAGES.indexOf(g);
+        const state = i < stageIdx ? "done" : i === stageIdx ? "now" : "";
+        return `<li class="${state}">${state === "done" ? "✓" : state === "now" ? "⏳" : "○"} ${g.label}${state === "now" ? ` <span class="live" id="live-note">${esc(liveNote)}</span>` : ""}</li>`;
+      }).join("")}</ul>
+      ${!writing ? `<p class="note">الصور والصوت بياخدوا وقت (دقايق). سيب الصفحة مفتوحة.</p>` : ""}
+      <div class="row-end"><button class="btn" id="q-stop">■ وقف</button></div>`;
+    $("#q-stop").addEventListener("click", stopLine);
+    return;
+  }
+
+  if (ph === "review" || ph === "paused") {
+    box.innerHTML = `${stepper(2)}
+      <h2 class="q-title">راجع القصة</h2>
+      <div class="meta"><span class="chip">${esc(s.topic)}</span><span class="chip">${countWords(s.script)} كلمة ≈ ${Math.round(countWords(s.script) / WPS / 60 * 10) / 10} دقيقة</span></div>
+      <p class="note">عدّل أي كلمة براحتك. السطور اللي بتبدأ بـ ## هي عناوين الفصول.</p>
+      <textarea id="q-script" class="q-script">${esc(s.script)}</textarea>
+      <div class="row-end">
+        <button class="btn ghost" id="q-back">↩ فكرة تانية</button>
+        <button class="btn" id="q-rewrite">↻ اكتبها من جديد</button>
+        <button class="btn primary big" id="q-go">🎬 موافق — اصنع الفيديو</button>
+      </div>`;
+    $("#q-go").addEventListener("click", quickApprove);
+    $("#q-rewrite").addEventListener("click", () => { s.reviewed = false; s.status[4] = "idle"; s.status[5] = "idle"; invalidateAfter(3); s.stopAfter = 5; persist(); runLine(); });
+    $("#q-back").addEventListener("click", () => { s.reviewed = false; s.status[4] = "idle"; s.status[5] = "idle"; invalidateAfter(3); persist(); paintAll(); });
+    return;
+  }
+
+  if (ph === "error") {
+    const id = WORKERS.find((w) => s.status[w.id] === "error")?.id || (lastError[4] ? 4 : 5);
+    box.innerHTML = `${stepper(id <= 5 ? 1 : 3)}
+      <h2 class="q-title">حصلت مشكلة</h2>
+      <div class="error-box">${esc(lastError[id] || "خطوة وقفت.")}</div>
+      <div class="row-end"><button class="btn" id="q-full">افتح المصنع الكامل</button><button class="btn primary" id="q-retry">↻ جرّب تاني</button></div>`;
+    $("#q-retry").addEventListener("click", () => { if (id <= 5) s.stopAfter = 5; runLine(); });
+    $("#q-full").addEventListener("click", () => { selected = id; setView("factory"); });
+    return;
+  }
+
+  // final: the finished video
+  box.innerHTML = `${stepper(3)}
+    <h2 class="q-title">الفيديو جاهز 🎉</h2>
+    ${(s.autoNotes || []).length ? `<div class="warn-box">${s.autoNotes.map((n) => `<p>${esc(n)}</p>`).join("")}</div>` : ""}
+    ${VIEWS[18]()}
+    <div class="row-end"><button class="btn ghost" id="q-new">＋ فيديو جديد</button><button class="btn" id="q-full">عدّل في المصنع الكامل</button></div>`;
+  setupStage(box);
+  $("#q-new").addEventListener("click", resetProject);
+  $("#q-full").addEventListener("click", () => { selected = 16; setView("factory"); });
+}
+
+async function quickStart() {
+  const topic = $("#q-topic").value.trim();
+  if (topic.length < 4) { toast("اكتب فكرة القصة الأول"); return; }
+  if (!(await canRun())) { openSettings(); return; }
+  const sec = +$("#q-dur").value, d = DURATIONS.find((x) => x.seconds === sec);
+  const style = $("#q-style").value, dialect = $("#q-dialect").value;
+  images.clear(); voiceParts = null; voiceUpload = null; clearBlobs();
+  s = freshState(); lastError = {};
+  Object.assign(s, {
+    auto: true, stopAfter: 5, niche: topic, ideas: [topic], topic, style, dialect,
+    durationSec: sec, durationLabel: d?.label || `${sec} ثانية`, sceneSec: style === "story" ? 8 : 6, autoNotes: [],
+  });
+  for (const id of [1, 2, 3, 6]) s.status[id] = "done";
+  persist();
+  runLine();
+}
+
+function quickApprove() {
+  const text = $("#q-script").value.trim();
+  if (countWords(text) < 20) { toast("القصة قصيرة جداً"); return; }
+  const changed = text !== s.script;
+  if (changed) { s.script = text; s.actualWords = countWords(text); s.auditNote = `اتعدّلت يدوي: ${s.actualWords} كلمة.`; }
+  if (changed || !s.reviewed) invalidateAfter(6);   // a paused run just continues
+  s.reviewed = true; s.auto = true; persist();
+  runLine();
+}
 // ---------- chrome ----------
 function toast(msg) {
   const t = Object.assign(document.createElement("div"), { className: "toast", textContent: msg, role: "status" });
@@ -797,3 +991,5 @@ $("#btn-reset").addEventListener("click", resetProject);
 const firstOpen = WORKERS.find((w) => !["done", "skipped"].includes(s.status[w.id]));
 select(firstOpen ? firstOpen.id : LAST);
 canRun().then((ok) => { if (!ok) openSettings(); });
+document.querySelectorAll("[data-view]").forEach((b) => b.addEventListener("click", () => setView(b.dataset.view)));
+setView(viewMode);
