@@ -35,6 +35,19 @@ const DIALECTS = {
   masri: "عامية مصرية طبيعية",
 };
 
+// Story mode: immersive second-person survival/mystery stories told in chapters, like Arabic
+// "stickman stories" channels (you are the hero, day-by-day chapters, concrete numbers, cliffhanger).
+const STORY_BRIEF = `STORY MODE. Write an original, gripping Arabic stickman story video script in the style of top Arabic "قصص ستيكمان" channels:
+- The viewer IS the hero: second person ("أنت ...", "تفتح الباب ...", "تسمع صوتاً ..."). Give the hero a name early ("أنت كيت" / "أنت سليم").
+- Open with a cold hook that drops the viewer into the most extreme moment ("تخيّل أنك محاصر ..."), then go back to where it all started.
+- Organize it in short chapters, each starting with its own line in this exact form: "## اليوم الأول: الماء أصبح أغلى من الذهب" (or "## الساعة الأولى: ..." / "## المرحلة الأولى: ..."). The chapter line is read aloud too.
+- Survival logic with concrete numbers and practical details (how many liters of water, how many calories, distances, battery percentages, times).
+- Every chapter ends on a new problem or a twist; plant mysteries (a stranger, a secret, someone who cannot be trusted).
+- End on a strong cliffhanger that makes the viewer need the next part.
+- Original characters and setting only; no real brands.
+`;
+const STORY_OVERRIDES = `Story-mode overrides: chapter lines starting with "## " are REQUIRED (they replace rule 1's ban on headings). Rule 7 still applies: no subscribe/like/comment requests anywhere.`;
+
 export const WORKERS = [
   {
     id: 1,
@@ -83,9 +96,9 @@ Return JSON: {"ideas": [15 Arabic titles]}.`,
     async run(s, ai) {
       s.targetWords = Math.round(s.durationSec * WPS);
       s.script = await ai({
-        brief: `Write the full narration script in Arabic (${DIALECTS[s.dialect || "fusha"]}).
+        brief: (s.style === "story" ? STORY_BRIEF : "") + `Write the full narration script in Arabic (${DIALECTS[s.dialect || "fusha"]}).
 Word math at 2.5 words per second. Target: about ${s.targetWords} words. Hit the target within 5 percent.
-${SCRIPT_RULES}
+${SCRIPT_RULES}${s.style === "story" ? "\n" + STORY_OVERRIDES : ""}
 Output ONLY the script itself as one flowing block split into short paragraphs. No title, no word count, no notes.`,
         input: `النيتش: ${s.niche}\nالموضوع: ${s.topic}\nالمدة: ${s.durationLabel} (حوالي ${s.targetWords} كلمة)`,
       });
@@ -105,7 +118,7 @@ Output ONLY the script itself as one flowing block split into short paragraphs. 
         attempts++;
         s.script = await ai({
           brief: `You are the word-count auditor. Rewrite the Arabic narration script so it has about ${s.targetWords} words (allowed range ${s.targetWords - tol}–${s.targetWords + tol}). It currently has ${words} words. ${words > s.targetWords ? "Trim" : "Expand"} it while keeping the voice, the cold open, the cause-and-effect flow and the strong closing line.
-${SCRIPT_RULES}
+${SCRIPT_RULES}${s.style === "story" ? "\n" + STORY_OVERRIDES + " Keep every chapter line." : ""}
 Output ONLY the revised script.`,
           input: s.script,
         });
@@ -135,6 +148,7 @@ Output ONLY the revised script.`,
       const out = await ai({
         brief: `Split the Arabic script into visual beats for stick figure animation.
 عدد كلمات المشهد الواحد = ${s.sceneSec} × 2.5 = حوالي ${per} كلمة. الجملة القصيرة اللي تدخل في حدود كلمات المشهد = بيت واحد. الجملة الطويلة تتقسم عند الفاصلة أو نهاية العبارة الطبيعية. كل بيت يحمل فكرة بصرية واحدة فقط بدون استثناء، ولازم يكون قابل للتصوير كمشهد ستيك فيجر واحد محدد. لو الفكرة البصرية هتتكسر عشان تكمل عدد الكلمات، قسّم لبيتين أقصر — وحدة الفكرة البصرية أهم من دقة عدد الكلمات.
+Lines starting with "## " are chapter titles: each one is its own beat, keeping the "## " prefix.
 CRITICAL: copy the script text exactly, word for word, in order. Do not add, drop, or change any word. Every word of the script must appear in exactly one beat.
 Return JSON: {"beats": ["beat 1 text", "beat 2 text", ...]}.`,
         input: s.script,
@@ -394,13 +408,20 @@ Return JSON: {"thumbnails":[{"idea_ar":"","prompt":""} x3]}.`,
   },
   {
     id: 16,
+    name: "مولّد الصور",
+    role: "Google Nano Banana / Flow",
+    kind: "input",
+    ready: (s) => !!s.imagesSet,
+  },
+  {
+    id: 17,
     name: "استوديو الصوت",
-    role: "التعليق والموسيقى",
+    role: "ElevenLabs والموسيقى",
     kind: "input",
     ready: (s) => !!s.audioSet,
   },
   {
-    id: 17,
+    id: 18,
     name: "المونتير",
     role: "الفيديو النهائي",
     kind: "local",
@@ -410,7 +431,7 @@ Return JSON: {"thumbnails":[{"idea_ar":"","prompt":""} x3]}.`,
     },
   },
   {
-    id: 18,
+    id: 19,
     name: "مدير التغليف",
     role: "تسليم الباكدج",
     kind: "local",

@@ -18,6 +18,9 @@ export const PROPS = {
   pill: "💊", rocket: "🚀", target: "🎯", scale: "⚖️", door: "🚪", tv: "📺", chat: "💬", zzz: "💤", sweat: "💦", star: "⭐",
 };
 export const EFFECTS = ["none", "rain", "sparkles", "money_rain", "shake", "zoom_in", "fire", "stars", "hearts"];
+export const CAMERAS = ["push_in", "pull_out", "pan_left", "pan_right", "tilt_up", "tilt_down", "push_in_left", "push_in_right", "drift", "shake_push", "slow_zoom_center"];
+export const TRANSITIONS = ["cut", "fade", "dip_black", "flash", "whip_left", "whip_right", "zoom_through"];
+export const OVERLAYS = ["none", "rain", "embers", "dust", "snow", "light_flicker", "red_alarm", "lightning", "fog", "heartbeat"];
 
 export const SCENE_SCHEMA = {
   type: "object",
@@ -42,6 +45,10 @@ export const SCENE_SCHEMA = {
           light: { type: "string", enum: LIGHTS },
           sky: { type: "string" }, ground: { type: "string" },
           effect: { type: "string", enum: EFFECTS },
+          camera: { type: "string", enum: CAMERAS },
+          transition: { type: "string", enum: TRANSITIONS },
+          overlay: { type: "string", enum: OVERLAYS },
+          focusX: { type: "number" }, focusY: { type: "number" },
           props: {
             type: "array",
             items: {
@@ -73,7 +80,7 @@ export const SCENE_SCHEMA = {
             },
           },
         },
-        required: ["n", "bg", "light", "sky", "ground", "effect", "props", "characters"],
+        required: ["n", "bg", "light", "sky", "ground", "effect", "camera", "transition", "overlay", "focusX", "focusY", "props", "characters"],
         additionalProperties: false,
       },
     },
@@ -90,6 +97,12 @@ Rules:
 - 0 to 3 props that make the idea instantly readable (money for money, phone for phones, chart_down for losses, question for confusion...). Prop x is 0..1, y is 0..1 (0 = top, 0.75 = on the ground), size 0.5..2.
 - effect adds energy only when it fits.
 - mainOutfit: the locked main character's clothing as hex colors (if no main character is given, invent a simple consistent look).
+- You are ALSO the camera director for the AI-generated still image of each beat (the image shows exactly what the director notes describe). Pick:
+  camera: the move that sells the beat — push_in for tension/realization, pull_out for reveals and loneliness, pan_left/pan_right to follow movement or travel, tilt_up for awe or threats above, tilt_down for falling/sinking, push_in_left/right to land on a detail on that side, drift for calm narration, shake_push for shock/attacks, slow_zoom_center for title cards.
+  focusX/focusY (0..1): where the key action is in the frame, so push-ins land on it.
+  transition (into this beat): cut for fast action, fade for time passing, dip_black for a new chapter or a dark turn, flash for shocks/alarms/lightning, whip_left/whip_right for energy, zoom_through for sudden discoveries. Vary them; cut and fade most of the time.
+  overlay: ambience over the image — rain/lightning in storms, red_alarm for alarms, light_flicker for failing power, embers for fire, dust for old or quiet rooms, fog for mystery, heartbeat for fear, none often.
+- Beats whose text starts with "##" are chapter title cards: use slow_zoom_center, dip_black, and a calm overlay.
 Return one scene per beat, same order, with n = beat number.`;
 
 // ---------- helpers ----------
@@ -432,7 +445,7 @@ function drawEffect(ctx, sc, t, seed) {
 
 // ---------- captions ----------
 export function captionChunks(text, maxWords = 7) {
-  const words = text.split(/\s+/).filter(Boolean);
+  const words = wordsOf(text);
   const out = [];
   for (let i = 0; i < words.length; i += maxWords) out.push(words.slice(i, i + maxWords).join(" "));
   return out.length ? out : [""];
@@ -451,15 +464,30 @@ function drawCaption(ctx, text) {
 }
 
 // ---------- timeline ----------
-export function buildTimeline(beats, specs, wps, audioDuration) {
-  const base = beats.map((b) => Math.max(1.6, b.text.split(/\s+/).filter(Boolean).length / wps));
-  const sum = base.reduce((a, b) => a + b, 0);
-  const k = audioDuration ? audioDuration / sum : 1;
+const wordsOf = (s) => s.replace(/^#+\s*/, "").split(/\s+/).filter(Boolean);
+/**
+ * anchors (optional): [{from, to, dur}] — real narration lengths for groups of beats (beat numbers),
+ * e.g. one per ElevenLabs narration part. Inside a group, time is split by word count.
+ * audioDuration (optional): one uploaded track for everything — scales the whole timeline.
+ */
+export function buildTimeline(beats, specs, wps, audioDuration, anchors) {
+  const base = beats.map((b) => Math.max(1.6, wordsOf(b.text).length / wps + (b.text.trim().startsWith("##") ? 1 : 0)));
+  let durs = base.slice();
+  if (anchors?.length) {
+    for (const a of anchors) {
+      const idx = beats.map((b, i) => (b.n >= a.from && b.n <= a.to ? i : -1)).filter((i) => i >= 0);
+      const sum = idx.reduce((s, i) => s + base[i], 0) || 1;
+      idx.forEach((i) => (durs[i] = (base[i] / sum) * a.dur));
+    }
+  } else if (audioDuration) {
+    const sum = base.reduce((a, b) => a + b, 0);
+    durs = base.map((d) => (d / sum) * audioDuration);
+  }
   let at = 0;
   const items = beats.map((b, i) => {
-    const dur = base[i] * k;
-    const it = { start: at, dur, beat: b, spec: normalizeSpec(specs[i]), chunks: captionChunks(b.text) };
-    at += dur; return it;
+    const title = b.text.trim().startsWith("##");
+    const it = { start: at, dur: durs[i], beat: b, n: b.n, title, words: wordsOf(b.text), spec: normalizeSpec(specs?.[i]) };
+    at += durs[i]; return it;
   });
   return { items, total: at };
 }
@@ -479,6 +507,8 @@ export function normalizeSpec(sc) {
   }));
   if (!chars.length) chars.push({ main: true, x: 0.5, toX: 0.5, facing: "right", scale: 1, shirt: "#e76f51", pants: "#264653", emotion: "neutral", action: "idle" });
   return {
+    camera: pick(sc.camera, CAMERAS, "drift"), transition: pick(sc.transition, TRANSITIONS, "fade"), overlay: pick(sc.overlay, OVERLAYS, "none"),
+    focusX: clamp(num(sc.focusX, 0.5), 0, 1), focusY: clamp(num(sc.focusY, 0.5), 0, 1),
     bg: pick(sc.bg, BACKGROUNDS, "abstract"), light: pick(sc.light, LIGHTS, "day"),
     sky: hex(sc.sky, "#8ecae6"), ground: hex(sc.ground, "#6a994e"), effect: pick(sc.effect, EFFECTS, "none"),
     props: (Array.isArray(sc.props) ? sc.props : []).filter((p) => PROPS[p?.type]).slice(0, 5).map((p) => ({
@@ -488,35 +518,205 @@ export function normalizeSpec(sc) {
   };
 }
 
+// ---------- image scenes (camera work on the generated stills) ----------
+function cameraXform(sc, k) {
+  // k: 0..1 progress through the beat (eased). Returns {z, cx, cy} — zoom and the frame centre (0..1).
+  const e = ease(k), fx = sc.focusX, fy = sc.focusY;
+  switch (sc.camera) {
+    case "push_in": return { z: lerp(1.04, 1.22, e), cx: lerp(0.5, fx, e), cy: lerp(0.5, fy, e) };
+    case "pull_out": return { z: lerp(1.25, 1.04, e), cx: lerp(fx, 0.5, e), cy: lerp(fy, 0.5, e) };
+    case "pan_left": return { z: 1.18, cx: lerp(0.62, 0.38, e), cy: 0.5 };
+    case "pan_right": return { z: 1.18, cx: lerp(0.38, 0.62, e), cy: 0.5 };
+    case "tilt_up": return { z: 1.2, cx: 0.5, cy: lerp(0.62, 0.38, e) };
+    case "tilt_down": return { z: 1.2, cx: 0.5, cy: lerp(0.38, 0.62, e) };
+    case "push_in_left": return { z: lerp(1.05, 1.28, e), cx: lerp(0.5, 0.33, e), cy: lerp(0.5, fy, e) };
+    case "push_in_right": return { z: lerp(1.05, 1.28, e), cx: lerp(0.5, 0.67, e), cy: lerp(0.5, fy, e) };
+    case "shake_push": return { z: lerp(1.08, 1.2, Math.min(1, k * 3)), cx: fx, cy: fy, shake: Math.max(0, 1 - k * 2.5) };
+    case "slow_zoom_center": return { z: lerp(1.02, 1.1, e), cx: 0.5, cy: 0.5 };
+    default: return { z: lerp(1.06, 1.12, e), cx: 0.5 + 0.03 * Math.sin(k * 3), cy: 0.5 + 0.02 * Math.cos(k * 2) };
+  }
+}
+
+function drawImageScene(ctx, img, sc, t, dur, T) {
+  const c = cameraXform(sc, clamp(t / Math.max(dur, 0.1), 0, 1));
+  const iw = img.width, ih = img.height;
+  const cover = Math.max(W / iw, H / ih) * c.z;
+  const dw = iw * cover, dh = ih * cover;
+  // keep the frame inside the picture
+  let x = W / 2 - c.cx * dw, y = H / 2 - c.cy * dh;
+  x = clamp(x, W - dw, 0); y = clamp(y, H - dh, 0);
+  if (c.shake) { x += Math.sin(T * 47) * 14 * c.shake; y += Math.cos(T * 39) * 10 * c.shake; }
+  ctx.drawImage(img, x, y, dw, dh);
+}
+
+function drawOverlay(ctx, sc, t, T, seed) {
+  const r = rand(seed + 3);
+  ctx.save();
+  switch (sc.overlay) {
+    case "rain": {
+      ctx.fillStyle = "rgba(20,30,60,.18)"; ctx.fillRect(0, 0, W, H);
+      ctx.strokeStyle = "rgba(210,225,255,.55)"; ctx.lineWidth = 1.6; ctx.beginPath();
+      for (let i = 0; i < 180; i++) { const x = (r() * W + T * 160) % W, y = (r() * H + T * 1100) % H; ctx.moveTo(x, y); ctx.lineTo(x - 7, y + 26); }
+      ctx.stroke(); break;
+    }
+    case "lightning": {
+      ctx.fillStyle = "rgba(10,15,40,.25)"; ctx.fillRect(0, 0, W, H);
+      const f = (T + seed) % 2.6;
+      if (f < 0.09 || (f > 0.16 && f < 0.21)) { ctx.fillStyle = "rgba(235,240,255,.6)"; ctx.fillRect(0, 0, W, H); }
+      break;
+    }
+    case "embers": for (let i = 0; i < 40; i++) {
+      const x = (r() * W + Math.sin(T + i) * 30), y = H - ((r() * H + T * (40 + r() * 60)) % H);
+      ctx.fillStyle = `rgba(255,${120 + r() * 100 | 0},40,${0.5 + 0.5 * Math.sin(T * 5 + i)})`; ctx.beginPath(); ctx.arc(x, y, 1.5 + r() * 2.5, 0, 7); ctx.fill();
+    } break;
+    case "dust": for (let i = 0; i < 50; i++) {
+      const x = (r() * W + T * 8 * (r() - 0.5) * 4 + W) % W, y = (r() * H + Math.sin(T * 0.7 + i) * 20);
+      ctx.fillStyle = `rgba(255,245,220,${0.15 + 0.25 * Math.abs(Math.sin(T + i))})`; ctx.beginPath(); ctx.arc(x, y, 1 + r() * 2, 0, 7); ctx.fill();
+    } break;
+    case "snow": for (let i = 0; i < 90; i++) {
+      const x = (r() * W + Math.sin(T + i) * 25), y = (r() * H + T * (30 + r() * 50)) % H;
+      ctx.fillStyle = "rgba(255,255,255,.8)"; ctx.beginPath(); ctx.arc(x, y, 1.5 + r() * 2.5, 0, 7); ctx.fill();
+    } break;
+    case "light_flicker": {
+      const f = Math.sin(T * 23) * Math.sin(T * 7.3) > 0.55 || (T % 3.7) < 0.12;
+      ctx.fillStyle = f ? "rgba(0,0,0,.55)" : "rgba(0,0,0,.08)"; ctx.fillRect(0, 0, W, H); break;
+    }
+    case "red_alarm": { ctx.fillStyle = `rgba(220,0,0,${0.12 + 0.14 * (0.5 + 0.5 * Math.sin(T * 6))})`; ctx.fillRect(0, 0, W, H); break; }
+    case "fog": for (let i = 0; i < 6; i++) {
+      const x = ((T * 20 * (i + 1) + i * 300) % (W + 600)) - 300;
+      const g = ctx.createRadialGradient(x, H * 0.7, 10, x, H * 0.7, 360); g.addColorStop(0, "rgba(220,225,235,.22)"); g.addColorStop(1, "rgba(220,225,235,0)");
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    } break;
+    case "heartbeat": {
+      const p = (T % 1) < 0.12 || ((T % 1) > 0.22 && (T % 1) < 0.3) ? 1 : 0;
+      const g = ctx.createRadialGradient(W / 2, H / 2, H * 0.35, W / 2, H / 2, W * 0.75);
+      g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(1, `rgba(120,0,0,${0.35 + 0.3 * p})`); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); break;
+    }
+    default: break;
+  }
+  ctx.restore();
+}
+
+function drawFinish(ctx, T) {
+  // cinematic vignette + light film grain
+  const g = ctx.createRadialGradient(W / 2, H / 2, H * 0.45, W / 2, H / 2, W * 0.72);
+  g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(1, "rgba(0,0,0,.38)");
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  const r = rand(Math.floor(T * 24));
+  ctx.fillStyle = "rgba(255,255,255,.035)";
+  for (let i = 0; i < 260; i++) ctx.fillRect(r() * W, r() * H, 2, 2);
+}
+
+function drawTitleCard(ctx, text, t) {
+  const k = ease(clamp(t / 0.8, 0, 1));
+  ctx.save();
+  ctx.fillStyle = `rgba(0,0,0,${0.55 * k})`; ctx.fillRect(0, 0, W, H);
+  ctx.direction = "rtl"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  const parts = text.replace(/^#+\s*/, "").split(/[:：]/);
+  const head = parts[0].trim(), sub = parts.slice(1).join(":").trim();
+  ctx.globalAlpha = k;
+  ctx.font = "800 84px Cairo, sans-serif";
+  ctx.lineWidth = 10; ctx.strokeStyle = "#000"; ctx.strokeText(head, W / 2, H / 2 - (sub ? 50 : 0) + (1 - k) * 30, W - 120);
+  const gr = ctx.createLinearGradient(0, H / 2 - 100, 0, H / 2); gr.addColorStop(0, "#ffe066"); gr.addColorStop(1, "#ff922b");
+  ctx.fillStyle = gr; ctx.fillText(head, W / 2, H / 2 - (sub ? 50 : 0) + (1 - k) * 30, W - 120);
+  if (sub) {
+    const k2 = ease(clamp((t - 0.4) / 0.8, 0, 1)); ctx.globalAlpha = k2;
+    ctx.font = "800 50px Cairo, sans-serif"; ctx.lineWidth = 8; ctx.strokeText(sub, W / 2, H / 2 + 50, W - 160);
+    ctx.fillStyle = "#fff"; ctx.fillText(sub, W / 2, H / 2 + 50, W - 160);
+    ctx.globalAlpha = k2; ctx.fillStyle = "#ff922b"; ctx.fillRect(W / 2 - 120 * k2, H / 2 + 95, 240 * k2, 5);
+  }
+  ctx.restore();
+}
+
+/** Karaoke captions: one chunk at a time, the spoken word highlighted. */
+function drawKaraoke(ctx, words, t, dur) {
+  if (!words.length) return;
+  const per = 6, chunks = [];
+  for (let i = 0; i < words.length; i += per) chunks.push(words.slice(i, i + per));
+  const pos = clamp(t / dur, 0, 0.9999) * words.length;
+  const wi = Math.floor(pos), ci = Math.floor(wi / per), chunk = chunks[Math.min(ci, chunks.length - 1)];
+  ctx.save();
+  ctx.direction = "rtl"; ctx.textBaseline = "middle"; ctx.font = "800 46px Cairo, sans-serif";
+  const space = ctx.measureText(" ").width;
+  const widths = chunk.map((w) => ctx.measureText(w).width);
+  const total = widths.reduce((a, b) => a + b, 0) + space * (chunk.length - 1);
+  const y = H - 78;
+  ctx.fillStyle = "rgba(0,0,0,.55)"; roundRect(ctx, W / 2 - total / 2 - 30, y - 40, total + 60, 80, 20); ctx.fill();
+  let x = W / 2 + total / 2; // right-to-left
+  chunk.forEach((w, i) => {
+    const idx = ci * per + i, cur = idx === wi;
+    ctx.textAlign = "right";
+    ctx.lineWidth = 7; ctx.strokeStyle = "#000"; ctx.strokeText(w, x, y);
+    ctx.fillStyle = cur ? "#ffd43b" : idx < wi ? "#fff" : "rgba(255,255,255,.82)";
+    if (cur) { ctx.save(); ctx.translate(x - widths[i] / 2, y); ctx.scale(1.08, 1.08); ctx.translate(-(x - widths[i] / 2), -y); ctx.fillText(w, x, y); ctx.restore(); }
+    else ctx.fillText(w, x, y);
+    x -= widths[i] + space;
+  });
+  ctx.restore();
+}
+
+function drawScene(ctx, tl, i, t, T, outfit, images) {
+  const it = tl.items[i], sc = it.spec, seed = i * 13 + 5;
+  const img = images?.get(it.n);
+  ctx.save();
+  if (img) {
+    drawImageScene(ctx, img, sc, t, it.dur, T);
+    drawOverlay(ctx, sc, t, T, seed);
+  } else {
+    if (sc.effect === "shake") ctx.translate(Math.sin(T * 40) * 6, Math.cos(T * 37) * 4);
+    if (sc.effect === "zoom_in") { const z = 1 + 0.08 * (t / it.dur); ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-W / 2, -H / 2); }
+    drawBackground(ctx, sc, T, seed);
+    drawProps(ctx, sc, t);
+    const chars = [...sc.characters].sort((a, b) => a.scale - b.scale);
+    for (const ch of chars) drawFigure(ctx, ch, t, it.dur, outfit);
+    drawEffect(ctx, sc, T, seed);
+    drawLight(ctx, sc, T, seed);
+    if (sc.overlay !== "none") drawOverlay(ctx, sc, t, T, seed);
+  }
+  ctx.restore();
+}
+
+let scratch = null;
 /** Draw the frame at global time T. */
-export function renderFrame(ctx, tl, T, outfit, { captions = true } = {}) {
+export function renderFrame(ctx, tl, T, outfit, { captions = true, images = null } = {}) {
   const items = tl.items;
   let i = items.findIndex((it) => T < it.start + it.dur);
   if (i < 0) i = items.length - 1;
   const it = items[i];
   const t = clamp(T - it.start, 0, it.dur);
   const sc = it.spec;
-  const seed = i * 13 + 5;
+  const TR = 0.45; // transition length (s)
 
-  ctx.save();
-  if (sc.effect === "shake") ctx.translate(Math.sin(T * 40) * 6, Math.cos(T * 37) * 4);
-  if (sc.effect === "zoom_in") { const z = 1 + 0.08 * (t / it.dur); ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-W / 2, -H / 2); }
-  drawBackground(ctx, sc, T, seed);
-  drawProps(ctx, sc, t);
-  const chars = [...(sc.characters || [])].sort((a, b) => (a.scale || 1) - (b.scale || 1));
-  for (const ch of chars) drawFigure(ctx, ch, t, it.dur, outfit);
-  drawEffect(ctx, sc, T, seed);
-  drawLight(ctx, sc, T, seed);
-  ctx.restore();
+  drawScene(ctx, tl, i, t, T, outfit, images);
 
-  if (captions) {
-    const n = it.chunks.length;
-    const ci = Math.min(n - 1, Math.floor((t / it.dur) * n));
-    drawCaption(ctx, it.chunks[ci]);
+  // transition from the previous beat
+  if (i > 0 && t < TR && sc.transition !== "cut") {
+    const k = t / TR, prev = items[i - 1];
+    if (sc.transition === "fade" || sc.transition === "whip_left" || sc.transition === "whip_right" || sc.transition === "zoom_through") {
+      scratch ??= Object.assign(document.createElement("canvas"), { width: W, height: H });
+      const sctx = scratch.getContext("2d");
+      drawScene(sctx, tl, i - 1, prev.dur, T, outfit, images);
+      ctx.save();
+      if (sc.transition === "fade") { ctx.globalAlpha = 1 - ease(k); ctx.drawImage(scratch, 0, 0); }
+      else if (sc.transition === "zoom_through") { const z = 1 + ease(k) * 1.5; ctx.globalAlpha = 1 - ease(k); ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.drawImage(scratch, -W / 2, -H / 2); }
+      else { const dir = sc.transition === "whip_left" ? -1 : 1; ctx.filter = `blur(${12 * (1 - k)}px)`; ctx.drawImage(scratch, dir * ease(k) * W, 0); }
+      ctx.restore();
+    } else if (sc.transition === "dip_black") {
+      ctx.fillStyle = `rgba(0,0,0,${1 - ease(k)})`; ctx.fillRect(0, 0, W, H);
+    } else if (sc.transition === "flash") {
+      ctx.fillStyle = `rgba(255,255,255,${1 - k})`; ctx.fillRect(0, 0, W, H);
+    }
   }
-  // quick dip at beat boundaries
-  const edge = Math.min(t, it.dur - t);
-  if (edge < 0.12 && T > 0.05) { ctx.fillStyle = `rgba(0,0,0,${(1 - edge / 0.12) * 0.55})`; ctx.fillRect(0, 0, W, H); }
+  if (i < items.length - 1 && items[i + 1].spec.transition === "dip_black" && it.dur - t < TR) {
+    ctx.fillStyle = `rgba(0,0,0,${1 - (it.dur - t) / TR})`; ctx.fillRect(0, 0, W, H);
+  }
+
+  if (images?.get(it.n)) drawFinish(ctx, T);
+  if (it.title) drawTitleCard(ctx, it.beat.text, t);
+  else if (captions) drawKaraoke(ctx, it.words, t, it.dur);
+  // fade in at the very start, out at the end
+  if (T < 0.6) { ctx.fillStyle = `rgba(0,0,0,${1 - T / 0.6})`; ctx.fillRect(0, 0, W, H); }
+  if (tl.total - T < 0.8) { ctx.fillStyle = `rgba(0,0,0,${1 - (tl.total - T) / 0.8})`; ctx.fillRect(0, 0, W, H); }
 }
 
 // ---------- music ----------

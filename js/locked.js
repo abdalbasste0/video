@@ -57,7 +57,9 @@ export const DURATIONS = [
   { label: "دقيقتين", seconds: 120 },
   { label: "3 دقايق", seconds: 180 },
   { label: "5 دقايق", seconds: 300 },
+  { label: "8 دقايق", seconds: 480 },
   { label: "10 دقايق", seconds: 600 },
+  { label: "13 دقيقة (زي حلقات القصص)", seconds: 780 },
 ];
 
 export const SCENE_SECONDS = [

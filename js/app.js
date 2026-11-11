@@ -2,8 +2,9 @@ import { WORKERS, WPS, countWords } from "./workers.js";
 import { NICHES, DURATIONS, SCENE_SECONDS } from "./locked.js";
 import { runStation, MODELS, getSample, getDownloads } from "./api.js";
 import { W, H, buildTimeline, renderFrame, scheduleMusic, pickMime, MOOD_LABELS } from "./studio.js";
+import { VOICES, IMAGE_MODELS, getMcp, mcpErrorText, generateImage, generateSpeech, narrationParts, putBlob, getBlob, clearBlobs, blobToImage, decodeAudio } from "./media.js";
 
-const STORE_KEY = "stickfactory.project.v2";
+const STORE_KEY = "stickfactory.project.v3";
 const LAST = WORKERS.length;
 const SETTINGS_KEY = "stickfactory.settings.v1";
 const STATUS_AR = {
@@ -154,7 +155,9 @@ function paintLive() {
   const el = $("#live-note"); if (el) el.textContent = liveNote;
 }
 
+let renderSeq = 0; // bumps on every repaint so async binders can tell they are stale
 function paintBody() {
+  renderSeq++;
   copyBuffer = [];
   if (!exporting) stopPreview();
   const w = WORKERS[selected - 1];
@@ -192,11 +195,12 @@ const VIEWS = {
       <div class="inline"><input type="text" id="topic-custom" placeholder="موضوع مختلف" /><button class="btn primary" id="topic-go">اعتمد</button></div>`;
   },
   3: (st) => {
-    if (st !== "waiting" && s.durationSec) return `<div class="meta"><span class="chip">${esc(s.durationLabel)}</span><span class="chip">حوالي ${Math.round(s.durationSec * WPS)} كلمة</span><span class="chip">${s.dialect === "masri" ? "عامية مصرية" : "فصحى مبسطة"}</span></div>`;
+    if (st !== "waiting" && s.durationSec) return `<div class="meta"><span class="chip">${esc(s.durationLabel)}</span><span class="chip">حوالي ${Math.round(s.durationSec * WPS)} كلمة</span><span class="chip">${s.dialect === "masri" ? "عامية مصرية" : "فصحى مبسطة"}</span><span class="chip">${s.style === "explain" ? "شرح ومعلومات" : "قصة ستيكمان بالفصول"}</span></div>`;
     return `<p>الفيديو ده هيكون مدته قد إيه؟</p>
       <div class="choices">${DURATIONS.map((d) => `<button class="choice" data-sec="${d.seconds}" data-label="${esc(d.label)}">${esc(d.label)} <small>— حوالي ${d.seconds * WPS} كلمة</small></button>`).join("")}</div>
       <label>أو مدة مخصصة بالثواني<div class="inline"><input type="text" inputmode="numeric" id="dur-custom" placeholder="مثلاً 90" /><button class="btn primary" id="dur-go">اعتمد</button></div></label>
-      <label>لهجة السرد<select id="dialect"><option value="fusha">فصحى مبسطة لكل العرب</option><option value="masri"${s.dialect === "masri" ? " selected" : ""}>عامية مصرية</option></select></label>`;
+      <label>لهجة السرد<select id="dialect"><option value="fusha">فصحى مبسطة لكل العرب</option><option value="masri"${s.dialect === "masri" ? " selected" : ""}>عامية مصرية</option></select></label>
+      <label>أسلوب الفيديو<select id="style"><option value="story"${s.style !== "explain" ? " selected" : ""}>قصة ستيكمان مشوقة بالفصول — انت البطل (زي قنوات قصص ستيكمان)</option><option value="explain"${s.style === "explain" ? " selected" : ""}>فيديو شرح ومعلومات</option></select></label>`;
   },
   4: () => s.script ? `<div class="meta"><span class="chip">الهدف: ${s.targetWords} كلمة / ${esc(s.durationLabel)}</span><span class="chip">المسودة: ${countWords(s.script)} كلمة</span></div><div class="script">${esc(s.script)}</div>` : "",
   5: () => {
@@ -271,17 +275,55 @@ const VIEWS = {
       ${s.motion.specs.map((sc, i) => sc ? `<tr><td class="num">${i + 1}</td><td>${esc(sc.bg)} · ${esc(sc.light)}</td><td>${sc.characters.map((c) => `${c.main ? "البطل" : "شخصية"}: ${esc(c.action)} / ${esc(c.emotion)}`).join("<br>")}</td><td>${sc.props.map((p) => esc(p.type)).join("، ")}</td></tr>` : `<tr><td class="num">${i + 1}</td><td colspan="3">ناقص</td></tr>`).join("")}</tbody></table>`;
   },
   16: (st) => {
-    const moods = Object.entries(MOOD_LABELS).map(([k, v]) => `<option value="${k}"${(s.music || "calm") === k ? " selected" : ""}>${v}</option>`).join("");
-    const done = st !== "waiting" && s.audioSet;
-    return `${done ? `<div class="meta"><span class="chip">${voice ? "التعليق: " + esc(voice.name) : s.voiceName ? "⚠ ارفع ملف التعليق تاني (" + esc(s.voiceName) + ")" : "من غير تعليق صوتي"}</span><span class="chip">الموسيقى: ${esc(MOOD_LABELS[s.music || "none"])}</span><span class="chip">الترجمة: ${s.captions === false ? "مقفولة" : "شغالة"}</span></div>` : ""}
-      <p>التعليق الصوتي: سجّل السكريبت بصوتك (مثلاً بتطبيق تسجيل الصوت في الموبايل) أو من أي موقع تعليق صوتي، وارفع الملف هنا. المونتير هيظبط مدة كل مشهد على طول التسجيل.</p>
-      <label>ملف التعليق (اختياري)<input type="file" id="voice-file" accept="audio/*" /></label>
-      <p class="note" id="voice-info">${voice ? `✓ ${esc(voice.name)} — ${voice.buffer.duration.toFixed(1)} ثانية` : "لو مارفعتش ملف، الفيديو هيطلع بالترجمة والموسيقى بس."}</p>
-      <label>الموسيقى الخلفية<select id="music">${moods}</select></label>
-      <label style="display:flex;gap:8px;align-items:center;font-weight:600"><input type="checkbox" id="captions" ${s.captions === false ? "" : "checked"} /> ترجمة عربية على الفيديو</label>
-      <div class="row-end"><button class="btn primary" id="audio-go">اعتمد وكمّل للمونتاج</button></div>`;
+    const n = s.beats?.length || 0;
+    const have = (s.imageKeys || []).length;
+    const models = IMAGE_MODELS.map((m) => `<option value="${m.id}"${(s.imageModel || IMAGE_MODELS[0].id) === m.id ? " selected" : ""}>${m.label}</option>`).join("");
+    return `<p>كل مشهد محتاج صورة. عندك طريقتين، وتقدر تخلطهم:</p>
+      <ol class="note" style="margin:0 0 10px;padding-inline-start:18px">
+        <li><strong>تلقائي:</strong> المصنع يولّد الصور بموديل Google Nano Banana (نفس موديلات Google Flow) عن طريق حسابك في ElevenLabs.</li>
+        <li><strong>يدوي من Google Flow:</strong> انسخ برومت المشهد، ولّده في <a href="https://labs.google/fx/tools/flow" target="_blank" rel="noopener">Google Flow</a>، ونزّل الصورة وارفعها هنا.</li>
+      </ol>
+      <p class="note">أي مشهد من غير صورة هيترسم تلقائياً بالستيك مان المتحرك بتاع المصنع.</p>
+      <div class="meta"><span class="chip ${have === n ? "ok" : ""}" id="img-count">${have} / ${n} صورة جاهزة</span></div>
+      <div class="inline" style="flex-wrap:wrap">
+        <select id="img-model" style="flex:1;min-width:200px">${models}</select>
+        <button class="btn primary" id="img-gen-all">🎨 ولّد الصور الناقصة</button>
+        <button class="btn" id="img-stop" hidden>■ وقف</button>
+      </div>
+      <p class="note" id="img-status"></p>
+      <div class="scene-grid">${(s.beats || []).map((bt, i) => `
+        <article class="scene-card" data-n="${bt.n}">
+          <div class="thumb" id="thumb-${bt.n}"><span>${bt.n}</span></div>
+          <p class="t">${esc(bt.text)}</p>
+          <div class="acts">
+            <button class="btn small" data-copy="${addCopy(s.imagePrompts?.[i] || "")}">نسخ البرومت</button>
+            <label class="btn small upl">رفع صورة<input type="file" accept="image/*" data-upload="${bt.n}" hidden /></label>
+            <button class="btn small" data-gen="${bt.n}">توليد</button>
+          </div>
+          <p class="note err" id="err-${bt.n}"></p>
+        </article>`).join("")}</div>
+      <div class="row-end"><button class="btn primary" id="images-go">${st === "done" ? "حدّث وكمّل" : "اعتمد الصور وكمّل للصوت"}</button></div>`;
   },
-  17: () => {
+  17: (st) => {
+    const moods = Object.entries(MOOD_LABELS).map(([k, v]) => `<option value="${k}"${(s.music || "mystery") === k ? " selected" : ""}>${v}</option>`).join("");
+    const voices = VOICES.map((v) => `<option value="${v.id}"${(s.voiceId || VOICES[0].id) === v.id ? " selected" : ""}>${v.label}</option>`).join("");
+    const parts = s.beats ? narrationParts(s.beats) : [];
+    const ready = voiceState();
+    return `<div class="meta"><span class="chip ${ready.ok ? "ok" : ""}" id="voice-chip">${esc(ready.label)}</span></div>
+      <h3 style="font-size:1rem;margin:6px 0">التعليق الصوتي بـ ElevenLabs</h3>
+      <div class="inline" style="flex-wrap:wrap"><select id="voice-id" style="flex:1;min-width:220px">${voices}</select>
+        <button class="btn" id="voice-preview">▶ اسمع عيّنة</button>
+        <button class="btn primary" id="voice-gen">🎙 ولّد التعليق (${parts.length} جزء)</button></div>
+      <p class="note">بيقرأ السكريبت بموديل ElevenLabs Multilingual v2 على ${parts.length} جزء، وكل جزء مدته بتظبط توقيت مشاهده بالظبط. السكريبت ${(s.script || "").length.toLocaleString("ar-EG")} حرف — اتأكد إن رصيد ElevenLabs يكفي.</p>
+      <p class="note" id="voice-status"></p>
+      <h3 style="font-size:1rem;margin:14px 0 6px">أو ارفع تسجيل جاهز</h3>
+      <input type="file" id="voice-file" accept="audio/*" />
+      <h3 style="font-size:1rem;margin:14px 0 6px">الموسيقى والترجمة</h3>
+      <label>الموسيقى الخلفية<select id="music">${moods}</select></label>
+      <label style="display:flex;gap:8px;align-items:center;font-weight:600"><input type="checkbox" id="captions" ${s.captions === false ? "" : "checked"} /> ترجمة عربية متحركة (كلمة بكلمة)</label>
+      <div class="row-end"><button class="btn ghost" id="audio-none">كمّل من غير تعليق</button><button class="btn primary" id="audio-go">اعتمد وكمّل للمونتاج</button></div>`;
+  },
+  18: () => {
     if (!s.videoReady || !s.motion) return "";
     const mime = pickMime();
     return `<div class="stage-wrap"><canvas id="stage" width="${W}" height="${H}"></canvas></div>
@@ -292,10 +334,10 @@ const VIEWS = {
         <span class="time" id="time">0:00 / 0:00</span>
       </div>
       <div class="export-bar" id="export-bar" hidden><div></div></div>
-      <p class="note" id="export-note">${mime === null ? "المتصفح ده مابيدعمش تسجيل الفيديو. جرّب Chrome." : `التصدير بيتسجل في وقت حقيقي (فيديو دقيقة = دقيقة تسجيل). خلّي الصفحة مفتوحة وقدامك لحد ما يخلص. الصيغة: ${mime.startsWith("video/mp4") ? "MP4" : "WebM"}.`}</p>
-      ${s.voiceName && !voice ? `<p class="error-box">ملف التعليق مش متحمّل بعد إعادة فتح الصفحة. ارجع للعامل 16 وارفعه تاني لو عايزه في الفيديو.</p>` : ""}`;
+      <p class="note" id="stage-info"></p>
+      <p class="note" id="export-note">${mime === null ? "المتصفح ده مابيدعمش تسجيل الفيديو. جرّب Chrome." : `التصدير بيتسجل في وقت حقيقي (فيديو دقيقة = دقيقة تسجيل). خلّي الصفحة مفتوحة والشاشة منورة لحد ما يخلص. الصيغة: ${mime.startsWith("video/mp4") ? "MP4" : "WebM"}.`}</p>`;
   },
-  18: () => s.packageMd ? `<p>الإنجن خلص. الباكدج الكامل جاهز: السكريبت، جدول المشاهد، الكراكتر شيت، ${s.imagePrompts.length} برومت صورة، برومت الأنيميشن الماستر، و3 ثمبنيل. والفيديو النهائي تصدّره من عند العامل 17 (المونتير).</p>
+  19: () => s.packageMd ? `<p>الإنجن خلص. الباكدج الكامل جاهز: السكريبت، جدول المشاهد، الكراكتر شيت، ${s.imagePrompts.length} برومت صورة، برومت الأنيميشن الماستر، و3 ثمبنيل. والفيديو النهائي تصدّره من عند العامل 18 (المونتير).</p>
       <div class="row-end" style="justify-content:flex-start"><button class="btn primary" id="dl-md">⬇ تحميل الباكدج (.md)</button><button class="btn" data-copy="${addCopy(s.packageMd)}">نسخ الكل</button><button class="btn ghost" id="new-project">مشروع جديد</button></div>` : "",
 };
 
@@ -318,7 +360,7 @@ function bindBody(id) {
     on("#topic-go", () => { const v = val("#topic-custom"); if (v) pick(v); });
   }
   if (id === 3) {
-    const pick = (sec, label) => submit(3, (x) => { x.durationSec = sec; x.durationLabel = label; x.dialect = val("#dialect") || "fusha"; });
+    const pick = (sec, label) => submit(3, (x) => { x.durationSec = sec; x.durationLabel = label; x.dialect = val("#dialect") || "fusha"; x.style = val("#style") || "story"; });
     body.querySelectorAll("[data-sec]").forEach((b) => b.addEventListener("click", () => pick(+b.dataset.sec, b.dataset.label)));
     on("#dur-go", () => { const n = parseInt(val("#dur-custom"), 10); if (n >= 10 && n <= 1800) pick(n, `${n} ثانية`); else toast("اكتب مدة بين 10 و1800 ثانية"); });
   }
@@ -335,25 +377,10 @@ function bindBody(id) {
     }));
     on("#char-go", () => { const v = val("#char-text"); if (v) submit(8, (x) => { x.characterAr = v; }); else toast("اختار أو اكتب وصف الشخصية"); });
   }
-  if (id === 16) {
-    body.querySelector("#voice-file")?.addEventListener("change", async (e) => {
-      const file = e.target.files?.[0]; if (!file) return;
-      const info = body.querySelector("#voice-info"); info.textContent = "بقرأ الملف…";
-      try {
-        const actx = new (window.AudioContext || window.webkitAudioContext)();
-        const buffer = await actx.decodeAudioData(await file.arrayBuffer());
-        actx.close();
-        voice = { name: file.name, buffer };
-        info.textContent = `✓ ${file.name} — ${buffer.duration.toFixed(1)} ثانية`;
-      } catch { voice = null; info.textContent = "مقدرتش أقرا الملف ده. جرّب MP3 أو M4A أو WAV."; }
-    });
-    on("#audio-go", () => submit(16, (x) => {
-      x.audioSet = true; x.voiceName = voice?.name || null;
-      x.music = val("#music") || "none"; x.captions = body.querySelector("#captions").checked;
-    }));
-  }
-  if (id === 17) setupStage(body);
-  if (id === 18) {
+  if (id === 16) bindImages(body);
+  if (id === 17) bindAudio(body);
+  if (id === 18) setupStage(body);
+  if (id === 19) {
     on("#dl-md", async () => {
       const filename = `stickman-${Date.now()}.md`;
       const downloads = await getDownloads();
@@ -390,58 +417,247 @@ async function chooseCharMode(mode) {
 }
 
 
-// ---------- studio (worker 17) ----------
-let voice = null;          // {name, buffer} — kept in memory only
-let preview = null;        // {raf, actx, stopMusic, src}
+// ---------- media (workers 16–18) ----------
+// Images and narration live in IndexedDB (blobs) + memory (decoded), so a reload keeps them.
+const images = new Map();   // beat n -> ImageBitmap/HTMLImageElement
+let voiceParts = null;      // [{from, to, buffer}] from ElevenLabs
+let voiceUpload = null;     // {name, buffer}
+let preview = null;         // {raf, actx, stops}
 let exporting = false;
+let mediaAbort = null;
+
+async function loadMedia() {
+  for (const n of s.imageKeys || []) {
+    if (images.has(n)) continue;
+    const blob = await getBlob(`img-${n}`);
+    if (blob) { try { images.set(n, await blobToImage(blob)); } catch { /* broken file */ } }
+  }
+  if (s.voiceMode === "eleven" && !voiceParts && s.voiceParts?.length) {
+    const parts = [];
+    for (const p of s.voiceParts) {
+      const blob = await getBlob(`voice-${p.from}`);
+      if (!blob) { parts.length = 0; break; }
+      parts.push({ ...p, buffer: await decodeAudio(blob) });
+    }
+    if (parts.length) voiceParts = parts;
+  }
+  if (s.voiceMode === "upload" && !voiceUpload) {
+    const blob = await getBlob("voice-upload");
+    if (blob) voiceUpload = { name: s.voiceName || "voice", buffer: await decodeAudio(blob) };
+  }
+}
+
+function voiceState() {
+  if (s.voiceMode === "eleven" && s.voiceParts?.length) return { ok: true, label: `✓ تعليق ElevenLabs جاهز (${s.voiceParts.length} جزء، ${fmt(s.voiceParts.reduce((a, p) => a + p.dur, 0))})` };
+  if (s.voiceMode === "upload" && s.voiceName) return { ok: true, label: `✓ تسجيل مرفوع: ${s.voiceName}` };
+  return { ok: false, label: "لسه مفيش تعليق صوتي" };
+}
+
+async function saveImage(n, blob) {
+  await putBlob(`img-${n}`, blob);
+  images.set(n, await blobToImage(blob));
+  s.imageKeys = [...new Set([...(s.imageKeys || []), n])].sort((a, b) => a - b);
+  persist();
+}
+
+function paintThumb(body, n) {
+  const el = body.querySelector(`#thumb-${n}`); if (!el) return;
+  const img = images.get(n);
+  if (!img) return;
+  const c = document.createElement("canvas"); c.width = 320; c.height = 180;
+  const g = c.getContext("2d"); const k = Math.max(320 / img.width, 180 / img.height);
+  g.drawImage(img, (320 - img.width * k) / 2, (180 - img.height * k) / 2, img.width * k, img.height * k);
+  el.replaceChildren(c);
+  const cnt = body.querySelector("#img-count");
+  if (cnt) cnt.textContent = `${(s.imageKeys || []).length} / ${s.beats.length} صورة جاهزة`;
+}
+
+async function genOneImage(body, n) {
+  const i = s.beats.findIndex((b) => b.n === n);
+  const err = body.querySelector(`#err-${n}`);
+  if (err) err.textContent = "بيتولّد…";
+  try {
+    const { blob } = await generateImage(s.imagePrompts[i], s.imageModel || IMAGE_MODELS[0].id, {
+      signal: mediaAbort?.signal, onStatus: (sec) => { if (err) err.textContent = `بيتولّد… ${sec}ث`; },
+    });
+    await saveImage(n, blob); if (err) err.textContent = ""; paintThumb(body, n);
+    return true;
+  } catch (e) {
+    if (err) {
+      if (e?.code === "fetch_blocked") err.innerHTML = `الصورة اتولدت بس المتصفح منع تحميلها. <a href="${esc(e.url)}" target="_blank" rel="noopener">افتحها</a> واحفظها وارفعها هنا.`;
+      else err.textContent = mcpErrorText(e);
+    }
+    return e;
+  }
+}
+
+async function bindImages(body) {
+  const seq = renderSeq;
+  await loadMedia();
+  if (seq !== renderSeq) return;
+  for (const n of s.imageKeys || []) paintThumb(body, n);
+  const status = body.querySelector("#img-status");
+  const mcp = await getMcp();
+  if (seq !== renderSeq) return;
+  if (!mcp) { body.querySelector("#img-gen-all").disabled = true; body.querySelectorAll("[data-gen]").forEach((b) => (b.disabled = true)); status.textContent = "التوليد التلقائي بيشتغل لما تفتح الصفحة من claude.ai ومتوصل بـ ElevenLabs. تقدر ترفع الصور يدوي."; }
+  body.querySelector("#img-model").addEventListener("change", (e) => { s.imageModel = e.target.value; persist(); });
+  body.querySelectorAll("[data-upload]").forEach((inp) => inp.addEventListener("change", async () => {
+    const f = inp.files?.[0]; if (!f) return; const n = +inp.dataset.upload;
+    try { await saveImage(n, f); paintThumb(body, n); body.querySelector(`#err-${n}`).textContent = ""; } catch { body.querySelector(`#err-${n}`).textContent = "مقدرتش أقرا الصورة دي."; }
+  }));
+  body.querySelectorAll("[data-gen]").forEach((b) => b.addEventListener("click", async () => {
+    b.disabled = true; mediaAbort ??= new AbortController(); await genOneImage(body, +b.dataset.gen); b.disabled = false;
+  }));
+  const stopBtn = body.querySelector("#img-stop"), allBtn = body.querySelector("#img-gen-all");
+  stopBtn.addEventListener("click", () => mediaAbort?.abort());
+  allBtn.addEventListener("click", async () => {
+    const missing = s.beats.map((b) => b.n).filter((n) => !images.has(n));
+    if (!missing.length) { status.textContent = "كل المشاهد عندها صور ✓"; return; }
+    mediaAbort = new AbortController(); allBtn.disabled = true; stopBtn.hidden = false;
+    let ok = 0, fails = 0;
+    for (const [k, n] of missing.entries()) {
+      if (mediaAbort.signal.aborted) break;
+      status.textContent = `بولّد صورة المشهد ${n} (${k + 1} من ${missing.length})…`;
+      const r = await genOneImage(body, n);
+      if (r === true) ok++; else { fails++; if (r?.code && !["tool_error", "fetch_blocked"].includes(r.code)) break; }
+    }
+    status.textContent = `خلصت: ${ok} صورة جديدة${fails ? `، و${fails} فشلت — اضغط "توليد" على المشهد أو ارفع صورته` : ""}.`;
+    allBtn.disabled = false; stopBtn.hidden = true; mediaAbort = null;
+  });
+  body.querySelector("#images-go").addEventListener("click", () => submit(16, (x) => { x.imagesSet = true; }));
+}
+
+async function bindAudio(body) {
+  const seq = renderSeq;
+  await loadMedia();
+  if (seq !== renderSeq) return;
+  const status = body.querySelector("#voice-status"), chip = body.querySelector("#voice-chip");
+  const refreshChip = () => { const v = voiceState(); chip.textContent = v.label; chip.classList.toggle("ok", v.ok); };
+  const mcp = await getMcp();
+  if (seq !== renderSeq) return;
+  if (!mcp) { body.querySelector("#voice-gen").disabled = true; body.querySelector("#voice-preview").disabled = true; status.textContent = "التعليق بـ ElevenLabs بيشتغل لما تفتح الصفحة من claude.ai ومتوصل بـ ElevenLabs. تقدر ترفع تسجيل جاهز."; }
+  body.querySelector("#voice-id").addEventListener("change", (e) => { s.voiceId = e.target.value; persist(); });
+  body.querySelector("#voice-preview").addEventListener("click", async (e) => {
+    const b = e.currentTarget; b.disabled = true; status.textContent = "بجهّز عيّنة…";
+    try {
+      const sample = s.beats.slice(0, 2).map((x) => x.text.replace(/^#+\s*/, "")).join(" ").slice(0, 220);
+      const { blob } = await generateSpeech(sample, s.voiceId || VOICES[0].id, {});
+      new Audio(URL.createObjectURL(blob)).play(); status.textContent = "";
+    } catch (err) { status.textContent = err?.code === "fetch_blocked" ? "العيّنة اتولدت بس المتصفح منع تشغيلها." : mcpErrorText(err); }
+    b.disabled = false;
+  });
+  body.querySelector("#voice-gen").addEventListener("click", async (e) => {
+    const b = e.currentTarget; b.disabled = true;
+    const parts = narrationParts(s.beats);
+    const done = [];
+    try {
+      for (const [k, p] of parts.entries()) {
+        status.textContent = `بسجّل الجزء ${k + 1} من ${parts.length}…`;
+        const { blob } = await generateSpeech(p.text, s.voiceId || VOICES[0].id, { onStatus: (sec) => (status.textContent = `بسجّل الجزء ${k + 1} من ${parts.length}… ${sec}ث`) });
+        const buffer = await decodeAudio(blob);
+        await putBlob(`voice-${p.from}`, blob);
+        done.push({ from: p.from, to: p.to, dur: buffer.duration, buffer });
+      }
+      voiceParts = done; voiceUpload = null;
+      s.voiceMode = "eleven"; s.voiceParts = done.map(({ from, to, dur }) => ({ from, to, dur })); persist();
+      status.textContent = "التعليق جاهز ✓";
+    } catch (err) {
+      status.textContent = (err?.code === "fetch_blocked" ? "الصوت اتولد بس المتصفح منع تحميله. افتح ElevenLabs ونزّل الملفات وارفعهم كتسجيل واحد." : mcpErrorText(err)) + (done.length ? ` (اتسجل ${done.length} من ${parts.length} — اضغط تاني يكمّل من الأول)` : "");
+    }
+    refreshChip(); b.disabled = false;
+  });
+  body.querySelector("#voice-file").addEventListener("change", async (e) => {
+    const f = e.target.files?.[0]; if (!f) return;
+    status.textContent = "بقرأ الملف…";
+    try {
+      const buffer = await decodeAudio(f);
+      await putBlob("voice-upload", f);
+      voiceUpload = { name: f.name, buffer }; voiceParts = null;
+      s.voiceMode = "upload"; s.voiceName = f.name; persist();
+      status.textContent = `✓ ${f.name} — ${fmt(buffer.duration)}`;
+    } catch { status.textContent = "مقدرتش أقرا الملف ده. جرّب MP3 أو M4A أو WAV."; }
+    refreshChip();
+  });
+  const finish = (mode) => submit(17, (x) => {
+    if (mode === "none") { x.voiceMode = "none"; voiceParts = null; voiceUpload = null; }
+    x.audioSet = true; x.music = body.querySelector("#music").value || "none"; x.captions = body.querySelector("#captions").checked;
+  });
+  body.querySelector("#audio-go").addEventListener("click", () => {
+    if (!voiceState().ok) { toast("لسه مفيش تعليق — ولّده أو ارفعه، أو اضغط كمّل من غير تعليق"); return; }
+    finish("keep");
+  });
+  body.querySelector("#audio-none").addEventListener("click", () => finish("none"));
+}
 
 function timeline() {
-  return buildTimeline(s.beats, s.motion.specs, WPS, voice?.buffer.duration || null);
+  if (s.voiceMode === "eleven" && voiceParts) {
+    const anchors = voiceParts.map((p) => ({ from: p.from, to: p.to, dur: p.dur + 0.25 }));
+    return buildTimeline(s.beats, s.motion.specs, WPS, null, anchors);
+  }
+  return buildTimeline(s.beats, s.motion.specs, WPS, s.voiceMode === "upload" ? voiceUpload?.buffer.duration : null);
 }
 const fmt = (sec) => `${Math.floor(sec / 60)}:${String(Math.floor(sec % 60)).padStart(2, "0")}`;
 
 function stopPreview() {
   if (!preview) return;
   cancelAnimationFrame(preview.raf);
-  preview.stopMusic?.(); try { preview.src?.stop(); } catch { /* not started */ }
+  preview.stops.forEach((f) => { try { f(); } catch { /* already stopped */ } });
   preview.actx?.close();
   preview = null;
 }
 
-function startAudio(actx, dest, from, total) {
-  const at = actx.currentTime + 0.15;
-  let src = null;
-  if (voice) {
-    src = actx.createBufferSource(); src.buffer = voice.buffer; src.connect(dest);
-    src.start(at, Math.min(from, voice.buffer.duration));
+/** Schedule narration + music from `from` seconds. Returns {at, stops}. */
+function startAudio(actx, dest, tl, from) {
+  const at = actx.currentTime + 0.2;
+  const stops = [];
+  const play = (buffer, when, offset) => {
+    const src = actx.createBufferSource(); src.buffer = buffer; src.connect(dest);
+    src.start(at + Math.max(0, when - from), Math.max(0, offset)); stops.push(() => src.stop());
+  };
+  if (s.voiceMode === "eleven" && voiceParts) {
+    for (const p of voiceParts) {
+      const first = tl.items.find((it) => it.n === p.from); if (!first) continue;
+      const start = first.start;
+      if (start + p.dur < from) continue;
+      play(p.buffer, start, from > start ? from - start : 0);
+    }
+  } else if (s.voiceMode === "upload" && voiceUpload) {
+    play(voiceUpload.buffer, 0, from);
   }
-  const stopMusic = scheduleMusic(actx, dest, s.music || "none", at, Math.max(0.5, total - from));
-  return { at, src, stopMusic };
+  stops.push(scheduleMusic(actx, dest, s.music || "none", at, Math.max(0.5, tl.total - from), s.voiceMode === "none" ? 0.16 : 0.07));
+  return { at, stops };
 }
 
 async function setupStage(body) {
   const canvas = body.querySelector("#stage"); if (!canvas) return;
   const ctx = canvas.getContext("2d");
+  const seq = renderSeq;
   try { await document.fonts.load("800 44px Cairo"); } catch { /* fallback font */ }
+  await loadMedia();
+  if (seq !== renderSeq) return;
   const tl = timeline();
+  const info = body.querySelector("#stage-info");
+  const withImg = s.beats.filter((b) => images.has(b.n)).length;
+  info.textContent = `${tl.items.length} مشهد — ${withImg} بصور AI متحركة بالكاميرا، و${tl.items.length - withImg} مرسوم بالستيك مان. ` +
+    (s.voiceMode === "eleven" ? (voiceParts ? "التعليق: ElevenLabs." : "⚠ ملفات التعليق مش موجودة — ارجع للعامل 17.") : s.voiceMode === "upload" ? (voiceUpload ? `التعليق: ${s.voiceName}.` : "⚠ ارفع التسجيل تاني من العامل 17.") : "من غير تعليق.");
   const seek = body.querySelector("#seek"), time = body.querySelector("#time"), play = body.querySelector("#play");
-  const opts = { captions: s.captions !== false };
+  const opts = { captions: s.captions !== false, images };
   let pos = 0;
   const draw = (T) => {
     renderFrame(ctx, tl, T, s.motion.outfit, opts);
     seek.value = Math.round((T / tl.total) * 1000);
     time.textContent = `${fmt(T)} / ${fmt(tl.total)}`;
   };
-  draw(0);
+  draw(0.7);
 
   seek.addEventListener("input", () => { stopPreview(); play.textContent = "▶ معاينة"; pos = (seek.value / 1000) * tl.total; draw(pos); });
   play.addEventListener("click", () => {
     if (preview) { stopPreview(); play.textContent = "▶ معاينة"; return; }
     if (pos >= tl.total - 0.05) pos = 0;
     const actx = new (window.AudioContext || window.webkitAudioContext)();
-    const { at, src, stopMusic } = startAudio(actx, actx.destination, pos, tl.total);
+    const { at, stops } = startAudio(actx, actx.destination, tl, pos);
     const from = pos;
-    preview = { actx, src, stopMusic, raf: 0 };
+    preview = { actx, stops, raf: 0 };
     play.textContent = "⏸ إيقاف";
     const tick = () => {
       const T = from + Math.max(0, actx.currentTime - at);
@@ -463,14 +679,13 @@ async function exportVideo(body, canvas, ctx, tl, opts) {
   const actx = new (window.AudioContext || window.webkitAudioContext)();
   const dest = actx.createMediaStreamDestination();
   const stream = new MediaStream([...canvas.captureStream(30).getVideoTracks(), ...dest.stream.getAudioTracks()]);
-  const rec = new MediaRecorder(stream, mime ? { mimeType: mime, videoBitsPerSecond: 5_000_000 } : undefined);
+  const rec = new MediaRecorder(stream, mime ? { mimeType: mime, videoBitsPerSecond: 6_000_000 } : undefined);
   const chunks = [];
   rec.ondataavailable = (e) => e.data.size && chunks.push(e.data);
   const stopped = new Promise((r) => (rec.onstop = r));
   renderFrame(ctx, tl, 0, s.motion.outfit, opts);
   rec.start(1000);
-  const { at, stopMusic } = startAudio(actx, dest, 0, tl.total);
-  // keep the canvas painting even if the screen is idle
+  const { at, stops } = startAudio(actx, dest, tl, 0);
   await new Promise((resolve) => {
     const tick = () => {
       const T = Math.max(0, actx.currentTime - at);
@@ -482,7 +697,7 @@ async function exportVideo(body, canvas, ctx, tl, opts) {
     };
     requestAnimationFrame(tick);
   });
-  rec.stop(); await stopped; stopMusic(); actx.close();
+  rec.stop(); await stopped; stops.forEach((f) => { try { f(); } catch { /* done */ } }); actx.close();
   const type = (mime || "video/webm").split(";")[0];
   const blob = new Blob(chunks, { type });
   const filename = `stickman-video-${Date.now()}.${type === "video/mp4" ? "mp4" : "webm"}`;
@@ -525,7 +740,9 @@ function resetProject() {
     return;
   }
   delete btn.dataset.armed; btn.textContent = "↺ مشروع جديد";
-  s = freshState(); lastError = {}; persist(); select(1);
+  s = freshState(); lastError = {}; persist();
+  images.clear(); voiceParts = null; voiceUpload = null; clearBlobs();
+  select(1);
 }
 
 $("#model").innerHTML = MODELS.map((m) => `<option value="${m.id}">${m.label}</option>`).join("");
