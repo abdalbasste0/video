@@ -2,6 +2,7 @@ import { WORKERS, WPS, countWords } from "./workers.js";
 import { NICHES, DURATIONS, SCENE_SECONDS } from "./locked.js";
 import { runStation, MODELS, getSample, getDownloads } from "./api.js";
 import { W, H, buildTimeline, renderFrame, scheduleMusic, pickMime, MOOD_LABELS } from "./studio.js";
+import { getFixedCharacter, setFixedCharacter, characterFromText } from "./character.js";
 import { VOICES, IMAGE_MODELS, getMcp, mcpErrorText, generateImage, generateSpeech, narrationParts, putBlob, getBlob, clearBlobs, blobToImage, decodeAudio } from "./media.js";
 
 const STORE_KEY = "stickfactory.project.v3";
@@ -32,8 +33,17 @@ let liveNote = "";
 let lastError = {};
 
 function freshState() {
-  return { status: Object.fromEntries(WORKERS.map((w) => [w.id, "idle"])), dialect: "fusha" };
+  return applyFixed({ status: Object.fromEntries(WORKERS.map((w) => [w.id, "idle"])), dialect: "fusha" });
 }
+/** Put the permanent character on a project that has not chosen one yet. */
+function applyFixed(x) {
+  const fx = getFixedCharacter();
+  if (fx && !x.charMode && x.status?.[8] !== "done") {
+    x.charMode = "fixed"; x.fixedChar = fx; x.characterAr = fx.summaryAr || fx.characterEn || fx.name;
+  }
+  return x;
+}
+applyFixed(s);
 function persist() { save(STORE_KEY, s); }
 // A worker that was mid-run when the page closed goes back to idle.
 for (const id in s.status) if (s.status[id] === "working") s.status[id] = "idle";
@@ -92,7 +102,7 @@ function rerun(id) {
   const w = WORKERS.find((x) => x.id === id);
   if (w.kind === "input") {
     s.status[id] = "waiting";
-    if (id === 8) { s.characterAr = null; s.charMode = null; s.charOptions = null; }
+    if (id === 8) { s.characterAr = null; s.charMode = null; s.charOptions = null; s.fixedChar = null; applyFixed(s); }
   } else {
     s.status[id] = "idle";
     if (id === 2) s.topic = null;
@@ -222,6 +232,22 @@ const VIEWS = {
       ${s.beats.map((b) => `<tr><td class="num">${b.n}</td><td class="num">${b.start.toFixed(1)}ث</td><td>${esc(b.text)}</td></tr>`).join("")}</tbody></table>`;
   },
   8: (st) => {
+    if (s.charMode === "fixed" && s.fixedChar && st !== "working") {
+      const fx = s.fixedChar;
+      return `<p>🔒 <strong>الشخصية الثابتة: ${esc(fx.name)}</strong> — بتتحط تلقائياً في كل مشروع جديد لحد ما تبدّلها.</p>
+        <div class="script">${esc(fx.summaryAr || fx.characterEn)}</div>
+        ${fx.sheet ? promptCard("Character Sheet Prompt (الثابت)", fx.sheet, addCopy(fx.sheet)) : ""}
+        <details style="margin-top:10px"><summary style="cursor:pointer;font-weight:600">بدّل الشخصية الثابتة</summary>
+          <p class="note">الصق برومت الكراكتر شيت الجديد كامل (بالإنجليزي)، أو اكتب وصف الشخصية بأي لغة. هتبقى هي الثابتة في كل المشاريع الجاية.</p>
+          <textarea id="fixed-text"></textarea>
+          <div class="row-end"><button class="btn primary" id="fixed-save">ثبّتها بدل ${esc(fx.name)}</button></div>
+        </details>
+        <div class="row-end" style="justify-content:flex-start">
+          ${st !== "done" ? `<button class="btn primary" id="fixed-use">كمّل بـ ${esc(fx.name)}</button>` : ""}
+          <button class="btn ghost" id="fixed-other">شخصية تانية للمشروع ده بس</button>
+          <button class="btn ghost" id="fixed-off">إلغاء الشخصية الثابتة</button>
+        </div>`;
+    }
     if (st === "done" || st === "skipped") {
       return s.charMode === "skip" ? `<p>تم التخطي — هيتم استخدام ستيك فيجرز عشوائية بدون شخصية رئيسية ثابتة.</p>` : `<p>الشخصية المعتمدة:</p><div class="script">${esc(s.characterAr)}</div>`;
     }
@@ -369,6 +395,15 @@ function bindBody(id) {
     on("#scene-go", () => { const n = parseInt(val("#scene-custom"), 10); if (n >= 2 && n <= 20) submit(6, (x) => { x.sceneSec = n; }); else toast("اكتب مدة بين 2 و20 ثانية"); });
   }
   if (id === 8) {
+    on("#fixed-use", () => submit(8, () => {}));
+    on("#fixed-save", () => {
+      const v = val("#fixed-text"); if (!v) { toast("الصق البرومت أو اكتب الوصف الأول"); return; }
+      const fx = characterFromText(v); setFixedCharacter(fx);
+      submit(8, (x) => { x.charMode = "fixed"; x.fixedChar = fx; x.characterAr = fx.summaryAr || fx.characterEn || fx.name; x.characterEn = null; x.charSheet = null; });
+      toast(`اتثبتت ${fx.name} كشخصية دائمة`);
+    });
+    on("#fixed-other", () => { s.charMode = null; s.fixedChar = null; s.characterAr = null; s.status[8] = "waiting"; invalidateAfter(8); persist(); paintAll(); });
+    on("#fixed-off", () => { setFixedCharacter(null); s.charMode = null; s.fixedChar = null; s.characterAr = null; s.status[8] = "waiting"; invalidateAfter(8); persist(); paintAll(); toast("اتلغت الشخصية الثابتة"); });
     body.querySelectorAll("[data-mode]").forEach((b) => b.addEventListener("click", () => chooseCharMode(b.dataset.mode)));
     body.querySelectorAll("[data-char]").forEach((b) => b.addEventListener("click", () => {
       const o = s.charOptions[+b.dataset.char];

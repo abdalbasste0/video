@@ -11,6 +11,7 @@ import {
   masterAnimationPrompt,
 } from "./locked.js";
 import { SCENE_SCHEMA, MOTION_BRIEF, MOOD_LABELS } from "./studio.js";
+import { setFixedCharacter } from "./character.js";
 
 export const WPS = 2.5; // narration speed: words per second
 
@@ -215,6 +216,18 @@ Return JSON: {"options":[{"name":"","outfit":"","accessories":"","vibe":"","why"
     kind: "ai",
     skip: (s) => s.charMode === "skip",
     async run(s, ai) {
+      const fx = s.charMode === "fixed" ? s.fixedChar : null;
+      if (fx?.characterEn) {
+        // the permanent character: use it exactly as the user locked it
+        s.characterEn = fx.characterEn;
+        s.charSheet = fx.sheet || characterSheetPrompt(fx.characterEn);
+        s.characterSummary = fx.summaryAr || (await ai({
+          brief: "Summarize this locked stick figure character's look in 2-3 natural Arabic sentences (name, clothes with colors, accessories, hair, vibe). Return JSON {\"summary_ar\": \"...\"}.",
+          input: fx.characterEn,
+          schema: { type: "object", properties: { summary_ar: { type: "string" } }, required: ["summary_ar"], additionalProperties: false },
+        })).summary_ar;
+        return;
+      }
       const out = await ai({
         brief: `Lock the main character. Return JSON with:
 "summary_ar": ملخص شكل الشخصية النهائي في 2-3 جمل بالعربية.
@@ -230,6 +243,11 @@ Return JSON: {"options":[{"name":"","outfit":"","accessories":"","vibe":"","why"
       s.characterSummary = out.summary_ar;
       s.characterEn = out.character_en;
       s.charSheet = characterSheetPrompt(out.character_en);
+      if (s.charMode === "fixed" && s.fixedChar) {
+        // first time a pasted description is locked: keep the translation for every later project
+        s.fixedChar = { ...s.fixedChar, summaryAr: out.summary_ar, characterEn: out.character_en, sheet: s.charSheet };
+        setFixedCharacter(s.fixedChar);
+      }
     },
   },
   {
@@ -403,6 +421,7 @@ Return JSON: {"thumbnails":[{"idea_ar":"","prompt":""} x3]}.`,
         const byN = new Map((out.scenes || []).map((sc) => [sc.n, sc]));
         chunk.forEach((b, k) => specs.push(byN.get(b.n) || out.scenes?.[k] || null));
       }
+      if (s.charMode === "fixed" && s.fixedChar?.outfit) outfit = s.fixedChar.outfit;
       s.motion = { outfit: outfit || { shirt: "#e63946", pants: "#1d3557", hat: "none", tie: false, accent: "#ffd166" }, specs };
     },
   },
