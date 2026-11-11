@@ -1,6 +1,6 @@
 import { WORKERS, WPS, countWords } from "./workers.js";
 import { NICHES, DURATIONS, SCENE_SECONDS } from "./locked.js";
-import { runStation, MODELS } from "./api.js";
+import { runStation, MODELS, getSample, getDownloads } from "./api.js";
 
 const STORE_KEY = "stickfactory.project.v1";
 const SETTINGS_KEY = "stickfactory.settings.v1";
@@ -37,7 +37,6 @@ for (const id in s.status) if (s.status[id] === "working") s.status[id] = "idle"
 
 // ---------- AI bridge ----------
 function ai(opts) {
-  if (!settings.apiKey) throw new Error("حط مفتاح Claude API من الإعدادات الأول.");
   return runStation({
     apiKey: settings.apiKey,
     model: settings.model,
@@ -57,7 +56,7 @@ function invalidateAfter(id) {
 
 async function runLine() {
   if (running) return;
-  if (!settings.apiKey) { openSettings(); return; }
+  if (!(await canRun())) { openSettings(); return; }
   running = true; abort = new AbortController(); paintControls();
   try {
     for (const w of WORKERS) {
@@ -302,9 +301,16 @@ function bindBody(id) {
     on("#char-go", () => { const v = val("#char-text"); if (v) submit(8, (x) => { x.characterAr = v; }); else toast("اختار أو اكتب وصف الشخصية"); });
   }
   if (id === 15) {
-    on("#dl-md", () => {
+    on("#dl-md", async () => {
+      const filename = `stickman-${Date.now()}.md`;
+      const downloads = await getDownloads();
+      if (downloads) {
+        try { await downloads.save({ filename, data: s.packageMd }); }
+        catch (e) { if (e?.code !== "declined") toast("التحميل مش متاح هنا — استخدم نسخ الكل"); }
+        return;
+      }
       const blob = new Blob([s.packageMd], { type: "text/markdown;charset=utf-8" });
-      const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: `stickman-${Date.now()}.md` });
+      const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: filename });
       a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
     });
     on("#new-project", resetProject);
@@ -318,7 +324,7 @@ async function chooseCharMode(mode) {
   }
   s.charMode = mode; s.characterEn = null; s.charSheet = null; persist();
   if (mode === "custom") { paintBody(); return; }
-  if (!settings.apiKey) { openSettings(); return; }
+  if (!(await canRun())) { openSettings(); return; }
   running = true; abort = new AbortController(); setStatus(8, "working"); paintAll();
   try {
     await WORKERS[7].suggest(s, ai);
@@ -336,7 +342,13 @@ function toast(msg) {
   document.body.append(t); setTimeout(() => t.remove(), 2200);
 }
 
-function openSettings() {
+// Inside claude.ai the factory runs on the viewer's Claude account; elsewhere it needs an API key.
+async function canRun() { return !!(await getSample()) || !!settings.apiKey; }
+
+async function openSettings() {
+  const inClaude = !!(await getSample());
+  $("#key-fields").hidden = inClaude;
+  $("#claude-note").hidden = !inClaude;
   $("#api-key").value = settings.apiKey;
   $("#model").value = settings.model;
   $("#settings").showModal();
@@ -344,7 +356,14 @@ function openSettings() {
 
 function resetProject() {
   if (running) return;
-  if (!confirm("تبدأ مشروع جديد؟ المشروع الحالي هيتمسح.")) return;
+  const btn = $("#btn-reset");
+  if (!btn.dataset.armed) {
+    btn.dataset.armed = "1"; btn.textContent = "⚠ اضغط تاني للتأكيد";
+    setTimeout(() => { delete btn.dataset.armed; btn.textContent = "↺ مشروع جديد"; }, 3000);
+    toast("اضغط \"مشروع جديد\" تاني عشان تمسح المشروع الحالي");
+    return;
+  }
+  delete btn.dataset.armed; btn.textContent = "↺ مشروع جديد";
   s = freshState(); lastError = {}; persist(); select(1);
 }
 
@@ -364,4 +383,4 @@ $("#btn-reset").addEventListener("click", resetProject);
 // Start on the first station that needs attention.
 const firstOpen = WORKERS.find((w) => !["done", "skipped"].includes(s.status[w.id]));
 select(firstOpen ? firstOpen.id : 15);
-if (!settings.apiKey) setTimeout(openSettings, 300);
+canRun().then((ok) => { if (!ok) openSettings(); });

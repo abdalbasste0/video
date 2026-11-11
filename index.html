@@ -30,13 +30,16 @@
   <dialog id="settings">
     <form method="dialog" class="settings-form">
       <h2>إعدادات المصنع</h2>
-      <label>مفتاح Claude API
-        <input id="api-key" type="password" autocomplete="off" placeholder="sk-ant-..." dir="ltr" />
-      </label>
-      <small>المفتاح بيتحفظ في متصفحك بس، وبيتبعت مباشرة لـ api.anthropic.com.</small>
-      <label>الموديل
-        <select id="model"></select>
-      </label>
+      <p id="claude-note" hidden>المصنع شغال على حسابك في Claude مباشرة — مش محتاج مفتاح API. أول ما تشغّل المصنع هيطلب منك موافقة إن الصفحة تستخدم Claude، اضغط سماح.</p>
+      <div id="key-fields">
+        <label>مفتاح Claude API
+          <input id="api-key" type="password" autocomplete="off" placeholder="sk-ant-..." dir="ltr" />
+        </label>
+        <small>المفتاح بيتحفظ في متصفحك بس، وبيتبعت مباشرة لـ api.anthropic.com.</small>
+        <label>الموديل
+          <select id="model"></select>
+        </label>
+      </div>
       <div class="row-end">
         <button class="btn primary" value="save">حفظ</button>
       </div>
