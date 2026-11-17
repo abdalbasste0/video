@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17T08:54:36+00:00",
+  "updated": "2026-11-17T08:54:41+00:00",
   "agents": {
     "ceo": {
       "status": "working",
@@ -33,10 +33,11 @@
       "since": "2026-11-17T08:41:45+00:00"
     },
     "scriptwriter-short": {
-      "status": "idle",
-      "task": null,
-      "bubble": "Handed to Yasmin ✓",
-      "since": "2026-11-17T08:45:58+00:00"
+      "status": "working",
+      "task": "QA round 1 script fixes",
+      "bubble": "QA round 1 script fixes",
+      "since": "2026-11-17T08:54:40+00:00",
+      "task_id": "T-001"
     },
     "hook-doctor": {
       "status": "idle",
@@ -57,10 +58,11 @@
       "since": "2026-11-17T08:49:14+00:00"
     },
     "thumbnail-designer": {
-      "status": "idle",
-      "task": null,
-      "bubble": "Handed to Yasmin ✓",
-      "since": "2026-11-17T08:48:36+00:00"
+      "status": "working",
+      "task": "QA fix: move cover price card",
+      "bubble": "QA fix: move cover price card",
+      "since": "2026-11-17T08:54:41+00:00",
+      "task_id": "T-001"
     },
     "recording-producer": {
       "status": "idle",
@@ -571,6 +573,20 @@
       "agent": "ceo",
       "kind": "task",
       "text": "T-001 → doing: QA round 1: FIX (18 items). Closed N-008 (duplicate of N-002/N-005) and N-006 (team work after recording, not an owner action).",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:54:40+00:00",
+      "agent": "scriptwriter-short",
+      "kind": "start",
+      "text": "QA round 1 script fixes",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:54:41+00:00",
+      "agent": "thumbnail-designer",
+      "kind": "start",
+      "text": "QA fix: move cover price card",
       "task": "T-001"
     }
   ],
