@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17T08:56:03+00:00",
+  "updated": "2026-11-17T08:56:09+00:00",
   "agents": {
     "ceo": {
       "status": "working",
@@ -51,10 +51,11 @@
       "since": "2026-11-17T08:55:09+00:00"
     },
     "captions": {
-      "status": "idle",
-      "task": null,
-      "bubble": "Handed to Yasmin ✓",
-      "since": "2026-11-17T08:49:14+00:00"
+      "status": "working",
+      "task": "Sync SRTs to QA round 1 script",
+      "bubble": "Sync SRTs to QA round 1 script",
+      "since": "2026-11-17T08:56:09+00:00",
+      "task_id": "T-001"
     },
     "thumbnail-designer": {
       "status": "idle",
@@ -638,6 +639,13 @@
       "kind": "xp",
       "text": "+10 XP: delivered: QA round 1 fixes: REAL line, law ref, title, timin",
       "task": null
+    },
+    {
+      "t": "2026-11-17T08:56:09+00:00",
+      "agent": "captions",
+      "kind": "start",
+      "text": "Sync SRTs to QA round 1 script",
+      "task": "T-001"
     }
   ],
   "counters": {
