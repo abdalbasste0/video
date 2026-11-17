@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17T16:44:44+00:00",
+  "updated": "2026-11-17T16:48:23+00:00",
   "agents": {
     "ceo": {
       "status": "working",
@@ -77,7 +77,7 @@
     "growth-analyst": {
       "status": "working",
       "task": "SEO and calendar for 10 stories",
-      "bubble": "SEO and calendar for 10 stories",
+      "bubble": "Order set, writing 10 SEO packs",
       "since": "2026-11-17T16:44:44+00:00",
       "task_id": "T-002"
     },
@@ -88,11 +88,10 @@
       "since": "2026-11-17T08:48:23+00:00"
     },
     "qa-reviewer": {
-      "status": "working",
-      "task": "QA five affiliate pixel stories",
-      "bubble": "QA five affiliate pixel stories",
-      "since": "2026-11-17T16:44:44+00:00",
-      "task_id": "T-002"
+      "status": "idle",
+      "task": null,
+      "bubble": "Handed to Yasmin ✓",
+      "since": "2026-11-17T16:48:23+00:00"
     },
     "skills-librarian": {
       "status": "idle",
@@ -179,7 +178,8 @@
         "company/projects/2026-11-17-affiliate-pixel-stories/stories/heygen.json",
         "company/projects/2026-11-17-affiliate-pixel-stories/stories/hubspot.json",
         "company/projects/2026-11-17-affiliate-pixel-stories/stories/synthesia.json",
-        "company/projects/2026-11-17-affiliate-pixel-stories/stories/speechify.json"
+        "company/projects/2026-11-17-affiliate-pixel-stories/stories/speechify.json",
+        "company/projects/2026-11-17-affiliate-pixel-stories/10-qa-stories-A.md"
       ],
       "notes": [],
       "created": "2026-11-17T16:32:36+00:00",
@@ -320,6 +320,14 @@
       "task": "T-002",
       "done": false,
       "created": "2026-11-17T16:44:04+00:00"
+    },
+    "N-017": {
+      "id": "N-017",
+      "text": "Before publishing T-002 batch A: confirm free-plan claims on elevenlabs.io/pricing, fireflies.ai/pricing, lovable.dev/pricing, descript.com/pricing, kit.com/pricing and the live commission in each affiliate dashboard",
+      "from": "qa-reviewer",
+      "task": "T-002",
+      "done": false,
+      "created": "2026-11-17T16:48:23+00:00"
     }
   },
   "log": [
@@ -1071,10 +1079,31 @@
       "kind": "start",
       "text": "QA five affiliate pixel stories",
       "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:48:23+00:00",
+      "agent": "qa-reviewer",
+      "kind": "needs-you",
+      "text": "Before publishing T-002 batch A: confirm free-plan claims on elevenlabs.io/pricing, fireflies.ai/pricing, lovable.dev/pricing, descript.com/pricing, kit.com/pricing and the live commission in each affiliate dashboard",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:48:23+00:00",
+      "agent": "qa-reviewer",
+      "kind": "done",
+      "text": "QA batch A: 5 stories PASS after 13 fixes → company/projects/2026-11-17-affiliate-pixel-stories/10-qa-stories-A.md",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:48:23+00:00",
+      "agent": "qa-reviewer",
+      "kind": "xp",
+      "text": "+10 XP: delivered: QA batch A: 5 stories PASS after 13 fixes",
+      "task": null
     }
   ],
   "counters": {
     "task": 2,
-    "need": 16
+    "need": 17
   }
 }

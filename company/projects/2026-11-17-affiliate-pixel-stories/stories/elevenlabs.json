@@ -4,7 +4,7 @@
   "disclosure": "AFFILIATE LINK IN DESCRIPTION - AI VOICE",
   "scenes": [
     {"room": "night", "label": "THE INTERNET", "people": 3, "mode": "stand", "mood": "sad", "date": "JAN 2023", "event": "dark", "board": {"type": "text", "lines": ["FAKE CELEBRITY", "VOICES"]}, "zoom": true, "short": true,
-     "narration": "January 2023. A tiny voice startup opens its beta to the public. Within days, users on the forum 4chan are using it to fake celebrity voices."},
+     "narration": "January 2023. A tiny voice startup opens its beta to the public. Within days, fake celebrity voice clips, some linked to its tool, appear on 4chan."},
     {"type": "title", "title": ["THE VOICE", "STARTUP"], "subtitle": "ELEVENLABS", "color": "#7a4ad8", "short": true,
      "narration": "That startup was ElevenLabs. Three years later, it was worth eleven billion dollars. So how did it survive its worst week?"},
     {"room": "dorm", "label": "WARSAW, POLAND", "people": 2, "narration": "The story starts in Warsaw, Poland. Two friends, Mati Staniszewski and Piotr Dabkowski, meet in high school and watch a lot of American movies."},
