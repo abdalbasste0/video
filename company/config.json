@@ -320,5 +320,13 @@
       ],
       "note": "Only needed later, for sponsor or collab calls. Maintainers recommend personal, non-production use."
     }
+  },
+  "brand_voice": {
+    "name": "Sofia",
+    "file": "company/voices/sofia.md",
+    "tool": "VoiceStudio",
+    "style": "lively, energetic young American female",
+    "status": "to be created by owner in VoiceStudio",
+    "ai_label_required": true
   }
 }

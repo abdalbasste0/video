@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17T09:39:45+00:00",
+  "updated": "2026-11-17T11:28:07+00:00",
   "agents": {
     "ceo": {
       "status": "idle",
@@ -265,6 +265,14 @@
       "task": "T-001",
       "done": false,
       "created": "2026-11-17T09:39:45+00:00"
+    },
+    "N-014": {
+      "id": "N-014",
+      "text": "Create the voice Sofia in VoiceStudio (description and steps in company/voices/sofia.md), save a 10s sample as company/voices/sofia_sample.mp3",
+      "from": "recording-producer",
+      "task": null,
+      "done": false,
+      "created": "2026-11-17T11:28:07+00:00"
     }
   },
   "log": [
@@ -799,10 +807,17 @@
       "kind": "needs-you",
       "text": "Download the AI voiceover (Laura, 48.7s) from your ElevenLabs flow 'Shortcut HQ - first short voiceover' and upload it in chat (the cloud session can't reach ElevenLabs downloads)",
       "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T11:28:07+00:00",
+      "agent": "recording-producer",
+      "kind": "needs-you",
+      "text": "Create the voice Sofia in VoiceStudio (description and steps in company/voices/sofia.md), save a 10s sample as company/voices/sofia_sample.mp3",
+      "task": null
     }
   ],
   "counters": {
     "task": 1,
-    "need": 13
+    "need": 14
   }
 }
