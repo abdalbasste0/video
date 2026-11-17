@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-17T08:53:22+00:00",
+  "updated": "2026-11-17T08:54:36+00:00",
   "agents": {
     "ceo": {
       "status": "working",
       "task": "Planning today's short",
-      "bubble": "Calling Badr for QA...",
+      "bubble": "Sending Badr's fixes to the team...",
       "since": "2026-11-17T08:42:25+00:00",
       "task_id": "T-001"
     },
@@ -87,11 +87,10 @@
       "since": "2026-11-17T08:48:23+00:00"
     },
     "qa-reviewer": {
-      "status": "working",
-      "task": "QA review of first short package",
-      "bubble": "Checked cover + captions overlap, writing fix list",
-      "since": "2026-11-17T08:51:49+00:00",
-      "task_id": "T-001"
+      "status": "idle",
+      "task": null,
+      "bubble": "Handed to Yasmin ✓",
+      "since": "2026-11-17T08:54:11+00:00"
     },
     "skills-librarian": {
       "status": "idle",
@@ -134,11 +133,17 @@
         "company/projects/2026-11-17-first-short/08-seo.md",
         "company/projects/2026-11-17-first-short/05-captions-notes.md",
         "company/projects/2026-11-17-first-short/07-publish-plan.md",
-        "company/projects/2026-11-17-first-short/04-edit-plan.md"
+        "company/projects/2026-11-17-first-short/04-edit-plan.md",
+        "company/projects/2026-11-17-first-short/10-qa.md"
       ],
-      "notes": [],
+      "notes": [
+        {
+          "t": "2026-11-17T08:54:36+00:00",
+          "note": "QA round 1: FIX (18 items). Closed N-008 (duplicate of N-002/N-005) and N-006 (team work after recording, not an owner action)."
+        }
+      ],
       "created": "2026-11-17T08:42:25+00:00",
-      "updated": "2026-11-17T08:42:25+00:00"
+      "updated": "2026-11-17T08:54:36+00:00"
     }
   },
   "needs_you": {
@@ -187,8 +192,9 @@
       "text": "After recording the demo + VO: swap SRT cues 23-25 to the real verdict (see 05-captions-notes.md) and re-time all 4 SRTs to the voiceover",
       "from": "captions",
       "task": "T-001",
-      "done": false,
-      "created": "2026-11-17T08:49:15+00:00"
+      "done": true,
+      "created": "2026-11-17T08:49:15+00:00",
+      "closed": "2026-11-17T08:54:35+00:00"
     },
     "N-007": {
       "id": "N-007",
@@ -203,8 +209,17 @@
       "text": "Record the demo (shot-list.md part A, A1-A6) and the voiceover from teleprompter.md into company/projects/2026-11-17-first-short/raw/, then watch edit/preview_captions_9x16.mp4 to check caption pacing",
       "from": "video-editor",
       "task": "T-001",
+      "done": true,
+      "created": "2026-11-17T08:51:27+00:00",
+      "closed": "2026-11-17T08:54:35+00:00"
+    },
+    "N-009": {
+      "id": "N-009",
+      "text": "Log in to / connect your YouTube, TikTok, Instagram and Facebook accounts in the scheduler before publish day (07-publish-plan.md pre-flight)",
+      "from": "qa-reviewer",
+      "task": "T-001",
       "done": false,
-      "created": "2026-11-17T08:51:27+00:00"
+      "created": "2026-11-17T08:54:11+00:00"
     }
   },
   "log": [
@@ -515,10 +530,52 @@
       "kind": "start",
       "text": "QA review of first short package",
       "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:54:11+00:00",
+      "agent": "qa-reviewer",
+      "kind": "needs-you",
+      "text": "Log in to / connect your YouTube, TikTok, Instagram and Facebook accounts in the scheduler before publish day (07-publish-plan.md pre-flight)",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:54:11+00:00",
+      "agent": "qa-reviewer",
+      "kind": "done",
+      "text": "QA FIX: 18 fixes (cover/caption overlap, REAL wording, Art. 6a cite, needs_you dupes) → company/projects/2026-11-17-first-short/10-qa.md",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:54:11+00:00",
+      "agent": "qa-reviewer",
+      "kind": "xp",
+      "text": "+10 XP: delivered: QA FIX: 18 fixes (cover/caption overlap, REAL word",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T08:54:35+00:00",
+      "agent": "chief-of-staff",
+      "kind": "needs-you",
+      "text": "N-008 done by owner",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T08:54:35+00:00",
+      "agent": "chief-of-staff",
+      "kind": "needs-you",
+      "text": "N-006 done by owner",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T08:54:36+00:00",
+      "agent": "ceo",
+      "kind": "task",
+      "text": "T-001 → doing: QA round 1: FIX (18 items). Closed N-008 (duplicate of N-002/N-005) and N-006 (team work after recording, not an owner action).",
+      "task": "T-001"
     }
   ],
   "counters": {
     "task": 1,
-    "need": 8
+    "need": 9
   }
 }
