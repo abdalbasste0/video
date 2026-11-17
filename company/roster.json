@@ -108,7 +108,7 @@
       "role": "Video Editor",
       "room": "montage-studio",
       "sprite": "#3fa7a3",
-      "xp": 10,
+      "xp": 20,
       "skills": [
         "ffmpeg-cuts",
         "vertical-reframe",

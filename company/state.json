@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17T08:54:41+00:00",
+  "updated": "2026-11-17T08:55:09+00:00",
   "agents": {
     "ceo": {
       "status": "working",
@@ -49,7 +49,7 @@
       "status": "idle",
       "task": null,
       "bubble": "Handed to Yasmin ✓",
-      "since": "2026-11-17T08:51:27+00:00"
+      "since": "2026-11-17T08:55:09+00:00"
     },
     "captions": {
       "status": "idle",
@@ -60,7 +60,7 @@
     "thumbnail-designer": {
       "status": "working",
       "task": "QA fix: move cover price card",
-      "bubble": "QA fix: move cover price card",
+      "bubble": "Cover re-rendered, verifying",
       "since": "2026-11-17T08:54:41+00:00",
       "task_id": "T-001"
     },
@@ -136,7 +136,8 @@
         "company/projects/2026-11-17-first-short/05-captions-notes.md",
         "company/projects/2026-11-17-first-short/07-publish-plan.md",
         "company/projects/2026-11-17-first-short/04-edit-plan.md",
-        "company/projects/2026-11-17-first-short/10-qa.md"
+        "company/projects/2026-11-17-first-short/10-qa.md",
+        "company/projects/2026-11-17-first-short/04-edit-plan.md"
       ],
       "notes": [
         {
@@ -588,6 +589,27 @@
       "kind": "start",
       "text": "QA fix: move cover price card",
       "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:54:49+00:00",
+      "agent": "video-editor",
+      "kind": "start",
+      "text": "QA round 1 fixes to edit plan",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:55:09+00:00",
+      "agent": "video-editor",
+      "kind": "done",
+      "text": "QA round 1 fixes applied to 04-edit-plan.md → company/projects/2026-11-17-first-short/04-edit-plan.md",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:55:09+00:00",
+      "agent": "video-editor",
+      "kind": "xp",
+      "text": "+10 XP: delivered: QA round 1 fixes applied to 04-edit-plan.md",
+      "task": null
     }
   ],
   "counters": {
