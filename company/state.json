@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-17T08:56:09+00:00",
+  "updated": "2026-11-17T09:00:51+00:00",
   "agents": {
     "ceo": {
       "status": "working",
       "task": "Planning today's short",
-      "bubble": "Calling Reem to sync captions...",
+      "bubble": "Calling Badr for QA round 2...",
       "since": "2026-11-17T08:42:25+00:00",
       "task_id": "T-001"
     },
@@ -51,11 +51,10 @@
       "since": "2026-11-17T08:55:09+00:00"
     },
     "captions": {
-      "status": "working",
-      "task": "Sync SRTs to QA round 1 script",
-      "bubble": "Sync SRTs to QA round 1 script",
-      "since": "2026-11-17T08:56:09+00:00",
-      "task_id": "T-001"
+      "status": "idle",
+      "task": null,
+      "bubble": "Handed to Yasmin ✓",
+      "since": "2026-11-17T08:59:52+00:00"
     },
     "thumbnail-designer": {
       "status": "idle",
@@ -138,7 +137,8 @@
         "company/projects/2026-11-17-first-short/10-qa.md",
         "company/projects/2026-11-17-first-short/04-edit-plan.md",
         "company/projects/2026-11-17-first-short/cover_vertical.jpg",
-        "company/projects/2026-11-17-first-short/02-script-short.md"
+        "company/projects/2026-11-17-first-short/02-script-short.md",
+        "company/projects/2026-11-17-first-short/05-captions-notes.md"
       ],
       "notes": [
         {
@@ -646,6 +646,20 @@
       "kind": "start",
       "text": "Sync SRTs to QA round 1 script",
       "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:59:52+00:00",
+      "agent": "captions",
+      "kind": "done",
+      "text": "QA r1: 4 SRTs re-timed (27 cues, verdict 0:34.1, end 0:49.3), REAL wording, 08 hashtags → company/projects/2026-11-17-first-short/05-captions-notes.md",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:59:52+00:00",
+      "agent": "captions",
+      "kind": "xp",
+      "text": "+10 XP: delivered: QA r1: 4 SRTs re-timed (27 cues, verdict 0:34.1, e",
+      "task": null
     }
   ],
   "counters": {

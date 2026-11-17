@@ -123,7 +123,7 @@
       "role": "Captions & Localization",
       "room": "montage-studio",
       "sprite": "#d1c04f",
-      "xp": 10,
+      "xp": 20,
       "skills": [
         "srt-captions",
         "de-fr-es-subtitles"
