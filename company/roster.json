@@ -1,0 +1,265 @@
+{
+  "members": [
+    {
+      "id": "ceo",
+      "name_ar": "ياسمين",
+      "name": "Yasmin",
+      "role_ar": "المديرة التنفيذية",
+      "role": "CEO",
+      "room": "ceo-suite",
+      "sprite": "#d4a24c",
+      "xp": 0,
+      "skills": [
+        "delegation",
+        "prioritization"
+      ]
+    },
+    {
+      "id": "chief-of-staff",
+      "name_ar": "سلمان",
+      "name": "Salman",
+      "role_ar": "رئيس المكتب",
+      "role": "Chief of Staff",
+      "room": "ceo-suite",
+      "sprite": "#7a8aa8",
+      "xp": 0,
+      "skills": [
+        "task-board",
+        "morning-brief",
+        "meeting-minutes"
+      ]
+    },
+    {
+      "id": "trend-hunter-search",
+      "name_ar": "فهد",
+      "name": "Fahad",
+      "role_ar": "صائد ترندات البحث",
+      "role": "Trend Hunter (Search & YouTube)",
+      "room": "writers-room",
+      "sprite": "#5aa36b",
+      "xp": 10,
+      "skills": [
+        "youtube-outliers",
+        "search-trends"
+      ]
+    },
+    {
+      "id": "trend-hunter-social",
+      "name_ar": "ليلى",
+      "name": "Layla",
+      "role_ar": "صائدة ترندات السوشال",
+      "role": "Trend Hunter (TikTok, Reels)",
+      "room": "writers-room",
+      "sprite": "#c7678f",
+      "xp": 0,
+      "skills": [
+        "tiktok-trends",
+        "reels-trends",
+        "trending-sounds"
+      ]
+    },
+    {
+      "id": "scriptwriter-long",
+      "name_ar": "عمر",
+      "name": "Omar",
+      "role_ar": "كاتب سكريبت الفيديو الطويل",
+      "role": "Long-form Scriptwriter",
+      "room": "writers-room",
+      "sprite": "#4f86c6",
+      "xp": 0,
+      "skills": [
+        "youtube-long-form",
+        "retention-structure"
+      ]
+    },
+    {
+      "id": "scriptwriter-short",
+      "name_ar": "نورة",
+      "name": "Noura",
+      "role_ar": "كاتبة سكريبت القصير",
+      "role": "Short-form Scriptwriter",
+      "room": "writers-room",
+      "sprite": "#9b6fd1",
+      "xp": 0,
+      "skills": [
+        "short-form-script",
+        "voiceover-pacing"
+      ]
+    },
+    {
+      "id": "hook-doctor",
+      "name_ar": "هالة",
+      "name": "Hala",
+      "role_ar": "طبيبة الهوك",
+      "role": "Hook Doctor",
+      "room": "writers-room",
+      "sprite": "#e07b3f",
+      "xp": 0,
+      "skills": [
+        "first-3-seconds",
+        "title-hooks"
+      ]
+    },
+    {
+      "id": "video-editor",
+      "name_ar": "خالد",
+      "name": "Khaled",
+      "role_ar": "المونتير",
+      "role": "Video Editor",
+      "room": "montage-studio",
+      "sprite": "#3fa7a3",
+      "xp": 0,
+      "skills": [
+        "ffmpeg-cuts",
+        "vertical-reframe",
+        "loudness"
+      ]
+    },
+    {
+      "id": "captions",
+      "name_ar": "ريم",
+      "name": "Reem",
+      "role_ar": "الترجمة والكابشن",
+      "role": "Captions & Localization",
+      "room": "montage-studio",
+      "sprite": "#d1c04f",
+      "xp": 0,
+      "skills": [
+        "srt-captions",
+        "de-fr-es-subtitles"
+      ]
+    },
+    {
+      "id": "thumbnail-designer",
+      "name_ar": "طارق",
+      "name": "Tariq",
+      "role_ar": "مصمم الغلاف",
+      "role": "Thumbnail & Cover Designer",
+      "room": "montage-studio",
+      "sprite": "#c4544d",
+      "xp": 0,
+      "skills": [
+        "thumbnail-briefs",
+        "cover-frames"
+      ]
+    },
+    {
+      "id": "recording-producer",
+      "name_ar": "مريم",
+      "name": "Mariam",
+      "role_ar": "منتجة التسجيل",
+      "role": "Recording Producer",
+      "room": "recording-booth",
+      "sprite": "#8fb84f",
+      "xp": 0,
+      "skills": [
+        "teleprompter",
+        "voiceover-prep",
+        "shot-list"
+      ]
+    },
+    {
+      "id": "publisher",
+      "name_ar": "يوسف",
+      "name": "Youssef",
+      "role_ar": "مسؤول النشر",
+      "role": "Publisher",
+      "room": "distribution-hub",
+      "sprite": "#5b6bd6",
+      "xp": 0,
+      "skills": [
+        "cross-posting",
+        "scheduling-us-eu",
+        "platform-metadata"
+      ]
+    },
+    {
+      "id": "growth-analyst",
+      "name_ar": "سارة",
+      "name": "Sara",
+      "role_ar": "محللة النمو",
+      "role": "Growth Analyst",
+      "room": "distribution-hub",
+      "sprite": "#d68a5b",
+      "xp": 0,
+      "skills": [
+        "analytics",
+        "seo",
+        "posting-times"
+      ]
+    },
+    {
+      "id": "community-manager",
+      "name_ar": "دانة",
+      "name": "Dana",
+      "role_ar": "مديرة المجتمع",
+      "role": "Community Manager",
+      "room": "distribution-hub",
+      "sprite": "#56b3d9",
+      "xp": 0,
+      "skills": [
+        "comment-replies",
+        "audience-questions"
+      ]
+    },
+    {
+      "id": "qa-reviewer",
+      "name_ar": "بدر",
+      "name": "Badr",
+      "role_ar": "مراجع الجودة",
+      "role": "QA Reviewer",
+      "room": "meeting-room",
+      "sprite": "#a7a7a7",
+      "xp": 0,
+      "skills": [
+        "fact-check",
+        "platform-policy",
+        "copyright"
+      ]
+    },
+    {
+      "id": "skills-librarian",
+      "name_ar": "جود",
+      "name": "Jood",
+      "role_ar": "أمينة مكتبة المهارات",
+      "role": "Skills Librarian",
+      "room": "github-library",
+      "sprite": "#b58bd6",
+      "xp": 0,
+      "skills": [
+        "github-search",
+        "skill-evaluation"
+      ]
+    }
+  ],
+  "rooms": {
+    "ceo-suite": {
+      "ar": "جناح المديرة",
+      "en": "CEO Suite"
+    },
+    "writers-room": {
+      "ar": "غرفة الكتّاب",
+      "en": "Writers' Room"
+    },
+    "montage-studio": {
+      "ar": "استوديو المونتاج",
+      "en": "Montage Studio"
+    },
+    "recording-booth": {
+      "ar": "غرفة التسجيل",
+      "en": "Recording Booth"
+    },
+    "distribution-hub": {
+      "ar": "مركز النشر",
+      "en": "Distribution Hub"
+    },
+    "meeting-room": {
+      "ar": "غرفة الاجتماعات",
+      "en": "Meeting Room"
+    },
+    "github-library": {
+      "ar": "مكتبة GitHub",
+      "en": "GitHub Library"
+    }
+  }
+}

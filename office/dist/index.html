@@ -1,0 +1,608 @@
+<title>Shortcut HQ Office</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap">
+<style>
+/* Layout: a night-shift pixel office (canvas) on top, three ledger panels below; one committed dark look. */
+:root {
+  --bg: #121419;
+  --panel: #1b1e26;
+  --panel-2: #232733;
+  --line: #2e3341;
+  --ink: #ece6d6;
+  --muted: #9aa0ad;
+  --lamp: #ffc861;
+  --live: #ff5b4f;
+  --ok: #73cf8e;
+  --warn: #f0a24b;
+  --font-pixel: "Silkscreen", "Courier New", monospace;
+  --font-body: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--ink); }
+body {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 18px 40px;
+}
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 18px; }
+
+header.top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 20px; }
+.brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.live { font-family: var(--font-pixel); font-size: 12px; letter-spacing: .08em; display: inline-flex; align-items: center; gap: 7px;
+  padding: 4px 9px; border: 1px solid var(--line); background: var(--panel); }
+.live i { width: 9px; height: 9px; background: var(--live); display: inline-block; animation: blink 1.4s steps(2) infinite; }
+.live.snap i { background: var(--muted); animation: none; }
+@keyframes blink { 50% { opacity: .25; } }
+h1 { font-family: var(--font-pixel); font-weight: 700; font-size: clamp(18px, 3vw, 26px); margin: 0; letter-spacing: .02em; text-wrap: balance; }
+.sub { color: var(--muted); font-size: 13px; margin: 0; }
+.clocks { display: flex; gap: 8px; flex-wrap: wrap; }
+.clock { background: var(--panel); border: 1px solid var(--line); padding: 5px 10px; display: grid; line-height: 1.2; }
+.clock b { font-family: var(--font-pixel); font-size: 15px; font-variant-numeric: tabular-nums; color: var(--lamp); font-weight: 400; }
+.clock span { font-size: 11px; color: var(--muted); }
+
+.office-scroll { overflow-x: auto; border: 2px solid var(--line); background: #0b0c10; -webkit-overflow-scrolling: touch; }
+.office { position: relative; min-width: 720px; container-type: inline-size; }
+.office canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; image-rendering: crisp-edges; }
+.layer { position: absolute; inset: 0; pointer-events: none; font-family: var(--font-pixel); }
+.room-label { position: absolute; transform: translateY(-50%); color: #f3e9cf; font-size: 1.15cqw; letter-spacing: .06em;
+  background: rgba(12,13,18,.72); padding: .1em .5em; white-space: nowrap; }
+.tag { position: absolute; transform: translate(-50%, 0); pointer-events: auto; cursor: pointer; border: 0; font: inherit;
+  font-size: 1.02cqw; color: #f4eedf; background: rgba(12,13,18,.78); padding: .12em .45em; white-space: nowrap; display: flex; gap: .4em; align-items: center; }
+.tag .lv { color: #121419; background: var(--lamp); padding: 0 .3em; }
+.tag:focus-visible { outline: 2px solid var(--lamp); outline-offset: 2px; }
+.tag[aria-pressed="true"] { outline: 2px solid var(--lamp); }
+.bubble { position: absolute; transform: translate(-50%, -100%); background: #fbf6e8; color: #1a1a1a; font-size: 1cqw;
+  padding: .35em .6em; white-space: nowrap; max-width: 13.5cqw; overflow: hidden; text-overflow: ellipsis;
+  box-shadow: 0 0 0 .18cqw #1a1a1a; }
+.bubble::after { content: ""; position: absolute; left: 50%; bottom: -.7em; width: .8em; height: .8em; background: #fbf6e8;
+  transform: translateX(-50%) rotate(45deg); box-shadow: .18cqw .18cqw 0 0 #1a1a1a; z-index: -1; }
+.bubble.done { background: #d9f5e1; }
+.bubble.done::after { background: #d9f5e1; }
+.hint { color: var(--muted); font-size: 12.5px; margin: 0; }
+
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 960px) { .grid { grid-template-columns: 1fr; } }
+.panel { background: var(--panel); border: 1px solid var(--line); padding: 14px 16px 16px; min-width: 0; direction: rtl; text-align: right; }
+.panel h2 { font-size: 15px; margin: 0 0 10px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.panel h2 small { font-family: var(--font-pixel); font-size: 11px; color: var(--muted); font-weight: 400; direction: ltr; }
+ul.plain { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.need { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; padding: 8px 10px; background: var(--panel-2); border-right: 3px solid var(--warn); }
+.need .id { font-family: var(--font-pixel); font-size: 11px; color: var(--warn); direction: ltr; }
+.need p { margin: 0; font-size: 14px; direction: ltr; text-align: left; overflow-wrap: anywhere; }
+.need small { color: var(--muted); display: block; direction: rtl; text-align: right; }
+.empty { color: var(--muted); font-size: 14px; margin: 0; }
+.log li { display: grid; grid-template-columns: 52px 1fr; gap: 8px; font-size: 13px; padding-bottom: 7px; border-bottom: 1px dashed var(--line); }
+.log time { font-family: var(--font-pixel); font-size: 11px; color: var(--muted); direction: ltr; padding-top: 2px; }
+.log .who { font-weight: 700; }
+.log .what { direction: ltr; text-align: left; display: block; color: #d6d0c1; overflow-wrap: anywhere; }
+.log .k-level-up .what { color: var(--lamp); }
+.log .k-done .what::before { content: "✓ "; color: var(--ok); }
+.board li { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; align-items: center; }
+.board .nm { font-weight: 700; font-size: 14px; }
+.board .nm span { font-weight: 400; color: var(--muted); font-size: 12px; margin-right: 6px; }
+.board .badge { font-family: var(--font-pixel); font-size: 11px; background: var(--panel-2); border: 1px solid var(--line); padding: 1px 6px; color: var(--lamp); white-space: nowrap; }
+.bar { grid-column: 1 / -1; height: 6px; background: var(--panel-2); position: relative; overflow: hidden; }
+.bar i { position: absolute; inset: 0 0 0 auto; background: var(--lamp); }
+.status-dot { display: inline-block; width: 8px; height: 8px; margin-left: 6px; background: var(--muted); }
+.status-dot.on { background: var(--lamp); box-shadow: 0 0 6px var(--lamp); }
+
+.detail[hidden] { display: none; }
+.detail { background: var(--panel); border: 1px solid var(--line); padding: 14px 16px; direction: rtl; text-align: right; display: grid; gap: 6px; }
+.detail h3 { margin: 0; font-size: 18px; }
+.detail .role { color: var(--muted); margin: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; direction: ltr; justify-content: flex-end; }
+.chips span { font-family: var(--font-pixel); font-size: 10.5px; border: 1px solid var(--line); padding: 2px 7px; color: #cfc9b9; }
+.detail .now { direction: ltr; text-align: left; background: var(--panel-2); padding: 6px 10px; margin: 0; font-size: 14px; }
+.stats { display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.stats b { color: var(--ink); font-variant-numeric: tabular-nums; }
+footer { color: var(--muted); font-size: 12px; direction: rtl; text-align: right; }
+footer code { font-family: var(--font-pixel); font-size: 11px; direction: ltr; unicode-bidi: embed; }
+@media (prefers-reduced-motion: reduce) { .live i { animation: none; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <span class="live" id="live"><i></i><span id="liveText">LIVE</span></span>
+      <div>
+        <h1 id="companyName">Shortcut HQ</h1>
+        <p class="sub" id="subline">live office</p>
+      </div>
+    </div>
+    <div class="clocks" aria-label="Market clocks">
+      <div class="clock"><b id="clkNY">--:--</b><span>New York</span></div>
+      <div class="clock"><b id="clkPAR">--:--</b><span>Paris</span></div>
+      <div class="clock"><b id="clkOWN">--:--</b><span id="ownLabel">توقيتك</span></div>
+    </div>
+  </header>
+
+  <div class="office-scroll">
+    <div class="office" id="office">
+      <canvas id="cv" width="640" height="432" aria-label="Pixel office showing every employee at their desk"></canvas>
+      <div class="layer" id="layer"></div>
+    </div>
+  </div>
+  <p class="hint" dir="rtl">اللمبة المضيئة تعني أن الموظف يشتغل الآن. اضغط على اسم أي موظف لترى تفاصيله.</p>
+
+  <section class="detail" id="detail" hidden aria-live="polite"></section>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>ينتظر موافقتك <small id="needCount">0</small></h2>
+      <ul class="plain" id="needs"></ul>
+    </section>
+    <section class="panel">
+      <h2>سجل المكتب <small id="taskCount"></small></h2>
+      <ul class="plain log" id="log"></ul>
+    </section>
+    <section class="panel">
+      <h2>لوحة المستويات <small>Lv1 → Lv10</small></h2>
+      <ul class="plain board" id="board"></ul>
+    </section>
+  </div>
+  <footer id="foot"></footer>
+</div>
+
+<script>
+window.__SNAP = {"generated": "2026-11-17T08:41:45+00:00", "company": {"name": "Shortcut HQ", "name_ar": "مقر الشركة", "owner_title": "المالك"}, "niche": "AI tools & productivity", "schedule": {"owner_timezone": "Europe/Paris", "morning_brief": "08:00", "weekly_meeting": "Sunday 18:00", "note": "owner_timezone is the owner's own clock for the brief and the meeting. Change it to your city if you are not on Paris time."}, "levels": [{"level": 1, "xp": 0, "title_ar": "متدرب", "title": "Trainee"}, {"level": 2, "xp": 40, "title_ar": "مبتدئ", "title": "Junior"}, {"level": 3, "xp": 100, "title_ar": "مساعد", "title": "Associate"}, {"level": 4, "xp": 180, "title_ar": "موظف", "title": "Staff"}, {"level": 5, "xp": 280, "title_ar": "أول", "title": "Senior"}, {"level": 6, "xp": 400, "title_ar": "محترف", "title": "Pro"}, {"level": 7, "xp": 550, "title_ar": "خبير", "title": "Expert"}, {"level": 8, "xp": 730, "title_ar": "قائد", "title": "Lead"}, {"level": 9, "xp": 950, "title_ar": "نجم", "title": "Star"}, {"level": 10, "xp": 1200, "title_ar": "أسطورة", "title": "Legend"}], "roster": {"members": [{"id": "ceo", "name_ar": "ياسمين", "name": "Yasmin", "role_ar": "المديرة التنفيذية", "role": "CEO", "room": "ceo-suite", "sprite": "#d4a24c", "xp": 0, "skills": ["delegation", "prioritization"], "level": 1, "level_title": "Trainee", "level_title_ar": "متدرب", "next_level_xp": 40}, {"id": "chief-of-staff", "name_ar": "سلمان", "name": "Salman", "role_ar": "رئيس المكتب", "role": "Chief of Staff", "room": "ceo-suite", "sprite": "#7a8aa8", "xp": 0, "skills": ["task-board", "morning-brief", "meeting-minutes"], "level": 1, "level_title": "Trainee", "level_title_ar": "متدرب", "next_level_xp": 40}, {"id": "trend-hunter-search", "name_ar": "فهد", "name": "Fahad", "role_ar": "صائد ترندات البحث", "role": "Trend Hunter (Search & YouTube)", "room": "writers-room", "sprite": "#5aa36b", "xp": 10, "skills": ["youtube-outliers", "search-trends"], "level": 1, "level_title": "Trainee", "level_title_ar": "متدرب", "next_level_xp": 40}, {"id": "trend-hunter-social", "name_ar": "ليلى", "name": "Layla", "role_ar": "صائدة ترندات السوشال", "role": "Trend Hunter (TikTok, Reels)", "room": "writers-room", "sprite": "#c7678f", "xp": 0, "skills": ["tiktok-trends", "reels-trends", "trending-sounds"], "level": 1, "level_title": "Trainee", "level_title_ar": "متدرب", "next_level_xp": 40}, {"id": "scriptwriter-long", "name_ar": "عمر", "name": "Omar", "role_ar": "كاتب سكريبت الفيديو الطويل", "role": "Long-form Scriptwriter", "room": "writers-room", "sprite": "#4f86c6", "xp": 0, "skills": ["youtube-long-form", "retention-structure"], "level": 1, "level_title": "Trainee", "level_title_ar": "متدرب", "next_level_xp": 40}, {"id": "scriptwriter-short", "name_ar": "نورة", "name": "Noura", "role_ar": "كاتبة سكريبت القصير", "role": "Short-form Scriptwriter", "room": "writers-room", "sprite": "#9b6fd1", "xp": 0, "skills": ["short-form-script", "voiceover-pacing"], "level": 1, "level_title": "Trainee", "level_title_ar": "متدرب", "next_level_xp": 40}, {"id": "hook-doctor", "name_ar": "هالة", "name": "Hala", "role_ar": "طبيبة الهوك", "role": "Hook Doctor", "room": "writers-room", "sprite": "#e07b3f", "xp": 0, "skills": ["first-3-seconds", "title-hooks"], "level": 1, "level_title": "Trainee", "level_title_ar": "متدرب", "next_level_xp": 40}, {"id": "video-editor", "name_ar": "خالد", "name": "Khaled", "role_ar": "المونتير", "role": "Video Editor", "room": "montage-studio", "sprite": "#3fa7a3", "xp": 0, "skills": ["ffmpeg-cuts", "vertical-reframe", "loudness"], "level": 1, "level_title": "Trainee", "level_title_ar": "متدرب", "next_level_xp": 40}, {"id": "captions", "name_ar": "ريم", "name": "Reem", "role_ar": "الترجمة والكابشن", "role": "Captions & Localization", "room": "montage-studio", "sprite": "#d1c04f", "xp": 0, "skills": ["srt-captions", "de-fr-es-subtitles"], "level": 1, "level_title": "Trainee", "level_title_ar": "متدرب", "next_level_xp": 40}, {"id": "thumbnail-designer", "name_ar": "طارق", "name": "Tariq", "role_ar": "مصمم الغلاف", "role": "Thumbnail & Cover Designer", "room": "montage-studio", "sprite": "#c4544d", "xp": 0, "skills": ["thumbnail-briefs", "cover-frames"], "level": 1, "level_title": "Trainee", "level_title_ar": "متدرب", "next_level_xp": 40}, {"id": "recording-producer", "name_ar": "مريم", "name": "Mariam", "role_ar": "منتجة التسجيل", "role": "Recording Producer", "room": "recording-booth", "sprite": "#8fb84f", "xp": 0, "skills": ["teleprompter", "voiceover-prep", "shot-list"], "level": 1, "level_title": "Trainee", "level_title_ar": "متدرب", "next_level_xp": 40}, {"id": "publisher", "name_ar": "يوسف", "name": "Youssef", "role_ar": "مسؤول النشر", "role": "Publisher", "room": "distribution-hub", "sprite": "#5b6bd6", "xp": 0, "skills": ["cross-posting", "scheduling-us-eu", "platform-metadata"], "level": 1, "level_title": "Trainee", "level_title_ar": "متدرب", "next_level_xp": 40}, {"id": "growth-analyst", "name_ar": "سارة", "name": "Sara", "role_ar": "محللة النمو", "role": "Growth Analyst", "room": "distribution-hub", "sprite": "#d68a5b", "xp": 0, "skills": ["analytics", "seo", "posting-times"], "level": 1, "level_title": "Trainee", "level_title_ar": "متدرب", "next_level_xp": 40}, {"id": "community-manager", "name_ar": "دانة", "name": "Dana", "role_ar": "مديرة المجتمع", "role": "Community Manager", "room": "distribution-hub", "sprite": "#56b3d9", "xp": 0, "skills": ["comment-replies", "audience-questions"], "level": 1, "level_title": "Trainee", "level_title_ar": "متدرب", "next_level_xp": 40}, {"id": "qa-reviewer", "name_ar": "بدر", "name": "Badr", "role_ar": "مراجع الجودة", "role": "QA Reviewer", "room": "meeting-room", "sprite": "#a7a7a7", "xp": 0, "skills": ["fact-check", "platform-policy", "copyright"], "level": 1, "level_title": "Trainee", "level_title_ar": "متدرب", "next_level_xp": 40}, {"id": "skills-librarian", "name_ar": "جود", "name": "Jood", "role_ar": "أمينة مكتبة المهارات", "role": "Skills Librarian", "room": "github-library", "sprite": "#b58bd6", "xp": 0, "skills": ["github-search", "skill-evaluation"], "level": 1, "level_title": "Trainee", "level_title_ar": "متدرب", "next_level_xp": 40}], "rooms": {"ceo-suite": {"ar": "جناح المديرة", "en": "CEO Suite"}, "writers-room": {"ar": "غرفة الكتّاب", "en": "Writers' Room"}, "montage-studio": {"ar": "استوديو المونتاج", "en": "Montage Studio"}, "recording-booth": {"ar": "غرفة التسجيل", "en": "Recording Booth"}, "distribution-hub": {"ar": "مركز النشر", "en": "Distribution Hub"}, "meeting-room": {"ar": "غرفة الاجتماعات", "en": "Meeting Room"}, "github-library": {"ar": "مكتبة GitHub", "en": "GitHub Library"}}}, "state": {"updated": "2026-11-17T08:41:45+00:00", "agents": {"ceo": {"status": "idle", "task": null, "bubble": "", "since": "2026-11-17T08:41:45+00:00"}, "chief-of-staff": {"status": "idle", "task": null, "bubble": "", "since": "2026-11-17T08:41:45+00:00"}, "trend-hunter-search": {"status": "idle", "task": null, "bubble": "", "since": "2026-11-17T08:41:45+00:00"}, "trend-hunter-social": {"status": "idle", "task": null, "bubble": "", "since": "2026-11-17T08:41:45+00:00"}, "scriptwriter-long": {"status": "idle", "task": null, "bubble": "", "since": "2026-11-17T08:41:45+00:00"}, "scriptwriter-short": {"status": "idle", "task": null, "bubble": "", "since": "2026-11-17T08:41:45+00:00"}, "hook-doctor": {"status": "idle", "task": null, "bubble": "", "since": "2026-11-17T08:41:45+00:00"}, "video-editor": {"status": "idle", "task": null, "bubble": "", "since": "2026-11-17T08:41:45+00:00"}, "captions": {"status": "idle", "task": null, "bubble": "", "since": "2026-11-17T08:41:45+00:00"}, "thumbnail-designer": {"status": "idle", "task": null, "bubble": "", "since": "2026-11-17T08:41:45+00:00"}, "recording-producer": {"status": "idle", "task": null, "bubble": "", "since": "2026-11-17T08:41:45+00:00"}, "publisher": {"status": "idle", "task": null, "bubble": "", "since": "2026-11-17T08:41:45+00:00"}, "growth-analyst": {"status": "idle", "task": null, "bubble": "", "since": "2026-11-17T08:41:45+00:00"}, "community-manager": {"status": "idle", "task": null, "bubble": "", "since": "2026-11-17T08:41:45+00:00"}, "qa-reviewer": {"status": "idle", "task": null, "bubble": "", "since": "2026-11-17T08:41:45+00:00"}, "skills-librarian": {"status": "idle", "task": null, "bubble": "", "since": "2026-11-17T08:41:45+00:00"}}, "tasks": {}, "needs_you": {}, "log": [], "counters": {"task": 0, "need": 0}}};
+</script>
+<script>
+(() => {
+  "use strict";
+  const T = 16, W = 40, H = 27;
+  const cv = document.getElementById("cv");
+  const ctx = cv.getContext("2d");
+  const layer = document.getElementById("layer");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const ROOMS = {
+    "ceo-suite":        { x: 0,  y: 0,  w: 13, h: 9, floor: ["#6b4e37", "#634832"], wall: "#3b3550" },
+    "writers-room":     { x: 13, y: 0,  w: 16, h: 9, floor: ["#3b4a5f", "#374558"], wall: "#2f3d4f" },
+    "montage-studio":   { x: 29, y: 0,  w: 11, h: 9, floor: ["#2d3240", "#2a2e3b"], wall: "#1f2b3f" },
+    "recording-booth":  { x: 0,  y: 9,  w: 9,  h: 9, floor: ["#46384c", "#413446"], wall: "#2c2232" },
+    "distribution-hub": { x: 9,  y: 9,  w: 17, h: 9, floor: ["#3b5043", "#374b3f"], wall: "#25392d" },
+    "meeting-room":     { x: 26, y: 9,  w: 14, h: 9, floor: ["#5b4a39", "#554535"], wall: "#3a2f27" },
+    "github-library":   { x: 0,  y: 18, w: 40, h: 9, floor: ["#4a3a2d", "#45362a"], wall: "#2e241c" },
+  };
+  const LOOK = { // hair or hijab colour per person, plus skin tone
+    "ceo": { hijab: "#e7d3a8", skin: "#d9a77d" }, "chief-of-staff": { hair: "#2a1d16", skin: "#c48d63" },
+    "trend-hunter-search": { hair: "#1b1410", skin: "#b07a52" }, "trend-hunter-social": { hair: "#3a2216", skin: "#e2b38c" },
+    "scriptwriter-long": { hair: "#151515", skin: "#c99168" }, "scriptwriter-short": { hijab: "#5c4a8a", skin: "#deb08a" },
+    "hook-doctor": { hair: "#5a2e1a", skin: "#d6a07a" }, "video-editor": { hair: "#111", skin: "#a8724c" },
+    "captions": { hijab: "#2f6f6b", skin: "#e0b590" }, "thumbnail-designer": { hair: "#2b1a12", skin: "#bd8459" },
+    "recording-producer": { hijab: "#8a3f4f", skin: "#d2a07a" }, "publisher": { hair: "#1d1d1d", skin: "#b9805a" },
+    "growth-analyst": { hair: "#6a3b1f", skin: "#e4bb96" }, "community-manager": { hijab: "#c58b3a", skin: "#d9aa82" },
+    "qa-reviewer": { hair: "#9a9a9a", skin: "#c08a63" }, "skills-librarian": { hijab: "#4b5f8f", skin: "#dfb28c" },
+  };
+
+  let snap = null, mode = "snapshot", deskPos = {}, walkers = [], prevStatus = {}, selected = null;
+
+  // ---------- data ----------
+  function levelFor(levels, xp) { let lv = levels[0]; for (const r of levels) if (xp >= r.xp) lv = r; return lv; }
+  function buildSnap(cfg, roster, state) {
+    for (const m of roster.members) {
+      const lv = levelFor(cfg.levels, m.xp);
+      m.level = lv.level; m.level_title = lv.title; m.level_title_ar = lv.title_ar;
+      const nxt = cfg.levels.find(r => r.xp > m.xp); m.next_level_xp = nxt ? nxt.xp : null;
+    }
+    return { generated: new Date().toISOString(), company: cfg.company, niche: cfg.niche.title, schedule: cfg.schedule, roster, state, levels: cfg.levels };
+  }
+  async function fetchLive() {
+    const opt = { cache: "no-store" };
+    const [cfg, roster, state] = await Promise.all([
+      fetch("../company/config.json", opt).then(r => { if (!r.ok) throw 0; return r.json(); }),
+      fetch("../company/roster.json", opt).then(r => { if (!r.ok) throw 0; return r.json(); }),
+      fetch("../company/state.json", opt).then(r => { if (!r.ok) throw 0; return r.json(); }),
+    ]);
+    return buildSnap(cfg, roster, state);
+  }
+
+  // ---------- drawing helpers ----------
+  const px = (x, y, w, h, c) => { ctx.fillStyle = c; ctx.fillRect(Math.round(x), Math.round(y), w, h); };
+
+  function drawRoom(id, r) {
+    const X = r.x * T, Y = r.y * T;
+    for (let ty = 2; ty < r.h; ty++) for (let tx = 0; tx < r.w; tx++)
+      px(X + tx * T, Y + ty * T, T, T, r.floor[(tx + ty) % 2]);
+    px(X, Y, r.w * T, 2 * T, r.wall);
+    px(X, Y + 2 * T - 3, r.w * T, 3, "#15161b");
+    // walls between rooms
+    px(X, Y, 2, r.h * T, "#0e0f13"); px(X + r.w * T - 2, Y, 2, r.h * T, "#0e0f13");
+    px(X, Y + r.h * T - 2, r.w * T, 2, "#0e0f13");
+    // door gap at bottom centre
+    if (id !== "github-library") px(X + (r.w * T) / 2 - 10, Y + r.h * T - 2, 20, 2, r.floor[0]);
+  }
+
+  function window_(x, y, w) {
+    px(x, y, w, 14, "#1d2a44"); px(x + 2, y + 2, w - 4, 10, "#2c4370");
+    for (let i = 0; i < 5; i++) px(x + 4 + ((i * 13) % (w - 8)), y + 3 + (i * 5) % 8, 1, 1, "#f6e9b5");
+    px(x + w / 2 - 1, y, 2, 14, "#1d2a44");
+  }
+  function plant(x, y) { px(x + 3, y + 10, 8, 6, "#8a5a3c"); px(x + 1, y + 2, 12, 9, "#3f7a4a"); px(x + 4, y, 6, 4, "#4f9a5c"); }
+  function shelf(x, y, w) {
+    px(x, y, w, 26, "#5b3f2b"); px(x, y + 12, w, 2, "#3e2a1c");
+    const cols = ["#b5523b", "#3f6fa8", "#d1a443", "#4f8a5a", "#8a5aa8", "#cfcfcf"];
+    for (let i = 0; i < w - 4; i += 3) {
+      px(x + 2 + i, y + 2 + (i % 2), 2, 9 - (i % 2), cols[(i * 7) % cols.length]);
+      px(x + 2 + i, y + 15 + ((i + 1) % 2), 2, 9 - ((i + 1) % 2), cols[(i * 5 + 2) % cols.length]);
+    }
+  }
+
+  function person(x, y, m, opts) {
+    const look = LOOK[m.id] || { hair: "#222", skin: "#c99168" };
+    const bob = opts.bob ? 1 : 0;
+    y -= bob;
+    // body
+    px(x - 6, y + 9, 12, 9, m.sprite || "#777");
+    px(x - 6, y + 9, 12, 2, shade(m.sprite || "#777", -25));
+    // head
+    if (look.hijab) {
+      px(x - 5, y - 1, 10, 11, look.hijab); px(x - 6, y + 7, 12, 4, look.hijab);
+      px(x - 3, y + 2, 6, 6, look.skin);
+    } else {
+      px(x - 4, y, 8, 8, look.skin);
+      px(x - 4, y - 1, 8, 3, look.hair); px(x - 4, y, 1, 4, look.hair); px(x + 3, y, 1, 4, look.hair);
+    }
+    px(x - 2, y + 4, 1, 1, "#1a1a1a"); px(x + 1, y + 4, 1, 1, "#1a1a1a");
+    if (opts.walk) { const f = opts.frame % 2; px(x - 4, y + 18, 3, 4 - f * 2, "#2b2b33"); px(x + 1, y + 18, 3, 2 + f * 2, "#2b2b33"); }
+    if (opts.phone) { px(x + 5, y + 2, 3, 7, "#2a2a2a"); }
+  }
+
+  function desk(x, y, on, t, big) {
+    const w = big ? 52 : 40;
+    // lamp glow
+    if (on) {
+      const g = ctx.createRadialGradient(x + w - 6, y + 2, 2, x + w - 6, y + 2, 34);
+      const a = reduce ? 0.32 : 0.26 + 0.06 * Math.sin(t / 300);
+      g.addColorStop(0, `rgba(255,200,97,${a})`); g.addColorStop(1, "rgba(255,200,97,0)");
+      ctx.fillStyle = g; ctx.fillRect(x - 30, y - 34, w + 64, 70);
+    }
+    px(x, y, w, 12, "#7a5636"); px(x, y + 12, w, 4, "#5a3e27"); px(x + 2, y + 16, 3, 5, "#4a3220"); px(x + w - 5, y + 16, 3, 5, "#4a3220");
+    // monitor
+    px(x + 4, y - 11, 16, 11, "#1b1d24");
+    px(x + 5, y - 10, 14, 8, on ? "#3d7bd9" : "#20242e");
+    if (on) for (let i = 0; i < 3; i++) px(x + 6, y - 9 + i * 2.5, 4 + ((Math.floor(t / 180) + i * 3) % 9), 1, "#cfe3ff");
+    px(x + 11, y - 1, 2, 2, "#1b1d24");
+    if (big) { px(x + 24, y - 9, 12, 9, "#1b1d24"); px(x + 25, y - 8, 10, 6, on ? "#3d7bd9" : "#20242e"); }
+    // lamp
+    px(x + w - 8, y - 2, 6, 2, "#2c2c2c"); px(x + w - 6, y - 10, 2, 8, "#2c2c2c"); px(x + w - 10, y - 13, 8, 4, on ? "#ffc861" : "#55524a");
+  }
+
+  function shade(hex, amt) {
+    const n = parseInt(hex.slice(1), 16);
+    const c = v => Math.max(0, Math.min(255, v + amt));
+    return "#" + ((c(n >> 16) << 16) | (c((n >> 8) & 255) << 8) | c(n & 255)).toString(16).padStart(6, "0");
+  }
+
+  const MEETING_SEATS = [[30, 13], [32, 13], [34, 13], [36, 13], [30, 16.4], [32, 16.4], [34, 16.4], [36, 16.4]];
+  function inMeeting(ag) { return ag && ag.status === "working" && /meeting|اجتماع/i.test(ag.task || ""); }
+
+  function layoutDesks(members) {
+    deskPos = {};
+    const byRoom = {};
+    for (const m of members) (byRoom[m.room] = byRoom[m.room] || []).push(m);
+    for (const [room, list] of Object.entries(byRoom)) {
+      const r = ROOMS[room]; if (!r) continue;
+      let xs;
+      if (room === "meeting-room") xs = [r.x + 1.4];
+      else if (room === "github-library") xs = [r.x + 15];
+      else if (room === "recording-booth") xs = [r.x + 4.6];
+      else xs = list.map((_, i) => r.x + (r.w * (i + 0.5)) / list.length);
+      list.forEach((m, i) => {
+        const big = m.id === "ceo";
+        const cx = xs[i] * T, deskY = (r.y + 5.2) * T;
+        deskPos[m.id] = { cx, deskX: cx - (big ? 26 : 20), deskY, big, headY: deskY - 18, lift: list.length > 3 && i % 2 ? 15 : 0 };
+      });
+    }
+  }
+
+  function drawStatic(t) {
+    ctx.fillStyle = "#0b0c10"; ctx.fillRect(0, 0, cv.width, cv.height);
+    for (const [id, r] of Object.entries(ROOMS)) drawRoom(id, r);
+    const R = ROOMS;
+    // CEO suite: window, rug, plant
+    window_(R["ceo-suite"].x * T + 12, 6, 40); window_(R["ceo-suite"].x * T + 140, 6, 40);
+    px(2 * T, 6.6 * T, 8 * T, 2 * T, "#7b2f37"); px(2 * T + 3, 6.6 * T + 3, 8 * T - 6, 2 * T - 6, "#953b44");
+    plant(R["ceo-suite"].x * T + 6, 2.4 * T); plant(R["ceo-suite"].x * T + 12 * T - 20, 2.4 * T);
+    // Writers: whiteboard with sticky notes
+    const wx = R["writers-room"].x * T + 60;
+    px(wx, 5, 120, 20, "#e9e6dc"); px(wx, 25, 120, 2, "#9a968a");
+    const notes = ["#f6d55c", "#f28b82", "#a7d8a0", "#8ab4f8"];
+    for (let i = 0; i < 10; i++) px(wx + 6 + i * 11, 8 + (i % 2) * 6, 8, 7, notes[i % 4]);
+    // Montage: wall timeline screen
+    const mx = R["montage-studio"].x * T + 20;
+    px(mx, 4, 136, 22, "#11141b"); px(mx + 2, 6, 132, 18, "#1c2433");
+    const clipCols = ["#5b8def", "#e0844f", "#6cc38f", "#c66fd1"];
+    for (let i = 0, x = mx + 4; x < mx + 128; i++) { const w = 14 + (i * 7) % 18; px(x, 12, Math.min(w, mx + 132 - x), 6, clipCols[i % 4]); x += w + 2; }
+    px(mx + 4 + ((t / 40) % 124), 7, 1, 16, "#ff5b4f");
+    // Recording booth: foam, mic, ON AIR
+    const rx = R["recording-booth"].x * T;
+    for (let i = 0; i < 9; i++) for (let j = 0; j < 2; j++) px(rx + 4 + i * 15, 9 * T + 3 + j * 14, 13, 12, (i + j) % 2 ? "#3a2c40" : "#33263a");
+    const onAir = snap && snap.state.agents["recording-producer"] && snap.state.agents["recording-producer"].status === "working";
+    px(rx + 56, 9 * T + 8, 30, 11, onAir ? "#ff5b4f" : "#4a2a2a");
+    px(rx + 2 * T, 14 * T, 2, 30, "#2a2a2a"); px(rx + 2 * T - 3, 14 * T - 6, 8, 9, "#3a3a3a"); px(rx + 2 * T - 6, 14 * T + 30, 14, 2, "#2a2a2a");
+    // Distribution hub: world map screen with US & EU dots
+    const dx = R["distribution-hub"].x * T + 70;
+    px(dx, 9 * T + 3, 130, 26, "#0f1a14"); px(dx + 2, 9 * T + 5, 126, 22, "#163024");
+    const land = [[10, 6, 22, 9], [26, 15, 8, 7], [56, 5, 14, 7], [60, 12, 12, 9], [80, 5, 30, 10], [104, 16, 10, 5]];
+    for (const [a, b, c, d] of land) px(dx + 2 + a, 9 * T + 5 + b, c, d, "#2f5e45");
+    const p = reduce ? 1 : (Math.sin(t / 250) + 1) / 2;
+    px(dx + 2 + 26, 9 * T + 5 + 9, 3, 3, `rgba(255,200,97,${0.5 + p / 2})`);
+    px(dx + 2 + 61, 9 * T + 5 + 8, 3, 3, `rgba(255,200,97,${0.5 + (1 - p) / 2})`);
+    // Meeting room: table + chairs
+    px(29.4 * T, 14 * T, 8 * T, 2.4 * T, "#7d5a3a"); px(29.4 * T, 16.4 * T - 4, 8 * T, 4, "#5c4029");
+    for (const [sx, sy] of MEETING_SEATS) px(sx * T + 2, sy * T + (sy < 15 ? -6 : 8), 12, 6, "#3a3f4d");
+    window_(R["meeting-room"].x * T + 120, 9 * T + 6, 60);
+    // Library: shelves, reading tables, skill board
+    for (let i = 0; i < 4; i++) shelf(1 * T + i * 52, 18 * T + 4, 48);
+    for (let i = 0; i < 2; i++) shelf(20 * T + i * 52, 18 * T + 4, 48);
+    px(4 * T, 23.5 * T, 5 * T, 1.2 * T, "#7a5636"); px(19.5 * T, 23.5 * T, 5 * T, 1.2 * T, "#7a5636");
+    plant(18 * T, 24.6 * T); plant(38.5 * T, 24.6 * T);
+    drawSkillBoard(28 * T, 18.3 * T);
+  }
+
+  function drawSkillBoard(x, y) {
+    px(x, y, 11 * T, 7.4 * T, "#1c1f27"); px(x + 2, y + 2, 11 * T - 4, 7.4 * T - 4, "#262a35");
+    if (!snap) return;
+    const ms = snap.roster.members, bw = Math.floor((11 * T - 16) / ms.length);
+    for (let i = 0; i < 10; i++) px(x + 6, y + 108 - i * 9, 11 * T - 12, 1, "#2e3341");
+    ms.forEach((m, i) => {
+      const h = Math.max(4, (m.level || 1) * 9);
+      px(x + 8 + i * bw, y + 108 - h, bw - 3, h, m.sprite || "#888");
+      px(x + 8 + i * bw, y + 108 - h, bw - 3, 2, "#ffffff55");
+    });
+  }
+
+  function drawPeople(t) {
+    if (!snap) return;
+    const agents = snap.state.agents;
+    let seat = 0;
+    const walkingIds = new Set(walkers.map(w => w.id));
+    for (const m of snap.roster.members) {
+      const d = deskPos[m.id]; if (!d) continue;
+      const ag = agents[m.id] || { status: "idle" };
+      const on = ag.status === "working";
+      if (inMeeting(ag)) {
+        const [sx, sy] = MEETING_SEATS[seat++ % MEETING_SEATS.length];
+        desk(d.deskX, d.deskY, false, t, d.big);
+        person(sx * T + 8, sy * T - (sy < 15 ? 14 : -2), m, { bob: false });
+        d.drawAt = { x: sx * T + 8, y: sy * T - (sy < 15 ? 14 : -2) };
+        continue;
+      }
+      if (!walkingIds.has(m.id)) person(d.cx, d.headY, m, { bob: on && !reduce && Math.floor(t / 400 + m.id.length) % 2 === 0, phone: m.id === "ceo" && /calling/i.test(ag.bubble || "") });
+      desk(d.deskX, d.deskY, on, t, d.big);
+      d.drawAt = { x: d.cx, y: d.headY };
+    }
+    // walkers carrying work to the CEO
+    const now = performance.now();
+    walkers = walkers.filter(w => now - w.t0 < w.dur);
+    for (const w of walkers) {
+      const m = snap.roster.members.find(x => x.id === w.id); if (!m) continue;
+      const k = (now - w.t0) / w.dur, there = k < 0.5 ? k * 2 : (1 - k) * 2;
+      const e = there < 0.5 ? 2 * there * there : 1 - Math.pow(-2 * there + 2, 2) / 2;
+      const x = w.from.x + (w.to.x - w.from.x) * e, y = w.from.y + (w.to.y - w.from.y) * e;
+      person(x, y, m, { walk: true, frame: Math.floor(now / 160) });
+      if (k < 0.5) px(x + 6, y + 10, 6, 7, "#f4efe1");
+      w.pos = { x, y };
+    }
+  }
+
+  // ---------- overlays ----------
+  function pct(v, total) { return (v / total * 100) + "%"; }
+  function renderLayer() {
+    if (!snap) return;
+    layer.innerHTML = "";
+    const rooms = snap.roster.rooms || {};
+    for (const [id, r] of Object.entries(ROOMS)) {
+      const el = document.createElement("div");
+      el.className = "room-label";
+      el.style.left = pct(r.x * T + 6, cv.width); el.style.top = pct(r.y * T + r.h * T - 11, cv.height);
+      el.textContent = (rooms[id] && rooms[id].en || id).toUpperCase();
+      layer.appendChild(el);
+    }
+    const sk = document.createElement("div");
+    sk.className = "room-label"; sk.style.left = pct(28 * T + 8, cv.width); sk.style.top = pct(18 * T + 14, cv.height);
+    sk.textContent = "SKILL BOARD"; layer.appendChild(sk);
+    const recent = recentDone();
+    for (const m of snap.roster.members) {
+      const d = deskPos[m.id]; if (!d) continue;
+      const ag = snap.state.agents[m.id] || {};
+      const at = d.drawAt || { x: d.cx, y: d.headY };
+      const tag = document.createElement("button");
+      tag.className = "tag"; tag.type = "button";
+      tag.setAttribute("aria-pressed", selected === m.id ? "true" : "false");
+      tag.style.left = pct(d.cx, cv.width); tag.style.top = pct(d.deskY + 22, cv.height);
+      tag.innerHTML = `<span></span><span class="lv"></span>`;
+      tag.children[0].textContent = m.name; tag.children[1].textContent = "Lv" + (m.level || 1);
+      tag.addEventListener("click", () => { selected = selected === m.id ? null : m.id; renderDetail(); renderLayer(); });
+      layer.appendChild(tag);
+      let text = null, done = false;
+      if (ag.status === "working") text = ag.bubble || ag.task;
+      else if (recent.has(m.id)) { text = ag.bubble || "Handed to Yasmin"; done = true; }
+      if (text) {
+        const b = document.createElement("div");
+        b.className = "bubble" + (done ? " done" : "");
+        b.style.left = pct(at.x, cv.width); b.style.top = pct(at.y - 6 - (d.drawAt && d.drawAt.x === d.cx ? d.lift : 0), cv.height);
+        b.textContent = text; b.title = text;
+        layer.appendChild(b);
+      }
+    }
+  }
+
+  function recentDone() {
+    const set = new Set(); if (!snap) return set;
+    const ref = mode === "live" ? Date.now() : Date.parse(snap.state.updated || snap.generated);
+    for (const e of snap.state.log) if (e.kind === "done" && ref - Date.parse(e.t) < 30 * 60 * 1000) set.add(e.agent);
+    return set;
+  }
+
+  // ---------- panels ----------
+  const nameOf = id => { const m = snap.roster.members.find(x => x.id === id); return m ? m.name_ar : id; };
+  function hhmm(iso, tz) {
+    try { return new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: tz }).format(new Date(iso)); } catch { return ""; }
+  }
+  function renderPanels() {
+    const st = snap.state, tz = (snap.schedule && snap.schedule.owner_timezone) || "Europe/Paris";
+    document.getElementById("companyName").textContent = (snap.company && snap.company.name) || "HQ";
+    document.getElementById("subline").textContent = `live office · ${snap.niche} · ${snap.roster.members.length - 1} employees + CEO`;
+    const needs = Object.values(st.needs_you || {}).filter(n => !n.done);
+    document.getElementById("needCount").textContent = needs.length;
+    const nu = document.getElementById("needs"); nu.innerHTML = "";
+    if (!needs.length) nu.innerHTML = `<li><p class="empty">لا شيء ينتظرك الآن.</p></li>`;
+    for (const n of needs) {
+      const li = document.createElement("li"); li.className = "need";
+      li.innerHTML = `<span class="id"></span><div><p></p><small></small></div>`;
+      li.querySelector(".id").textContent = n.id;
+      li.querySelector("p").textContent = n.text;
+      li.querySelector("small").textContent = `من ${nameOf(n.from)}${n.task ? " · " + n.task : ""}`;
+      nu.appendChild(li);
+    }
+    const tasks = Object.values(st.tasks || {});
+    const open = tasks.filter(t => !["done", "approved"].includes(t.status)).length;
+    document.getElementById("taskCount").textContent = `${open} open / ${tasks.length} tasks`;
+    const lu = document.getElementById("log"); lu.innerHTML = "";
+    const entries = (st.log || []).filter(e => e.kind !== "xp").slice(-14).reverse();
+    if (!entries.length) lu.innerHTML = `<li><span></span><p class="empty">لم يبدأ العمل بعد.</p></li>`;
+    for (const e of entries) {
+      const li = document.createElement("li"); li.className = "k-" + e.kind;
+      li.innerHTML = `<time></time><div><span class="who"></span><span class="what"></span></div>`;
+      li.querySelector("time").textContent = hhmm(e.t, tz);
+      li.querySelector(".who").textContent = nameOf(e.agent);
+      li.querySelector(".what").textContent = e.text;
+      lu.appendChild(li);
+    }
+    const bu = document.getElementById("board"); bu.innerHTML = "";
+    const ms = [...snap.roster.members].sort((a, b) => b.xp - a.xp);
+    for (const m of ms) {
+      const ag = st.agents[m.id] || {};
+      const prevXp = levelStart(m), nxt = m.next_level_xp;
+      const prog = nxt ? Math.max(4, Math.min(100, (m.xp - prevXp) / (nxt - prevXp) * 100)) : 100;
+      const li = document.createElement("li");
+      li.innerHTML = `<div class="nm"><i class="status-dot"></i><b></b><span></span></div><span class="badge"></span><div class="bar"><i></i></div>`;
+      li.querySelector(".status-dot").classList.toggle("on", ag.status === "working");
+      li.querySelector("b").textContent = m.name_ar;
+      li.querySelector(".nm span").textContent = m.role_ar;
+      li.querySelector(".badge").textContent = `Lv${m.level} ${m.level_title_ar} · ${m.xp}xp`;
+      li.querySelector(".bar i").style.width = prog + "%";
+      bu.appendChild(li);
+    }
+    const when = new Date(snap.state.updated || snap.generated);
+    document.getElementById("foot").innerHTML = "";
+    const f = document.getElementById("foot");
+    f.append(mode === "live" ? "يتحدّث تلقائياً كل 5 ثوانٍ من ملفات الشركة. " :
+      mode === "demo" ? "بيانات تجريبية: لم تُحمَّل حالة الشركة. " :
+      `لقطة من حالة الشركة بتاريخ ${when.toLocaleString("ar", { timeZone: tz })}. للتحديث شغّل `);
+    if (mode === "snapshot") { const c = document.createElement("code"); c.textContent = "/office"; f.append(c); }
+    renderDetail();
+  }
+  function levelStart(m) {
+    const lv = (snap.levels || []).find(r => r.level === m.level);
+    if (lv) return lv.xp;
+    const table = [0, 40, 100, 180, 280, 400, 550, 730, 950, 1200];
+    return table[(m.level || 1) - 1] || 0;
+  }
+  function renderDetail() {
+    const box = document.getElementById("detail");
+    if (!selected || !snap) { box.hidden = true; return; }
+    const m = snap.roster.members.find(x => x.id === selected); const ag = snap.state.agents[selected] || {};
+    box.hidden = false; box.innerHTML = "";
+    const h = document.createElement("h3"); h.textContent = `${m.name_ar} · ${m.name}`;
+    const r = document.createElement("p"); r.className = "role"; r.textContent = `${m.role_ar} · ${m.role}`;
+    const s = document.createElement("div"); s.className = "stats";
+    s.innerHTML = `<span>المستوى <b></b></span><span>الخبرة <b></b></span><span>الحالة <b></b></span>`;
+    const bs = s.querySelectorAll("b");
+    bs[0].textContent = `${m.level} (${m.level_title_ar})`; bs[1].textContent = `${m.xp}${m.next_level_xp ? " / " + m.next_level_xp : ""} XP`;
+    bs[2].textContent = ag.status === "working" ? "يشتغل الآن" : "متاح";
+    const c = document.createElement("div"); c.className = "chips";
+    for (const k of m.skills || []) { const sp = document.createElement("span"); sp.textContent = k; c.appendChild(sp); }
+    box.append(h, r, s, c);
+    if (ag.status === "working") { const n = document.createElement("p"); n.className = "now"; n.textContent = ag.task; box.appendChild(n); }
+  }
+
+  // ---------- state changes & loop ----------
+  function apply(newSnap) {
+    const first = !snap;
+    snap = newSnap;
+    layoutDesks(snap.roster.members);
+    const ceo = deskPos["ceo"];
+    for (const m of snap.roster.members) {
+      const st = (snap.state.agents[m.id] || {}).status;
+      if (!first && prevStatus[m.id] === "working" && st === "idle" && m.id !== "ceo" && ceo && deskPos[m.id]) addWalker(m.id, 0);
+      prevStatus[m.id] = st;
+    }
+    if (first && ceo && !reduce) [...recentDone()].filter(id => id !== "ceo").slice(0, 4).forEach((id, i) => addWalker(id, i * 1600));
+    renderPanels(); renderLayer();
+  }
+  function addWalker(id, delay) {
+    const d = deskPos[id], c = deskPos["ceo"]; if (!d || !c) return;
+    walkers.push({ id, t0: performance.now() + delay, dur: 5200, from: { x: d.cx, y: d.headY + 26 }, to: { x: c.cx + 34, y: c.deskY + 6 } });
+  }
+
+  let lastLayer = 0;
+  function frame(t) {
+    drawStatic(t); drawPeople(t);
+    if (t - lastLayer > 1000) { renderLayer(); lastLayer = t; }
+    if (!reduce || walkers.length) requestAnimationFrame(frame);
+  }
+
+  function tickClocks() {
+    const f = tz => new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: tz }).format(new Date());
+    document.getElementById("clkNY").textContent = f("America/New_York");
+    document.getElementById("clkPAR").textContent = f("Europe/Paris");
+    const own = (snap && snap.schedule && snap.schedule.owner_timezone) || Intl.DateTimeFormat().resolvedOptions().timeZone;
+    try { document.getElementById("clkOWN").textContent = f(own); } catch {}
+    document.getElementById("ownLabel").textContent = "توقيتك · " + own.split("/").pop().replace("_", " ");
+  }
+
+  function demo() {
+    const names = [
+      ["ceo", "ياسمين", "Yasmin", "المديرة التنفيذية", "CEO", "ceo-suite", "#d4a24c"],
+      ["chief-of-staff", "سلمان", "Salman", "رئيس المكتب", "Chief of Staff", "ceo-suite", "#7a8aa8"],
+      ["trend-hunter-search", "فهد", "Fahad", "صائد ترندات البحث", "Trend Hunter", "writers-room", "#5aa36b"],
+      ["trend-hunter-social", "ليلى", "Layla", "صائدة ترندات السوشال", "Trend Hunter", "writers-room", "#c7678f"],
+      ["scriptwriter-short", "نورة", "Noura", "كاتبة سكريبت القصير", "Scriptwriter", "writers-room", "#9b6fd1"],
+      ["video-editor", "خالد", "Khaled", "المونتير", "Video Editor", "montage-studio", "#3fa7a3"],
+      ["publisher", "يوسف", "Youssef", "مسؤول النشر", "Publisher", "distribution-hub", "#5b6bd6"],
+      ["skills-librarian", "جود", "Jood", "أمينة مكتبة المهارات", "Skills Librarian", "github-library", "#b58bd6"],
+    ];
+    const xs = [420, 120, 60, 210, 90, 150, 50, 30];
+    const roster = { members: names.map((n, i) => ({ id: n[0], name_ar: n[1], name: n[2], role_ar: n[3], role: n[4], room: n[5], sprite: n[6], xp: xs[i], skills: [] })), rooms: {} };
+    const now = new Date().toISOString();
+    const agents = {}; for (const n of names) agents[n[0]] = { status: "idle", task: null, bubble: "" };
+    agents["ceo"] = { status: "working", task: "Planning today's short", bubble: "Calling Noura..." };
+    agents["scriptwriter-short"] = { status: "working", task: "Writing the script", bubble: "Polishing the hook" };
+    agents["trend-hunter-social"] = { status: "working", task: "Scanning Reels", bubble: "2 outliers found" };
+    const cfg = { levels: [0, 40, 100, 180, 280, 400, 550, 730, 950, 1200].map((xp, i) => ({ level: i + 1, xp, title: "", title_ar: ["متدرب","مبتدئ","مساعد","موظف","أول","محترف","خبير","قائد","نجم","أسطورة"][i] })),
+      company: { name: "Shortcut HQ" }, niche: { title: "AI tools & productivity" }, schedule: { owner_timezone: "Europe/Paris" } };
+    return buildSnap(cfg, roster, { updated: now, agents, tasks: {}, needs_you: { "N-001": { id: "N-001", text: "Record reel (teleprompter is loaded)", from: "ceo", done: false } }, log: [{ t: now, agent: "trend-hunter-search", kind: "done", text: "5 rising topics" }] });
+  }
+
+  function setMode(m) {
+    mode = m;
+    const l = document.getElementById("live");
+    l.classList.toggle("snap", m !== "live");
+    document.getElementById("liveText").textContent = m === "live" ? "LIVE" : m === "demo" ? "DEMO" : "SNAPSHOT";
+  }
+
+  async function boot() {
+    let liveOk = false;
+    if (location.protocol.startsWith("http") && !window.__SNAP) {
+      try { apply(await fetchLive()); liveOk = true; } catch {}
+    }
+    if (liveOk) {
+      setMode("live");
+      setInterval(async () => { try { apply(await fetchLive()); } catch {} }, 5000);
+    } else if (window.__SNAP) { setMode("snapshot"); apply(window.__SNAP); }
+    else { setMode("demo"); apply(demo()); }
+    tickClocks(); setInterval(tickClocks, 15000);
+    requestAnimationFrame(frame);
+    if (reduce) setInterval(() => { drawStatic(0); drawPeople(0); renderLayer(); }, 2000);
+  }
+  boot();
+})();
+</script>

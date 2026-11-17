@@ -1,0 +1,108 @@
+{
+  "updated": "2026-11-17T08:41:45+00:00",
+  "agents": {
+    "ceo": {
+      "status": "idle",
+      "task": null,
+      "bubble": "",
+      "since": "2026-11-17T08:41:45+00:00"
+    },
+    "chief-of-staff": {
+      "status": "idle",
+      "task": null,
+      "bubble": "",
+      "since": "2026-11-17T08:41:45+00:00"
+    },
+    "trend-hunter-search": {
+      "status": "idle",
+      "task": null,
+      "bubble": "",
+      "since": "2026-11-17T08:41:45+00:00"
+    },
+    "trend-hunter-social": {
+      "status": "idle",
+      "task": null,
+      "bubble": "",
+      "since": "2026-11-17T08:41:45+00:00"
+    },
+    "scriptwriter-long": {
+      "status": "idle",
+      "task": null,
+      "bubble": "",
+      "since": "2026-11-17T08:41:45+00:00"
+    },
+    "scriptwriter-short": {
+      "status": "idle",
+      "task": null,
+      "bubble": "",
+      "since": "2026-11-17T08:41:45+00:00"
+    },
+    "hook-doctor": {
+      "status": "idle",
+      "task": null,
+      "bubble": "",
+      "since": "2026-11-17T08:41:45+00:00"
+    },
+    "video-editor": {
+      "status": "idle",
+      "task": null,
+      "bubble": "",
+      "since": "2026-11-17T08:41:45+00:00"
+    },
+    "captions": {
+      "status": "idle",
+      "task": null,
+      "bubble": "",
+      "since": "2026-11-17T08:41:45+00:00"
+    },
+    "thumbnail-designer": {
+      "status": "idle",
+      "task": null,
+      "bubble": "",
+      "since": "2026-11-17T08:41:45+00:00"
+    },
+    "recording-producer": {
+      "status": "idle",
+      "task": null,
+      "bubble": "",
+      "since": "2026-11-17T08:41:45+00:00"
+    },
+    "publisher": {
+      "status": "idle",
+      "task": null,
+      "bubble": "",
+      "since": "2026-11-17T08:41:45+00:00"
+    },
+    "growth-analyst": {
+      "status": "idle",
+      "task": null,
+      "bubble": "",
+      "since": "2026-11-17T08:41:45+00:00"
+    },
+    "community-manager": {
+      "status": "idle",
+      "task": null,
+      "bubble": "",
+      "since": "2026-11-17T08:41:45+00:00"
+    },
+    "qa-reviewer": {
+      "status": "idle",
+      "task": null,
+      "bubble": "",
+      "since": "2026-11-17T08:41:45+00:00"
+    },
+    "skills-librarian": {
+      "status": "idle",
+      "task": null,
+      "bubble": "",
+      "since": "2026-11-17T08:41:45+00:00"
+    }
+  },
+  "tasks": {},
+  "needs_you": {},
+  "log": [],
+  "counters": {
+    "task": 0,
+    "need": 0
+  }
+}

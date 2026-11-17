@@ -1,0 +1,5 @@
+company/.lock
+company/*.tmp
+__pycache__/
+company/inbox/footage/*
+!company/inbox/footage/.gitkeep

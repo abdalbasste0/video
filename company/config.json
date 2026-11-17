@@ -1,0 +1,232 @@
+{
+  "company": {
+    "name": "Shortcut HQ",
+    "name_ar": "مقر الشركة",
+    "owner_title": "المالك"
+  },
+  "niche": {
+    "id": "ai-tools-productivity",
+    "title": "AI tools & productivity",
+    "title_ar": "أدوات الذكاء الاصطناعي والإنتاجية",
+    "audience": "Knowledge workers, freelancers, students and small-business owners in the US and Europe who want to save time with AI tools.",
+    "content_language": "en",
+    "subtitle_languages": [
+      "en",
+      "de",
+      "fr",
+      "es"
+    ],
+    "production_mode": "faceless_voiceover",
+    "production_mode_note": "faceless_voiceover = screen recordings + voiceover, owner never shows face. Switch to on_camera if the owner wants to film himself.",
+    "content_pillars": [
+      "New AI tool, tested in 30 seconds",
+      "One prompt that replaces an hour of work",
+      "AI workflow for a specific job (freelancer, student, marketer)",
+      "Myth vs reality: what AI can and can't do",
+      "Weekly AI news in 60 seconds"
+    ],
+    "alternatives": [
+      {
+        "id": "personal-finance",
+        "title": "Personal finance & side hustles",
+        "why": "Highest ad rates in US/EU, but strict platform rules on financial advice."
+      },
+      {
+        "id": "history-mysteries",
+        "title": "History & mysteries storytelling",
+        "why": "Very shareable and evergreen, easy to produce faceless, lower ad rates."
+      },
+      {
+        "id": "travel-europe",
+        "title": "Budget travel in Europe",
+        "why": "Strong EU + US interest, needs real footage."
+      }
+    ]
+  },
+  "platforms": {
+    "youtube": {
+      "enabled": true,
+      "formats": [
+        "shorts_9x16",
+        "long_16x9"
+      ],
+      "max_short_seconds": 60
+    },
+    "tiktok": {
+      "enabled": true,
+      "formats": [
+        "vertical_9x16"
+      ],
+      "max_short_seconds": 90
+    },
+    "instagram": {
+      "enabled": true,
+      "formats": [
+        "reels_9x16"
+      ],
+      "max_short_seconds": 90
+    },
+    "facebook": {
+      "enabled": true,
+      "formats": [
+        "reels_9x16"
+      ],
+      "max_short_seconds": 90
+    }
+  },
+  "cadence": {
+    "shorts_per_day": 1,
+    "long_videos_per_week": 1,
+    "note": "Each short is cut once and cross-posted to all 4 platforms with platform-specific caption, hashtags and cover."
+  },
+  "markets": {
+    "us": {
+      "timezone": "America/New_York",
+      "label": "US East"
+    },
+    "eu": {
+      "timezone": "Europe/Paris",
+      "label": "Central Europe"
+    }
+  },
+  "posting_windows": {
+    "note": "Starting heuristics. Sara (growth analyst) replaces these with real numbers from analytics after 2-3 weeks. 12:00-13:00 New York = 18:00-19:00 Paris, so one post in that slot reaches both markets.",
+    "golden_slot": {
+      "timezone": "America/New_York",
+      "start": "12:00",
+      "end": "13:00"
+    },
+    "youtube": [
+      {
+        "tz": "America/New_York",
+        "start": "12:00",
+        "end": "15:00"
+      },
+      {
+        "tz": "Europe/Paris",
+        "start": "17:00",
+        "end": "19:00"
+      }
+    ],
+    "tiktok": [
+      {
+        "tz": "America/New_York",
+        "start": "19:00",
+        "end": "21:00"
+      },
+      {
+        "tz": "Europe/Paris",
+        "start": "18:00",
+        "end": "21:00"
+      }
+    ],
+    "instagram": [
+      {
+        "tz": "America/New_York",
+        "start": "11:00",
+        "end": "13:00"
+      },
+      {
+        "tz": "Europe/Paris",
+        "start": "19:00",
+        "end": "21:00"
+      }
+    ],
+    "facebook": [
+      {
+        "tz": "America/New_York",
+        "start": "09:00",
+        "end": "12:00"
+      },
+      {
+        "tz": "Europe/Paris",
+        "start": "13:00",
+        "end": "15:00"
+      }
+    ]
+  },
+  "schedule": {
+    "owner_timezone": "Europe/Paris",
+    "morning_brief": "08:00",
+    "weekly_meeting": "Sunday 18:00",
+    "note": "owner_timezone is the owner's own clock for the brief and the meeting. Change it to your city if you are not on Paris time."
+  },
+  "rules": {
+    "publishing_requires_owner_approval": true,
+    "paid_generation_requires_owner_approval": true,
+    "new_skills_require_owner_approval": true,
+    "no_copyrighted_music_or_footage": true,
+    "disclose_ai_generated_content": true,
+    "paid_research_allowed": false,
+    "paid_research_note": "When true, trend hunters may use vidIQ (costs the owner's credits, max 2 calls per run). When false they use free web search only."
+  },
+  "levels": [
+    {
+      "level": 1,
+      "xp": 0,
+      "title_ar": "متدرب",
+      "title": "Trainee"
+    },
+    {
+      "level": 2,
+      "xp": 40,
+      "title_ar": "مبتدئ",
+      "title": "Junior"
+    },
+    {
+      "level": 3,
+      "xp": 100,
+      "title_ar": "مساعد",
+      "title": "Associate"
+    },
+    {
+      "level": 4,
+      "xp": 180,
+      "title_ar": "موظف",
+      "title": "Staff"
+    },
+    {
+      "level": 5,
+      "xp": 280,
+      "title_ar": "أول",
+      "title": "Senior"
+    },
+    {
+      "level": 6,
+      "xp": 400,
+      "title_ar": "محترف",
+      "title": "Pro"
+    },
+    {
+      "level": 7,
+      "xp": 550,
+      "title_ar": "خبير",
+      "title": "Expert"
+    },
+    {
+      "level": 8,
+      "xp": 730,
+      "title_ar": "قائد",
+      "title": "Lead"
+    },
+    {
+      "level": 9,
+      "xp": 950,
+      "title_ar": "نجم",
+      "title": "Star"
+    },
+    {
+      "level": 10,
+      "xp": 1200,
+      "title_ar": "أسطورة",
+      "title": "Legend"
+    }
+  ],
+  "xp_rules": {
+    "task_done": 10,
+    "owner_approved": 15,
+    "owner_rejected": 0,
+    "meeting_fix_shipped": 10,
+    "skill_adopted": 20
+  }
+}
