@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17T08:48:23+00:00",
+  "updated": "2026-11-17T08:48:36+00:00",
   "agents": {
     "ceo": {
       "status": "working",
@@ -58,11 +58,10 @@
       "task_id": "T-001"
     },
     "thumbnail-designer": {
-      "status": "working",
-      "task": "Drafting vertical cover for first short",
-      "bubble": "Building draft cover in ffmpeg",
-      "since": "2026-11-17T08:47:41+00:00",
-      "task_id": "T-001"
+      "status": "idle",
+      "task": null,
+      "bubble": "Handed to Yasmin ✓",
+      "since": "2026-11-17T08:48:36+00:00"
     },
     "recording-producer": {
       "status": "working",
@@ -80,7 +79,7 @@
     "growth-analyst": {
       "status": "working",
       "task": "SEO keywords, hashtags, posting time",
-      "bubble": "SEO keywords, hashtags, posting time",
+      "bubble": "Research done, writing 08-seo.md",
       "since": "2026-11-17T08:47:42+00:00",
       "task_id": "T-001"
     },
@@ -127,7 +126,8 @@
         "company/projects/2026-11-17-first-short/01-trends-social.md",
         "company/projects/2026-11-17-first-short/02-script-short.md",
         "company/projects/2026-11-17-first-short/03-hooks.md",
-        "company/projects/2026-11-17-first-short/09-community.md"
+        "company/projects/2026-11-17-first-short/09-community.md",
+        "company/projects/2026-11-17-first-short/06-cover.md"
       ],
       "notes": [],
       "created": "2026-11-17T08:42:25+00:00",
@@ -158,6 +158,14 @@
       "task": "T-001",
       "done": false,
       "created": "2026-11-17T08:48:23+00:00"
+    },
+    "N-004": {
+      "id": "N-004",
+      "text": "Approve cover concept A (REAL or FAKE? + price card) for T-001; optional: approve credits for the AI background prompt in 06-cover.md (default: no)",
+      "from": "thumbnail-designer",
+      "task": "T-001",
+      "done": false,
+      "created": "2026-11-17T08:48:36+00:00"
     }
   },
   "log": [
@@ -328,10 +336,31 @@
       "kind": "xp",
       "text": "+10 XP: delivered: 4 pinned comments, 6 replies, moderation rule, 3 f",
       "task": null
+    },
+    {
+      "t": "2026-11-17T08:48:36+00:00",
+      "agent": "thumbnail-designer",
+      "kind": "needs-you",
+      "text": "Approve cover concept A (REAL or FAKE? + price card) for T-001; optional: approve credits for the AI background prompt in 06-cover.md (default: no)",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:48:36+00:00",
+      "agent": "thumbnail-designer",
+      "kind": "done",
+      "text": "Draft vertical cover (concept A) + 3 concepts in 06-cover.md → company/projects/2026-11-17-first-short/06-cover.md",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:48:36+00:00",
+      "agent": "thumbnail-designer",
+      "kind": "xp",
+      "text": "+10 XP: delivered: Draft vertical cover (concept A) + 3 concepts in 0",
+      "task": null
     }
   ],
   "counters": {
     "task": 1,
-    "need": 3
+    "need": 4
   }
 }
