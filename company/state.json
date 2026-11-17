@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-17T08:49:15+00:00",
+  "updated": "2026-11-17T08:49:37+00:00",
   "agents": {
     "ceo": {
       "status": "working",
       "task": "Planning today's short",
-      "bubble": "Calling the montage + distribution teams...",
+      "bubble": "Calling Khaled and Youssef...",
       "since": "2026-11-17T08:42:25+00:00",
       "task_id": "T-001"
     },
