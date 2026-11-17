@@ -62,7 +62,7 @@ If A4 took **20 s or less**, the YouTube title may say "20 sec" (see `03-hooks.m
 |---|---|---|
 | 0:00-0:03 | REAL / FAKE stamps flickering over A1 price, no stamp lands; **-[real %]: REAL or FAKE?** text | Blur store logo and product brand in A1. |
 | 0:03-0:09 | Animated price line (price jumps up, plateau, "sale" drops back) | Our own graphic. |
-| 0:09-0:15 | EU rule text card + source line "EU Directive 2019/2161, Art. 6a" | |
+| 0:10-0:17 | EU rule text card + source line "EU Directive 98/6/EC, Art. 6a" | |
 | 0:15-0:19 and 0:40-0:46 | Prompt full-screen, large monospace, "SCREENSHOT THIS" | From the text in `02-script-short.md`, not from a recording. On screen at least 3 s in total. |
 | 0:23-0:31 | Small timer in the corner, 0 -> real seconds | From A4. If A4 is trimmed, add a "sped up" label. |
 | 0:46-0:49 | End card "Follow for one AI shortcut a day" | No third-party logos. |
