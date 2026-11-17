@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17T16:48:50+00:00",
+  "updated": "2026-11-17T16:49:14+00:00",
   "agents": {
     "ceo": {
       "status": "working",
@@ -45,10 +45,11 @@
       "since": "2026-11-17T08:47:12+00:00"
     },
     "video-editor": {
-      "status": "idle",
-      "task": null,
-      "bubble": "Handed to Yasmin ✓",
-      "since": "2026-11-17T08:55:09+00:00"
+      "status": "working",
+      "task": "Rendering 10 pixel stories",
+      "bubble": "Rendering 10 pixel stories",
+      "since": "2026-11-17T16:49:11+00:00",
+      "task_id": "T-002"
     },
     "captions": {
       "status": "idle",
@@ -75,11 +76,10 @@
       "since": "2026-11-17T08:51:19+00:00"
     },
     "growth-analyst": {
-      "status": "working",
-      "task": "SEO and calendar for 10 stories",
-      "bubble": "Order set, writing 10 SEO packs",
-      "since": "2026-11-17T16:44:44+00:00",
-      "task_id": "T-002"
+      "status": "idle",
+      "task": null,
+      "bubble": "Handed to Yasmin ✓",
+      "since": "2026-11-17T16:49:14+00:00"
     },
     "community-manager": {
       "status": "idle",
@@ -167,7 +167,8 @@
         "trend-hunter-search",
         "scriptwriter-long",
         "qa-reviewer",
-        "growth-analyst"
+        "growth-analyst",
+        "video-editor"
       ],
       "deliverables": [
         "company/projects/2026-11-17-affiliate-pixel-stories/01-affiliate-products.md",
@@ -180,7 +181,8 @@
         "company/projects/2026-11-17-affiliate-pixel-stories/stories/synthesia.json",
         "company/projects/2026-11-17-affiliate-pixel-stories/stories/speechify.json",
         "company/projects/2026-11-17-affiliate-pixel-stories/10-qa-stories-A.md",
-        "company/projects/2026-11-17-affiliate-pixel-stories/10-qa-stories-B.md"
+        "company/projects/2026-11-17-affiliate-pixel-stories/10-qa-stories-B.md",
+        "company/projects/2026-11-17-affiliate-pixel-stories/08-seo-and-calendar.md"
       ],
       "notes": [],
       "created": "2026-11-17T16:32:36+00:00",
@@ -329,6 +331,14 @@
       "task": "T-002",
       "done": false,
       "created": "2026-11-17T16:48:23+00:00"
+    },
+    "N-018": {
+      "id": "N-018",
+      "text": "Pixel Stories calendar starts Tue 24 Nov: get Webflow + Kit + HubSpot affiliate approval and Sofia VO for Webflow by Sun 22 Nov (else Youssef swaps order, see 08-seo-and-calendar.md); confirm 'Yes' on AI/synthetic toggles",
+      "from": "growth-analyst",
+      "task": "T-002",
+      "done": false,
+      "created": "2026-11-17T16:49:14+00:00"
     }
   },
   "log": [
@@ -1122,10 +1132,38 @@
       "kind": "level-up",
       "text": "Level 2 (Junior / مبتدئ)",
       "task": null
+    },
+    {
+      "t": "2026-11-17T16:49:11+00:00",
+      "agent": "video-editor",
+      "kind": "start",
+      "text": "Rendering 10 pixel stories",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:49:14+00:00",
+      "agent": "growth-analyst",
+      "kind": "needs-you",
+      "text": "Pixel Stories calendar starts Tue 24 Nov: get Webflow + Kit + HubSpot affiliate approval and Sofia VO for Webflow by Sun 22 Nov (else Youssef swaps order, see 08-seo-and-calendar.md); confirm 'Yes' on AI/synthetic toggles",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:49:14+00:00",
+      "agent": "growth-analyst",
+      "kind": "done",
+      "text": "SEO packs + 24 Nov-18 Dec calendar for 10 pixel stories → company/projects/2026-11-17-affiliate-pixel-stories/08-seo-and-calendar.md",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:49:14+00:00",
+      "agent": "growth-analyst",
+      "kind": "xp",
+      "text": "+10 XP: delivered: SEO packs + 24 Nov-18 Dec calendar for 10 pixel st",
+      "task": null
     }
   ],
   "counters": {
     "task": 2,
-    "need": 17
+    "need": 18
   }
 }
