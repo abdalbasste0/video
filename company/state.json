@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17T08:49:37+00:00",
+  "updated": "2026-11-17T08:51:27+00:00",
   "agents": {
     "ceo": {
       "status": "working",
@@ -47,8 +47,8 @@
     "video-editor": {
       "status": "idle",
       "task": null,
-      "bubble": "",
-      "since": "2026-11-17T08:41:45+00:00"
+      "bubble": "Handed to Yasmin ✓",
+      "since": "2026-11-17T08:51:27+00:00"
     },
     "captions": {
       "status": "idle",
@@ -71,8 +71,8 @@
     "publisher": {
       "status": "idle",
       "task": null,
-      "bubble": "",
-      "since": "2026-11-17T08:41:45+00:00"
+      "bubble": "Handed to Yasmin ✓",
+      "since": "2026-11-17T08:51:19+00:00"
     },
     "growth-analyst": {
       "status": "idle",
@@ -116,7 +116,9 @@
         "community-manager",
         "captions",
         "recording-producer",
-        "growth-analyst"
+        "growth-analyst",
+        "publisher",
+        "video-editor"
       ],
       "deliverables": [
         "company/projects/2026-11-17-first-short/01-trends-search.md",
@@ -128,7 +130,9 @@
         "company/projects/2026-11-17-first-short/teleprompter.md",
         "company/projects/2026-11-17-first-short/shot-list.md",
         "company/projects/2026-11-17-first-short/08-seo.md",
-        "company/projects/2026-11-17-first-short/05-captions-notes.md"
+        "company/projects/2026-11-17-first-short/05-captions-notes.md",
+        "company/projects/2026-11-17-first-short/07-publish-plan.md",
+        "company/projects/2026-11-17-first-short/04-edit-plan.md"
       ],
       "notes": [],
       "created": "2026-11-17T08:42:25+00:00",
@@ -183,6 +187,22 @@
       "task": "T-001",
       "done": false,
       "created": "2026-11-17T08:49:15+00:00"
+    },
+    "N-007": {
+      "id": "N-007",
+      "text": "Approve publishing 2026-11-17-first-short (plan: company/projects/2026-11-17-first-short/07-publish-plan.md). Also confirm: human or AI voiceover (sets AI labels), TikTok EU-first 14:00 NY or US-first 19:00 NY",
+      "from": "publisher",
+      "task": "T-001",
+      "done": false,
+      "created": "2026-11-17T08:51:19+00:00"
+    },
+    "N-008": {
+      "id": "N-008",
+      "text": "Record the demo (shot-list.md part A, A1-A6) and the voiceover from teleprompter.md into company/projects/2026-11-17-first-short/raw/, then watch edit/preview_captions_9x16.mp4 to check caption pacing",
+      "from": "video-editor",
+      "task": "T-001",
+      "done": false,
+      "created": "2026-11-17T08:51:27+00:00"
     }
   },
   "log": [
@@ -430,10 +450,66 @@
       "kind": "needs-you",
       "text": "After recording the demo + VO: swap SRT cues 23-25 to the real verdict (see 05-captions-notes.md) and re-time all 4 SRTs to the voiceover",
       "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:49:42+00:00",
+      "agent": "publisher",
+      "kind": "start",
+      "text": "Writing cross-platform publish plan",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:49:49+00:00",
+      "agent": "video-editor",
+      "kind": "start",
+      "text": "Edit plan and captions timing preview",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:51:19+00:00",
+      "agent": "publisher",
+      "kind": "needs-you",
+      "text": "Approve publishing 2026-11-17-first-short (plan: company/projects/2026-11-17-first-short/07-publish-plan.md). Also confirm: human or AI voiceover (sets AI labels), TikTok EU-first 14:00 NY or US-first 19:00 NY",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:51:19+00:00",
+      "agent": "publisher",
+      "kind": "done",
+      "text": "Publish plan for 4 platforms, Fri 20 Nov schedule → company/projects/2026-11-17-first-short/07-publish-plan.md",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:51:19+00:00",
+      "agent": "publisher",
+      "kind": "xp",
+      "text": "+10 XP: delivered: Publish plan for 4 platforms, Fri 20 Nov schedule",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T08:51:27+00:00",
+      "agent": "video-editor",
+      "kind": "needs-you",
+      "text": "Record the demo (shot-list.md part A, A1-A6) and the voiceover from teleprompter.md into company/projects/2026-11-17-first-short/raw/, then watch edit/preview_captions_9x16.mp4 to check caption pacing",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:51:27+00:00",
+      "agent": "video-editor",
+      "kind": "done",
+      "text": "Edit plan + captions timing preview; footage still needed → company/projects/2026-11-17-first-short/04-edit-plan.md",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:51:27+00:00",
+      "agent": "video-editor",
+      "kind": "xp",
+      "text": "+10 XP: delivered: Edit plan + captions timing preview; footage still",
+      "task": null
     }
   ],
   "counters": {
     "task": 1,
-    "need": 6
+    "need": 8
   }
 }
