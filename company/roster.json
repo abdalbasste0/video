@@ -123,7 +123,7 @@
       "role": "Captions & Localization",
       "room": "montage-studio",
       "sprite": "#d1c04f",
-      "xp": 0,
+      "xp": 10,
       "skills": [
         "srt-captions",
         "de-fr-es-subtitles"
@@ -151,7 +151,7 @@
       "role": "Recording Producer",
       "room": "recording-booth",
       "sprite": "#8fb84f",
-      "xp": 0,
+      "xp": 10,
       "skills": [
         "teleprompter",
         "voiceover-prep",
@@ -181,7 +181,7 @@
       "role": "Growth Analyst",
       "room": "distribution-hub",
       "sprite": "#d68a5b",
-      "xp": 0,
+      "xp": 10,
       "skills": [
         "analytics",
         "seo",
