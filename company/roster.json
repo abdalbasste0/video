@@ -210,7 +210,7 @@
       "role": "QA Reviewer",
       "room": "meeting-room",
       "sprite": "#a7a7a7",
-      "xp": 30,
+      "xp": 40,
       "skills": [
         "fact-check",
         "platform-policy",

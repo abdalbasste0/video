@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17T16:48:23+00:00",
+  "updated": "2026-11-17T16:48:50+00:00",
   "agents": {
     "ceo": {
       "status": "working",
@@ -91,7 +91,7 @@
       "status": "idle",
       "task": null,
       "bubble": "Handed to Yasmin ✓",
-      "since": "2026-11-17T16:48:23+00:00"
+      "since": "2026-11-17T16:48:50+00:00"
     },
     "skills-librarian": {
       "status": "idle",
@@ -179,7 +179,8 @@
         "company/projects/2026-11-17-affiliate-pixel-stories/stories/hubspot.json",
         "company/projects/2026-11-17-affiliate-pixel-stories/stories/synthesia.json",
         "company/projects/2026-11-17-affiliate-pixel-stories/stories/speechify.json",
-        "company/projects/2026-11-17-affiliate-pixel-stories/10-qa-stories-A.md"
+        "company/projects/2026-11-17-affiliate-pixel-stories/10-qa-stories-A.md",
+        "company/projects/2026-11-17-affiliate-pixel-stories/10-qa-stories-B.md"
       ],
       "notes": [],
       "created": "2026-11-17T16:32:36+00:00",
@@ -1099,6 +1100,27 @@
       "agent": "qa-reviewer",
       "kind": "xp",
       "text": "+10 XP: delivered: QA batch A: 5 stories PASS after 13 fixes",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T16:48:50+00:00",
+      "agent": "qa-reviewer",
+      "kind": "done",
+      "text": "Batch B (5 stories) PASS after fixes, logged → company/projects/2026-11-17-affiliate-pixel-stories/10-qa-stories-B.md",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:48:50+00:00",
+      "agent": "qa-reviewer",
+      "kind": "xp",
+      "text": "+10 XP: delivered: Batch B (5 stories) PASS after fixes, logged",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T16:48:50+00:00",
+      "agent": "qa-reviewer",
+      "kind": "level-up",
+      "text": "Level 2 (Junior / مبتدئ)",
       "task": null
     }
   ],
