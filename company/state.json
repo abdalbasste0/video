@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17T16:39:17+00:00",
+  "updated": "2026-11-17T16:42:39+00:00",
   "agents": {
     "ceo": {
       "status": "working",
@@ -27,11 +27,10 @@
       "since": "2026-11-17T08:44:10+00:00"
     },
     "scriptwriter-long": {
-      "status": "working",
-      "task": "Writing Kit and Webflow pixel stories",
-      "bubble": "Writing Kit and Webflow pixel stories",
-      "since": "2026-11-17T16:39:17+00:00",
-      "task_id": "T-002"
+      "status": "idle",
+      "task": null,
+      "bubble": "Handed to Yasmin ✓",
+      "since": "2026-11-17T16:42:39+00:00"
     },
     "scriptwriter-short": {
       "status": "idle",
@@ -168,7 +167,8 @@
         "scriptwriter-long"
       ],
       "deliverables": [
-        "company/projects/2026-11-17-affiliate-pixel-stories/01-affiliate-products.md"
+        "company/projects/2026-11-17-affiliate-pixel-stories/01-affiliate-products.md",
+        "company/projects/2026-11-17-affiliate-pixel-stories/stories/elevenlabs.json"
       ],
       "notes": [],
       "created": "2026-11-17T16:32:36+00:00",
@@ -919,6 +919,20 @@
       "kind": "start",
       "text": "Writing Kit and Webflow pixel stories",
       "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:42:39+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "done",
+      "text": "ElevenLabs + Fireflies pixel stories (~2:56 each, 18 scenes, ~55s shorts) → company/projects/2026-11-17-affiliate-pixel-stories/stories/elevenlabs.json",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:42:39+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "xp",
+      "text": "+10 XP: delivered: ElevenLabs + Fireflies pixel stories (~2:56 each, ",
+      "task": null
     }
   ],
   "counters": {
