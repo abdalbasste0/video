@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-17T16:44:04+00:00",
+  "updated": "2026-11-17T16:44:44+00:00",
   "agents": {
     "ceo": {
       "status": "working",
       "task": "Planning: 10 affiliate pixel stories",
-      "bubble": "Calling 5 writers...",
+      "bubble": "Calling Badr x2 and Sara...",
       "since": "2026-11-17T16:32:36+00:00",
       "task_id": "T-002"
     },
@@ -75,10 +75,11 @@
       "since": "2026-11-17T08:51:19+00:00"
     },
     "growth-analyst": {
-      "status": "idle",
-      "task": null,
-      "bubble": "Handed to Yasmin ✓",
-      "since": "2026-11-17T08:49:10+00:00"
+      "status": "working",
+      "task": "SEO and calendar for 10 stories",
+      "bubble": "SEO and calendar for 10 stories",
+      "since": "2026-11-17T16:44:44+00:00",
+      "task_id": "T-002"
     },
     "community-manager": {
       "status": "idle",
@@ -87,10 +88,11 @@
       "since": "2026-11-17T08:48:23+00:00"
     },
     "qa-reviewer": {
-      "status": "idle",
-      "task": null,
-      "bubble": "Handed to Yasmin ✓",
-      "since": "2026-11-17T09:02:10+00:00"
+      "status": "working",
+      "task": "QA five affiliate pixel stories",
+      "bubble": "QA five affiliate pixel stories",
+      "since": "2026-11-17T16:44:44+00:00",
+      "task_id": "T-002"
     },
     "skills-librarian": {
       "status": "idle",
@@ -164,7 +166,9 @@
       "workers": [
         "ceo",
         "trend-hunter-search",
-        "scriptwriter-long"
+        "scriptwriter-long",
+        "qa-reviewer",
+        "growth-analyst"
       ],
       "deliverables": [
         "company/projects/2026-11-17-affiliate-pixel-stories/01-affiliate-products.md",
@@ -1046,6 +1050,27 @@
       "kind": "xp",
       "text": "+10 XP: delivered: Synthesia + Speechify pixel stories written, sourc",
       "task": null
+    },
+    {
+      "t": "2026-11-17T16:44:44+00:00",
+      "agent": "qa-reviewer",
+      "kind": "start",
+      "text": "QA five affiliate pixel story scripts",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:44:44+00:00",
+      "agent": "growth-analyst",
+      "kind": "start",
+      "text": "SEO and calendar for 10 stories",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:44:44+00:00",
+      "agent": "qa-reviewer",
+      "kind": "start",
+      "text": "QA five affiliate pixel stories",
+      "task": "T-002"
     }
   ],
   "counters": {
