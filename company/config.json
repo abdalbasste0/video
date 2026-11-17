@@ -158,7 +158,8 @@
     "no_copyrighted_music_or_footage": true,
     "disclose_ai_generated_content": true,
     "paid_research_allowed": false,
-    "paid_research_note": "When true, trend hunters may use vidIQ (costs the owner's credits, max 2 calls per run). When false they use free web search only."
+    "paid_research_note": "When true, trend hunters may use vidIQ (costs the owner's credits, max 2 calls per run). When false they use free web search only.",
+    "prefer_open_source_tools": true
   },
   "levels": [
     {
@@ -228,5 +229,96 @@
     "owner_rejected": 0,
     "meeting_fix_shipped": 10,
     "skill_adopted": 20
+  },
+  "tool_stack": {
+    "note": "Owner's choice (2026-11-17): open-source apps instead of paid SaaS. Most run on the OWNER's computer, not in the cloud session; agents prepare inputs and the owner runs the app, then drops outputs in company/inbox/.",
+    "voice": {
+      "tool": "VoiceStudio",
+      "repo": "https://github.com/debpalash/VoiceStudio",
+      "license": "AGPL-3.0",
+      "replaces": "ElevenLabs",
+      "where": "owner computer",
+      "used_by": [
+        "recording-producer"
+      ],
+      "caveat": "Clone only the owner's own voice or use built-in voices. Don't clone ElevenLabs voices (e.g. Laura) or any real person without consent."
+    },
+    "screen_recording": {
+      "tool": "Cap",
+      "repo": "https://github.com/CapSoftware/cap",
+      "license": "AGPL-3.0",
+      "replaces": "Loom / paid recorders",
+      "where": "owner computer (macOS + web; Windows/Linux reported in development)",
+      "used_by": [
+        "recording-producer",
+        "video-editor"
+      ]
+    },
+    "transcription": {
+      "tool": "OpenWhispr",
+      "repo": "https://github.com/openwhispr/openwhispr",
+      "license": "MIT (per third-party listing)",
+      "replaces": "Descript transcription",
+      "where": "owner computer, local Whisper",
+      "used_by": [
+        "captions"
+      ]
+    },
+    "image_video_generation": {
+      "tool": "Open Generative AI",
+      "repo": "https://github.com/Anil-matcha/Open-Generative-AI",
+      "license": "MIT",
+      "replaces": "Higgsfield, Canva AI, Figma AI",
+      "where": "owner computer or self-hosted",
+      "used_by": [
+        "thumbnail-designer"
+      ],
+      "caveat": "The app is free but most models run through a paid API key (Muapi); cost still needs owner approval."
+    },
+    "seo": {
+      "tool": "OpenSEO",
+      "repo": "https://github.com/every-app/open-seo",
+      "license": "MIT",
+      "replaces": "vidIQ keyword research, Ahrefs, Semrush",
+      "where": "self-hosted or managed (~$10/month)",
+      "used_by": [
+        "growth-analyst",
+        "trend-hunter-search"
+      ],
+      "caveat": "Self-hosting needs a pay-as-you-go DataForSEO API key."
+    },
+    "community_inbox": {
+      "tool": "Chatwoot",
+      "repo": "https://github.com/chatwoot/chatwoot",
+      "replaces": "paid social inbox tools",
+      "where": "self-hosted or Chatwoot cloud",
+      "used_by": [
+        "community-manager"
+      ]
+    },
+    "task_board": {
+      "tool": "AppFlowy or OpenProject",
+      "repos": [
+        "https://github.com/AppFlowy-IO/AppFlowy",
+        "https://github.com/opf/openproject"
+      ],
+      "replaces": "Notion, Asana, ClickUp",
+      "where": "owner computer",
+      "used_by": [
+        "chief-of-staff"
+      ],
+      "note": "Optional. The company's real task board stays in company/state.json; AppFlowy is for the owner's own notes."
+    },
+    "scheduling": {
+      "tool": "Cal.diy",
+      "repo": "https://github.com/calcom/cal.diy",
+      "license": "MIT",
+      "replaces": "Calendly",
+      "where": "self-hosted",
+      "used_by": [
+        "chief-of-staff"
+      ],
+      "note": "Only needed later, for sponsor or collab calls. Maintainers recommend personal, non-production use."
+    }
   }
 }

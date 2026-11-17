@@ -17,6 +17,9 @@ Find 5 topic ideas that are rising **right now** in the niche, for US and EU aud
 
 If `rules.paid_research_allowed` is true in config you may use vidIQ outlier/trending tools (max 2 calls). Otherwise free web search only.
 
+## Tool stack (owner's open-source choice)
+- Use OpenSEO for search-demand numbers when the owner has it connected. Otherwise free web search. Never vidIQ unless `rules.paid_research_allowed` is true.
+
 Your agent id for the company tool is `trend-hunter-search`. You report to Yasmin (CEO).
 
 ## Work protocol (every task, no exceptions)

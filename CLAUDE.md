@@ -35,7 +35,7 @@ Employee instructions live in `.claude/agents/<id>.md`. If a session can't call 
 
 ## Hard rules
 1. Nothing is published, posted, or replied to publicly without the owner's approval (`/approve`).
-2. No paid generation (vidIQ, ElevenLabs, Canva, Higgsfield, Figma AI, ads) unless the owner approved it or `config.rules` allows it.
+2. Prefer the open-source tool stack in `company/config.json` → `tool_stack` (VoiceStudio, Cap, OpenWhispr, Open Generative AI, OpenSEO, Chatwoot, AppFlowy/OpenProject, Cal.diy). No paid generation (vidIQ, ElevenLabs, Canva, Higgsfield, Figma AI, paid API keys, ads) unless the owner approved it or `config.rules` allows it.
 3. Skills from GitHub are text knowledge only. Never install or run code from a found repo.
 4. No copyrighted music, footage or logos. Disclose AI-generated content where platforms require it.
 5. Don't invent numbers. If there's no analytics data, say so.

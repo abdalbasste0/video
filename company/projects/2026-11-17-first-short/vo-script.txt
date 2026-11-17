@@ -1,0 +1,14 @@
+Is this Black Friday deal real...
+or fake? One prompt tells you.
+Here's the trick.
+Some stores raise the "was" price a few weeks before the sale, so the discount looks huge.
+In the EU, that old price must be the lowest price from the last thirty days.
+Not every shop plays fair.
+So copy this prompt into any free chatbot that can search the web.
+Paste the product link, the sale price, and the "was" price.
+It looks up recent prices, checks two other stores, and gives a verdict: real deal, fake discount, or not sure.
+Here, it says not sure: no price history found.
+That's a reason to wait.
+Always click the sources before you buy.
+Screenshot the prompt, and send it to the friend who's about to buy that TV.
+Follow for one AI shortcut a day.
