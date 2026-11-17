@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17T16:43:31+00:00",
+  "updated": "2026-11-17T16:44:04+00:00",
   "agents": {
     "ceo": {
       "status": "working",
@@ -30,7 +30,7 @@
       "status": "idle",
       "task": null,
       "bubble": "Handed to Yasmin ✓",
-      "since": "2026-11-17T16:43:31+00:00"
+      "since": "2026-11-17T16:44:04+00:00"
     },
     "scriptwriter-short": {
       "status": "idle",
@@ -171,7 +171,11 @@
         "company/projects/2026-11-17-affiliate-pixel-stories/stories/elevenlabs.json",
         "company/projects/2026-11-17-affiliate-pixel-stories/stories/kit.json",
         "company/projects/2026-11-17-affiliate-pixel-stories/stories/lovable.json",
-        "company/projects/2026-11-17-affiliate-pixel-stories/stories/descript.json"
+        "company/projects/2026-11-17-affiliate-pixel-stories/stories/descript.json",
+        "company/projects/2026-11-17-affiliate-pixel-stories/stories/heygen.json",
+        "company/projects/2026-11-17-affiliate-pixel-stories/stories/hubspot.json",
+        "company/projects/2026-11-17-affiliate-pixel-stories/stories/synthesia.json",
+        "company/projects/2026-11-17-affiliate-pixel-stories/stories/speechify.json"
       ],
       "notes": [],
       "created": "2026-11-17T16:32:36+00:00",
@@ -304,6 +308,14 @@
       "task": "T-002",
       "done": false,
       "created": "2026-11-17T16:37:48+00:00"
+    },
+    "N-016": {
+      "id": "N-016",
+      "text": "Before publishing Synthesia + Speechify stories: confirm free-plan details on synthesia.io/pricing and speechify.com/pricing (session could not open them)",
+      "from": "scriptwriter-long",
+      "task": "T-002",
+      "done": false,
+      "created": "2026-11-17T16:44:04+00:00"
     }
   },
   "log": [
@@ -985,10 +997,59 @@
       "kind": "level-up",
       "text": "Level 2 (Junior / مبتدئ)",
       "task": null
+    },
+    {
+      "t": "2026-11-17T16:43:50+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "done",
+      "text": "HeyGen + HubSpot pixel stories written, sourced, render-checked → company/projects/2026-11-17-affiliate-pixel-stories/stories/heygen.json",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:43:50+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "xp",
+      "text": "+10 XP: delivered: HeyGen + HubSpot pixel stories written, sourced, r",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T16:43:50+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "done",
+      "text": "HubSpot story file → company/projects/2026-11-17-affiliate-pixel-stories/stories/hubspot.json",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:43:50+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "xp",
+      "text": "+10 XP: delivered: HubSpot story file",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T16:44:04+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "needs-you",
+      "text": "Before publishing Synthesia + Speechify stories: confirm free-plan details on synthesia.io/pricing and speechify.com/pricing (session could not open them)",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:44:04+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "done",
+      "text": "Synthesia + Speechify pixel stories written, sourced, render-checked → company/projects/2026-11-17-affiliate-pixel-stories/stories/synthesia.json, company/projects/2026-11-17-affiliate-pixel-stories/stories/speechify.json",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:44:04+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "xp",
+      "text": "+10 XP: delivered: Synthesia + Speechify pixel stories written, sourc",
+      "task": null
     }
   ],
   "counters": {
     "task": 2,
-    "need": 15
+    "need": 16
   }
 }
