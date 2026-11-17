@@ -1,0 +1,439 @@
+[
+  {
+    "id": "elevenlabs",
+    "rank": 1,
+    "status": "pick",
+    "name": "ElevenLabs",
+    "company": "ElevenLabs (Eleven Labs Inc.)",
+    "program_url": "https://elevenlabs.io/affiliates",
+    "network": "PartnerStack",
+    "commission": "22% of payments for first 12 months (11% Business, 0% Enterprise)",
+    "recurring": true,
+    "cookie_days": null,
+    "payout_min_usd": 5,
+    "free_plan": true,
+    "terms_confidence": "official",
+    "scores": {
+      "commission": 8,
+      "conversion": 9,
+      "story": 8,
+      "fit": 10,
+      "total": 35
+    },
+    "story_hooks": [
+      "Two childhood friends from Poland hated flat one-voice 'lektor' dubbing of foreign films and built a voice AI to fix it",
+      "Founded 2022; raised a $500M Series D at an $11B valuation in February 2026, led by Sequoia",
+      "In 2026 the Polish state took a stake in the company"
+    ],
+    "sources": [
+      "https://elevenlabs.io/affiliates-terms",
+      "https://elevenlabs.io/affiliate-partner-guide",
+      "https://fintool.com/news/elevenlabs-11b-valuation-series-d",
+      "https://cryptobriefing.com/poland-elevenlabs-stake-ai-hub/"
+    ],
+    "date_checked": "2026-11-17"
+  },
+  {
+    "id": "fireflies",
+    "rank": 2,
+    "status": "pick",
+    "name": "Fireflies.ai",
+    "company": "Fireflies.ai Corp.",
+    "program_url": "https://fireflies.ai/affiliate",
+    "network": "Direct",
+    "commission": "Up to 30% recurring for 12 months (tiered)",
+    "recurring": true,
+    "cookie_days": 90,
+    "payout_min_usd": null,
+    "free_plan": true,
+    "terms_confidence": "official",
+    "scores": {
+      "commission": 7,
+      "conversion": 9,
+      "story": 10,
+      "fit": 9,
+      "total": 35
+    },
+    "story_hooks": [
+      "Founders joined 100+ meetings pretending to be an AI bot called 'Fred' and typed notes by hand",
+      "They charged about $100/month and had just enough money for rent",
+      "Reached a $1B valuation in June 2025 with no new primary VC since 2021"
+    ],
+    "sources": [
+      "https://fireflies.ai/affiliate",
+      "https://www.pcgamer.com/software/ai/usd1-billion-ai-company-co-founder-admits-that-its-usd100-a-month-transcription-service-was-originally-two-guys-surviving-on-pizza-and-typing-out-notes-by-hand",
+      "https://www.aol.com/articles/ai-startups-viral-linkedin-story-112801605.html"
+    ],
+    "date_checked": "2026-11-17"
+  },
+  {
+    "id": "lovable",
+    "rank": 3,
+    "status": "pick",
+    "name": "Lovable",
+    "company": "Lovable (Stockholm)",
+    "program_url": "https://lovable.dev/partners/affiliates",
+    "network": "Lovable affiliate platform (Impact reported)",
+    "commission": "Up to $100 per first-time subscriber (docs say 20% of first 12 payments - conflicting)",
+    "recurring": null,
+    "cookie_days": null,
+    "payout_min_usd": null,
+    "free_plan": true,
+    "terms_confidence": "official-conflicting",
+    "scores": {
+      "commission": 6,
+      "conversion": 9,
+      "story": 10,
+      "fit": 9,
+      "total": 34
+    },
+    "story_hooks": [
+      "Started as GPT Engineer, an open-source side project by Anton Osika in mid-2023",
+      "Hit $100M ARR about 8 months after launch (July 2025)",
+      "Valuation went from $6.6B (Dec 2025) to $13.3B (Aug 2026)"
+    ],
+    "sources": [
+      "https://lovable.dev/partners/affiliates",
+      "https://docs.lovable.dev/tips-tricks/community",
+      "https://techcrunch.com/2026/03/11/lovable-says-it-added-100m-in-revenue-last-month-alone-with-just-146-employees/",
+      "https://dealroom.co/news/144597-lovable-raises-400m-at-13-3b-valuation-eyes-600m-revenue-run-rate/"
+    ],
+    "date_checked": "2026-11-17"
+  },
+  {
+    "id": "descript",
+    "rank": 4,
+    "status": "pick",
+    "name": "Descript",
+    "company": "Descript, Inc.",
+    "program_url": "https://www.descript.com/affiliate",
+    "network": "PartnerStack",
+    "commission": "$25 flat one-time per new paid subscriber (no renewals, $100k annual cap)",
+    "recurring": false,
+    "cookie_days": 30,
+    "payout_min_usd": 0,
+    "free_plan": true,
+    "terms_confidence": "official",
+    "scores": {
+      "commission": 4,
+      "conversion": 9,
+      "story": 10,
+      "fit": 10,
+      "total": 33
+    },
+    "story_hooks": [
+      "Founder Andrew Mason was fired as Groupon CEO in 2013 ('I was fired today')",
+      "His next startup Detour (audio tours) struggled and was sold to Bose in 2018; its internal transcript editor became Descript",
+      "Backed by a16z and later the OpenAI Startup Fund"
+    ],
+    "sources": [
+      "https://www.descript.com/affiliate-terms",
+      "https://www.descript.com/affiliate",
+      "https://en.wikipedia.org/wiki/Andrew_Mason",
+      "https://www.cbsnews.com/news/former-groupon-ceo-posts-farewell-memo"
+    ],
+    "date_checked": "2026-11-17"
+  },
+  {
+    "id": "kit",
+    "rank": 5,
+    "status": "pick",
+    "name": "Kit",
+    "company": "Kit (formerly ConvertKit)",
+    "program_url": "https://kit.com/affiliate",
+    "network": "PartnerStack",
+    "commission": "50% for 12 months, then 10-20% recurring at Bronze/Silver/Gold",
+    "recurring": true,
+    "cookie_days": 90,
+    "payout_min_usd": null,
+    "free_plan": true,
+    "terms_confidence": "official (cookie 3rd-party)",
+    "scores": {
+      "commission": 9,
+      "conversion": 8,
+      "story": 8,
+      "fit": 8,
+      "total": 33
+    },
+    "story_hooks": [
+      "In 2014 revenue fell to about $1,200-1,300/month and Nathan Barry was told to shut it down or double down",
+      "He put in about $50,000 and focused on bloggers; bootstrapped to roughly $45M ARR with no VC",
+      "A 2018 rename to 'Seva' was reversed after backlash; rebranded to Kit in 2024"
+    ],
+    "sources": [
+      "https://kit.com/affiliate",
+      "https://market.partnerstack.com/page/kit",
+      "https://convertkit.com/handbook/our-story",
+      "https://startupgtm.substack.com/p/convertkit-now-kit-growth-story-how"
+    ],
+    "date_checked": "2026-11-17"
+  },
+  {
+    "id": "webflow",
+    "rank": 6,
+    "status": "pick",
+    "name": "Webflow",
+    "company": "Webflow, Inc.",
+    "program_url": "https://webflow.com/solutions/affiliates",
+    "network": "PartnerStack",
+    "commission": "50% of first subscription for up to 12 months (Base tier)",
+    "recurring": true,
+    "cookie_days": null,
+    "payout_min_usd": null,
+    "free_plan": true,
+    "terms_confidence": "official (cookie conflicting 30/90)",
+    "scores": {
+      "commission": 9,
+      "conversion": 7,
+      "story": 9,
+      "fit": 7,
+      "total": 32
+    },
+    "story_hooks": [
+      "Vlad Magdalin failed to launch the idea in 2005, 2007 and 2008",
+      "Reportedly about $60,000 in debt with two kids and months without salary",
+      "Y Combinator 2013, then about $100M revenue and a $4B valuation in 2022"
+    ],
+    "sources": [
+      "https://webflow.com/solutions/affiliates",
+      "https://help.webflow.com/hc/en-us/articles/33961372613011",
+      "https://en.wikipedia.org/wiki/Webflow",
+      "https://buildd.co/funding/webflow-success-story"
+    ],
+    "date_checked": "2026-11-17"
+  },
+  {
+    "id": "heygen",
+    "rank": 7,
+    "status": "pick",
+    "name": "HeyGen",
+    "company": "HeyGen Technology",
+    "program_url": "https://www.heygen.com/affiliate-program",
+    "network": "Rewardful",
+    "commission": "30-35% recurring for 3-6 months (official pages conflict)",
+    "recurring": true,
+    "cookie_days": 30,
+    "payout_min_usd": null,
+    "free_plan": true,
+    "terms_confidence": "official-conflicting",
+    "scores": {
+      "commission": 7,
+      "conversion": 8,
+      "story": 8,
+      "fit": 9,
+      "total": 32
+    },
+    "story_hooks": [
+      "Founded Dec 2020 by ex-Snap engineer Joshua Xu and Wayne Liang as 'Surreal'; later moved to Los Angeles",
+      "$1M ARR in 178 days, ramen-profitable at day 217 (company blog)",
+      "$200M ARR by mid-2026 while barely burning cash (company-reported)"
+    ],
+    "sources": [
+      "https://www.heygen.com/affiliate-program",
+      "https://www.heygen.com/affiliate-terms-conditions",
+      "https://www.heygen.com/blog/0-1m-arr-in-7-months",
+      "https://www.heygen.com/blog/heygen-surpasses-200m-arr",
+      "https://www.upstartsmedia.com/p/exclusive-heygen-200m-arr-without-burn"
+    ],
+    "date_checked": "2026-11-17"
+  },
+  {
+    "id": "hubspot",
+    "rank": 8,
+    "status": "pick",
+    "name": "HubSpot",
+    "company": "HubSpot, Inc.",
+    "program_url": "https://www.hubspot.com/partners/affiliates",
+    "network": "Direct (HubSpot affiliate platform)",
+    "commission": "30% recurring for up to 12 months",
+    "recurring": true,
+    "cookie_days": 180,
+    "payout_min_usd": null,
+    "free_plan": true,
+    "terms_confidence": "official",
+    "scores": {
+      "commission": 9,
+      "conversion": 7,
+      "story": 8,
+      "fit": 7,
+      "total": 31
+    },
+    "story_hooks": [
+      "Founders met at MIT, started in 2006 and coined 'inbound marketing'",
+      "NYSE IPO in 2014",
+      "Alphabet explored a takeover in 2024; talks collapsed in July and the stock fell 12% in a day"
+    ],
+    "sources": [
+      "https://www.hubspot.com/company-news/hubspot-launches-its-revamped-affiliate-program",
+      "https://unbound.hubspot.com/blog/how-they-built-hubspot",
+      "https://www.thestar.com.my/tech/tech-news/2024/07/11/google-parent-alphabet-shelves-interest-for-hubspot-bloomberg-news-reports"
+    ],
+    "date_checked": "2026-11-17"
+  },
+  {
+    "id": "synthesia",
+    "rank": 9,
+    "status": "pick",
+    "name": "Synthesia",
+    "company": "Synthesia Ltd (London)",
+    "program_url": "https://synthesia.io/partners/affiliates",
+    "network": "Rewardful",
+    "commission": "25% of net payments, 12 months, up to $267 per referral",
+    "recurring": true,
+    "cookie_days": 60,
+    "payout_min_usd": null,
+    "free_plan": true,
+    "terms_confidence": "official (duration/cookie 3rd-party)",
+    "scores": {
+      "commission": 8,
+      "conversion": 7,
+      "story": 7,
+      "fit": 9,
+      "total": 31
+    },
+    "story_hooks": [
+      "Founded 2017 in London by researchers incl. UCL professor Lourdes Agapito, before generative AI was mainstream",
+      "Valuation $1B (2023) -> $2.1B (2025) -> $4B (Jan 2026, $200M Series E led by GV)",
+      "Reportedly turned down a $3B Adobe offer (single source, verify)"
+    ],
+    "sources": [
+      "https://synthesia.io/partners/affiliates",
+      "https://synthesia.io/post/series-e-200-million-4-billion-valuation-future-work",
+      "https://www.ucl.ac.uk/news/2026/jan/ai-video-startup-co-founded-ucl-professor-valued-4-billion"
+    ],
+    "date_checked": "2026-11-17"
+  },
+  {
+    "id": "speechify",
+    "rank": 10,
+    "status": "pick",
+    "name": "Speechify",
+    "company": "Speechify Inc.",
+    "program_url": "https://speechify.com/affiliates/",
+    "network": "Direct (Dub partners)",
+    "commission": "30% of every sale",
+    "recurring": null,
+    "cookie_days": 30,
+    "payout_min_usd": null,
+    "free_plan": true,
+    "terms_confidence": "official",
+    "scores": {
+      "commission": 6,
+      "conversion": 8,
+      "story": 8,
+      "fit": 8,
+      "total": 30
+    },
+    "story_hooks": [
+      "Cliff Weitzman was diagnosed with dyslexia in third grade and learned by listening to audiobooks",
+      "At Brown University he coded a text-to-speech tool for his own reading",
+      "Grew to roughly 50M+ users (self-reported)"
+    ],
+    "sources": [
+      "https://speechify.com/affiliates/",
+      "https://speechify.ai/partners/terms",
+      "https://dyslexiahelp.umich.edu/success-story/cliff-weitzman/"
+    ],
+    "date_checked": "2026-11-17"
+  },
+  {
+    "id": "grammarly",
+    "rank": "B1",
+    "status": "backup",
+    "name": "Grammarly",
+    "company": "Superhuman Platform Inc. (formerly Grammarly Inc.)",
+    "program_url": "https://www.grammarly.com/affiliates",
+    "network": "Impact",
+    "commission": "UNCONFIRMED (old: $0.20 per sign-up, $20 per upgrade)",
+    "recurring": false,
+    "cookie_days": 90,
+    "payout_min_usd": null,
+    "free_plan": true,
+    "terms_confidence": "unconfirmed rate",
+    "scores": {
+      "commission": 5,
+      "conversion": 9,
+      "story": 9,
+      "fit": 8,
+      "total": 31
+    },
+    "story_hooks": [
+      "Ukrainian founders funded it with the sale of their plagiarism checker MyDropBox",
+      "Bootstrapped about 8 years before a $110M first round in 2017",
+      "$13B valuation in 2021; bought Superhuman in 2025 and took its name"
+    ],
+    "sources": [
+      "https://www.grammarly.com/affiliates/terms",
+      "https://help.superhuman.com/hc/en-us/articles/46210168100493-Coda-s-affiliate-program-moves-to-Grammarly",
+      "https://thehustle.co/grammarly-110-million-funding"
+    ],
+    "date_checked": "2026-11-17"
+  },
+  {
+    "id": "semrush",
+    "rank": "B2",
+    "status": "backup",
+    "name": "Semrush",
+    "company": "Semrush (Adobe)",
+    "program_url": null,
+    "network": "Impact",
+    "commission": "$200 per sale (toolkits), $300 Semrush One, $10 per trial - 3rd-party only",
+    "recurring": false,
+    "cookie_days": 120,
+    "payout_min_usd": null,
+    "free_plan": true,
+    "terms_confidence": "3rd-party only",
+    "scores": {
+      "commission": 9,
+      "conversion": 6,
+      "story": 7,
+      "fit": 6,
+      "total": 28
+    },
+    "story_hooks": [
+      "Founded 2008 by Oleg Shchegolev and Dmitry Melnikov",
+      "NYSE IPO in 2021",
+      "Adobe bought it for about $1.9B all-cash (announced Nov 2025, closed 2026)"
+    ],
+    "sources": [
+      "https://funnelish.com/blog/semrush-affiliate-program",
+      "https://www.affililist.com/blog/semrush-affiliate-program",
+      "https://itbrief.co.uk/story/adobe-completes-semrush-deal-to-boost-ai-search-tools"
+    ],
+    "date_checked": "2026-11-17",
+    "program_url_note": "Official Semrush affiliate URL not verified this session; join via Impact marketplace"
+  },
+  {
+    "id": "monday",
+    "rank": "B3",
+    "status": "backup",
+    "name": "monday.com",
+    "company": "monday.com Ltd.",
+    "program_url": "https://partners.monday.com/authorized-partners/program-information/",
+    "network": "PartnerStack",
+    "commission": "10% first sale; 15% for 2 years after 2nd customer; 20% after $30K ARR",
+    "recurring": true,
+    "cookie_days": null,
+    "payout_min_usd": null,
+    "free_plan": true,
+    "terms_confidence": "official",
+    "scores": {
+      "commission": 6,
+      "conversion": 7,
+      "story": 7,
+      "fit": 7,
+      "total": 27
+    },
+    "story_hooks": [
+      "Built in 2010 as an internal tool inside Wix",
+      "Spun out as daPulse in 2012, renamed monday.com in 2017",
+      "Nasdaq IPO on June 10, 2021"
+    ],
+    "sources": [
+      "https://partners.monday.com/authorized-partners/program-information/",
+      "https://en.wikipedia.org/wiki/Monday_(software)",
+      "https://www.insightpartners.com/ideas/scaleup-milestone-series-monday-coms-ipo/"
+    ],
+    "date_checked": "2026-11-17"
+  }
+]

@@ -3,3 +3,4 @@ company/*.tmp
 __pycache__/
 company/inbox/footage/*
 !company/inbox/footage/.gitkeep
+company/projects/*/renders/

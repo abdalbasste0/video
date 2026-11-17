@@ -1,0 +1,317 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>pixel story engine</title>
+<style>html,body{margin:0;background:#000}canvas{image-rendering:pixelated;width:960px;height:540px}</style></head>
+<body><canvas id="c" width="480" height="270"></canvas>
+<script>
+/* Pixel-story engine: draws one frame of a scene list at time t (seconds).
+   Logical canvas 480x270, scaled x4 to 1920x1080 by ffmpeg (nearest neighbour).
+   Story JSON is documented in tools/pixel_story/README.md */
+"use strict";
+const W = 480, H = 270;
+const cv = document.getElementById("c"), ctx = cv.getContext("2d");
+ctx.imageSmoothingEnabled = false;
+
+// ---------- 5x7 bitmap font ----------
+const FONT = {
+"0":[14,17,19,21,25,17,14],"1":[4,12,4,4,4,4,14],"2":[14,17,1,2,4,8,31],"3":[31,2,4,2,1,17,14],"4":[2,6,10,18,31,2,2],
+"5":[31,16,30,1,1,17,14],"6":[6,8,16,30,17,17,14],"7":[31,1,2,4,8,8,8],"8":[14,17,17,14,17,17,14],"9":[14,17,17,15,1,2,12],
+"A":[14,17,17,31,17,17,17],"B":[30,17,17,30,17,17,30],"C":[14,17,16,16,16,17,14],"D":[28,18,17,17,17,18,28],"E":[31,16,16,30,16,16,31],
+"F":[31,16,16,30,16,16,16],"G":[14,17,16,23,17,17,15],"H":[17,17,17,31,17,17,17],"I":[14,4,4,4,4,4,14],"J":[7,2,2,2,2,18,12],
+"K":[17,18,20,24,20,18,17],"L":[16,16,16,16,16,16,31],"M":[17,27,21,21,17,17,17],"N":[17,17,25,21,19,17,17],"O":[14,17,17,17,17,17,14],
+"P":[30,17,17,30,16,16,16],"Q":[14,17,17,17,21,18,13],"R":[30,17,17,30,20,18,17],"S":[15,16,16,14,1,1,30],"T":[31,4,4,4,4,4,4],
+"U":[17,17,17,17,17,17,14],"V":[17,17,17,17,17,10,4],"W":[17,17,17,21,21,21,10],"X":[17,17,10,4,10,17,17],"Y":[17,17,17,10,4,4,4],
+"Z":[31,1,2,4,8,16,31]," ":[0,0,0,0,0,0,0],".":[0,0,0,0,0,12,12],",":[0,0,0,0,12,4,8],"!":[4,4,4,4,4,0,4],"?":[14,17,1,2,4,0,4],
+"-":[0,0,0,31,0,0,0],"+":[0,4,4,31,4,4,0],"$":[4,15,20,14,5,30,4],"%":[24,25,2,4,8,19,3],":":[0,12,12,0,12,12,0],"'":[12,4,8,0,0,0,0],
+"/":[0,1,2,4,8,16,0],"&":[12,18,20,8,21,18,13],"€":[7,8,30,8,30,8,7],"#":[10,10,31,10,31,10,10],"(":[2,4,8,8,8,4,2],")":[8,4,2,2,2,4,8],
+'"':[10,10,0,0,0,0,0],"=":[0,0,31,0,31,0,0],"×":[0,17,10,4,10,17,0],"→":[0,4,2,31,2,4,0],"↓":[4,4,4,21,14,4,0],"↑":[4,14,21,4,4,4,0]
+};
+function textW(s, sc = 1) { return s.length * 6 * sc - sc; }
+function text(s, x, y, col, sc = 1, shadow) {
+  s = String(s).toUpperCase();
+  if (shadow) text(s, x + sc, y + sc, shadow, sc);
+  ctx.fillStyle = col;
+  for (let i = 0; i < s.length; i++) {
+    const g = FONT[s[i]] || FONT["?"];
+    for (let r = 0; r < 7; r++) for (let c = 0; c < 5; c++)
+      if (g[r] & (16 >> c)) ctx.fillRect(x + (i * 6 + c) * sc, y + r * sc, sc, sc);
+  }
+}
+const px = (x, y, w, h, c) => { ctx.fillStyle = c; ctx.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); };
+
+// ---------- deterministic random ----------
+function rnd(seed) { let s = seed * 9301 + 49297; return () => ((s = (s * 9301 + 49297) % 233280) / 233280); }
+const ease = k => k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+// ---------- palettes ----------
+const THEMES = {
+  office:  { wall: "#2b3346", wall2: "#252c3d", floor: ["#6b4e37", "#634832"] },
+  boardroom:{ wall: "#3a3050", wall2: "#332a47", floor: ["#5b4a39", "#554535"] },
+  garage:  { wall: "#4a4038", wall2: "#433a33", floor: ["#5a5a5e", "#535357"] },
+  lab:     { wall: "#22413a", wall2: "#1e3a33", floor: ["#3e4c48", "#394643"] },
+  factory: { wall: "#3c4048", wall2: "#363a41", floor: ["#585c63", "#52565d"] },
+  store:   { wall: "#2c3a52", wall2: "#273449", floor: ["#6e5a44", "#67543f"] },
+  deal:    { wall: "#2a2a35", wall2: "#25252f", floor: ["#6b4e37", "#634832"] },
+  stage:   { wall: "#15151c", wall2: "#121218", floor: ["#2e2a33", "#2a2630"] },
+  server:  { wall: "#1b2230", wall2: "#181e2b", floor: ["#2f3540", "#2b313b"] },
+  dorm:    { wall: "#3f4a5c", wall2: "#394354", floor: ["#7a5c3e", "#72563a"] },
+  night:   { wall: "#0c1424", wall2: "#0c1424", floor: ["#10233a", "#0e2034"] },
+};
+const SKIN = ["#e0b48a", "#c99168", "#a8724c", "#e9c39b", "#8d5a3b", "#d6a07a"];
+const HAIR = ["#1b1410", "#3a2216", "#5a2e1a", "#111", "#7a5a2a", "#9a9a9a"];
+const SHIRT = ["#4f86c6", "#c7678f", "#5aa36b", "#e07b3f", "#9b6fd1", "#3fa7a3", "#d1c04f", "#c4544d", "#7a8aa8", "#5b6bd6"];
+
+// ---------- sprites ----------
+function person(x, y, i, o = {}) {
+  const skin = SKIN[i % SKIN.length], hair = HAIR[(i * 3) % HAIR.length], shirt = o.shirt || SHIRT[(i * 7) % SHIRT.length];
+  const bob = o.bob ? 1 : 0, jump = o.jump || 0;
+  y = y - bob - jump;
+  if (o.suit) { px(x - 3, y + 7, 7, 7, "#22252e"); px(x, y + 7, 1, 5, "#c4544d"); }
+  else px(x - 3, y + 7, 7, 7, shirt);
+  px(x - 2, y + 1, 5, 6, skin);
+  if (o.bald) px(x - 2, y + 1, 5, 1, skin); else { px(x - 2, y, 5, 2, hair); px(x - 2, y + 1, 1, 3, hair); }
+  if (o.glasses) px(x - 2, y + 3, 5, 1, "#222");
+  px(x - 1, y + 3, 1, 1, "#111"); px(x + 1, y + 3, 1, 1, "#111");
+  if (o.sad) px(x - 1, y + 5, 3, 1, "#6b3b2b");
+  if (!o.seated) {
+    const f = o.walk ? Math.floor(o.walk * 6) % 2 : 0;
+    px(x - 3, y + 14, 3, 4 - f * 2, "#2b2b33"); px(x + 1, y + 14, 3, 2 + f * 2, "#2b2b33");
+  }
+  if (o.arms) { px(x - 5, y + 4, 2, 4, skin); px(x + 4, y + 4, 2, 4, skin); }
+}
+function desk(x, y, on, t, i) {
+  if (on) {
+    const g = ctx.createRadialGradient(x + 12, y - 4, 1, x + 12, y - 4, 22);
+    g.addColorStop(0, "rgba(140,190,255,0.28)"); g.addColorStop(1, "rgba(140,190,255,0)");
+    ctx.fillStyle = g; ctx.fillRect(x - 14, y - 26, 52, 44);
+  }
+  px(x, y, 26, 6, "#7a5636"); px(x, y + 6, 26, 2, "#5a3e27"); px(x + 1, y + 8, 2, 5, "#4a3220"); px(x + 23, y + 8, 2, 5, "#4a3220");
+  px(x + 3, y - 8, 11, 8, "#1b1d24"); px(x + 4, y - 7, 9, 5, on ? "#3d7bd9" : "#20242e");
+  if (on) for (let k = 0; k < 2; k++) px(x + 5, y - 6 + k * 2, 2 + ((Math.floor(t * 5) + k * 3 + i) % 6), 1, "#cfe3ff");
+  px(x + 8, y - 1, 2, 1, "#1b1d24");
+  px(x + 18, y - 3, 4, 3, "#e9e6dc");
+}
+
+// ---------- floors (stacked rooms) ----------
+function drawFloor(f, X, Y, w, h, t, k, seedBase) {
+  const th = THEMES[f.room] || THEMES.office;
+  const floorH = Math.max(18, Math.round(h * 0.32));
+  const wallH = h - floorH;
+  px(X, Y, w, wallH, th.wall);
+  for (let i = 0; i < w; i += 24) px(X + i, Y, 12, wallH, th.wall2);
+  for (let ty = 0; ty < floorH; ty += 8) for (let tx = 0; tx < w; tx += 8)
+    px(X + tx, Y + wallH + ty, 8, 8, th.floor[((tx + ty) / 8) % 2]);
+  px(X, Y + wallH - 2, w, 2, "#15161b");
+  px(X, Y, w, 1, "#0b0c10"); px(X, Y + h - 1, w, 1, "#0b0c10"); px(X, Y, 1, h, "#0b0c10"); px(X + w - 1, Y, 1, h, "#0b0c10");
+
+  const R = rnd(seedBase);
+  // room furniture
+  if (f.room === "night") {
+    for (let i = 0; i < 40; i++) px(X + R() * w, Y + R() * wallH * 0.8, 1, 1, R() > 0.7 ? "#fff6c8" : "#7d8bb0");
+    for (let i = 0; i < w; i += 14) { const bh = 20 + R() * 50; px(X + i, Y + wallH - bh, 12, bh, "#141c2c"); for (let j = 4; j < bh - 4; j += 6) if (R() > 0.5) px(X + i + 3 + (j % 2) * 4, Y + wallH - bh + j, 2, 2, "#e8c66a"); }
+    for (let i = 0; i < floorH; i += 3) px(X, Y + wallH + i, w, 1, i % 6 ? "#10233a" : "#16304e");
+  }
+  if (f.room === "store") for (let i = 0; i < 3; i++) {
+    const sx = X + 14 + i * 70, sy = Y + 10; px(sx, sy, 60, wallH - 16, "#4a3424");
+    for (let r = 0; r < 3; r++) for (let c = 0; c < 6; c++) px(sx + 4 + c * 9, sy + 4 + r * ((wallH - 24) / 3), 6, 8, ["#4f86c6", "#e9e6dc", "#c4544d", "#5aa36b"][(r + c + i) % 4]);
+  }
+  if (f.room === "server") for (let i = 0; i < Math.floor(w / 40); i++) {
+    const sx = X + 10 + i * 40; px(sx, Y + 8, 26, wallH + floorH * 0.5 - 8, "#0f131b");
+    for (let j = 0; j < 8; j++) px(sx + 3, Y + 12 + j * 6, 20, 3, "#202838"), px(sx + 20, Y + 13 + j * 6, 2, 1, (Math.floor(t * 4 + i + j) % 3) ? "#5aff8a" : "#1d5b30");
+  }
+  if (f.room === "factory") {
+    const by = Y + wallH + 4; px(X + 10, by, w - 20, 6, "#2a2d33");
+    for (let i = 0; i < w - 30; i += 16) px(X + 14 + ((i + t * 30) % (w - 34)), by - 6, 8, 6, "#4f86c6");
+  }
+  if (f.room === "garage") { px(X + w - 70, Y + 8, 60, wallH - 10, "#5f646b"); for (let i = 0; i < 6; i++) px(X + w - 70, Y + 10 + i * ((wallH - 12) / 6), 60, 1, "#4d5157"); }
+  if (f.room === "lab") for (let i = 0; i < 3; i++) { px(X + 20 + i * 30, Y + wallH - 18, 6, 14, "#cfe3ff55"); px(X + 20 + i * 30, Y + wallH - 10, 6, 6, ["#5aff8a", "#ff6bd5", "#6bb8ff"][i]); }
+  if (f.room === "dorm") { px(X + 10, Y + wallH - 4, 60, 10, "#3a5a8a"); px(X + 10, Y + wallH - 8, 18, 6, "#e9e6dc"); px(X + w - 50, Y + 10, 34, 22, "#1d2a44"); px(X + w - 48, Y + 12, 30, 18, "#2c4370"); }
+  if (f.room === "stage") {
+    const g = ctx.createRadialGradient(X + w / 2, Y, 4, X + w / 2, Y + h, h);
+    g.addColorStop(0, "rgba(255,230,160,0.35)"); g.addColorStop(1, "rgba(255,230,160,0)"); ctx.fillStyle = g; ctx.fillRect(X, Y, w, h);
+    px(X + w / 2 - 70, Y + 8, 140, wallH - 20, "#0c0c10"); px(X + w / 2 - 68, Y + 10, 136, wallH - 24, "#1c2433");
+    for (let i = 0; i < Math.floor(w / 10); i++) person(X + 5 + i * 10, Y + h - 10, i + 3, { seated: true });
+  }
+
+  // people & desks
+  const n = f.people ?? 0;
+  const mode = f.mode || (["boardroom", "deal"].includes(f.room) ? "table" : (["stage", "night", "store"].includes(f.room) ? "stand" : "desks"));
+  let shown = n;
+  if (f.grow) shown = Math.round(lerp(f.grow[0], f.grow[1], ease(k)));
+  if (f.leave) shown = Math.round(lerp(n, f.leave, ease(k)));
+  if (mode === "desks" && n > 0) {
+    const slots = Math.max(n, shown), sp = Math.min(40, (w - 8) / slots);
+    for (let i = 0; i < slots; i++) {
+      const dx = X + (w - slots * sp) / 2 + i * sp + (sp - 26) / 2, dy = Y + wallH + 2;
+      const here = i < shown;
+      if (here) person(dx + 12, dy - 13, seedBase + i, { seated: true, bob: f.working !== false && Math.floor(t * 2.5 + i) % 2 === 0, sad: f.mood === "sad", glasses: i % 4 === 1 });
+      desk(dx, dy, here && f.working !== false, t, i);
+    }
+  } else if (mode === "table") {
+    const tw = Math.min(w - 40, 40 + n * 22), tx = X + (w - tw) / 2, ty = Y + wallH + 2;
+    for (let i = 0; i < shown; i++) person(tx + 12 + i * ((tw - 24) / Math.max(1, n - 1 || 1)), ty - 12, seedBase + i, { seated: true, suit: f.suits, sad: f.mood === "sad", bob: f.mood === "happy" && Math.floor(t * 3 + i) % 2 === 0 });
+    px(tx, ty, tw, 8, "#7d5a3a"); px(tx, ty + 8, tw, 3, "#5c4029");
+  } else if (mode === "stand") {
+    for (let i = 0; i < shown; i++) {
+      const jump = f.mood === "happy" ? Math.abs(Math.sin(t * 6 + i)) * 4 : 0;
+      person(X + 20 + i * ((w - 40) / Math.max(1, shown - 1 || 1)), Y + h - 20, seedBase + i, { jump, sad: f.mood === "sad", suit: f.suits, arms: f.mood === "happy" });
+    }
+  }
+  if (f.walker) { // one person walks across: [from, to] fractions
+    const wx = X + w * lerp(f.walker[0], f.walker[1], ease(k));
+    person(wx, Y + h - 20, seedBase + 99, { walk: t, suit: f.suits, sad: f.mood === "sad" });
+  }
+  // label tag
+  if (f.label) LABELS.push([f.label, X, Y]);
+  return { wallH };
+}
+function lerp(a, b, k) { return a + (b - a) * k; }
+
+// ---------- wall props (date card, boards) ----------
+function dateCard(s, t, k) {
+  const sc = 2, w = textW(s, sc) + 14, x = STORY.vertical ? (W - w) / 2 : W - w - 8, y = 8;
+  px(x, y, w, 26, "#0e0f13"); px(x + 2, y + 2, w - 4, 22, "#15161c");
+  px(x + 2, y + 2, w - 4, 2, "#ffc861");
+  text(s, x + 7, y + 8, "#ffc861", sc);
+}
+function board(b, t, k, area) {
+  const { x, y, w, h } = area;
+  if (b.type === "number") {
+    const sc = b.scale || 2;
+    const s = b.count ? countUp(b.text, ease(clamp(k * 1.6, 0, 1))) : b.text;
+    const bw = Math.max(textW(b.text, sc), b.sub ? textW(b.sub, sc) : 0) + 20;
+    const bx = x + (w - bw) / 2;
+    px(bx, y, bw, b.sub ? 44 : 26, "#e8e3d3"); px(bx + 2, y + 2, bw - 4, (b.sub ? 44 : 26) - 4, "#f4efe1");
+    text(s, bx + 10, y + 7, b.color || "#3a8a4a", sc);
+    if (b.sub && k > 0.35) { px(bx - 6, y + 28, bw + 12, 22, "#0e0f13"); text(b.sub, bx + (bw - textW(b.sub, sc)) / 2, y + 32, b.subColor || "#ff5b4f", sc); }
+    return;
+  }
+  px(x, y, w, h, "#e8e3d3"); px(x + 2, y + 2, w - 4, h - 4, "#f7f3e8");
+  if (b.title) text(b.title, x + 5, y + 4, "#55606e");
+  const gx = x + 8, gy = y + 14, gw = w - 16, gh = h - 26;
+  if (b.type === "bars") {
+    const vals = b.values, mx = Math.max(...vals), bw = gw / vals.length;
+    vals.forEach((v, i) => {
+      const bh = gh * (v / mx) * ease(clamp(k * 1.5, 0, 1));
+      px(gx + i * bw + 3, gy + gh - bh, bw - 6, bh, (b.colors && b.colors[i]) || ["#4f86c6", "#e07b3f", "#5aa36b", "#c7678f"][i % 4]);
+      if (b.labels) text(b.labels[i], gx + i * bw + 3, gy + gh + 3, "#55606e");
+    });
+  } else if (b.type === "line-up" || b.type === "line-down") {
+    const up = b.type === "line-up", pts = 12, R = rnd(w + h);
+    let prev = null;
+    for (let i = 0; i <= pts * clamp(k * 1.3, 0, 1); i++) {
+      const fx = i / pts, base = up ? fx : 1 - fx, jitter = (R() - 0.5) * 0.12;
+      const p = [gx + fx * gw, gy + gh - clamp(base * 0.9 + 0.05 + jitter, 0, 1) * gh];
+      if (prev) { ctx.strokeStyle = up ? "#3a8a4a" : "#d33a2c"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(prev[0], prev[1]); ctx.lineTo(p[0], p[1]); ctx.stroke(); }
+      prev = p;
+    }
+  } else if (b.type === "versus") {
+    text(b.left, gx, gy + gh / 2 - 4, "#4f86c6", 1); text("VS", gx + gw / 2 - 6, gy + gh / 2 - 4, "#c4544d");
+    text(b.right, gx + gw - textW(b.right), gy + gh / 2 - 4, "#e07b3f");
+  } else if (b.type === "text") {
+    const lines = b.lines || [b.text];
+    lines.forEach((l, i) => text(l, gx, gy + i * 10, i === 0 ? "#1d2230" : "#55606e"));
+  }
+}
+function countUp(s, k) { // animate leading number in strings like "$1.2B" or "10,000 USERS"
+  const m = String(s).match(/^([^0-9]*)([0-9][0-9,\.]*)(.*)$/);
+  if (!m) return s;
+  const num = parseFloat(m[2].replace(/,/g, "")), dec = (m[2].split(".")[1] || "").length;
+  let v = (num * k).toFixed(dec);
+  if (m[2].includes(",")) v = Number(v).toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+  return m[1] + v + m[3];
+}
+
+// ---------- effects ----------
+function fire(x, y, t, s = 1) {
+  const g = ctx.createRadialGradient(x, y, 2, x, y, 40 * s);
+  g.addColorStop(0, "rgba(255,120,40,0.45)"); g.addColorStop(1, "rgba(255,120,40,0)"); ctx.fillStyle = g; ctx.fillRect(x - 50 * s, y - 50 * s, 100 * s, 100 * s);
+  for (let i = 0; i < 7; i++) {
+    const fh = (6 + ((Math.sin(t * 9 + i * 1.7) + 1) * 5)) * s;
+    px(x - 14 * s + i * 4 * s, y - fh, 3 * s, fh, i % 2 ? "#ff8a2a" : "#ffcf4a");
+    px(x - 14 * s + i * 4 * s, y - fh * 0.5, 3 * s, fh * 0.5, "#ff4a2a");
+  }
+}
+function confetti(t) { const R = rnd(7); for (let i = 0; i < 70; i++) { const x = R() * W, sp = 20 + R() * 40, y = ((R() * H + t * sp) % (H + 10)) - 10; px(x + Math.sin(t * 3 + i) * 3, y, 2, 2, SHIRT[i % SHIRT.length]); } }
+function rain(t) { const R = rnd(3); for (let i = 0; i < 90; i++) { const x = R() * W, y = ((R() * H + t * 220) % H); px(x, y, 1, 4, "rgba(150,180,220,0.55)"); } }
+function coins(t, up) { const R = rnd(11); for (let i = 0; i < 26; i++) { const x = 40 + R() * (W - 80), sp = 25 + R() * 30; let y = (R() * H + t * sp) % H; if (up) y = H - y; px(x, y, 4, 4, up ? "#ffd34a" : "#d33a2c"); px(x + 1, y + 1, 2, 2, up ? "#fff1a8" : "#ff8a7a"); } }
+function vignette(a) { const g = ctx.createRadialGradient(W / 2, H / 2, H * 0.3, W / 2, H / 2, H * 0.85); g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(1, `rgba(0,0,0,${a})`); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
+
+// ---------- title card ----------
+function titleCard(s, t, k) {
+  px(0, 0, W, H, s.bg || "#101218");
+  const R = rnd(5); for (let i = 0; i < 60; i++) px(R() * W, R() * H, 1, 1, "#2a3042");
+  const lines = s.title || [];
+  const sc = s.scale || 3;
+  lines.forEach((l, i) => {
+    const sz = i === 0 ? sc : Math.max(1, sc - 1);
+    const y = H / 2 - (lines.length * 26) / 2 + i * (sz * 9 + 6);
+    const vis = clamp((k * 3 - i * 0.4), 0, 1);
+    if (vis > 0) text(l, (W - textW(l, sz)) / 2, y, i === 0 ? (s.color || "#ffc861") : "#ece6d6", sz, "#000");
+  });
+  if (s.subtitle) text(s.subtitle, (W - textW(s.subtitle)) / 2, H - 26, "#9aa0ad");
+}
+
+// ---------- main ----------
+let STORY = null, TIMELINE = [], LABELS = [];
+const SC = 2, RW = W / SC, RH = H / SC; // rooms are drawn at half resolution, then doubled
+function load(story) {
+  STORY = story; TIMELINE = []; let t0 = 0;
+  for (const s of story.scenes) { TIMELINE.push({ s, t0, t1: t0 + s.dur }); t0 += s.dur; }
+  return t0;
+}
+function drawFrame(T) {
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  let e = TIMELINE.find(e => T >= e.t0 && T < e.t1) || TIMELINE[TIMELINE.length - 1];
+  const s = e.s, local = T - e.t0, k = clamp(local / s.dur, 0, 1);
+  px(0, 0, W, H, "#0b0c10");
+  if (s.type === "title") titleCard(s, local, k);
+  else {
+    LABELS = [];
+    const z0 = s.zoom ? 1 + 0.06 * ease(k) : 1;
+    ctx.setTransform(SC * z0, 0, 0, SC * z0, -(z0 - 1) * 240, -(z0 - 1) * 135);
+    const W = RW, H = RH;
+    const floors = s.floors || [s];
+    const total = floors.reduce((a, f) => a + (f.weight || 1), 0);
+    let y = 0, idx = 0;
+    // optional side panel: floors in columns when s.columns
+    if (s.columns) {
+      let x = 0; const cw = W / floors.length;
+      floors.forEach((f, i) => { drawFloor(f, x, 0, cw, H, local, k, 10 + i * 17); x += cw; });
+    } else {
+      for (const f of floors) {
+        const h = Math.round(H * (f.weight || 1) / total);
+        drawFloor(f, 0, y, W, h, local, k, 10 + idx * 17); y += h; idx++;
+      }
+    }
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    const VX = STORY.vertical ? 62 : 0;
+    for (const [l, lx0, ly] of LABELS) { const lx = lx0 + VX / SC; const lw = textW(l) + 6; px(lx * SC + 4, ly * SC + 4, lw, 11, "#0e0f13"); text(l, lx * SC + 7, ly * SC + 6, "#f3e9cf"); }
+    {
+    const W = 480, H = 270;
+    if (s.board) {
+      const area = s.board.area || (floors.length === 1 ? { x: W / 2 - 80, y: 30, w: 160, h: 80 } : { x: W / 2 - 60, y: 18, w: 120, h: 50 });
+      board(s.board, local, k, area);
+    }
+    if (s.event === "fire") fire(s.fireAt ? s.fireAt[0] : W * 0.3, s.fireAt ? s.fireAt[1] : H * 0.62, local, s.fireScale || 1.4);
+    if (s.event === "confetti") confetti(local);
+    if (s.event === "rain") rain(local);
+    if (s.event === "money-up") coins(local, true);
+    if (s.event === "money-down") coins(local, false);
+    if (s.event === "dark") vignette(0.75);
+    }
+  }
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  if (s.date) dateCard(s.date, local, k);
+  if (s.caption) { // big on-screen line (not subtitles)
+    const sc = 2, w = textW(s.caption, sc) + 16;
+    px((W - w) / 2, 44, w, 22, "rgba(14,15,19,0.85)");
+    text(s.caption, (W - w) / 2 + 8, 49, s.captionColor || "#ffffff", sc);
+  }
+  if (STORY.disclosure && T < 6) { const d = STORY.disclosure, dx = STORY.vertical ? (W - textW(d)) / 2 - 3 : 4; px(dx, H - 14, textW(d) + 6, 11, "rgba(14,15,19,0.85)"); text(d, dx + 3, H - 12, "#cfd3dc"); }
+  // fade between scenes
+  const fadeIn = clamp(local / 0.35, 0, 1), fadeOut = clamp((e.t1 - T) / 0.35, 0, 1);
+  const f = Math.min(fadeIn, fadeOut); if (f < 1) { ctx.fillStyle = `rgba(0,0,0,${1 - f})`; ctx.fillRect(0, 0, W, H); }
+}
+window.engine = { load, drawFrame, frame(T) { drawFrame(T); return cv.toDataURL("image/png"); } };
+</script></body></html>

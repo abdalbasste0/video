@@ -1,0 +1,19 @@
+{
+  "title": "Demo: the engine test",
+  "short_title": "ENGINE TEST",
+  "disclosure": "AFFILIATE LINK IN DESCRIPTION",
+  "scenes": [
+    {"type": "title", "title": ["THE STARTUP", "THAT ALMOST DIED"], "narration": "This is a test of every room the engine can draw.", "short": true},
+    {"room": "dorm", "label": "DORM ROOM", "date": "2011", "people": 2, "narration": "Two students in a dorm room, with one laptop and a big idea.", "short": true},
+    {"room": "garage", "label": "GARAGE", "people": 3, "narration": "Then a garage, three people, no salary."},
+    {"floors": [{"room": "boardroom", "label": "CEO SUITE", "people": 3, "suits": true}, {"room": "office", "label": "ENGINEERING", "people": 6}], "date": "2015", "board": {"type": "bars", "title": "USERS", "values": [1, 3, 8, 20], "labels": ["12", "13", "14", "15"]}, "narration": "Users doubled every year, and the office filled up.", "short": true},
+    {"room": "office", "label": "OPEN OFFICE", "people": 7, "grow": [2, 7], "narration": "They kept hiring."},
+    {"room": "deal", "label": "DEAL ROOM", "people": 2, "suits": true, "date": "SEP 2019", "board": {"type": "number", "text": "$1.2 BILLION", "count": true, "sub": "-40% NEXT YEAR"}, "narration": "Then a one point two billion dollar valuation, and a crash the next year."},
+    {"room": "night", "label": "", "people": 1, "mode": "stand", "mood": "sad", "event": "fire", "fireAt": [140, 230], "narration": "The company was on fire, and not in a good way.", "short": true},
+    {"room": "office", "label": "ENGINEERING", "people": 7, "leave": 2, "mood": "sad", "board": {"type": "line-down", "title": "REVENUE"}, "narration": "Half the team left."},
+    {"room": "lab", "label": "LAB", "people": 3, "narration": "The last three built one new feature."},
+    {"room": "stage", "label": "LAUNCH", "walker": [0.2, 0.5], "board": {"type": "text", "lines": ["NEW FEATURE", "LAUNCH DAY"]}, "narration": "They launched it on stage."},
+    {"room": "server", "label": "SERVER ROOM", "board": {"type": "line-up", "title": "SIGNUPS"}, "event": "money-up", "narration": "And the servers could barely keep up.", "short": true},
+    {"room": "store", "label": "APP STORE", "people": 5, "mode": "stand", "mood": "happy", "event": "confetti", "caption": "TRY IT FREE", "narration": "Today you can try it for free. Link in the description.", "short": true}
+  ]
+}

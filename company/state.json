@@ -1,11 +1,12 @@
 {
-  "updated": "2026-11-17T11:28:07+00:00",
+  "updated": "2026-11-17T16:39:17+00:00",
   "agents": {
     "ceo": {
-      "status": "idle",
-      "task": null,
-      "bubble": "Handed to Yasmin ✓",
-      "since": "2026-11-17T09:02:27+00:00"
+      "status": "working",
+      "task": "Planning: 10 affiliate pixel stories",
+      "bubble": "Calling 5 writers...",
+      "since": "2026-11-17T16:32:36+00:00",
+      "task_id": "T-002"
     },
     "chief-of-staff": {
       "status": "idle",
@@ -17,7 +18,7 @@
       "status": "idle",
       "task": null,
       "bubble": "Handed to Yasmin ✓",
-      "since": "2026-11-17T08:43:58+00:00"
+      "since": "2026-11-17T16:37:48+00:00"
     },
     "trend-hunter-social": {
       "status": "idle",
@@ -26,10 +27,11 @@
       "since": "2026-11-17T08:44:10+00:00"
     },
     "scriptwriter-long": {
-      "status": "idle",
-      "task": null,
-      "bubble": "",
-      "since": "2026-11-17T08:41:45+00:00"
+      "status": "working",
+      "task": "Writing Kit and Webflow pixel stories",
+      "bubble": "Writing Kit and Webflow pixel stories",
+      "since": "2026-11-17T16:39:17+00:00",
+      "task_id": "T-002"
     },
     "scriptwriter-short": {
       "status": "idle",
@@ -153,6 +155,24 @@
       ],
       "created": "2026-11-17T08:42:25+00:00",
       "updated": "2026-11-17T09:02:27+00:00"
+    },
+    "T-002": {
+      "id": "T-002",
+      "title": "10 pixel-art story videos + 10 affiliate products",
+      "status": "doing",
+      "owner": "ceo",
+      "project": "2026-11-17-affiliate-pixel-stories",
+      "workers": [
+        "ceo",
+        "trend-hunter-search",
+        "scriptwriter-long"
+      ],
+      "deliverables": [
+        "company/projects/2026-11-17-affiliate-pixel-stories/01-affiliate-products.md"
+      ],
+      "notes": [],
+      "created": "2026-11-17T16:32:36+00:00",
+      "updated": "2026-11-17T16:32:36+00:00"
     }
   },
   "needs_you": {
@@ -273,6 +293,14 @@
       "task": null,
       "done": false,
       "created": "2026-11-17T11:28:07+00:00"
+    },
+    "N-015": {
+      "id": "N-015",
+      "text": "Join affiliate programs (PartnerStack: ElevenLabs, Descript, Kit, Webflow; Rewardful: HeyGen, Synthesia; direct: Fireflies, Lovable, HubSpot, Speechify) and confirm live rates in each dashboard before links go public",
+      "from": "trend-hunter-search",
+      "task": "T-002",
+      "done": false,
+      "created": "2026-11-17T16:37:48+00:00"
     }
   },
   "log": [
@@ -814,10 +842,87 @@
       "kind": "needs-you",
       "text": "Create the voice Sofia in VoiceStudio (description and steps in company/voices/sofia.md), save a 10s sample as company/voices/sofia_sample.mp3",
       "task": null
+    },
+    {
+      "t": "2026-11-17T16:32:36+00:00",
+      "agent": "ceo",
+      "kind": "task",
+      "text": "T-002 created: 10 pixel-art story videos + 10 affiliate products",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:32:36+00:00",
+      "agent": "ceo",
+      "kind": "start",
+      "text": "Planning: 10 affiliate pixel stories",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:32:49+00:00",
+      "agent": "trend-hunter-search",
+      "kind": "start",
+      "text": "Researching 10 affiliate products with stories",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:37:48+00:00",
+      "agent": "trend-hunter-search",
+      "kind": "needs-you",
+      "text": "Join affiliate programs (PartnerStack: ElevenLabs, Descript, Kit, Webflow; Rewardful: HeyGen, Synthesia; direct: Fireflies, Lovable, HubSpot, Speechify) and confirm live rates in each dashboard before links go public",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:37:48+00:00",
+      "agent": "trend-hunter-search",
+      "kind": "done",
+      "text": "10 affiliate picks + 3 backups ranked, products.json ready → company/projects/2026-11-17-affiliate-pixel-stories/01-affiliate-products.md",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:37:48+00:00",
+      "agent": "trend-hunter-search",
+      "kind": "xp",
+      "text": "+10 XP: delivered: 10 affiliate picks + 3 backups ranked, products.js",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T16:39:16+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "start",
+      "text": "Writing HeyGen and HubSpot pixel stories",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:39:16+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "start",
+      "text": "Writing ElevenLabs and Fireflies pixel stories",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:39:16+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "start",
+      "text": "Writing Synthesia and Speechify pixel stories",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:39:17+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "start",
+      "text": "Writing Lovable and Descript pixel stories",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:39:17+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "start",
+      "text": "Writing Kit and Webflow pixel stories",
+      "task": "T-002"
     }
   ],
   "counters": {
-    "task": 1,
-    "need": 14
+    "task": 2,
+    "need": 15
   }
 }
