@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17T09:02:27+00:00",
+  "updated": "2026-11-17T09:38:03+00:00",
   "agents": {
     "ceo": {
       "status": "idle",
@@ -237,8 +237,25 @@
       "text": "BY THU 19 NOV: record the real demo (shot-list.md part A) + voiceover (teleprompter.md) for 2026-11-17-first-short, put files in company/inbox/footage/. Decide first: your own voice or AI voice (see N-007).",
       "from": "ceo",
       "task": "T-001",
+      "done": true,
+      "created": "2026-11-17T09:02:27+00:00",
+      "closed": "2026-11-17T09:38:03+00:00"
+    },
+    "N-011": {
+      "id": "N-011",
+      "text": "BY THU 19 NOV: record only the screen demo (shot-list.md part A), no voice needed: the voiceover is AI (11-ai-voiceover.md). Put the screen recording in company/inbox/footage/.",
+      "from": "ceo",
+      "task": "T-001",
       "done": false,
-      "created": "2026-11-17T09:02:27+00:00"
+      "created": "2026-11-17T09:38:03+00:00"
+    },
+    "N-012": {
+      "id": "N-012",
+      "text": "Retry the AI voiceover (ElevenLabs was busy): run /ceo generate the AI voiceover",
+      "from": "recording-producer",
+      "task": "T-001",
+      "done": false,
+      "created": "2026-11-17T09:38:03+00:00"
     }
   },
   "log": [
@@ -738,10 +755,31 @@
       "kind": "xp",
       "text": "+10 XP: delivered: First short pre-production ready, QA PASS",
       "task": null
+    },
+    {
+      "t": "2026-11-17T09:38:03+00:00",
+      "agent": "chief-of-staff",
+      "kind": "needs-you",
+      "text": "N-010 done by owner",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T09:38:03+00:00",
+      "agent": "ceo",
+      "kind": "needs-you",
+      "text": "BY THU 19 NOV: record only the screen demo (shot-list.md part A), no voice needed: the voiceover is AI (11-ai-voiceover.md). Put the screen recording in company/inbox/footage/.",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T09:38:03+00:00",
+      "agent": "recording-producer",
+      "kind": "needs-you",
+      "text": "Retry the AI voiceover (ElevenLabs was busy): run /ceo generate the AI voiceover",
+      "task": "T-001"
     }
   ],
   "counters": {
     "task": 1,
-    "need": 10
+    "need": 12
   }
 }
