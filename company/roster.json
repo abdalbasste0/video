@@ -8,7 +8,7 @@
       "role": "CEO",
       "room": "ceo-suite",
       "sprite": "#d4a24c",
-      "xp": 0,
+      "xp": 10,
       "skills": [
         "delegation",
         "prioritization"
@@ -210,7 +210,7 @@
       "role": "QA Reviewer",
       "room": "meeting-room",
       "sprite": "#a7a7a7",
-      "xp": 10,
+      "xp": 20,
       "skills": [
         "fact-check",
         "platform-policy",

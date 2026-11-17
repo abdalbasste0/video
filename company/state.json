@@ -1,12 +1,11 @@
 {
-  "updated": "2026-11-17T09:00:51+00:00",
+  "updated": "2026-11-17T09:02:27+00:00",
   "agents": {
     "ceo": {
-      "status": "working",
-      "task": "Planning today's short",
-      "bubble": "Calling Badr for QA round 2...",
-      "since": "2026-11-17T08:42:25+00:00",
-      "task_id": "T-001"
+      "status": "idle",
+      "task": null,
+      "bubble": "Handed to Yasmin ✓",
+      "since": "2026-11-17T09:02:27+00:00"
     },
     "chief-of-staff": {
       "status": "idle",
@@ -90,7 +89,7 @@
       "status": "idle",
       "task": null,
       "bubble": "Handed to Yasmin ✓",
-      "since": "2026-11-17T08:54:11+00:00"
+      "since": "2026-11-17T09:02:10+00:00"
     },
     "skills-librarian": {
       "status": "idle",
@@ -103,7 +102,7 @@
     "T-001": {
       "id": "T-001",
       "title": "Make today's short video",
-      "status": "doing",
+      "status": "review",
       "owner": "ceo",
       "project": "2026-11-17-first-short",
       "workers": [
@@ -138,16 +137,22 @@
         "company/projects/2026-11-17-first-short/04-edit-plan.md",
         "company/projects/2026-11-17-first-short/cover_vertical.jpg",
         "company/projects/2026-11-17-first-short/02-script-short.md",
-        "company/projects/2026-11-17-first-short/05-captions-notes.md"
+        "company/projects/2026-11-17-first-short/05-captions-notes.md",
+        "company/projects/2026-11-17-first-short/10-qa.md",
+        "company/projects/2026-11-17-first-short/brief.md"
       ],
       "notes": [
         {
           "t": "2026-11-17T08:54:36+00:00",
           "note": "QA round 1: FIX (18 items). Closed N-008 (duplicate of N-002/N-005) and N-006 (team work after recording, not an owner action)."
+        },
+        {
+          "t": "2026-11-17T09:02:27+00:00",
+          "note": "QA round 2: PASS (pre-production). Waiting on owner recording."
         }
       ],
       "created": "2026-11-17T08:42:25+00:00",
-      "updated": "2026-11-17T08:54:36+00:00"
+      "updated": "2026-11-17T09:02:27+00:00"
     }
   },
   "needs_you": {
@@ -164,8 +169,9 @@
       "text": "Record the real demo: run the on-screen prompt on 1 real Black Friday product (EU + US store) in a free chatbot with web search, time it, and tell Noura the verdict so lines 0:00 and 0:31 match",
       "from": "scriptwriter-short",
       "task": "T-001",
-      "done": false,
-      "created": "2026-11-17T08:45:58+00:00"
+      "done": true,
+      "created": "2026-11-17T08:45:58+00:00",
+      "closed": "2026-11-17T09:02:27+00:00"
     },
     "N-003": {
       "id": "N-003",
@@ -188,8 +194,9 @@
       "text": "Record reel 2026-11-17-first-short voiceover (teleprompter loaded: company/projects/2026-11-17-first-short/teleprompter.md). Do the N-002 demo first (shot-list.md part A), then read block 7 for the verdict you got",
       "from": "recording-producer",
       "task": "T-001",
-      "done": false,
-      "created": "2026-11-17T08:49:02+00:00"
+      "done": true,
+      "created": "2026-11-17T08:49:02+00:00",
+      "closed": "2026-11-17T09:02:27+00:00"
     },
     "N-006": {
       "id": "N-006",
@@ -224,6 +231,14 @@
       "task": "T-001",
       "done": false,
       "created": "2026-11-17T08:54:11+00:00"
+    },
+    "N-010": {
+      "id": "N-010",
+      "text": "BY THU 19 NOV: record the real demo (shot-list.md part A) + voiceover (teleprompter.md) for 2026-11-17-first-short, put files in company/inbox/footage/. Decide first: your own voice or AI voice (see N-007).",
+      "from": "ceo",
+      "task": "T-001",
+      "done": false,
+      "created": "2026-11-17T09:02:27+00:00"
     }
   },
   "log": [
@@ -660,10 +675,73 @@
       "kind": "xp",
       "text": "+10 XP: delivered: QA r1: 4 SRTs re-timed (27 cues, verdict 0:34.1, e",
       "task": null
+    },
+    {
+      "t": "2026-11-17T09:01:00+00:00",
+      "agent": "qa-reviewer",
+      "kind": "start",
+      "text": "QA round 2 pre-production package",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T09:02:10+00:00",
+      "agent": "qa-reviewer",
+      "kind": "done",
+      "text": "QA round 2: PASS pre-production, 5 small text items open → company/projects/2026-11-17-first-short/10-qa.md",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T09:02:10+00:00",
+      "agent": "qa-reviewer",
+      "kind": "xp",
+      "text": "+10 XP: delivered: QA round 2: PASS pre-production, 5 small text item",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T09:02:27+00:00",
+      "agent": "chief-of-staff",
+      "kind": "needs-you",
+      "text": "N-002 done by owner",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T09:02:27+00:00",
+      "agent": "chief-of-staff",
+      "kind": "needs-you",
+      "text": "N-005 done by owner",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T09:02:27+00:00",
+      "agent": "ceo",
+      "kind": "needs-you",
+      "text": "BY THU 19 NOV: record the real demo (shot-list.md part A) + voiceover (teleprompter.md) for 2026-11-17-first-short, put files in company/inbox/footage/. Decide first: your own voice or AI voice (see N-007).",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T09:02:27+00:00",
+      "agent": "ceo",
+      "kind": "task",
+      "text": "T-001 → review: QA round 2: PASS (pre-production). Waiting on owner recording.",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T09:02:27+00:00",
+      "agent": "ceo",
+      "kind": "done",
+      "text": "First short pre-production ready, QA PASS → company/projects/2026-11-17-first-short/brief.md",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T09:02:27+00:00",
+      "agent": "ceo",
+      "kind": "xp",
+      "text": "+10 XP: delivered: First short pre-production ready, QA PASS",
+      "task": null
     }
   ],
   "counters": {
     "task": 1,
-    "need": 9
+    "need": 10
   }
 }
