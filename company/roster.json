@@ -37,7 +37,7 @@
       "role": "Trend Hunter (Search & YouTube)",
       "room": "writers-room",
       "sprite": "#5aa36b",
-      "xp": 10,
+      "xp": 20,
       "skills": [
         "youtube-outliers",
         "search-trends"
@@ -51,7 +51,7 @@
       "role": "Trend Hunter (TikTok, Reels)",
       "room": "writers-room",
       "sprite": "#c7678f",
-      "xp": 0,
+      "xp": 10,
       "skills": [
         "tiktok-trends",
         "reels-trends",
@@ -80,7 +80,7 @@
       "role": "Short-form Scriptwriter",
       "room": "writers-room",
       "sprite": "#9b6fd1",
-      "xp": 0,
+      "xp": 10,
       "skills": [
         "short-form-script",
         "voiceover-pacing"
@@ -94,7 +94,7 @@
       "role": "Hook Doctor",
       "room": "writers-room",
       "sprite": "#e07b3f",
-      "xp": 0,
+      "xp": 10,
       "skills": [
         "first-3-seconds",
         "title-hooks"
@@ -196,7 +196,7 @@
       "role": "Community Manager",
       "room": "distribution-hub",
       "sprite": "#56b3d9",
-      "xp": 0,
+      "xp": 10,
       "skills": [
         "comment-replies",
         "audience-questions"

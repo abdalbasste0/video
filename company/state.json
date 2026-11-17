@@ -1,11 +1,12 @@
 {
-  "updated": "2026-11-17T08:41:45+00:00",
+  "updated": "2026-11-17T08:48:23+00:00",
   "agents": {
     "ceo": {
-      "status": "idle",
-      "task": null,
-      "bubble": "",
-      "since": "2026-11-17T08:41:45+00:00"
+      "status": "working",
+      "task": "Planning today's short",
+      "bubble": "Calling the montage + distribution teams...",
+      "since": "2026-11-17T08:42:25+00:00",
+      "task_id": "T-001"
     },
     "chief-of-staff": {
       "status": "idle",
@@ -16,14 +17,14 @@
     "trend-hunter-search": {
       "status": "idle",
       "task": null,
-      "bubble": "",
-      "since": "2026-11-17T08:41:45+00:00"
+      "bubble": "Handed to Yasmin ✓",
+      "since": "2026-11-17T08:43:58+00:00"
     },
     "trend-hunter-social": {
       "status": "idle",
       "task": null,
-      "bubble": "",
-      "since": "2026-11-17T08:41:45+00:00"
+      "bubble": "Handed to Yasmin ✓",
+      "since": "2026-11-17T08:44:10+00:00"
     },
     "scriptwriter-long": {
       "status": "idle",
@@ -34,14 +35,14 @@
     "scriptwriter-short": {
       "status": "idle",
       "task": null,
-      "bubble": "",
-      "since": "2026-11-17T08:41:45+00:00"
+      "bubble": "Handed to Yasmin ✓",
+      "since": "2026-11-17T08:45:58+00:00"
     },
     "hook-doctor": {
       "status": "idle",
       "task": null,
-      "bubble": "",
-      "since": "2026-11-17T08:41:45+00:00"
+      "bubble": "Handed to Yasmin ✓",
+      "since": "2026-11-17T08:47:12+00:00"
     },
     "video-editor": {
       "status": "idle",
@@ -50,22 +51,25 @@
       "since": "2026-11-17T08:41:45+00:00"
     },
     "captions": {
-      "status": "idle",
-      "task": null,
-      "bubble": "",
-      "since": "2026-11-17T08:41:45+00:00"
+      "status": "working",
+      "task": "Captions EN/DE/FR/ES for first short",
+      "bubble": "Captions EN/DE/FR/ES for first short",
+      "since": "2026-11-17T08:47:41+00:00",
+      "task_id": "T-001"
     },
     "thumbnail-designer": {
-      "status": "idle",
-      "task": null,
-      "bubble": "",
-      "since": "2026-11-17T08:41:45+00:00"
+      "status": "working",
+      "task": "Drafting vertical cover for first short",
+      "bubble": "Building draft cover in ffmpeg",
+      "since": "2026-11-17T08:47:41+00:00",
+      "task_id": "T-001"
     },
     "recording-producer": {
-      "status": "idle",
-      "task": null,
-      "bubble": "",
-      "since": "2026-11-17T08:41:45+00:00"
+      "status": "working",
+      "task": "Teleprompter and shot list for short",
+      "bubble": "Teleprompter and shot list for short",
+      "since": "2026-11-17T08:47:42+00:00",
+      "task_id": "T-001"
     },
     "publisher": {
       "status": "idle",
@@ -74,16 +78,17 @@
       "since": "2026-11-17T08:41:45+00:00"
     },
     "growth-analyst": {
-      "status": "idle",
-      "task": null,
-      "bubble": "",
-      "since": "2026-11-17T08:41:45+00:00"
+      "status": "working",
+      "task": "SEO keywords, hashtags, posting time",
+      "bubble": "SEO keywords, hashtags, posting time",
+      "since": "2026-11-17T08:47:42+00:00",
+      "task_id": "T-001"
     },
     "community-manager": {
       "status": "idle",
       "task": null,
-      "bubble": "",
-      "since": "2026-11-17T08:41:45+00:00"
+      "bubble": "Handed to Yasmin ✓",
+      "since": "2026-11-17T08:48:23+00:00"
     },
     "qa-reviewer": {
       "status": "idle",
@@ -98,11 +103,235 @@
       "since": "2026-11-17T08:41:45+00:00"
     }
   },
-  "tasks": {},
-  "needs_you": {},
-  "log": [],
+  "tasks": {
+    "T-001": {
+      "id": "T-001",
+      "title": "Make today's short video",
+      "status": "doing",
+      "owner": "ceo",
+      "project": "2026-11-17-first-short",
+      "workers": [
+        "ceo",
+        "trend-hunter-search",
+        "trend-hunter-social",
+        "scriptwriter-short",
+        "hook-doctor",
+        "thumbnail-designer",
+        "community-manager",
+        "captions",
+        "recording-producer",
+        "growth-analyst"
+      ],
+      "deliverables": [
+        "company/projects/2026-11-17-first-short/01-trends-search.md",
+        "company/projects/2026-11-17-first-short/01-trends-social.md",
+        "company/projects/2026-11-17-first-short/02-script-short.md",
+        "company/projects/2026-11-17-first-short/03-hooks.md",
+        "company/projects/2026-11-17-first-short/09-community.md"
+      ],
+      "notes": [],
+      "created": "2026-11-17T08:42:25+00:00",
+      "updated": "2026-11-17T08:42:25+00:00"
+    }
+  },
+  "needs_you": {
+    "N-001": {
+      "id": "N-001",
+      "text": "Optional: check TikTok Creative Center trending (logged in) or allow socialpilot.co/ads.tiktok.com in session network so Layla can verify live trends",
+      "from": "trend-hunter-social",
+      "task": "T-001",
+      "done": false,
+      "created": "2026-11-17T08:44:10+00:00"
+    },
+    "N-002": {
+      "id": "N-002",
+      "text": "Record the real demo: run the on-screen prompt on 1 real Black Friday product (EU + US store) in a free chatbot with web search, time it, and tell Noura the verdict so lines 0:00 and 0:31 match",
+      "from": "scriptwriter-short",
+      "task": "T-001",
+      "done": false,
+      "created": "2026-11-17T08:45:58+00:00"
+    },
+    "N-003": {
+      "id": "N-003",
+      "text": "Approve 09-community.md replies and turn on spam/link filters on YouTube, TikTok, Instagram, Facebook",
+      "from": "community-manager",
+      "task": "T-001",
+      "done": false,
+      "created": "2026-11-17T08:48:23+00:00"
+    }
+  },
+  "log": [
+    {
+      "t": "2026-11-17T08:42:25+00:00",
+      "agent": "ceo",
+      "kind": "task",
+      "text": "T-001 created: Make today's short video",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:42:25+00:00",
+      "agent": "ceo",
+      "kind": "start",
+      "text": "Planning today's short",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:42:40+00:00",
+      "agent": "trend-hunter-search",
+      "kind": "start",
+      "text": "Hunting 5 rising AI-tool topics",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:42:40+00:00",
+      "agent": "trend-hunter-social",
+      "kind": "start",
+      "text": "Hunting short-form AI productivity trends",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:43:58+00:00",
+      "agent": "trend-hunter-search",
+      "kind": "done",
+      "text": "5 ideas ranked; pick #1 Black Friday deal-check (post by Nov 24-26) → company/projects/2026-11-17-first-short/01-trends-search.md",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:43:58+00:00",
+      "agent": "trend-hunter-search",
+      "kind": "xp",
+      "text": "+10 XP: delivered: 5 ideas ranked; pick #1 Black Friday deal-check (p",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T08:44:10+00:00",
+      "agent": "trend-hunter-social",
+      "kind": "needs-you",
+      "text": "Optional: check TikTok Creative Center trending (logged in) or allow socialpilot.co/ads.tiktok.com in session network so Layla can verify live trends",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:44:10+00:00",
+      "agent": "trend-hunter-social",
+      "kind": "done",
+      "text": "5 faceless short-form formats; pick: one-prompt result-first → company/projects/2026-11-17-first-short/01-trends-social.md",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:44:10+00:00",
+      "agent": "trend-hunter-social",
+      "kind": "xp",
+      "text": "+10 XP: delivered: 5 faceless short-form formats; pick: one-prompt re",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T08:44:35+00:00",
+      "agent": "scriptwriter-short",
+      "kind": "start",
+      "text": "Writing fake Black Friday deal script",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:45:58+00:00",
+      "agent": "scriptwriter-short",
+      "kind": "needs-you",
+      "text": "Record the real demo: run the on-screen prompt on 1 real Black Friday product (EU + US store) in a free chatbot with web search, time it, and tell Noura the verdict so lines 0:00 and 0:31 match",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:45:58+00:00",
+      "agent": "scriptwriter-short",
+      "kind": "done",
+      "text": "Black Friday fake-deal short script, 49s, prompt + sources → company/projects/2026-11-17-first-short/02-script-short.md",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:45:58+00:00",
+      "agent": "scriptwriter-short",
+      "kind": "xp",
+      "text": "+10 XP: delivered: Black Friday fake-deal short script, 49s, prompt +",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T08:46:13+00:00",
+      "agent": "hook-doctor",
+      "kind": "start",
+      "text": "Fixing first 3 seconds, T-001 hooks",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:47:12+00:00",
+      "agent": "hook-doctor",
+      "kind": "done",
+      "text": "5 hooks scored, result-agnostic winner, titles per platform, script updated → company/projects/2026-11-17-first-short/03-hooks.md",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:47:12+00:00",
+      "agent": "hook-doctor",
+      "kind": "xp",
+      "text": "+10 XP: delivered: 5 hooks scored, result-agnostic winner, titles per",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T08:47:41+00:00",
+      "agent": "thumbnail-designer",
+      "kind": "start",
+      "text": "Drafting vertical cover for first short",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:47:41+00:00",
+      "agent": "community-manager",
+      "kind": "start",
+      "text": "Pinned comments and replies for first short",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:47:41+00:00",
+      "agent": "captions",
+      "kind": "start",
+      "text": "Captions EN/DE/FR/ES for first short",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:47:42+00:00",
+      "agent": "recording-producer",
+      "kind": "start",
+      "text": "Teleprompter and shot list for short",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:47:42+00:00",
+      "agent": "growth-analyst",
+      "kind": "start",
+      "text": "SEO keywords, hashtags, posting time",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:48:23+00:00",
+      "agent": "community-manager",
+      "kind": "needs-you",
+      "text": "Approve 09-community.md replies and turn on spam/link filters on YouTube, TikTok, Instagram, Facebook",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:48:23+00:00",
+      "agent": "community-manager",
+      "kind": "done",
+      "text": "4 pinned comments, 6 replies, moderation rule, 3 follow-up ideas → company/projects/2026-11-17-first-short/09-community.md",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:48:23+00:00",
+      "agent": "community-manager",
+      "kind": "xp",
+      "text": "+10 XP: delivered: 4 pinned comments, 6 replies, moderation rule, 3 f",
+      "task": null
+    }
+  ],
   "counters": {
-    "task": 0,
-    "need": 0
+    "task": 1,
+    "need": 3
   }
 }

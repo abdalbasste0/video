@@ -1,0 +1,12 @@
+# Project brief: first short (T-001)
+- Goal: first short for the channel, AI tools & productivity niche, US + EU audience.
+- Format: 30-60s vertical short, faceless (screen recording + voiceover).
+- Platforms: YouTube Shorts, TikTok, Instagram Reels, Facebook Reels.
+- Deadline: this session.
+- Chosen idea (Yasmin): **"Is this Black Friday deal fake? One prompt checks it in 20 seconds."**
+  - Topic = Fahad's #1 (Black Friday deal checking with AI, 01-trends-search.md).
+  - Format = Layla's #2 "One prompt that replaces an hour of work", result shown before the prompt (01-trends-social.md).
+  - Why: timely (Black Friday 27 Nov 2026), high save/send value, works in the US and EU (EU Black Friday is big too), easy faceless demo.
+  - Constraint: keep the prompt tool-agnostic (any free chatbot with web search). Don't claim specific features of a specific plan unless verified with a source.
+  - Publish window: by 24 Nov 2026. Backup idea if we slip: CV-to-job-ad prompt (Fahad #4).
+  - Audio: voiceover only, no music (Layla's licensing note).
