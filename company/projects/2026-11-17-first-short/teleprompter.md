@@ -1,8 +1,14 @@
 # Teleprompter - T-001 - "Is this Black Friday deal fake?"
 
+## QA round 1 fixes (Noura, 2026-11-17, from `10-qa.md`)
+
+- Fix 4 (block 7, REAL): "Buy it." → "Good deal, **if** the sources check out." Full REAL line now: "Here, it's real. This is the lowest price in [X] days. Good deal, if the sources check out." (same as `02-script-short.md`).
+- Fix 8 (timing): "about 50 s" → the one target from 02: **≤ 52 s, verdict starts ≤ 0:35, about 2.8 words/s.** Hard cap 58 s; if over 52 s, drop "Not every shop plays fair." in block 3.
+- No other line changed.
+
 - Producer: Mariam (recording-producer), 2026-11-17
 - Source: `02-script-short.md` (final, with Hala's hook from `03-hooks.md`)
-- Target: about 50 s at a calm pace. Voiceover only, no music.
+- Target: **≤ 52 s total, verdict (block 7) starts ≤ 0:35**, about 2.8 words/s with short beats. Hard cap 58 s: if a full take runs past 52 s, drop "Not every shop plays fair." (block 3). Voiceover only, no music.
 - **Do the demo first** (`shot-list.md`, part A). You need its verdict, the number of days [X] and the real discount before you read block 7.
 
 ## Before you press record (2 minutes)
@@ -91,7 +97,7 @@ Here, it's **real**.
 This is the **lowest** price
 in **[X] days**.
 [pause]
-Buy it.
+Good deal, **if** the sources check out.
 
 (NOT SURE)
 Here, it says **not sure**:

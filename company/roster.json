@@ -80,7 +80,7 @@
       "role": "Short-form Scriptwriter",
       "room": "writers-room",
       "sprite": "#9b6fd1",
-      "xp": 10,
+      "xp": 20,
       "skills": [
         "short-form-script",
         "voiceover-pacing"
@@ -137,7 +137,7 @@
       "role": "Thumbnail & Cover Designer",
       "room": "montage-studio",
       "sprite": "#c4544d",
-      "xp": 10,
+      "xp": 20,
       "skills": [
         "thumbnail-briefs",
         "cover-frames"

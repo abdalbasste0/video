@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17T08:55:09+00:00",
+  "updated": "2026-11-17T08:55:46+00:00",
   "agents": {
     "ceo": {
       "status": "working",
@@ -33,11 +33,10 @@
       "since": "2026-11-17T08:41:45+00:00"
     },
     "scriptwriter-short": {
-      "status": "working",
-      "task": "QA round 1 script fixes",
-      "bubble": "QA round 1 script fixes",
-      "since": "2026-11-17T08:54:40+00:00",
-      "task_id": "T-001"
+      "status": "idle",
+      "task": null,
+      "bubble": "Handed to Yasmin ✓",
+      "since": "2026-11-17T08:55:46+00:00"
     },
     "hook-doctor": {
       "status": "idle",
@@ -58,11 +57,10 @@
       "since": "2026-11-17T08:49:14+00:00"
     },
     "thumbnail-designer": {
-      "status": "working",
-      "task": "QA fix: move cover price card",
-      "bubble": "Cover re-rendered, verifying",
-      "since": "2026-11-17T08:54:41+00:00",
-      "task_id": "T-001"
+      "status": "idle",
+      "task": null,
+      "bubble": "Handed to Yasmin ✓",
+      "since": "2026-11-17T08:55:38+00:00"
     },
     "recording-producer": {
       "status": "idle",
@@ -137,7 +135,9 @@
         "company/projects/2026-11-17-first-short/07-publish-plan.md",
         "company/projects/2026-11-17-first-short/04-edit-plan.md",
         "company/projects/2026-11-17-first-short/10-qa.md",
-        "company/projects/2026-11-17-first-short/04-edit-plan.md"
+        "company/projects/2026-11-17-first-short/04-edit-plan.md",
+        "company/projects/2026-11-17-first-short/cover_vertical.jpg",
+        "company/projects/2026-11-17-first-short/02-script-short.md"
       ],
       "notes": [
         {
@@ -609,6 +609,34 @@
       "agent": "video-editor",
       "kind": "xp",
       "text": "+10 XP: delivered: QA round 1 fixes applied to 04-edit-plan.md",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T08:55:38+00:00",
+      "agent": "thumbnail-designer",
+      "kind": "done",
+      "text": "QA fix 1: price card moved to y960-1250, badge x<=900 → company/projects/2026-11-17-first-short/cover_vertical.jpg",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:55:38+00:00",
+      "agent": "thumbnail-designer",
+      "kind": "xp",
+      "text": "+10 XP: delivered: QA fix 1: price card moved to y960-1250, badge x<=",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T08:55:46+00:00",
+      "agent": "scriptwriter-short",
+      "kind": "done",
+      "text": "QA round 1 fixes: REAL line, law ref, title, timing → company/projects/2026-11-17-first-short/02-script-short.md",
+      "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T08:55:46+00:00",
+      "agent": "scriptwriter-short",
+      "kind": "xp",
+      "text": "+10 XP: delivered: QA round 1 fixes: REAL line, law ref, title, timin",
       "task": null
     }
   ],
