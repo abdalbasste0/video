@@ -24,7 +24,7 @@
      "narration": "He builds it for himself first. Then he turns it into Speechify, an app for anyone who would rather listen than read."},
     {"room": "boardroom", "label": "BIG NEWS", "people": 3, "suits": true, "date": "JAN 2017", "board": {"type": "text", "lines": ["FORBES", "30 UNDER 30"]},
      "narration": "January 2017. Forbes puts Cliff on its 30 Under 30 list, for building text to speech that helps people like him."},
-    {"room": "night", "label": "", "people": 1, "mode": "stand", "event": "dark", "board": {"type": "versus", "left": "FREE BUILT-IN", "right": "SPEECHIFY"},
+    {"room": "night", "label": "", "people": 1, "mode": "stand", "event": "dark", "board": {"type": "versus", "left": "BUILT-IN", "right": "SPEECHIFY"},
      "narration": "But there is a big problem. Phones and computers already have free text to speech built in. Why would anyone pay for another reading app?"},
     {"room": "lab", "label": "VOICE LAB", "people": 4, "board": {"type": "text", "lines": ["NATURAL VOICES", "PDF + WEB + PHOTOS"]},
      "narration": "Speechify bets on doing it better: natural AI voices, faster listening speeds, and reading from PDFs, web pages and even photos of paper pages."},

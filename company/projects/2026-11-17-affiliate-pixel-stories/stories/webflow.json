@@ -22,7 +22,7 @@
      "narration": "They apply to Y Combinator, the famous startup program. With a broken demo and zero traction, they are turned down."},
     {"room": "night", "label": "", "people": 1, "mode": "stand", "event": "money-down", "board": {"type": "line-down", "title": "SAVINGS"},
      "narration": "Money runs out fast. Reports say Vlad used his retirement savings, sold his cars, and took on credit card debt to keep going."},
-    {"room": "lab", "label": "PROTOTYPE", "people": 3, "date": "MAR 2013", "board": {"type": "text", "lines": ["POSTED ON", "HACKER NEWS"]},
+    {"room": "lab", "label": "PROTOTYPE", "people": 3, "date": "MAR 2013", "board": {"type": "text", "lines": ["POSTED ON", "HACKER NEWS"]}, "short": true,
      "narration": "In March 2013 they post a working prototype on Hacker News, a popular website for programmers and startup people."},
     {"room": "server", "label": "SERVER ROOM", "event": "money-up", "board": {"type": "number", "text": "20,000", "count": true, "sub": "WAITLIST SIGNUPS", "color": "#3a8a4a"}, "zoom": true, "short": true,
      "narration": "By the next morning, about twenty thousand people have joined the waitlist. Some reports say even more."},

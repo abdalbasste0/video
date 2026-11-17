@@ -1,0 +1,22 @@
+# Lovable story: claim → source (checked 2026-11-17, Omar / scriptwriter-long, T-002)
+
+Note: techcrunch.com and lovable.dev cannot be opened from this session (DNS blocked). Claims below were checked with web searches that return the publishers' text. Badr: please re-open the primary links when the network allows.
+
+| Scene | Claim in narration / on screen | Source(s) | Confidence / wording |
+|---|---|---|---|
+| 1, 15 | Aug 2026: $400M Series C at $13.3B valuation, led by Menlo Ventures (EQT Scaleup Europe Fund co-lead) | https://siliconangle.com/2026/08/12/vibe-coding-startup-lovable-doubles-valuation-13-3b-400m-raise/ · https://dealroom.co/news/144597-lovable-raises-400m-at-13-3b-valuation-eyes-600m-revenue-run-rate/ · https://www.techrepublic.com/article/news-lovable-400m-funding-13-3b-valuation/ | Multi-source. Sifted headline says $13.2bn; consensus $13.3B |
+| 1, 16 | Company is from / based in Stockholm | https://dealroom.co/news/144597-lovable-raises-400m-at-13-3b-valuation-eyes-600m-revenue-run-rate/ · https://www.startitup.sk/?p=1065995 (Osika chose to build a European company, not move to Silicon Valley) | Solid |
+| 1, 3 | June 2023: Anton Osika publishes open-source GPT Engineer on GitHub | https://www.indiehackers.com/post/tech/hitting-100m-arr-in-eight-months-with-an-ai-software-builder-ONMaxjB3rix2PnBCnrDr · https://catalaize.substack.com/p/lovables-path-from-open-source-to | Secondary but consistent. "Weekend" detail left out (single source) |
+| 4 | "Tens of thousands of stars" on GitHub | https://catalaize.substack.com/p/lovables-path-from-open-source-to (52,000+ stars) | Secondary; rounded down deliberately |
+| 5 | Co-founder Fabian Hedin; company formed in Stockholm in 2023; paid "GPT Engineer App" | https://aiwiki.ai/wiki/lovable · https://www.taskade.com/blog/lovable-history | Secondary; no exact month on screen |
+| 6-7 | Rebuilt for non-technical users and renamed because GPT Engineer was aimed at coders | https://consumerstartups.substack.com/p/lovable-0-6m-arr-in-6-weeks · https://sanalabs.com/strange-loop/anton-osika | Secondary/interview summaries; framed as story, no numbers |
+| 8 | Nov 2024 launch as Lovable; #1 on Product Hunt and Hacker News | https://www.indiehackers.com/post/tech/hitting-100m-arr-in-eight-months-with-an-ai-software-builder-ONMaxjB3rix2PnBCnrDr | Softened: "Reports say". Some sources date the rename to Dec 2024 |
+| 9-10 | Mar 2025 security flaw exposing data in Lovable-built apps; CVE-2025-48757, CVSS 9.3; Lovable shipped a security scanner and said it is "not yet where we want to be" on security | https://www.sentinelone.com/vulnerability-database/cve-2025-48757/ · https://feedly.com/cve/CVE-2025-48757 · https://www.superblocks.com/blog/lovable-rls-breach | CVE + score: NVD-derived, solid. Quote paraphrased (single article) |
+| 11 | Jul 2025: $100M ARR about 8 months after launch (company-announced) | https://www.indiehackers.com/post/tech/hitting-100m-arr-in-eight-months-with-an-ai-software-builder-ONMaxjB3rix2PnBCnrDr · https://forbes.com.au/news/entrepreneurs/vibe-coding-turned-this-swedish-ai-unicorn-into-the-fastest-growing-software-startup-ever/ | Company-reported: "Lovable says" |
+| 13 | Dec 2025: $330M Series B at $6.6B | https://siliconangle.com/2026/08/12/vibe-coding-startup-lovable-doubles-valuation-13-3b-400m-raise/ · https://www.unite.ai/lovable-series-c-doubles-the-vibe-coding-startups-valuation-to-13-3-billion/ | Multi-source |
+| 14 | Early 2026: ~$400M ARR run rate; "added $100M in revenue last month" with 146 employees | https://techcrunch.com/2026/03/11/lovable-says-it-added-100m-in-revenue-last-month-alone-with-just-146-employees/ · https://www.the-ai-corner.com/i/199297364 | Company-reported: "reports put", "the company says". Bar chart labels JUL 25 / FEB 26 |
+| 15 | "Double in about eight months" ($6.6B Dec 2025 → $13.3B Aug 2026) | same as rows above | Arithmetic from sourced figures |
+| 17-18 | Free plan gives a few credits per day (reported 5/day, 30/month cap); paid plans add more credits; pricing changes | https://www.superblocks.com/blog/lovable-dev-pricing · https://www.costbench.com/software/ai-coding-assistants/lovable/free-plan/ | Kept vague on purpose ("a few"). Owner: confirm on lovable.dev/pricing before publishing |
+| 19 | Affiliate link + commission disclosure | https://lovable.dev/partners/affiliates (from Fahad's 01-affiliate-products.md) | Terms conflict ($100 vs 20%); no commission figure is said on screen |
+
+No logos are used; the name appears as text only.

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17T16:42:39+00:00",
+  "updated": "2026-11-17T16:43:31+00:00",
   "agents": {
     "ceo": {
       "status": "working",
@@ -30,7 +30,7 @@
       "status": "idle",
       "task": null,
       "bubble": "Handed to Yasmin ✓",
-      "since": "2026-11-17T16:42:39+00:00"
+      "since": "2026-11-17T16:43:31+00:00"
     },
     "scriptwriter-short": {
       "status": "idle",
@@ -168,7 +168,10 @@
       ],
       "deliverables": [
         "company/projects/2026-11-17-affiliate-pixel-stories/01-affiliate-products.md",
-        "company/projects/2026-11-17-affiliate-pixel-stories/stories/elevenlabs.json"
+        "company/projects/2026-11-17-affiliate-pixel-stories/stories/elevenlabs.json",
+        "company/projects/2026-11-17-affiliate-pixel-stories/stories/kit.json",
+        "company/projects/2026-11-17-affiliate-pixel-stories/stories/lovable.json",
+        "company/projects/2026-11-17-affiliate-pixel-stories/stories/descript.json"
       ],
       "notes": [],
       "created": "2026-11-17T16:32:36+00:00",
@@ -932,6 +935,55 @@
       "agent": "scriptwriter-long",
       "kind": "xp",
       "text": "+10 XP: delivered: ElevenLabs + Fireflies pixel stories (~2:56 each, ",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T16:43:22+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "done",
+      "text": "Kit + Webflow pixel stories written, sourced, render-checked → company/projects/2026-11-17-affiliate-pixel-stories/stories/kit.json",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:43:22+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "xp",
+      "text": "+10 XP: delivered: Kit + Webflow pixel stories written, sourced, rend",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T16:43:31+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "done",
+      "text": "Lovable + Descript pixel stories, sourced, render-checked → company/projects/2026-11-17-affiliate-pixel-stories/stories/lovable.json",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:43:31+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "xp",
+      "text": "+10 XP: delivered: Lovable + Descript pixel stories, sourced, render-",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T16:43:31+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "done",
+      "text": "Descript story file → company/projects/2026-11-17-affiliate-pixel-stories/stories/descript.json",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T16:43:31+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "xp",
+      "text": "+10 XP: delivered: Descript story file",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T16:43:31+00:00",
+      "agent": "scriptwriter-long",
+      "kind": "level-up",
+      "text": "Level 2 (Junior / مبتدئ)",
       "task": null
     }
   ],
