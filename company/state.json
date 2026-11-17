@@ -1,12 +1,11 @@
 {
-  "updated": "2026-11-17T16:49:14+00:00",
+  "updated": "2026-11-17T17:03:00+00:00",
   "agents": {
     "ceo": {
-      "status": "working",
-      "task": "Planning: 10 affiliate pixel stories",
-      "bubble": "Calling Badr x2 and Sara...",
-      "since": "2026-11-17T16:32:36+00:00",
-      "task_id": "T-002"
+      "status": "idle",
+      "task": null,
+      "bubble": "Handed to Yasmin ✓",
+      "since": "2026-11-17T17:03:00+00:00"
     },
     "chief-of-staff": {
       "status": "idle",
@@ -45,11 +44,10 @@
       "since": "2026-11-17T08:47:12+00:00"
     },
     "video-editor": {
-      "status": "working",
-      "task": "Rendering 10 pixel stories",
-      "bubble": "Rendering 10 pixel stories",
-      "since": "2026-11-17T16:49:11+00:00",
-      "task_id": "T-002"
+      "status": "idle",
+      "task": null,
+      "bubble": "Handed to Yasmin ✓",
+      "since": "2026-11-17T17:02:59+00:00"
     },
     "captions": {
       "status": "idle",
@@ -159,7 +157,7 @@
     "T-002": {
       "id": "T-002",
       "title": "10 pixel-art story videos + 10 affiliate products",
-      "status": "doing",
+      "status": "review",
       "owner": "ceo",
       "project": "2026-11-17-affiliate-pixel-stories",
       "workers": [
@@ -182,11 +180,17 @@
         "company/projects/2026-11-17-affiliate-pixel-stories/stories/speechify.json",
         "company/projects/2026-11-17-affiliate-pixel-stories/10-qa-stories-A.md",
         "company/projects/2026-11-17-affiliate-pixel-stories/10-qa-stories-B.md",
-        "company/projects/2026-11-17-affiliate-pixel-stories/08-seo-and-calendar.md"
+        "company/projects/2026-11-17-affiliate-pixel-stories/08-seo-and-calendar.md",
+        "company/projects/2026-11-17-affiliate-pixel-stories/brief.md"
       ],
-      "notes": [],
+      "notes": [
+        {
+          "t": "2026-11-17T17:03:00+00:00",
+          "note": "10 stories QA PASS, 20 silent renders delivered, SEO + calendar ready. Waiting: voiceovers, affiliate approvals, pricing checks."
+        }
+      ],
       "created": "2026-11-17T16:32:36+00:00",
-      "updated": "2026-11-17T16:32:36+00:00"
+      "updated": "2026-11-17T17:03:00+00:00"
     }
   },
   "needs_you": {
@@ -339,6 +343,14 @@
       "task": "T-002",
       "done": false,
       "created": "2026-11-17T16:49:14+00:00"
+    },
+    "N-019": {
+      "id": "N-019",
+      "text": "Generate Sofia voiceovers in VoiceStudio for the 10 stories: paste renders/<id>/vo-script.txt and vo-script-short.txt, save as audio/<id>.mp3 and audio/<id>_short.mp3, upload here; then run /ceo re-render affiliate stories with voice",
+      "from": "ceo",
+      "task": "T-002",
+      "done": false,
+      "created": "2026-11-17T17:03:00+00:00"
     }
   },
   "log": [
@@ -1160,10 +1172,52 @@
       "kind": "xp",
       "text": "+10 XP: delivered: SEO packs + 24 Nov-18 Dec calendar for 10 pixel st",
       "task": null
+    },
+    {
+      "t": "2026-11-17T17:02:59+00:00",
+      "agent": "video-editor",
+      "kind": "done",
+      "text": "Rendered 10 long + 10 short pixel stories",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T17:03:00+00:00",
+      "agent": "video-editor",
+      "kind": "xp",
+      "text": "+10 XP: delivered: Rendered 10 long + 10 short pixel stories",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T17:03:00+00:00",
+      "agent": "ceo",
+      "kind": "needs-you",
+      "text": "Generate Sofia voiceovers in VoiceStudio for the 10 stories: paste renders/<id>/vo-script.txt and vo-script-short.txt, save as audio/<id>.mp3 and audio/<id>_short.mp3, upload here; then run /ceo re-render affiliate stories with voice",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T17:03:00+00:00",
+      "agent": "ceo",
+      "kind": "task",
+      "text": "T-002 → review: 10 stories QA PASS, 20 silent renders delivered, SEO + calendar ready. Waiting: voiceovers, affiliate approvals, pricing checks.",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T17:03:00+00:00",
+      "agent": "ceo",
+      "kind": "done",
+      "text": "10 affiliate pixel stories delivered (silent, captioned) → company/projects/2026-11-17-affiliate-pixel-stories/brief.md",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-17T17:03:00+00:00",
+      "agent": "ceo",
+      "kind": "xp",
+      "text": "+10 XP: delivered: 10 affiliate pixel stories delivered (silent, capt",
+      "task": null
     }
   ],
   "counters": {
     "task": 2,
-    "need": 18
+    "need": 19
   }
 }

@@ -8,7 +8,7 @@
       "role": "CEO",
       "room": "ceo-suite",
       "sprite": "#d4a24c",
-      "xp": 10,
+      "xp": 20,
       "skills": [
         "delegation",
         "prioritization"
@@ -108,7 +108,7 @@
       "role": "Video Editor",
       "room": "montage-studio",
       "sprite": "#3fa7a3",
-      "xp": 20,
+      "xp": 30,
       "skills": [
         "ffmpeg-cuts",
         "vertical-reframe",
