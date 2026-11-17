@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17T09:38:03+00:00",
+  "updated": "2026-11-17T09:39:45+00:00",
   "agents": {
     "ceo": {
       "status": "idle",
@@ -254,8 +254,17 @@
       "text": "Retry the AI voiceover (ElevenLabs was busy): run /ceo generate the AI voiceover",
       "from": "recording-producer",
       "task": "T-001",
+      "done": true,
+      "created": "2026-11-17T09:38:03+00:00",
+      "closed": "2026-11-17T09:39:45+00:00"
+    },
+    "N-013": {
+      "id": "N-013",
+      "text": "Download the AI voiceover (Laura, 48.7s) from your ElevenLabs flow 'Shortcut HQ - first short voiceover' and upload it in chat (the cloud session can't reach ElevenLabs downloads)",
+      "from": "recording-producer",
+      "task": "T-001",
       "done": false,
-      "created": "2026-11-17T09:38:03+00:00"
+      "created": "2026-11-17T09:39:45+00:00"
     }
   },
   "log": [
@@ -776,10 +785,24 @@
       "kind": "needs-you",
       "text": "Retry the AI voiceover (ElevenLabs was busy): run /ceo generate the AI voiceover",
       "task": "T-001"
+    },
+    {
+      "t": "2026-11-17T09:39:45+00:00",
+      "agent": "chief-of-staff",
+      "kind": "needs-you",
+      "text": "N-012 done by owner",
+      "task": null
+    },
+    {
+      "t": "2026-11-17T09:39:45+00:00",
+      "agent": "recording-producer",
+      "kind": "needs-you",
+      "text": "Download the AI voiceover (Laura, 48.7s) from your ElevenLabs flow 'Shortcut HQ - first short voiceover' and upload it in chat (the cloud session can't reach ElevenLabs downloads)",
+      "task": "T-001"
     }
   ],
   "counters": {
     "task": 1,
-    "need": 12
+    "need": 13
   }
 }

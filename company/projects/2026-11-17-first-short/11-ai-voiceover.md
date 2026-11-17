@@ -1,8 +1,10 @@
 # AI voiceover (owner chose AI voice on 2026-11-17)
 
 - Tool: ElevenLabs, model eleven_v4, flow "Shortcut HQ - first short voiceover" (xMLMToHs6FELR3qmdm5P)
-- Voice: Mira - Bright & Friendly Narrator (voice_id rdEyNni8e60Jlx1RsV9N), young American female, explainer style. Owner can swap it in ElevenLabs.
-- Status: NOT GENERATED YET. First attempt failed: "free generations are busy", nothing charged. Retry with `/ceo generate the AI voiceover`.
+- Voice: **Laura - Enthusiast, Quirky Attitude** (voice_id FGY2WhTYpPnrIDTdsKH5, premade, young American female, social media). Chosen by the owner from his sample (`audio/owner_voice_sample_laura.mp3`). (Mira was the first pick; replaced.)
+- Status:
+  - Take 1, full track NOT SURE version: **GENERATED** 2026-11-17, 48.72 s, 761 credits (generation gXEu5DKYoAHbwo0yPHKu). The download host elevenlabsusercontent.com is blocked from this cloud session, so the owner downloads it from the ElevenLabs flow and uploads it to `audio/vo_full_notsure_laura.mp3`.
+  - Takes 2 and 3 (FAKE / REAL lines): not generated yet (ElevenLabs free tier was busy). Only needed if the demo verdict isn't "not sure".
 - Because the voice is AI: the "AI-generated / altered content" label is REQUIRED on YouTube, TikTok, Instagram and Facebook (see 07-publish-plan.md).
 
 ## Takes to generate (3)
