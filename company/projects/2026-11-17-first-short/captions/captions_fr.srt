@@ -1,0 +1,132 @@
+1
+00:00:00,000 --> 00:00:01,923
+Ce deal du Black Friday,
+
+2
+00:00:01,923 --> 00:00:03,077
+vrai ou faux ?
+
+3
+00:00:03,077 --> 00:00:04,615
+Un seul prompt te le dit.
+
+4
+00:00:04,915 --> 00:00:06,069
+Voici l'astuce.
+
+5
+00:00:06,069 --> 00:00:08,377
+Certains magasins
+gonflent le prix barré
+
+6
+00:00:08,377 --> 00:00:10,685
+quelques semaines
+avant la promo,
+
+7
+00:00:10,685 --> 00:00:12,608
+pour que la remise
+paraisse énorme.
+
+8
+00:00:12,908 --> 00:00:15,215
+Dans l'UE, cet ancien prix
+
+9
+00:00:15,215 --> 00:00:17,138
+doit être le prix le plus bas
+
+10
+00:00:17,138 --> 00:00:19,062
+des 30 derniers jours.
+
+11
+00:00:19,062 --> 00:00:20,985
+Tous les magasins ne
+jouent pas le jeu.
+
+12
+00:00:21,285 --> 00:00:22,823
+Alors copie ce prompt
+
+13
+00:00:22,823 --> 00:00:24,362
+dans un chatbot gratuit
+
+14
+00:00:24,362 --> 00:00:26,285
+qui peut chercher sur le web.
+
+15
+00:00:26,585 --> 00:00:28,123
+Colle le lien du produit,
+
+16
+00:00:28,123 --> 00:00:29,277
+le prix promo
+
+17
+00:00:29,277 --> 00:00:30,815
+et le prix barré.
+
+18
+00:00:31,115 --> 00:00:33,038
+Il cherche les prix récents,
+
+19
+00:00:33,038 --> 00:00:34,577
+compare deux autres magasins
+
+20
+00:00:34,577 --> 00:00:36,115
+et donne un verdict :
+
+21
+00:00:36,115 --> 00:00:37,654
+vraie promo, fausse remise
+
+22
+00:00:37,654 --> 00:00:38,808
+ou pas sûr.
+
+23
+00:00:39,108 --> 00:00:41,031
+Ici, il dit « pas sûr » :
+
+24
+00:00:41,031 --> 00:00:42,569
+aucun historique de prix.
+
+25
+00:00:42,569 --> 00:00:44,492
+Une bonne raison d'attendre.
+
+26
+00:00:44,792 --> 00:00:46,331
+Clique toujours sur les sources
+
+27
+00:00:46,331 --> 00:00:47,485
+avant d'acheter.
+
+28
+00:00:47,785 --> 00:00:48,938
+Fais une capture du prompt
+
+29
+00:00:48,938 --> 00:00:51,246
+et envoie-la à l'ami
+
+30
+00:00:51,246 --> 00:00:53,554
+qui va acheter cette télé.
+
+31
+00:00:53,854 --> 00:00:55,777
+Abonne-toi pour une astuce IA
+
+32
+00:00:55,777 --> 00:00:56,777
+par jour.
+

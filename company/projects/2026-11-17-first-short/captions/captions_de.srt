@@ -1,0 +1,130 @@
+1
+00:00:00,000 --> 00:00:01,923
+Ist dieser Black-Friday-Deal
+
+2
+00:00:01,923 --> 00:00:03,077
+echt oder fake?
+
+3
+00:00:03,077 --> 00:00:04,615
+Ein Prompt verrät es dir.
+
+4
+00:00:04,915 --> 00:00:06,069
+Der Trick:
+
+5
+00:00:06,069 --> 00:00:08,377
+Manche Shops erhöhen
+den Streichpreis
+
+6
+00:00:08,377 --> 00:00:10,685
+ein paar Wochen vor dem Sale,
+
+7
+00:00:10,685 --> 00:00:12,608
+damit der Rabatt riesig wirkt.
+
+8
+00:00:12,908 --> 00:00:15,215
+In der EU muss dieser alte Preis
+
+9
+00:00:15,215 --> 00:00:17,138
+der niedrigste Preis
+
+10
+00:00:17,138 --> 00:00:19,062
+der letzten 30 Tage sein.
+
+11
+00:00:19,062 --> 00:00:20,985
+Nicht jeder Shop spielt fair.
+
+12
+00:00:21,285 --> 00:00:22,823
+Also kopier diesen Prompt
+
+13
+00:00:22,823 --> 00:00:24,362
+in einen kostenlosen Chatbot,
+
+14
+00:00:24,362 --> 00:00:26,285
+der im Web suchen kann.
+
+15
+00:00:26,585 --> 00:00:28,123
+Füg den Produktlink ein,
+
+16
+00:00:28,123 --> 00:00:29,277
+den Sale-Preis
+
+17
+00:00:29,277 --> 00:00:30,815
+und den Streichpreis.
+
+18
+00:00:31,115 --> 00:00:33,038
+Er sucht aktuelle Preise,
+
+19
+00:00:33,038 --> 00:00:34,577
+prüft zwei andere Shops
+
+20
+00:00:34,577 --> 00:00:36,115
+und gibt ein Urteil ab:
+
+21
+00:00:36,115 --> 00:00:37,654
+echter Deal, Fake-Rabatt
+
+22
+00:00:37,654 --> 00:00:38,808
+oder unsicher.
+
+23
+00:00:39,108 --> 00:00:41,031
+Hier sagt er: unsicher –
+
+24
+00:00:41,031 --> 00:00:42,569
+keine Preisdaten gefunden.
+
+25
+00:00:42,569 --> 00:00:44,492
+Ein guter Grund zu warten.
+
+26
+00:00:44,792 --> 00:00:46,331
+Klick immer auf die Quellen,
+
+27
+00:00:46,331 --> 00:00:47,485
+bevor du kaufst.
+
+28
+00:00:47,785 --> 00:00:48,938
+Mach einen Screenshot vom Prompt
+
+29
+00:00:48,938 --> 00:00:51,246
+und schick ihn dem Freund,
+
+30
+00:00:51,246 --> 00:00:53,554
+der gleich diesen
+Fernseher kaufen will.
+
+31
+00:00:53,854 --> 00:00:55,777
+Folge für einen KI-Shortcut
+
+32
+00:00:55,777 --> 00:00:56,777
+pro Tag.
+

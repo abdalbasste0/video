@@ -1,0 +1,131 @@
+1
+00:00:00,000 --> 00:00:01,923
+¿Esta oferta de Black Friday
+
+2
+00:00:01,923 --> 00:00:03,077
+es real o falsa?
+
+3
+00:00:03,077 --> 00:00:04,615
+Un prompt te lo dice.
+
+4
+00:00:04,915 --> 00:00:06,069
+Este es el truco.
+
+5
+00:00:06,069 --> 00:00:08,377
+Algunas tiendas suben
+el precio tachado
+
+6
+00:00:08,377 --> 00:00:10,685
+unas semanas antes de la oferta,
+
+7
+00:00:10,685 --> 00:00:12,608
+para que el descuento
+parezca enorme.
+
+8
+00:00:12,908 --> 00:00:15,215
+En la UE, ese precio anterior
+
+9
+00:00:15,215 --> 00:00:17,138
+debe ser el más bajo
+
+10
+00:00:17,138 --> 00:00:19,062
+de los últimos 30 días.
+
+11
+00:00:19,062 --> 00:00:20,985
+No todas las tiendas
+juegan limpio.
+
+12
+00:00:21,285 --> 00:00:22,823
+Así que copia este prompt
+
+13
+00:00:22,823 --> 00:00:24,362
+en cualquier chatbot gratis
+
+14
+00:00:24,362 --> 00:00:26,285
+que pueda buscar en la web.
+
+15
+00:00:26,585 --> 00:00:28,123
+Pega el enlace del producto,
+
+16
+00:00:28,123 --> 00:00:29,277
+el precio de oferta
+
+17
+00:00:29,277 --> 00:00:30,815
+y el precio tachado.
+
+18
+00:00:31,115 --> 00:00:33,038
+Busca precios recientes,
+
+19
+00:00:33,038 --> 00:00:34,577
+revisa otras dos tiendas
+
+20
+00:00:34,577 --> 00:00:36,115
+y da un veredicto:
+
+21
+00:00:36,115 --> 00:00:37,654
+oferta real, descuento falso
+
+22
+00:00:37,654 --> 00:00:38,808
+o no está seguro.
+
+23
+00:00:39,108 --> 00:00:41,031
+Aquí dice que no está seguro:
+
+24
+00:00:41,031 --> 00:00:42,569
+no hay historial de precios.
+
+25
+00:00:42,569 --> 00:00:44,492
+Es un motivo para esperar.
+
+26
+00:00:44,792 --> 00:00:46,331
+Revisa siempre las fuentes
+
+27
+00:00:46,331 --> 00:00:47,485
+antes de comprar.
+
+28
+00:00:47,785 --> 00:00:48,938
+Haz captura del prompt
+
+29
+00:00:48,938 --> 00:00:51,246
+y envíalo a ese amigo
+
+30
+00:00:51,246 --> 00:00:53,554
+que va a comprar esa tele.
+
+31
+00:00:53,854 --> 00:00:55,777
+Sigue para un atajo de IA
+
+32
+00:00:55,777 --> 00:00:56,777
+cada día.
+
