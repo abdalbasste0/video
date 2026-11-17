@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-17T08:51:27+00:00",
+  "updated": "2026-11-17T08:53:22+00:00",
   "agents": {
     "ceo": {
       "status": "working",
       "task": "Planning today's short",
-      "bubble": "Calling Khaled and Youssef...",
+      "bubble": "Calling Badr for QA...",
       "since": "2026-11-17T08:42:25+00:00",
       "task_id": "T-001"
     },
@@ -87,10 +87,11 @@
       "since": "2026-11-17T08:48:23+00:00"
     },
     "qa-reviewer": {
-      "status": "idle",
-      "task": null,
-      "bubble": "",
-      "since": "2026-11-17T08:41:45+00:00"
+      "status": "working",
+      "task": "QA review of first short package",
+      "bubble": "Checked cover + captions overlap, writing fix list",
+      "since": "2026-11-17T08:51:49+00:00",
+      "task_id": "T-001"
     },
     "skills-librarian": {
       "status": "idle",
@@ -118,7 +119,8 @@
         "recording-producer",
         "growth-analyst",
         "publisher",
-        "video-editor"
+        "video-editor",
+        "qa-reviewer"
       ],
       "deliverables": [
         "company/projects/2026-11-17-first-short/01-trends-search.md",
@@ -506,6 +508,13 @@
       "kind": "xp",
       "text": "+10 XP: delivered: Edit plan + captions timing preview; footage still",
       "task": null
+    },
+    {
+      "t": "2026-11-17T08:51:49+00:00",
+      "agent": "qa-reviewer",
+      "kind": "start",
+      "text": "QA review of first short package",
+      "task": "T-001"
     }
   ],
   "counters": {
