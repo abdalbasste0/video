@@ -1,0 +1,581 @@
+{
+ "title": "ZERO VIEWERS | An Animated Short Film",
+ "description": "He went live every night. Nobody was watching.\nThis is a short animated film about discipline, doing the work in the dark, and becoming someone when nobody is looking.\n\nIf this hit you, subscribe. A new short film every week.\n\n#motivation #discipline #animation #selfimprovement #shortfilm",
+ "tags": [
+  "motivation",
+  "discipline",
+  "animated short film",
+  "self improvement",
+  "streamer",
+  "zero viewers",
+  "nobody is watching",
+  "motivational animation",
+  "stickman animation",
+  "consistency"
+ ],
+ "voice": "am_michael",
+ "speed": 0.9,
+ "mood": "emotional",
+ "seed": 4,
+ "thumbnail": {
+  "shot": 2,
+  "text": "0 VIEWERS.",
+  "zoom": 1.25,
+  "focus": [
+   1150,
+   560
+  ]
+ },
+ "shots": [
+  {
+   "bg": "desk",
+   "bg_opts": {
+    "desk_x": 960,
+    "live": true,
+    "viewers": 0
+   },
+   "actor": {
+    "action": "sit_desk",
+    "expr": "happy",
+    "x": 880
+   },
+   "say": "Every night, at exactly nine p.m., he went live.",
+   "sfx": [
+    "typing"
+   ],
+   "cam": {
+    "zoom": [
+     1.0,
+     1.08
+    ],
+    "focus": [
+     1060,
+     560
+    ]
+   },
+   "fade_in": 0.8
+  },
+  {
+   "bg": "desk",
+   "bg_opts": {
+    "desk_x": 960,
+    "live": true,
+    "viewers": 0
+   },
+   "actor": {
+    "action": "sit_desk",
+    "expr": "happy",
+    "x": 880
+   },
+   "say": "He talked. He laughed at his own jokes. He reacted to every single game.",
+   "cam": {
+    "zoom": [
+     1.6,
+     1.75
+    ],
+    "focus": [
+     930,
+     400
+    ]
+   }
+  },
+  {
+   "bg": "desk",
+   "bg_opts": {
+    "desk_x": 960,
+    "live": true,
+    "viewers": 0,
+    "screen_colors": [
+     "0xFF1E2A55",
+     "0xFF3A1E55"
+    ]
+   },
+   "actor": {
+    "action": "sit_desk_slump",
+    "expr": "empty",
+    "x": 880
+   },
+   "say": "And every night, the counter in the corner said the same thing. Zero.",
+   "caption": "0 VIEWERS.",
+   "cam": {
+    "zoom": [
+     1.2,
+     1.5
+    ],
+    "focus": [
+     1250,
+     480
+    ]
+   },
+   "sfx": [
+    "boom"
+   ]
+  },
+  {
+   "bg": "void",
+   "actor": {
+    "action": "head_down",
+    "expr": "sad"
+   },
+   "say": "Zero people watching. Zero messages. Zero proof that any of it mattered.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.12
+    ],
+    "focus": [
+     960,
+     560
+    ]
+   }
+  },
+  {
+   "bg": "bedroom",
+   "actor": {
+    "action": "lie",
+    "expr": "tired",
+    "x": 680,
+    "prop": "phone"
+   },
+   "say": "So he did what most of us do. He scrolled through other people's success, until four in the morning.",
+   "cam": {
+    "zoom": [
+     1.1,
+     1.3
+    ],
+    "focus": [
+     620,
+     600
+    ]
+   }
+  },
+  {
+   "bg": "bedroom",
+   "actor": {
+    "action": "lie",
+    "expr": "anxious",
+    "x": 680,
+    "prop": "phone"
+   },
+   "say": "Their clips. Their numbers. Their lives. And every swipe whispered the same lie. You're too late.",
+   "cam": {
+    "zoom": [
+     1.7,
+     1.9
+    ],
+    "focus": [
+     560,
+     600
+    ]
+   },
+   "sfx": [
+    "heartbeat"
+   ]
+  },
+  {
+   "bg": "clock",
+   "bg_opts": {
+    "clock": "2:47"
+   },
+   "say": "He woke up in the afternoon. Tired. Behind. Again.",
+   "caption": "PM.",
+   "caption_y": 760,
+   "cam": {
+    "zoom": [
+     1.0,
+     1.05
+    ]
+   }
+  },
+  {
+   "bg": "street",
+   "fx": [
+    "rain"
+   ],
+   "actor": {
+    "action": "trudge",
+    "expr": "empty",
+    "x": 300,
+    "move_to": 900
+   },
+   "say": "Days became weeks. Weeks became a year. Nothing changed, because he changed nothing.",
+   "sfx": [
+    "rain"
+   ],
+   "cam": {
+    "zoom": [
+     1.05,
+     1.1
+    ],
+    "focus": [
+     760,
+     560
+    ]
+   }
+  },
+  {
+   "bg": "void",
+   "bg_opts": {
+    "color": "0xFF8899CC"
+   },
+   "actor": {
+    "action": "kneel",
+    "expr": "sad"
+   },
+   "say": "And one night, after another empty stream, he finally asked the question that hurts.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.2
+    ],
+    "focus": [
+     960,
+     600
+    ]
+   }
+  },
+  {
+   "bg": "void",
+   "actor": {
+    "action": "kneel",
+    "expr": "sad"
+   },
+   "say": "Who am I really doing this for?",
+   "caption": "WHO IS THIS FOR?",
+   "cam": {
+    "zoom": [
+     1.5,
+     1.6
+    ],
+    "focus": [
+     960,
+     470
+    ]
+   },
+   "tail": 1.4
+  },
+  {
+   "bg": "bedroom",
+   "actor": {
+    "action": "sit_edge",
+    "expr": "neutral",
+    "x": 960
+   },
+   "say": "If nobody is watching, then nobody can see you fail. Nobody can laugh. Nobody can stop you.",
+   "cam": {
+    "zoom": [
+     1.1,
+     1.25
+    ],
+    "focus": [
+     960,
+     560
+    ]
+   }
+  },
+  {
+   "bg": "void",
+   "bg_opts": {
+    "color": "0xFFFFD08A"
+   },
+   "actor": {
+    "action": "stand",
+    "expr": "determined"
+   },
+   "say": "Nobody watching isn't a punishment. It's a gift. It's the one place you're allowed to be bad, while you become good.",
+   "caption": "NOBODY IS WATCHING.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.25
+    ],
+    "focus": [
+     960,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "clock",
+   "bg_opts": {
+    "clock": "6:00",
+    "ring": true
+   },
+   "say": "So the next morning, the alarm went off at six.",
+   "sfx": [
+    "alarm"
+   ],
+   "cam": {
+    "zoom": [
+     1.0,
+     1.08
+    ],
+    "shake": 3
+   }
+  },
+  {
+   "bg": "bedroom",
+   "bg_opts": {
+    "time": "dawn"
+   },
+   "actor": {
+    "action": "sit_edge",
+    "expr": "tired",
+    "x": 960,
+    "then": "stand",
+    "then_at": 2.2,
+    "y": 790
+   },
+   "say": "He didn't want to get up. He got up anyway.",
+   "caption": "DAY 1.",
+   "cam": {
+    "zoom": [
+     1.15,
+     1.25
+    ],
+    "focus": [
+     960,
+     560
+    ]
+   }
+  },
+  {
+   "bg": "street",
+   "bg_opts": {
+    "scroll": 300
+   },
+   "fx": [
+    "rain"
+   ],
+   "actor": {
+    "action": "run",
+    "expr": "determined",
+    "x": 820
+   },
+   "say": "He ran when it was raining.",
+   "sfx": [
+    "rain"
+   ],
+   "cam": {
+    "zoom": [
+     1.15,
+     1.2
+    ],
+    "focus": [
+     820,
+     560
+    ]
+   }
+  },
+  {
+   "bg": "gym",
+   "actor": {
+    "action": "pushup",
+    "expr": "angry",
+    "x": 960
+   },
+   "say": "He trained when his body said no.",
+   "cam": {
+    "zoom": [
+     1.3,
+     1.4
+    ],
+    "focus": [
+     960,
+     700
+    ]
+   }
+  },
+  {
+   "bg": "desk",
+   "bg_opts": {
+    "desk_x": 960
+   },
+   "actor": {
+    "action": "sit_desk",
+    "expr": "determined",
+    "x": 880
+   },
+   "say": "He studied the streamers he envied. Not their numbers. Their hours.",
+   "sfx": [
+    "typing"
+   ],
+   "cam": {
+    "zoom": [
+     1.1,
+     1.2
+    ],
+    "focus": [
+     1060,
+     560
+    ]
+   }
+  },
+  {
+   "bg": "desk",
+   "bg_opts": {
+    "desk_x": 960,
+    "live": true,
+    "viewers": 0
+   },
+   "actor": {
+    "action": "sit_desk",
+    "expr": "determined",
+    "x": 880
+   },
+   "say": "And every night, he still went live. To nobody. But now, he was practicing.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ],
+    "focus": [
+     1060,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "desk",
+   "bg_opts": {
+    "desk_x": 960,
+    "live": true,
+    "viewers": 1
+   },
+   "actor": {
+    "action": "sit_desk",
+    "expr": "shocked",
+    "x": 880,
+    "look": [
+     1,
+     0
+    ]
+   },
+   "say": "Then one night, the counter moved. One viewer.",
+   "sfx": [
+    "ding"
+   ],
+   "caption": "1 VIEWER.",
+   "cam": {
+    "zoom": [
+     1.3,
+     1.45
+    ],
+    "focus": [
+     1200,
+     480
+    ]
+   }
+  },
+  {
+   "bg": "desk",
+   "bg_opts": {
+    "desk_x": 960,
+    "live": true,
+    "viewers": 127,
+    "screen_colors": [
+     "0xFFFF8A3D",
+     "0xFFFF3DAE"
+    ]
+   },
+   "actor": {
+    "action": "sit_desk",
+    "expr": "happy",
+    "x": 880
+   },
+   "say": "Then twelve. Then a hundred.",
+   "sfx": [
+    "ding"
+   ],
+   "cam": {
+    "zoom": [
+     1.1,
+     1.2
+    ],
+    "focus": [
+     1100,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "mountain",
+   "bg_opts": {
+    "sun": 0.3
+   },
+   "actor": {
+    "action": "climb",
+    "expr": "determined",
+    "x": 300,
+    "move_to": 1000
+   },
+   "say": "Not because he got lucky. Because he got better, in all the days nobody saw.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.05
+    ],
+    "focus": [
+     900,
+     600
+    ]
+   }
+  },
+  {
+   "bg": "mountain",
+   "bg_opts": {
+    "sun": 1.0
+   },
+   "actor": {
+    "action": "triumph",
+    "expr": "proud",
+    "x": 1380
+   },
+   "say": "The world only ever watches the results. But the results are built in empty rooms.",
+   "caption": "DAY 365.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.15
+    ],
+    "focus": [
+     1300,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "void",
+   "bg_opts": {
+    "color": "0xFFFFD08A"
+   },
+   "actor": {
+    "action": "stand",
+    "expr": "proud"
+   },
+   "say": "So if nobody's watching you right now, good. Use it.",
+   "cam": {
+    "zoom": [
+     1.2,
+     1.35
+    ],
+    "focus": [
+     960,
+     480
+    ]
+   }
+  },
+  {
+   "bg": "void",
+   "bg_opts": {
+    "color": "0xFF2EE6FF"
+   },
+   "say": "Start today.",
+   "caption": "START TODAY.",
+   "caption_y": 540,
+   "caption_size": 150,
+   "tail": 1.6,
+   "fade_out": 1.2
+  }
+ ]
+}
