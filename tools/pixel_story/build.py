@@ -15,8 +15,8 @@ import argparse, json, os, re, subprocess, sys, textwrap
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 WPS = 2.6
-FONT_STYLE = ("FontName=DejaVu Sans,FontSize={fs},Bold=1,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,"
-              "BorderStyle=1,Outline=2,Shadow=0,Alignment=2,MarginV={mv}")
+FONT_STYLE = ("FontName=Inter Display Black,FontSize={fs},Bold=0,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,"
+              "BackColour=&H80000000,BorderStyle=1,Outline=2.4,Shadow=1.2,Spacing=0.3,Alignment=2,MarginV={mv}")
 
 
 def run(cmd):
@@ -78,13 +78,13 @@ def render(story, scenes, out_dir, name):
 def mux(raw, out, srt_path, audio, total, vertical, title):
     if vertical:
         vf = ("scale=1440:810:flags=neighbor,crop=1080:810,pad=1080:1920:0:520:color=0x0b0c10,"
-              f"subtitles='{esc(srt_path)}':force_style='{FONT_STYLE.format(fs=12, mv=70)}'")
+              f"subtitles='{esc(srt_path)}':force_style='{FONT_STYLE.format(fs=13, mv=70)}'")
         if title:
-            vf += (",drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:"
+            vf += (",drawtext=fontfile=/usr/share/fonts/opentype/inter/InterDisplay-Black.otf:"
                    f"text='{title.replace(chr(39), '').replace(':', ' ')}':fontcolor=0xffc861:fontsize=64:x=(w-tw)/2:y=330:"
                    "borderw=4:bordercolor=black")
     else:
-        vf = f"scale=1920:1080:flags=neighbor,subtitles='{esc(srt_path)}':force_style='{FONT_STYLE.format(fs=16, mv=22)}'"
+        vf = f"scale=1920:1080:flags=neighbor,subtitles='{esc(srt_path)}':force_style='{FONT_STYLE.format(fs=17, mv=24)}'"
     cmd = ["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", raw]
     if audio:
         cmd += ["-i", audio, "-map", "0:v", "-map", "1:a", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11"]

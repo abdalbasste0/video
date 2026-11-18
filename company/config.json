@@ -324,11 +324,16 @@
   "brand_voice": {
     "name": "Sofia",
     "file": "company/voices/sofia.md",
-    "tool": "Voicebox engine (Kokoro-82M, open source) via tools/pixel_story/voice.py",
+    "tool": "Chatterbox (Resemble AI, MIT; Voicebox engine) via tools/pixel_story/voice_chatterbox.py, voice cloned from company/voices/sofia_reference.wav",
     "style": "lively, energetic young American female",
     "status": "active",
     "ai_label_required": true,
     "kokoro_voice": "af_bella",
-    "speed": 1.1
+    "speed": 1.1,
+    "exaggeration": 0.6,
+    "fallback": "Kokoro af_bella via tools/pixel_story/voice.py"
+  },
+  "video_style": {
+    "caption_font": "Inter Display Black (white, black outline)"
   }
 }
