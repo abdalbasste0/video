@@ -14,7 +14,7 @@ import numpy as np
 import skia
 import soundfile as sf
 
-from . import audio, scenes
+from . import audio, scenes, sets_cooper
 from . import character as ch
 
 FPS = 30
@@ -24,7 +24,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAXW = [W * 0.9]  # text width limit; narrowed for the 9:16 centre crop
 
 # default hip positions per action (so stories stay short)
-ACTION_Y = {"sit_desk": 745, "sit_desk_slump": 745, "sit_edge": 790, "lie": 676,
+ACTION_Y = {"sit_desk": 745, "sit_desk_slump": 745, "sit": 745, "sit_drink": 745, "sit_turn": 745, "sit_edge": 790, "lie": 676,
             "kneel": STAND_Y, "pushup": STAND_Y}
 
 
@@ -198,7 +198,7 @@ def _actor_list(s):
 
 def draw_world(c, s, lt, T, story):
     """Everything seen through the camera, plus lighting and grade. Returns nothing."""
-    o = s.get("bg_opts", {})
+    o = dict(s.get("bg_opts", {}), _lt=lt)  # local shot time for animated sets
     bgname = s.get("bg", "void")
     cam = s.get("cam", {})
     k = ch.ease(lt / max(0.01, s["dur"]))
@@ -231,6 +231,8 @@ def draw_world(c, s, lt, T, story):
     _, lights = scenes.BACKGROUNDS[bgname](c, T, W, H, o)
     if dof:
         c.restore()
+    if bgname == "cabin" and o.get("front_seats"):
+        pass
     if bgname in ("desk", "room"):
         lights = lights + scenes.desk_front(c, T, o)
     hands = {}
@@ -242,7 +244,7 @@ def draw_world(c, s, lt, T, story):
         mk = ch.ease(lt / s["dur"]) if a.get("ease_move") else lt / s["dur"]
         x = ch.lerp(x0, x1, mk)
         stand_y = scenes.GROUND - ch.THIGH - ch.SHIN - 14
-        y = a.get("y", ACTION_Y.get(act, stand_y) if act not in ("kneel", "pushup") else stand_y)
+        y = a.get("y", ACTION_Y.get(act, stand_y) if act not in ("kneel", "pushup", "dig") else stand_y)
         if bgname == "mountain":
             y = scenes.slope_y(x) - ch.THIGH - ch.SHIN - 12
         if a.get("appear_at") is not None and lt < a["appear_at"]:
@@ -263,7 +265,9 @@ def draw_world(c, s, lt, T, story):
             c.translate(0, scenes.GROUND / 0.18 - scenes.GROUND)
             c.drawCircle(x, scenes.GROUND, 130 * sc, sp)
             c.restore()
-        prop = None
+        prop = sets_cooper.PROPS.get(a.get("prop"))
+        if a.get("chute"):  # parachute canopy above the jumper
+            sets_cooper.parachute(c, x, y - ch.TORSO * sc, sc)
         if a.get("prop") == "phone":
             prop = scenes.phone_prop
         elif a.get("prop") == "flashlight":
@@ -425,6 +429,9 @@ def main():
     args = ap.parse_args()
     story = json.load(open(args.story))
     slug = os.path.splitext(os.path.basename(args.story))[0]
+    parent = os.path.basename(os.path.dirname(os.path.abspath(args.story)))
+    if parent != "stories":  # series/<name>/epNN.json -> <name>-epNN
+        slug = f"{parent}-{slug}"
     out = os.path.join(ROOT, "output", slug)
     work = os.path.join(out, "work")
     os.makedirs(work, exist_ok=True)

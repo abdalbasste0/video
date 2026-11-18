@@ -39,11 +39,31 @@ _STICK = dict(STICK=True, HEAD_RX=94, HEAD_RY=98, HEADSET=None, SKIN=0xFFEFE9DC,
               PANTS=0xFF1C1D22, PANTS_FAR=0xFF141518)
 COAT = False
 HAT = None
+HAIRSTYLE = None   # None | "slick" | "bun" | "kid"
+GLASSES = False
+NOTEBOOK = False
+HATSTYLE = "fedora"  # "fedora" | "pilot"
+COAT_LEN = "long"  # "long" trench coat | "short" suit jacket | "dress"
+SHIRT = 0xFFF1EBDD
+TIE = 0xFF5A3A26
 _DETECTIVE = dict(_STICK, COAT=True, HAT=0xFF6B5444, SKIN=0xFFFAFAF8, SKIN_SHADE=0xFF1A1A1A,
                   HOODIE=0xFFD8BF94, HOODIE_FAR=0xFFB89E74, PANTS=0xFF56565C, PANTS_FAR=0xFF46464B,
-                  BAND=None, HEAD_RX=88, HEAD_RY=92, THIGH=118, SHIN=118)
+                  BAND=None, HEAD_RX=88, HEAD_RY=92, THIGH=118, SHIN=118, NOTEBOOK=True)
 LOOKS = {
     "detective": dict(_DETECTIVE),
+    "cooper": dict(_DETECTIVE, HAT=None, HAIRSTYLE="slick", HAIR=0xFF241C17, GLASSES=True,
+                   HOODIE=0xFF33343A, HOODIE_FAR=0xFF26272C, PANTS=0xFF2B2C31, PANTS_FAR=0xFF222327,
+                   COAT_LEN="short", TIE=0xFF0E0E10),
+    "attendant": dict(_DETECTIVE, HAT=None, HAIRSTYLE="bun", HAIR=0xFF6B4A2E, HOODIE=0xFF3A6EA5,
+                      HOODIE_FAR=0xFF2C5684, PANTS=0xFF2A3A55, PANTS_FAR=0xFF22304A, COAT_LEN="dress",
+                      TIE=0xFFE0B040, THIGH=104, SHIN=104),
+    "pilot": dict(_DETECTIVE, HAT=0xFF1C2438, HATSTYLE="pilot", HOODIE=0xFF1E2A44, HOODIE_FAR=0xFF162036,
+                  PANTS=0xFF1A2336, PANTS_FAR=0xFF141B2A, COAT_LEN="short", TIE=0xFF0E0E10),
+    "agent": dict(_DETECTIVE, HAT=0xFF5A5E66, HOODIE=0xFF4A4E58, HOODIE_FAR=0xFF3A3E46,
+                  PANTS=0xFF3A3E46, PANTS_FAR=0xFF30333A, COAT_LEN="short", TIE=0xFF1E2A44),
+    "boy": dict(_DETECTIVE, HAT=None, HAIRSTYLE="kid", HAIR=0xFF8A5A30, HOODIE=0xFFC0392B,
+                HOODIE_FAR=0xFF962D22, PANTS=0xFF3B5A86, PANTS_FAR=0xFF2F4A70, COAT_LEN="short",
+                TIE=0xFFC0392B, SHIRT=0xFFC0392B, THIGH=80, SHIN=80),
     "detective_leo": dict(_DETECTIVE, HAT=None, HOODIE=0xFF7A2A26, HOODIE_FAR=0xFF5A1D1A),
     "detective_officer": dict(_DETECTIVE, HAT=0xFF1E2A44, HOODIE=0xFF2A3C62, HOODIE_FAR=0xFF1E2C4A),
     "detective_shadow": dict(_DETECTIVE, HAT=0xFF060608, SKIN=0xFF0A0A0E, HOODIE=0xFF0A0A0E,
@@ -75,7 +95,8 @@ def set_look(name):
     if _DEFAULTS is None:
         _DEFAULTS = {k: g[k] for k in ("SKIN", "SKIN_SHADE", "HAIR", "HOODIE", "HOODIE_FAR", "NEON",
                                        "NEON2", "HEADSET", "PANTS", "PANTS_FAR", "EYES",
-                                       "STICK", "HEAD_RX", "HEAD_RY", "BAND", "COAT", "HAT", "THIGH", "SHIN")}
+                                       "STICK", "HEAD_RX", "HEAD_RY", "BAND", "COAT", "HAT", "THIGH", "SHIN", "HAIRSTYLE",
+                                       "GLASSES", "HATSTYLE", "COAT_LEN", "SHIRT", "TIE", "NOTEBOOK")}
     g.update(_DEFAULTS)
     g.update(LOOKS.get(name, {}))
     if not g["STICK"]:
@@ -207,7 +228,62 @@ def _stick_head_shading(c, oval):
     c.drawArc(oval.makeInset(6, 6), 200, 60, False, rim)
 
 
+def _hair(c):
+    rx, ry = HEAD_RX, HEAD_RY
+    if HAIRSTYLE == "bun":
+        c.drawCircle(-rx * 0.62, -ry * 0.78, 34, paint(OUTLINE))
+        c.drawCircle(-rx * 0.62, -ry * 0.78, 28, paint(HAIR))
+    hp = skia.Path()
+    hp.moveTo(-rx * 1.02, ry * 0.15)
+    hp.cubicTo(-rx * 1.15, -ry * 1.05, rx * 0.55, -ry * 1.25, rx * 0.98, -ry * 0.35)
+    if HAIRSTYLE == "kid":
+        hp.lineTo(rx * 0.7, -ry * 0.5)
+        hp.lineTo(rx * 0.62, -ry * 0.3)
+        hp.lineTo(rx * 0.35, -ry * 0.55)
+        hp.lineTo(rx * 0.1, -ry * 0.4)
+    else:  # side part
+        hp.cubicTo(rx * 0.5, -ry * 0.62, rx * 0.05, -ry * 0.6, -rx * 0.2, -ry * 0.72)
+    hp.cubicTo(-rx * 0.6, -ry * 0.5, -rx * 0.8, -ry * 0.2, -rx * 0.75, ry * 0.15)
+    hp.close()
+    c.drawPath(hp, paint(OUTLINE, 9))
+    c.drawPath(hp, paint(HAIR))
+    c.drawLine(-rx * 0.3, -ry * 0.88, rx * 0.4, -ry * 0.8, paint(0x33FFFFFF, 4))
+
+
+def _glasses(c):
+    for ex in (-16, 44):
+        r = skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(ex - 27, -20, ex + 27, 20), 12, 12)
+        c.drawRRect(r, paint(0xFF0B0B0D))
+        c.drawRRect(r, paint(OUTLINE, 5))
+        c.drawLine(ex - 14, -10, ex - 2, -10, paint(0x66FFFFFF, 4))
+    c.drawLine(11, -6, 17, -6, paint(OUTLINE, 6))
+    c.drawLine(-43, -6, -HEAD_RX + 4, -12, paint(OUTLINE, 6))
+
+
+def _pilot_cap(c):
+    ry = HEAD_RY
+    crown = skia.Path()
+    crown.moveTo(-HEAD_RX * 0.95, -ry * 0.62)
+    crown.lineTo(-HEAD_RX * 1.05, -ry * 1.12)
+    crown.quadTo(0, -ry * 1.32, HEAD_RX * 1.05, -ry * 1.1)
+    crown.lineTo(HEAD_RX * 0.95, -ry * 0.62)
+    crown.close()
+    c.drawPath(crown, paint(OUTLINE, 12))
+    c.drawPath(crown, paint(HAT))
+    c.drawRect(skia.Rect.MakeLTRB(-HEAD_RX * 0.95, -ry * 0.8, HEAD_RX * 0.95, -ry * 0.64), paint(0xFF0E0E10))
+    c.drawCircle(HEAD_RX * 0.35, -ry * 0.95, 13, paint(0xFFE0B040))
+    visor = skia.Path()
+    visor.moveTo(HEAD_RX * 0.1, -ry * 0.64)
+    visor.quadTo(HEAD_RX * 1.0, -ry * 0.66, HEAD_RX * 1.35, -ry * 0.48)
+    visor.quadTo(HEAD_RX * 0.9, -ry * 0.5, HEAD_RX * 0.1, -ry * 0.56)
+    visor.close()
+    c.drawPath(visor, paint(OUTLINE, 8))
+    c.drawPath(visor, paint(0xFF0E0E10))
+
+
 def _fedora(c):
+    if HATSTYLE == "pilot":
+        return _pilot_cap(c)
     """Fedora: wide brim, pinched crown, dark band."""
     ry = HEAD_RY
     c.save()
@@ -252,6 +328,8 @@ def draw_head(c, cx, cy, tilt, expr, t, look=(0, 0), blink_seed=0.0, talk=0.0):
         sh.setShader(skia.GradientShader.MakeRadial((-26, -36), HEAD_RX * 1.6,
                                                     [0x00000000, 0x00000000, 0x2A000000], [0, 0.6, 1]))
         c.drawOval(oval, sh)
+        if HAIRSTYLE:
+            _hair(c)
     elif STICK:
         _stick_head_shading(c, oval)
     else:
@@ -336,6 +414,8 @@ def draw_head(c, cx, cy, tilt, expr, t, look=(0, 0), blink_seed=0.0, talk=0.0):
         mp.moveTo(mx - w / 2, my)
         mp.quadTo(mx, my + curve * 26, mx + w / 2, my)
         c.drawPath(mp, paint(OUTLINE, 7))
+    if GLASSES:
+        _glasses(c)
     if HAT is not None:
         _fedora(c)
     c.restore()
@@ -448,9 +528,12 @@ def draw_coat(c, p, X, Y, scale, facing, expr, t, look, blink_seed, prop_hand, t
     pdx, pdy = tdy, tdx  # perpendicular to the torso (pointing forward)
     def P(v, a, b):
         return (v[0] + pdx * a, v[1] + pdy * a + b)
-    hem_y = max(kL[1], kR[1]) + 34
-    hem_b = min(kL[0], kR[0], -10) - 34
-    hem_f = max(kL[0], kR[0], 10) + 34
+    hem_y = {"long": max(kL[1], kR[1]) + 34, "short": 46, "dress": max(kL[1], kR[1]) + 6}[COAT_LEN]
+    if COAT_LEN == "short":
+        hem_b, hem_f = -50, 50
+    else:
+        hem_b = min(kL[0], kR[0], -10) - 34
+        hem_f = max(kL[0], kR[0], 10) + 34
     coat = skia.Path()
     s0 = P(sh, -46, -4)
     coat.moveTo(*s0)
@@ -471,7 +554,7 @@ def draw_coat(c, p, X, Y, scale, facing, expr, t, look, blink_seed, prop_hand, t
     v.lineTo(*P(neck, 22, 8))
     v.lineTo(*P(neck, 10, 80 * tdy))
     v.close()
-    c.drawPath(v, paint(0xFFF1EBDD))
+    c.drawPath(v, paint(SHIRT))
     tie = skia.Path()
     tie.moveTo(*P(neck, 4, 12))
     tie.lineTo(*P(neck, 14, 12))
@@ -479,7 +562,7 @@ def draw_coat(c, p, X, Y, scale, facing, expr, t, look, blink_seed, prop_hand, t
     tie.lineTo(*P(neck, 9, 82))
     tie.lineTo(*P(neck, 2, 70))
     tie.close()
-    c.drawPath(tie, paint(0xFF5A3A26))
+    c.drawPath(tie, paint(TIE))
     for side in (-1, 1):
         lap = skia.Path()
         lap.moveTo(*P(neck, 6 + side * 26, 2))
@@ -500,9 +583,10 @@ def draw_coat(c, p, X, Y, scale, facing, expr, t, look, blink_seed, prop_hand, t
     c.drawLine(b0[0], b0[1], b1[0], b1[1], paint(HOODIE_FAR, 9, cap=False))
     # pocket with a yellow notebook
     pk = P(hip, 14, 22)
-    outlined = skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(pk[0] - 18, pk[1] - 22, pk[0] + 10, pk[1] + 6), 3, 3)
-    c.drawRRect(outlined, paint(0xFFF2D04A))
-    c.drawRRect(outlined, paint(OUTLINE, 4))
+    if NOTEBOOK:
+        outlined = skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(pk[0] - 18, pk[1] - 22, pk[0] + 10, pk[1] + 6), 3, 3)
+        c.drawRRect(outlined, paint(0xFFF2D04A))
+        c.drawRRect(outlined, paint(OUTLINE, 4))
     c.drawLine(pk[0] - 24, pk[1] - 2, pk[0] + 26, pk[1] - 2, paint(OUTLINE, 5))
     # popped collar behind the head
     col = skia.Path()
@@ -637,3 +721,53 @@ def act_climb(t, **_):
 
 
 ACTIONS = {k[4:]: v for k, v in globals().items() if k.startswith("act_")}
+
+
+# ---- extra actions (series) ------------------------------------------------
+def act_sit(t, **_):  # seated, hands resting on the lap
+    b = math.sin(t * 1.3)
+    return pose(torso=4 + b * 0.8, head=4, hipL=88, knL=92, hipR=84, knR=88,
+                shL=40, elL=60, shR=34, elR=56)
+
+
+def act_sit_drink(t, **_):
+    p = act_sit(t)
+    p.update(shL=20, elL=120 + math.sin(t * 0.7) * 4)
+    return p
+
+
+def act_sit_turn(t, **_):  # seated, leaning toward the aisle to talk
+    p = act_sit(t)
+    p.update(torso=10, head=-8, shL=60, elL=40)
+    return p
+
+
+def act_hang(t, **_):  # under a parachute, holding the risers
+    s = math.sin(t * 1.4)
+    return pose(torso=s * 3, head=-10, shL=168, elL=12, shR=-168, elR=-12,
+                hipL=10 + s * 8, knL=14, hipR=-6 - s * 8, knR=10)
+
+
+def act_fall(t, **_):  # free fall, limbs spread
+    s = math.sin(t * 3)
+    return pose(rot=s * 6, torso=0, head=-20, shL=120 + s * 10, elL=20, shR=-120 - s * 10, elR=-20,
+                hipL=30, knL=30, hipR=-30, knR=30)
+
+
+def act_point(t, **_):
+    b = math.sin(t * 1.5) * 2
+    return pose(torso=2, head=-4, shL=92 + b, elL=4, shR=-6, elR=10)
+
+
+def act_dig(t, **_):  # kneeling, scooping sand
+    s = (math.sin(t * 4) + 1) / 2
+    return pose(torso=40, head=30, hipL=0, knL=95, hipR=-6, knR=95,
+                shL=40 + s * 40, elL=20, shR=30 + (1 - s) * 40, elR=20, y=SHIN - 10)
+
+
+def act_think(t, **_):  # hand on chin
+    b = math.sin(t * 1.2)
+    return pose(torso=2, head=8 + b, shL=20, elL=140, shR=-4, elR=8)
+
+
+ACTIONS.update({k[4:]: v for k, v in list(globals().items()) if k.startswith("act_")})

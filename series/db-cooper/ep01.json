@@ -1,0 +1,565 @@
+{
+ "title": "THE D.B. COOPER MYSTERY | Part 1: The Man in Seat 18C",
+ "description": "November 24, 1971. A quiet man in a dark suit boards a flight from Portland to Seattle. Thirty minutes later, he is the only hijacker in American history who was never identified.\n\nPart 1 of an animated true-crime series about the D.B. Cooper case.\n\nSubscribe so you don't miss Part 2: THE JUMP.\n\n#dbcooper #truecrime #unsolvedmystery #animation #mystery",
+ "tags": [
+  "d.b. cooper",
+  "db cooper",
+  "true crime",
+  "unsolved mystery",
+  "hijacking 1971",
+  "flight 305",
+  "animated true crime",
+  "mystery animation",
+  "fbi",
+  "unsolved cases"
+ ],
+ "voice": "am_onyx:0.5,am_michael:0.5",
+ "speed": 0.9,
+ "mood": "dark",
+ "seed": 21,
+ "grade": "cold",
+ "letterbox": true,
+ "xfade": 0.35,
+ "handheld": 5,
+ "hero": "detective",
+ "series": {
+  "name": "The D.B. Cooper Mystery",
+  "part": 1,
+  "episode_title": "The Man in Seat 18C"
+ },
+ "thumbnail": {
+  "shot": 7,
+  "text": "I HAVE A BOMB.",
+  "zoom": 1.5,
+  "focus": [
+   980,
+   400
+  ]
+ },
+ "shots": [
+  {
+   "bg": "map",
+   "bg_opts": {},
+   "say": "November twenty-fourth, nineteen seventy-one. The day before Thanksgiving. Portland, Oregon.",
+   "caption": "PORTLAND, 1971",
+   "cam": {
+    "zoom": [
+     1.6,
+     1.4
+    ],
+    "focus": [
+     980,
+     700
+    ]
+   },
+   "dof": 0
+  },
+  {
+   "bg": "tarmac",
+   "bg_opts": {
+    "jet_x": 160
+   },
+   "fx": [
+    "rain"
+   ],
+   "actor": {
+    "action": "walk",
+    "look_as": "cooper",
+    "x": 1700,
+    "move_to": 1250,
+    "facing": -1,
+    "prop": "briefcase",
+    "expr": "neutral"
+   },
+   "say": "A quiet man in a dark suit paid cash for a one-way ticket to Seattle. Eighteen dollars and fifty-two cents.",
+   "sfx": [
+    "rain"
+   ],
+   "cam": {
+    "zoom": [
+     1.0,
+     1.08
+    ],
+    "focus": [
+     1200,
+     560
+    ]
+   }
+  },
+  {
+   "bg": "tarmac",
+   "bg_opts": {
+    "jet_x": 160
+   },
+   "fx": [
+    "rain"
+   ],
+   "actor": {
+    "action": "stand",
+    "look_as": "cooper",
+    "x": 1250,
+    "facing": -1,
+    "prop": "briefcase",
+    "expr": "neutral"
+   },
+   "say": "He gave his name as Dan Cooper. White shirt. Black clip-on tie. A raincoat. A briefcase. Nobody looked at him twice.",
+   "sfx": [
+    "rain"
+   ],
+   "cam": {
+    "zoom": [
+     1.5,
+     1.7
+    ],
+    "focus": [
+     1250,
+     420
+    ]
+   },
+   "dof": 3
+  },
+  {
+   "bg": "cabin",
+   "bg_opts": {
+    "night": false
+   },
+   "actor": {
+    "action": "sit_drink",
+    "look_as": "cooper",
+    "x": 980,
+    "prop": "drink",
+    "expr": "neutral"
+   },
+   "say": "He took a seat near the back of the Boeing seven twenty-seven, lit a cigarette, and ordered a bourbon and soda.",
+   "cam": {
+    "zoom": [
+     1.1,
+     1.25
+    ],
+    "focus": [
+     980,
+     560
+    ]
+   }
+  },
+  {
+   "bg": "sky",
+   "bg_opts": {
+    "jet": true,
+    "jet_x": 250,
+    "jet_y": 620,
+    "jet_s": 0.55,
+    "jet_speed": 40,
+    "wind": 120
+   },
+   "say": "Flight three-oh-five took off a little before three p.m. Thirty-six passengers. A thirty-minute hop to Seattle.",
+   "sfx": [
+    "whoosh"
+   ],
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ],
+    "focus": [
+     760,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "cabin",
+   "bg_opts": {
+    "night": false
+   },
+   "actors": [
+    {
+     "action": "sit_turn",
+     "look_as": "cooper",
+     "x": 980,
+     "expr": "neutral"
+    },
+    {
+     "action": "stand",
+     "look_as": "attendant",
+     "x": 1330,
+     "facing": -1,
+     "expr": "happy"
+    }
+   ],
+   "say": "Then the man in the back handed a flight attendant a small folded note.",
+   "cam": {
+    "zoom": [
+     1.1,
+     1.2
+    ],
+    "focus": [
+     1120,
+     540
+    ]
+   }
+  },
+  {
+   "bg": "cabin",
+   "bg_opts": {
+    "night": false
+   },
+   "actors": [
+    {
+     "action": "sit_turn",
+     "look_as": "cooper",
+     "x": 980,
+     "expr": "neutral"
+    },
+    {
+     "action": "stand",
+     "look_as": "attendant",
+     "x": 1330,
+     "facing": -1,
+     "expr": "neutral"
+    }
+   ],
+   "say": "She assumed it was a lonely businessman's phone number. She slipped it into her pocket without reading it.",
+   "cam": {
+    "zoom": [
+     1.5,
+     1.6
+    ],
+    "focus": [
+     1300,
+     420
+    ]
+   },
+   "dof": 3
+  },
+  {
+   "bg": "cabin",
+   "bg_opts": {
+    "night": false
+   },
+   "actor": {
+    "action": "sit_turn",
+    "look_as": "cooper",
+    "x": 980,
+    "expr": "determined"
+   },
+   "say": "He leaned toward her and said quietly. Miss, you'd better look at that note. I have a bomb.",
+   "caption": "\"I HAVE A BOMB.\"",
+   "sfx": [
+    "heartbeat"
+   ],
+   "cam": {
+    "zoom": [
+     1.6,
+     1.8
+    ],
+    "focus": [
+     980,
+     420
+    ]
+   },
+   "dof": 3
+  },
+  {
+   "bg": "note",
+   "bg_opts": {
+    "lines": [
+     "I HAVE A BOMB",
+     "IN MY BRIEFCASE."
+    ]
+   },
+   "say": "The note was written in neat capital letters, with a felt-tip pen.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.12
+    ]
+   },
+   "cut": true
+  },
+  {
+   "bg": "briefcase",
+   "say": "He opened the briefcase just wide enough for her to see. Red cylinders. Wires. A battery.",
+   "sfx": [
+    "boom"
+   ],
+   "cam": {
+    "zoom": [
+     1.0,
+     1.15
+    ],
+    "focus": [
+     960,
+     560
+    ]
+   }
+  },
+  {
+   "bg": "cabin",
+   "bg_opts": {
+    "night": false
+   },
+   "actor": {
+    "action": "stand",
+    "look_as": "attendant",
+    "x": 1330,
+    "facing": -1,
+    "expr": "terrified"
+   },
+   "say": "Real or not, nobody on that plane was going to find out.",
+   "cam": {
+    "zoom": [
+     1.6,
+     1.75
+    ],
+    "focus": [
+     1330,
+     420
+    ]
+   },
+   "dof": 3
+  },
+  {
+   "bg": "note",
+   "bg_opts": {
+    "lines": [
+     "$200,000 IN $20 BILLS",
+     "4 PARACHUTES",
+     "FUEL TRUCK - SEATTLE"
+    ]
+   },
+   "say": "His demands were short. Two hundred thousand dollars, in twenty-dollar bills. Four parachutes. And a fuel truck waiting in Seattle.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ]
+   }
+  },
+  {
+   "bg": "map",
+   "bg_opts": {
+    "routes": [
+     [
+      "PORTLAND",
+      "SEATTLE",
+      1
+     ]
+    ],
+    "circle": [
+     820,
+     300
+    ],
+    "route_time": 3
+   },
+   "say": "The airline agreed to pay. And while the FBI gathered the money, the jet circled over Puget Sound for almost two hours.",
+   "cam": {
+    "zoom": [
+     1.3,
+     1.5
+    ],
+    "focus": [
+     860,
+     400
+    ]
+   },
+   "dof": 0
+  },
+  {
+   "bg": "cabin",
+   "bg_opts": {
+    "night": true,
+    "rain": true
+   },
+   "actors": [
+    {
+     "action": "sit",
+     "look_as": "stick_leo",
+     "x": 380,
+     "expr": "tired"
+    },
+    {
+     "action": "sit_drink",
+     "look_as": "agent",
+     "x": 1580,
+     "prop": "drink",
+     "expr": "neutral"
+    }
+   ],
+   "say": "The passengers were told there was a small mechanical problem. Most of them had no idea they were sharing a plane with a hijacker.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.06
+    ],
+    "focus": [
+     960,
+     560
+    ]
+   }
+  },
+  {
+   "bg": "money",
+   "bg_opts": {
+    "serials": true
+   },
+   "say": "On the ground, agents photographed all ten thousand bills, and recorded every single serial number.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.12
+    ],
+    "focus": [
+     960,
+     560
+    ]
+   }
+  },
+  {
+   "bg": "cabin",
+   "bg_opts": {
+    "night": true,
+    "rain": true
+   },
+   "actor": {
+    "action": "sit",
+    "look_as": "cooper",
+    "x": 980,
+    "expr": "neutral",
+    "look": [
+     1,
+     -0.3
+    ]
+   },
+   "say": "In his seat, the man in the dark glasses stayed calm. Looking out the window, he recognized Tacoma below. He even remarked that McChord Air Force Base was only twenty minutes away.",
+   "cam": {
+    "zoom": [
+     1.3,
+     1.45
+    ],
+    "focus": [
+     1000,
+     440
+    ]
+   }
+  },
+  {
+   "bg": "fbi",
+   "actor": {
+    "action": "think",
+    "x": 900,
+    "expr": "suspicious"
+   },
+   "say": "Investigators would later notice something strange. He was polite. He was patient. He even asked for meals to be brought aboard for the crew.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.12
+    ],
+    "focus": [
+     800,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "fbi",
+   "actor": {
+    "action": "point",
+    "x": 1240,
+    "facing": -1,
+    "expr": "determined"
+   },
+   "say": "This was not a panicked man. This was a man with a plan.",
+   "caption": "A MAN WITH A PLAN.",
+   "cam": {
+    "zoom": [
+     1.2,
+     1.35
+    ],
+    "focus": [
+     800,
+     420
+    ]
+   }
+  },
+  {
+   "bg": "tarmac",
+   "bg_opts": {
+    "jet_x": 160,
+    "truck": true,
+    "police": true
+   },
+   "fx": [
+    "rain"
+   ],
+   "say": "At five thirty-nine p.m., Flight three-oh-five finally landed in Seattle. The money and the parachutes were waiting on the tarmac.",
+   "sfx": [
+    "rain"
+   ],
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ],
+    "focus": [
+     1000,
+     560
+    ]
+   }
+  },
+  {
+   "bg": "cabin",
+   "bg_opts": {
+    "night": true,
+    "rain": true
+   },
+   "actor": {
+    "action": "sit_turn",
+    "look_as": "cooper",
+    "x": 980,
+    "expr": "determined"
+   },
+   "say": "But before anyone could leave, Dan Cooper asked about one more thing. Something no one on that plane understood.",
+   "sfx": [
+    "heartbeat"
+   ],
+   "cam": {
+    "zoom": [
+     1.5,
+     1.75
+    ],
+    "focus": [
+     980,
+     420
+    ]
+   },
+   "dof": 3
+  },
+  {
+   "bg": "tarmac",
+   "bg_opts": {
+    "jet_x": 160,
+    "jet_s": 1.0,
+    "stairs": 1.0
+   },
+   "say": "The stairs at the back of the plane. And whether the jet could fly with them open.",
+   "caption": "THE REAR STAIRS.",
+   "sfx": [
+    "boom"
+   ],
+   "cam": {
+    "zoom": [
+     1.6,
+     1.9
+    ],
+    "focus": [
+     1430,
+     700
+    ]
+   },
+   "dof": 0,
+   "cut": true
+  }
+ ]
+}
