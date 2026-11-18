@@ -30,7 +30,22 @@ SHIN = 96
 HEAD_RX, HEAD_RY = 80, 88
 NECK = 92  # neck point -> head centre
 
+STICK = False
+BAND = 0xFFD8352A  # red wristband: the hero's small signature
+
+# round-head stickman family (default hero). Bigger bald head, painted shading.
+_STICK = dict(STICK=True, HEAD_RX=94, HEAD_RY=98, HEADSET=None, SKIN=0xFFEFE9DC, SKIN_SHADE=0xFFCFC6B4,
+              HOODIE=0xFF2E3036, HOODIE_FAR=0xFF212227, NEON=0xFF2E3036, NEON2=0xFF2E3036,
+              PANTS=0xFF1C1D22, PANTS_FAR=0xFF141518)
 LOOKS = {
+    "stick": dict(_STICK),
+    "stick_leo": dict(_STICK, HOODIE=0xFF7A2A26, HOODIE_FAR=0xFF5A1D1A, NEON=0xFF7A2A26, NEON2=0xFF7A2A26,
+                      BAND=None),
+    "stick_officer": dict(_STICK, HOODIE=0xFF22385E, HOODIE_FAR=0xFF182945, NEON=0xFF22385E,
+                          NEON2=0xFFD9B44A, BAND=None),
+    "stick_shadow": dict(_STICK, SKIN=0xFF0A0A0E, SKIN_SHADE=0xFF050507, HOODIE=0xFF0A0A0E,
+                         HOODIE_FAR=0xFF050507, NEON=0xFF0A0A0E, NEON2=0xFF0A0A0E, PANTS=0xFF08080B,
+                         PANTS_FAR=0xFF050507, EYES=0xFFFFFFFF, BAND=None),
     "streamer": {},
     "leo": dict(HOODIE=0xFF8E2B2B, HOODIE_FAR=0xFF6A1E1E, NEON=0xFFFFC23D, NEON2=0xFFFFFFFF,
                 HAIR=0xFF6B4226, PANTS=0xFF2A3550, PANTS_FAR=0xFF1E2740),
@@ -49,9 +64,12 @@ def set_look(name):
     g = globals()
     if _DEFAULTS is None:
         _DEFAULTS = {k: g[k] for k in ("SKIN", "SKIN_SHADE", "HAIR", "HOODIE", "HOODIE_FAR", "NEON",
-                                       "NEON2", "HEADSET", "PANTS", "PANTS_FAR", "EYES")}
+                                       "NEON2", "HEADSET", "PANTS", "PANTS_FAR", "EYES",
+                                       "STICK", "HEAD_RX", "HEAD_RY", "BAND")}
     g.update(_DEFAULTS)
     g.update(LOOKS.get(name, {}))
+    if not g["STICK"]:
+        g["BAND"] = None
 
 
 EYES = None
@@ -87,7 +105,7 @@ EXPR = {
     "angry":      dict(brow=(20, -10), lid=0.15, mouth=(-0.5, 0.25, 30), pupil=7),
     "sad":        dict(brow=(-14, 6), lid=0.2, mouth=(-0.6, 0.0, 26), pupil=8),
     "tired":      dict(brow=(-4, 4), lid=0.55, mouth=(-0.2, 0.0, 22), pupil=7),
-    "happy":      dict(brow=(-6, -6), lid=0.0, mouth=(0.8, 0.15, 34), pupil=8),
+    "happy":      dict(brow=(-6, -6), lid=0.0, mouth=(0.8, 0.0, 34), pupil=8),
     "proud":      dict(brow=(-2, -6), lid=0.2, mouth=(0.6, 0.0, 30), pupil=8),
     "shocked":    dict(brow=(-16, -12), lid=0.0, mouth=(0.0, 0.7, 18), pupil=5),
     "anxious":    dict(brow=(-12, 4), lid=0.0, mouth=(-0.3, 0.1, 24), pupil=5),
@@ -161,6 +179,22 @@ def _headset(c):
                 paint(OUTLINE))
 
 
+def _stick_head_shading(c, oval):
+    """Soft painted look: key light from the upper left, core shadow lower right, rim light."""
+    hi = skia.Paint(AntiAlias=True)
+    hi.setShader(skia.GradientShader.MakeRadial((-34, -44), HEAD_RX * 1.1, [0x40FFFFFF, 0x00FFFFFF]))
+    c.drawOval(oval, hi)
+    sh = skia.Paint(AntiAlias=True)
+    sh.setShader(skia.GradientShader.MakeRadial((-30, -40), HEAD_RX * 1.55,
+                                                [0x00000000, 0x00000000, 0x55000000], [0, 0.55, 1]))
+    c.drawOval(oval, sh)
+    rim = skia.Paint(AntiAlias=True)
+    rim.setStyle(skia.Paint.kStroke_Style)
+    rim.setStrokeWidth(5)
+    rim.setColor(0x55FFFFFF)
+    c.drawArc(oval.makeInset(6, 6), 200, 60, False, rim)
+
+
 def draw_head(c, cx, cy, tilt, expr, t, look=(0, 0), blink_seed=0.0, talk=0.0):
     e = EXPR.get(expr, EXPR["neutral"])
     c.save()
@@ -168,46 +202,49 @@ def draw_head(c, cx, cy, tilt, expr, t, look=(0, 0), blink_seed=0.0, talk=0.0):
     c.rotate(tilt)
     # head
     oval = skia.Rect.MakeLTRB(-HEAD_RX, -HEAD_RY, HEAD_RX, HEAD_RY)
-    c.drawOval(oval.makeOutset(5, 5), paint(OUTLINE))
+    c.drawOval(oval.makeOutset(7 if STICK else 5, 7 if STICK else 5), paint(OUTLINE))
     c.drawOval(oval, paint(SKIN))
-    # soft shade on the back-lower side
-    shade = skia.Paint(AntiAlias=True)
-    shade.setShader(skia.GradientShader.MakeRadial(
-        (-20, -30), 130, [0x00000000, 0x33000000]))
-    c.drawOval(oval, shade)
-    # hair tuft (signature)
-    hp = skia.Path()
-    hp.moveTo(-70, -40)
-    hp.cubicTo(-80, -100, -20, -112, 10, -100)
-    hp.lineTo(4, -122)
-    hp.lineTo(30, -98)
-    hp.lineTo(40, -116)
-    hp.lineTo(52, -88)
-    hp.cubicTo(70, -78, 78, -60, 76, -42)
-    hp.cubicTo(50, -70, 0, -76, -70, -40)
-    hp.close()
-    c.drawPath(hp, paint(OUTLINE, 10))
-    c.drawPath(hp, paint(HAIR))
-    if HEADSET is None:
-        c.drawCircle(-HEAD_RX + 6, 10, 15, paint(OUTLINE))
-        c.drawCircle(-HEAD_RX + 6, 10, 10, paint(SKIN_SHADE))
+    if STICK:
+        _stick_head_shading(c, oval)
     else:
-        _headset(c)
+        shade = skia.Paint(AntiAlias=True)
+        shade.setShader(skia.GradientShader.MakeRadial((-20, -30), 130, [0x00000000, 0x33000000]))
+        c.drawOval(oval, shade)
+        # hair tuft
+        hp = skia.Path()
+        hp.moveTo(-70, -40)
+        hp.cubicTo(-80, -100, -20, -112, 10, -100)
+        hp.lineTo(4, -122)
+        hp.lineTo(30, -98)
+        hp.lineTo(40, -116)
+        hp.lineTo(52, -88)
+        hp.cubicTo(70, -78, 78, -60, 76, -42)
+        hp.cubicTo(50, -70, 0, -76, -70, -40)
+        hp.close()
+        c.drawPath(hp, paint(OUTLINE, 10))
+        c.drawPath(hp, paint(HAIR))
+        if HEADSET is None:
+            c.drawCircle(-HEAD_RX + 6, 10, 15, paint(OUTLINE))
+            c.drawCircle(-HEAD_RX + 6, 10, 10, paint(SKIN_SHADE))
+        else:
+            _headset(c)
 
     # blinking
     bt = (t + blink_seed) % 3.7
     blink = 1.0 if bt < 0.12 else 0.0
     lid = max(e["lid"], blink)
-    fx = 16  # face shift toward facing direction (3/4 view)
-    for side, ex in ((-1, -28 + fx), (1, 32 + fx)):
-        ey = -2
-        rx, ry = 17, 21
+    fx = 14 if STICK else 16  # face shift toward facing direction (3/4 view)
+    eyes = ((-1, -30 + fx), (1, 30 + fx)) if STICK else ((-1, -28 + fx), (1, 32 + fx))
+    for side, ex in eyes:
+        ey = 0 if STICK else -2
+        rx, ry = (21, 25) if STICK else (17, 21)
         c.drawOval(skia.Rect.MakeLTRB(ex - rx - 4, ey - ry - 4, ex + rx + 4, ey + ry + 4), paint(OUTLINE))
         if EYES is not None:  # silhouette: two glowing slits, nothing else
             c.drawOval(skia.Rect.MakeLTRB(ex - 12, ey - 5, ex + 12, ey + 5), paint(EYES))
             continue
         c.drawOval(skia.Rect.MakeLTRB(ex - rx, ey - ry, ex + rx, ey + ry), paint(0xFFFFFFFF))
         pr = e["pupil"]
+        pr = pr * (1.35 if STICK else 1)
         c.drawCircle(ex + 4 + look[0] * 7, ey + 2 + look[1] * 7, pr + 1, paint(OUTLINE))
         c.drawCircle(ex + 6 + look[0] * 7, ey - 1 + look[1] * 7, 2.5, paint(0xFFFFFFFF))
         if lid > 0.01:
@@ -221,19 +258,24 @@ def draw_head(c, cx, cy, tilt, expr, t, look=(0, 0), blink_seed=0.0, talk=0.0):
         inner, outer = e["brow"]
         bx_in = ex - side * 2 if side < 0 else ex - 14
         if side < 0:
-            p0 = (ex - 18, ey - 34 + outer)
-            p1 = (ex + 14, ey - 34 + inner)
+            p0 = (ex - 22, ey - ry - 12 + outer)
+            p1 = (ex + 16, ey - ry - 12 + inner)
         else:
-            p0 = (ex - 14, ey - 34 + inner)
-            p1 = (ex + 18, ey - 34 + outer)
-        c.drawLine(p0[0], p0[1], p1[0], p1[1], paint(OUTLINE, 9))
+            p0 = (ex - 16, ey - ry - 12 + inner)
+            p1 = (ex + 22, ey - ry - 12 + outer)
+        c.drawLine(p0[0], p0[1], p1[0], p1[1], paint(OUTLINE, 13 if STICK else 9))
+        if STICK and expr in ("tired", "sad", "empty", "scared", "anxious"):
+            bag = skia.Path()
+            bag.moveTo(ex - rx + 4, ey + ry + 6)
+            bag.quadTo(ex, ey + ry + 16, ex + rx - 4, ey + ry + 6)
+            c.drawPath(bag, paint(0x99000000, 4))
     if EYES is not None:
         c.restore()
         return
     # mouth
     curve, mopen, w = e["mouth"]
     mopen = max(mopen, talk)
-    mx, my = fx + 6, 48
+    mx, my = (fx + 2, 58) if STICK else (fx + 6, 48)
     if mopen > 0.05:
         r = skia.Rect.MakeLTRB(mx - w * 0.55, my - 6 - curve * 6, mx + w * 0.55, my + 6 + mopen * 26)
         c.drawOval(r, paint(OUTLINE))
@@ -281,22 +323,32 @@ def draw(c, p, X, Y, scale=1.0, facing=1, expr="neutral", t=0.0, look=(0, 0),
     sh_p = skia.Paint(AntiAlias=True)
     sh_p.setShader(skia.GradientShader.MakeLinear([(-40, 0), (40, 0)], [0x55000000, 0x00000000]))
     c.drawPath(body, sh_p)
-    # neon chest stripe + drawstrings
-    c.drawLine(hip[0] - 26 + tdx * 70, hip[1] - tdy * 70, hip[0] + 28 + tdx * 70, hip[1] - tdy * 70,
-               paint(NEON2, 7))
-    for dx in (-10, 12):
+    # neon chest stripe + drawstrings (streamer only)
+    if not STICK:
+        c.drawLine(hip[0] - 26 + tdx * 70, hip[1] - tdy * 70, hip[0] + 28 + tdx * 70, hip[1] - tdy * 70,
+                   paint(NEON2, 7))
+    for dx in ((-10, 12) if not STICK else (-9, 11)):
         c.drawLine(neck[0] + dx, neck[1] + 20, neck[0] + dx - tdx * 40, neck[1] + 20 + tdy * 40,
-                   paint(NEON, 4))
+                   paint(NEON if not STICK else 0xFFBFBFBF, 4))
     if not hide_legs:
         joint_chain(c, hip, p["hipL"], THIGH, p["hipL"] - p["knL"], SHIN, PANTS, 36, SHOE, 0)
         _foot(c, hip, p["hipL"], p["hipL"] - p["knL"], PANTS)
+    if STICK:  # hood resting behind the head
+        hood = skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(neck[0] - 62, neck[1] - 40, neck[0] + 40, neck[1] + 22), 30, 30)
+        c.drawRRect(hood, paint(OUTLINE))
+        c.drawRRect(skia.RRect.MakeRectXY(hood.rect().makeInset(6, 6), 24, 24), paint(HOODIE_FAR))
     # hood collar
     c.drawCircle(neck[0], neck[1] + 4, 30, paint(OUTLINE))
     c.drawCircle(neck[0], neck[1] + 4, 24, paint(HOODIE_FAR))
     draw_head(c, head_c[0], head_c[1], p["head"], expr, t, look, blink_seed, talk)
     # near arm last
-    _, hand = joint_chain(c, sh, p["torso"] + p["shL"], UPPER_ARM,
-                          p["torso"] + p["shL"] + p["elL"], FOREARM, HOODIE, 32, SKIN, 16)
+    elbow, hand = joint_chain(c, sh, p["torso"] + p["shL"], UPPER_ARM,
+                              p["torso"] + p["shL"] + p["elL"], FOREARM, HOODIE, 32, SKIN, 16)
+    if BAND:  # red wristband just above the hand
+        bx = hand[0] + (elbow[0] - hand[0]) * 0.22
+        by = hand[1] + (elbow[1] - hand[1]) * 0.22
+        c.drawCircle(bx, by, 14, paint(OUTLINE))
+        c.drawCircle(bx, by, 10, paint(BAND))
     if prop_hand:
         prop_hand(c, hand, p["torso"] + p["shL"] + p["elL"])
     c.restore()

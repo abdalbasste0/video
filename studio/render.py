@@ -210,7 +210,7 @@ def draw_world(c, s, lt, T, story):
         lights = lights + scenes.desk_front(c, T, o)
     hands = {}
     for i, a in enumerate(_actor_list(s)):
-        ch.set_look(a.get("look_as", "streamer"))
+        ch.set_look(a.get("look_as", story.get("hero", "stick")))
         act = a.get("action", "stand")
         x0 = a.get("x", W / 2)
         x1 = a.get("move_to", x0)
@@ -250,7 +250,7 @@ def draw_world(c, s, lt, T, story):
         if a.get("prop") == "phone":
             lights = lights + [(x - 150 if act == "lie" else x + 40, y - 200 if act != "lie" else y - 60,
                                 360, 0xFF8EC9FF, 0.9)]
-    ch.set_look("streamer")
+    ch.set_look(story.get("hero", "stick"))
     if bgname == "bedroom" and any(a.get("action") == "lie" for a in _actor_list(s)):
         scenes.blanket(c, o)
     for (lx, ly, r, colr, inten) in lights:

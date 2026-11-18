@@ -24,10 +24,10 @@
  "thumbnail": {
   "shot": 3,
   "text": "WHO LET YOU IN?",
-  "zoom": 1.15,
+  "zoom": 1.3,
   "focus": [
-   760,
-   560
+   700,
+   470
   ]
  },
  "shots": [
@@ -65,7 +65,7 @@
     "action": "sit_desk",
     "expr": "happy",
     "x": 880,
-    "look_as": "leo"
+    "look_as": "stick_leo"
    },
    "say": "He was laughing. Talking to chat. Then, in the middle of a sentence, he stopped.",
    "sfx": [
@@ -98,7 +98,7 @@
     "action": "sit_desk",
     "expr": "scared",
     "x": 880,
-    "look_as": "leo",
+    "look_as": "stick_leo",
     "look": [
      -1,
      0
@@ -137,7 +137,7 @@
      "action": "sit_desk",
      "expr": "shocked",
      "x": 880,
-     "look_as": "leo",
+     "look_as": "stick_leo",
      "look": [
       -1,
       0
@@ -146,7 +146,7 @@
     {
      "action": "stand",
      "x": 445,
-     "look_as": "shadow",
+     "look_as": "stick_shadow",
      "appear_at": 0.6
     }
    ],
@@ -206,7 +206,7 @@
     "action": "stand",
     "expr": "neutral",
     "x": 1050,
-    "look_as": "officer",
+    "look_as": "stick_officer",
     "facing": -1
    },
    "say": "Police found the apartment locked. From the inside. His phone was on the desk. His shoes were by the door. Nobody in the building heard a thing.",
@@ -589,7 +589,7 @@
     {
      "action": "stand",
      "x": 445,
-     "look_as": "shadow",
+     "look_as": "stick_shadow",
      "appear_at": 1.6
     }
    ],
