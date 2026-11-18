@@ -1,0 +1,61 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "map": {
+  "center": [
+   -112,
+   38
+  ],
+  "scale": 2300,
+  "highlight": [
+   {
+    "state": "California",
+    "color": "#2f63c6"
+   }
+  ],
+  "states": true,
+  "pins": [
+   {
+    "lonlat": [
+     -122.42,
+     37.77
+    ],
+    "label": "San Francisco"
+   }
+  ]
+ },
+ "characters": [
+  {
+   "spec": {
+    "name": "Vlad Magdalin",
+    "role": "Webflow co-founder",
+    "note": "Draft look: not checked against a photo yet. Owner to confirm or send a reference photo.",
+    "skin": "#f1cfb0",
+    "hair": {
+     "style": "short-side",
+     "color": "#4a3324"
+    },
+    "facialHair": "trimmed",
+    "facialHairColor": "#4a3324",
+    "face": {
+     "mouth": "smile",
+     "brows": "normal"
+    },
+    "outfit": {
+     "type": "hoodie",
+     "color": "#3c4f73",
+     "accent": "#e8e2d4"
+    }
+   },
+   "lonlat": [
+    -114.8,
+    39.6
+   ],
+   "scale": 1.75,
+   "dy": 60
+  }
+ ],
+ "caption": "2012",
+ "captionY": 1560,
+ "captionSize": 110
+}

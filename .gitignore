@@ -4,3 +4,4 @@ __pycache__/
 company/inbox/footage/*
 !company/inbox/footage/.gitkeep
 company/projects/*/renders/
+tools/chibi/node_modules/

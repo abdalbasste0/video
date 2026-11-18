@@ -1,0 +1,21 @@
+{
+ "name": "Vlad Magdalin",
+ "role": "Webflow co-founder",
+ "note": "Draft look: not checked against a photo yet. Owner to confirm or send a reference photo.",
+ "skin": "#f1cfb0",
+ "hair": {
+  "style": "short-side",
+  "color": "#4a3324"
+ },
+ "facialHair": "trimmed",
+ "facialHairColor": "#4a3324",
+ "face": {
+  "mouth": "smile",
+  "brows": "normal"
+ },
+ "outfit": {
+  "type": "hoodie",
+  "color": "#3c4f73",
+  "accent": "#e8e2d4"
+ }
+}
