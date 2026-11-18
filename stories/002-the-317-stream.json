@@ -17,7 +17,7 @@
  "speed": 0.88,
  "mood": "dark",
  "seed": 9,
- "grade": "noir",
+ "grade": "cold",
  "letterbox": true,
  "xfade": 0.35,
  "handheld": 6,
@@ -146,7 +146,7 @@
     {
      "action": "stand",
      "x": 445,
-     "look_as": "stick_shadow",
+     "look_as": "detective_shadow",
      "appear_at": 0.6
     }
    ],
@@ -206,7 +206,7 @@
     "action": "stand",
     "expr": "neutral",
     "x": 1050,
-    "look_as": "stick_officer",
+    "look_as": "detective_officer",
     "facing": -1
    },
    "say": "Police found the apartment locked. From the inside. His phone was on the desk. His shoes were by the door. Nobody in the building heard a thing.",
@@ -228,7 +228,7 @@
     "rain"
    ],
    "actor": {
-    "action": "trudge",
+    "action": "walk",
     "expr": "suspicious",
     "x": 350,
     "move_to": 900
@@ -589,7 +589,7 @@
     {
      "action": "stand",
      "x": 445,
-     "look_as": "stick_shadow",
+     "look_as": "detective_shadow",
      "appear_at": 1.6
     }
    ],
@@ -624,5 +624,6 @@
    "tail": 1.4,
    "fade_out": 1.2
   }
- ]
+ ],
+ "hero": "detective"
 }

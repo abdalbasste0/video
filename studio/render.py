@@ -216,7 +216,8 @@ def draw_world(c, s, lt, T, story):
         x1 = a.get("move_to", x0)
         mk = ch.ease(lt / s["dur"]) if a.get("ease_move") else lt / s["dur"]
         x = ch.lerp(x0, x1, mk)
-        y = a.get("y", ACTION_Y.get(act, STAND_Y))
+        stand_y = scenes.GROUND - ch.THIGH - ch.SHIN - 14
+        y = a.get("y", ACTION_Y.get(act, stand_y) if act not in ("kneel", "pushup") else stand_y)
         if bgname == "mountain":
             y = scenes.slope_y(x) - ch.THIGH - ch.SHIN - 12
         if a.get("appear_at") is not None and lt < a["appear_at"]:
