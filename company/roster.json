@@ -8,7 +8,7 @@
       "role": "CEO",
       "room": "ceo-suite",
       "sprite": "#d4a24c",
-      "xp": 20,
+      "xp": 30,
       "skills": [
         "delegation",
         "prioritization"

@@ -1,11 +1,11 @@
 {
-  "updated": "2026-11-18T14:21:00+00:00",
+  "updated": "2026-11-18T17:51:01+00:00",
   "agents": {
     "ceo": {
       "status": "idle",
       "task": null,
       "bubble": "Handed to Yasmin ✓",
-      "since": "2026-11-17T17:03:00+00:00"
+      "since": "2026-11-18T17:51:01+00:00"
     },
     "chief-of-staff": {
       "status": "idle",
@@ -185,16 +185,21 @@
         "company/projects/2026-11-17-affiliate-pixel-stories/brief.md",
         "company/projects/2026-11-18-chibi-style/chibi/synthesia.chibi.json",
         "company/projects/2026-11-18-chibi-style/chibi/elevenlabs.chibi.json",
-        "company/projects/2026-11-18-chibi-style/chibi/kit.chibi.json"
+        "company/projects/2026-11-18-chibi-style/chibi/kit.chibi.json",
+        "company/projects/2026-11-18-chibi-style/chibi/webflow.chibi.json"
       ],
       "notes": [
         {
           "t": "2026-11-17T17:03:00+00:00",
           "note": "10 stories QA PASS, 20 silent renders delivered, SEO + calendar ready. Waiting: voiceovers, affiliate approvals, pricing checks."
+        },
+        {
+          "t": "2026-11-18T17:51:01+00:00",
+          "note": "Chibi-map style: 10 long + 10 short rendered with Chatterbox voice; 10 shorts emailed to fikraff3@gmail.com (under 3 MB each); full-quality 20 delivered in chat."
         }
       ],
       "created": "2026-11-17T16:32:36+00:00",
-      "updated": "2026-11-17T17:03:00+00:00"
+      "updated": "2026-11-18T17:51:01+00:00"
     }
   },
   "needs_you": {
@@ -363,6 +368,14 @@
       "task": "T-002",
       "done": false,
       "created": "2026-11-18T14:18:40+00:00"
+    },
+    "N-021": {
+      "id": "N-021",
+      "text": "Check the 21 chibi characters against real photos (looks were drawn from memory; web search was blocked for the designers). Send photos of anyone who looks wrong.",
+      "from": "thumbnail-designer",
+      "task": "T-002",
+      "done": false,
+      "created": "2026-11-18T17:51:01+00:00"
     }
   },
   "log": [
@@ -1303,10 +1316,38 @@
       "kind": "xp",
       "text": "+10 XP: delivered: Chibi maps + 5 cast files for kit, hubspot, firefl",
       "task": null
+    },
+    {
+      "t": "2026-11-18T17:51:01+00:00",
+      "agent": "ceo",
+      "kind": "task",
+      "text": "T-002 → review: Chibi-map style: 10 long + 10 short rendered with Chatterbox voice; 10 shorts emailed to fikraff3@gmail.com (under 3 MB each); full-quality 20 delivered in chat.",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-18T17:51:01+00:00",
+      "agent": "thumbnail-designer",
+      "kind": "needs-you",
+      "text": "Check the 21 chibi characters against real photos (looks were drawn from memory; web search was blocked for the designers). Send photos of anyone who looks wrong.",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-18T17:51:01+00:00",
+      "agent": "ceo",
+      "kind": "done",
+      "text": "10 chibi-map videos delivered, shorts emailed → company/projects/2026-11-18-chibi-style/chibi/webflow.chibi.json",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-18T17:51:01+00:00",
+      "agent": "ceo",
+      "kind": "xp",
+      "text": "+10 XP: delivered: 10 chibi-map videos delivered, shorts emailed",
+      "task": null
     }
   ],
   "counters": {
     "task": 2,
-    "need": 20
+    "need": 21
   }
 }
