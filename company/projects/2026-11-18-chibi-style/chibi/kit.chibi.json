@@ -32,7 +32,7 @@
     {
      "id": "nathan",
      "pos": [
-      0.6,
+      0.55,
       0.82
      ],
      "mouth": "sad",
@@ -41,7 +41,7 @@
     {
      "id": "person",
      "pos": [
-      0.8,
+      0.82,
       0.82
      ],
      "flip": true,
@@ -310,8 +310,8 @@
     {
      "type": "card",
      "pos": [
-      0.42,
-      0.3
+      0.4,
+      0.24
      ],
      "text": "$1,300",
      "sub": "A MONTH",
@@ -321,8 +321,8 @@
     {
      "type": "stamp",
      "pos": [
-      0.76,
-      0.3
+      0.74,
+      0.4
      ],
      "text": "NOT A SALARY",
      "enterAt": 5.4
@@ -682,7 +682,7 @@
      "type": "stamp",
      "pos": [
       0.3,
-      0.2
+      0.32
      ],
      "text": "BIG MISTAKE",
      "enterAt": 1.6

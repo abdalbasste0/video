@@ -332,7 +332,7 @@
      ],
      "title": "THE BET",
      "lines": [
-      "HELPFUL BLOG POST",
+      "BLOG POST",
       "beats",
       "COLD CALL"
      ],
@@ -361,14 +361,14 @@
     {
      "id": "brian",
      "pos": [
-      0.3,
+      0.56,
       0.82
      ]
     },
     {
      "id": "dharmesh",
      "pos": [
-      0.46,
+      0.72,
       0.82
      ],
      "mouth": "grin"
@@ -384,7 +384,7 @@
     {
      "type": "laptop",
      "pos": [
-      0.6,
+      0.86,
       0.84
      ],
      "enterAt": 7.0
@@ -844,19 +844,10 @@
       0.3
      ],
      "text": "$3.13 BILLION",
+     "sub": "UP 19%",
      "count": true,
      "size": 56,
      "enterAt": 3.4
-    },
-    {
-     "type": "card",
-     "pos": [
-      0.5,
-      0.2
-     ],
-     "text": "+19%",
-     "size": 56,
-     "enterAt": 5.6
     },
     {
      "type": "card",

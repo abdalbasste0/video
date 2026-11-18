@@ -73,8 +73,8 @@
     {
      "type": "stamp",
      "pos": [
-      0.7,
-      0.28
+      0.72,
+      0.4
      ],
      "text": "HUMANS!",
      "enterAt": 9.4
@@ -390,7 +390,7 @@
      "type": "stamp",
      "pos": [
       0.72,
-      0.3
+      0.4
      ],
      "text": "AI NOT READY",
      "enterAt": 8.0

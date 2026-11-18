@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-18T14:19:45+00:00",
+  "updated": "2026-11-18T14:21:00+00:00",
   "agents": {
     "ceo": {
       "status": "idle",
@@ -59,7 +59,7 @@
       "status": "idle",
       "task": null,
       "bubble": "Handed to Yasmin ✓",
-      "since": "2026-11-18T14:19:45+00:00"
+      "since": "2026-11-18T14:21:00+00:00"
     },
     "recording-producer": {
       "status": "idle",
@@ -184,7 +184,8 @@
         "company/projects/2026-11-17-affiliate-pixel-stories/08-seo-and-calendar.md",
         "company/projects/2026-11-17-affiliate-pixel-stories/brief.md",
         "company/projects/2026-11-18-chibi-style/chibi/synthesia.chibi.json",
-        "company/projects/2026-11-18-chibi-style/chibi/elevenlabs.chibi.json"
+        "company/projects/2026-11-18-chibi-style/chibi/elevenlabs.chibi.json",
+        "company/projects/2026-11-18-chibi-style/chibi/kit.chibi.json"
       ],
       "notes": [
         {
@@ -1287,6 +1288,20 @@
       "agent": "thumbnail-designer",
       "kind": "level-up",
       "text": "Level 2 (Junior / مبتدئ)",
+      "task": null
+    },
+    {
+      "t": "2026-11-18T14:21:00+00:00",
+      "agent": "thumbnail-designer",
+      "kind": "done",
+      "text": "Chibi maps + 5 cast files for kit, hubspot, fireflies → company/projects/2026-11-18-chibi-style/chibi/kit.chibi.json",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-18T14:21:00+00:00",
+      "agent": "thumbnail-designer",
+      "kind": "xp",
+      "text": "+10 XP: delivered: Chibi maps + 5 cast files for kit, hubspot, firefl",
       "task": null
     }
   ],
