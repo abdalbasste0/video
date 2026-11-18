@@ -1,17 +1,31 @@
 # Publishing schedule
 
-**Rhythm:** 2 long films a week (Tuesday + Friday) + a Shorts cut of every film two days later.
-**Time:** 17:00 UTC (12:00 New York / 20:00 Riyadh); the US is the most valuable audience for an English channel.
-Every upload goes up as **private with a scheduled date**, so you can review it in YouTube Studio first.
+All times are **17:00 UTC** (8 p.m. Riyadh / noon New York). Every video goes up **private and scheduled**,
+so you can review it in YouTube Studio before it goes public.
 
-| # | Date | Type | Title | Status |
-|---|------|------|-------|--------|
-| 1 | Fri 2026-11-20 | Film | ZERO VIEWERS | ✅ produced, awaiting your review |
-| 1s | Sun 2026-11-22 | Short | ZERO VIEWERS #shorts | ✅ produced |
-| 2 | Tue 2026-11-24 | Film | ONE MORE GAME. (gaming addiction / lost nights) | script |
-| 3 | Fri 2026-11-27 | Film | DOPAMINE DETOX. (7 days with no phone) | idea |
-| 4 | Tue 2026-12-01 | Film | THE 5AM STREAMER. (morning discipline) | idea |
-| 5 | Fri 2026-12-04 | Film | RAGE QUIT. (quitting when it gets hard) | idea |
-| 6 | Tue 2026-12-08 | Film | COMPARISON. (other people's numbers) | idea |
-| 7 | Fri 2026-12-11 | Film | THE LAST LIVE. (burnout and rest) | idea |
-| 8 | Tue 2026-12-15 | Film | 365 DAYS LATER. (one year of consistency) | idea |
+| Date | Video | Note |
+|---|---|---|
+| Thu 19 Nov | D.B. Cooper, Part 1: The Man in Seat 18C | start of the series |
+| Fri 20 Nov | Short: Cooper, part 1 | |
+| Sat 21 Nov | D.B. Cooper, Part 2: The Jump | |
+| Sun 22 Nov | D.B. Cooper, Part 3: The Money in the Sand | |
+| Mon 23 Nov | Short: Cooper, part 2 | |
+| **Tue 24 Nov** | **D.B. Cooper, Part 4: Who Was D.B. Cooper?** | **55th anniversary of the hijacking (24 Nov 1971)** |
+| Wed 25 Nov | Short: Cooper, part 3 | |
+| Thu 26 Nov | Short: Cooper, part 4 | |
+| Fri 27 Nov | THE 3:17 STREAM (standalone mystery) | |
+| Sat 28 Nov | Short: THE 3:17 STREAM | |
+| Mon 30 Nov | Mary Celeste, Part 1: The Ghost Ship | |
+| Tue 1 Dec | Short: Mary Celeste, part 1 | |
+| Wed 2 Dec | Mary Celeste, Part 2: The Hearing at Gibraltar | |
+| Thu 3 Dec | Short: Mary Celeste, part 2 | |
+| **Fri 4 Dec** | **Mary Celeste, Part 3: What Happened?** | **the day the ship was found (4 Dec 1872)** |
+| Sat 5 Dec | Short: Mary Celeste, part 3 | |
+
+ZERO VIEWERS (the old character) is out of the schedule; it can be remade with the new character.
+
+## To publish everything at once (after the one-time YouTube setup, see studio/youtube.py)
+```bash
+python -m studio.youtube auth
+python -m studio.publish_schedule
+```
