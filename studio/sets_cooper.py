@@ -298,8 +298,9 @@ def bg_fbi(c, t, W, H, o):
         c.drawRect(skia.Rect.MakeLTRB(1426, y, 1794, y + 12), paint(0xFF8A7E66))
     # cork board
     outlined_rect(c, 260, 170, 1160, 640, 0xFFA87B4E, 8, 12)
-    pins = [(340, 220, "PHOTO"), (600, 240, "NOTE"), (880, 220, "TIE"), (420, 430, "MAP"), (760, 430, "$20"),
-            (1020, 420, "?")]
+    labels = o.get("pins", ["PHOTO", "NOTE", "TIE", "MAP", "$20", "?"])
+    pos = [(340, 220), (600, 240), (880, 220), (420, 430), (760, 430), (1020, 420)]
+    pins = [(x, y, k) for (x, y), k in zip(pos, labels)]
     for (x, y, kind) in pins:
         outlined_rect(c, x, y, x + 140, y + 170, 0xFFF4EFE2, 3, 5)
         if kind == "PHOTO":  # sketch of the suspect: round head + dark glasses
@@ -310,8 +311,11 @@ def bg_fbi(c, t, W, H, o):
                 c.drawRRect(skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(ex - 14, y + 70, ex + 14, y + 90), 6, 6),
                             paint(0xFF0B0B0D))
         else:
-            c.drawString(kind, x + 70 - font(40, "Black").measureText(kind) / 2, y + 100,
-                         font(40, "Black"), paint(0xFF333333))
+            fs = 40
+            while font(fs, "Black").measureText(kind) > 124:
+                fs -= 2
+            c.drawString(kind, x + 70 - font(fs, "Black").measureText(kind) / 2, y + 100,
+                         font(fs, "Black"), paint(0xFF333333))
         c.drawCircle(x + 70, y + 12, 8, paint(0xFFD32F2F))
     red = paint(0xFFD32F2F, 4)
     for a, b in ((0, 1), (1, 2), (0, 3), (3, 4), (4, 5), (2, 5), (1, 4)):

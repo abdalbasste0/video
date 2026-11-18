@@ -1,0 +1,406 @@
+{
+ "voice": "am_onyx:0.5,am_michael:0.5",
+ "speed": 0.9,
+ "mood": "dark",
+ "grade": "cold",
+ "letterbox": true,
+ "xfade": 0.35,
+ "handheld": 5,
+ "hero": "detective",
+ "seed": 33,
+ "title": "THE MARY CELESTE | Part 3: What Happened?",
+ "description": "Pirates, sea monsters, alcohol fumes, a broken pump. After 150 years, what really happened to the ten people on the Mary Celeste? The final part.\n\nPart 3 (final) of an animated mystery series about the Mary Celeste. Tell us your theory in the comments.\n\n#maryceleste #ghostship #unsolvedmystery #animation #history",
+ "tags": [
+  "mary celeste",
+  "ghost ship",
+  "unsolved mystery",
+  "true story",
+  "animated mystery",
+  "history mystery",
+  "sea mystery",
+  "abandoned ship",
+  "1872",
+  "mystery animation",
+  "mary celeste theory",
+  "what happened to the mary celeste"
+ ],
+ "series": {
+  "name": "The Mary Celeste",
+  "part": 3,
+  "episode_title": "What Happened?",
+  "final": true,
+  "previously": "The Mary Celeste was found drifting with no one on board. A court in Gibraltar found no evidence of a crime. So why would ten people leave a seaworthy ship in the middle of the ocean?"
+ },
+ "thumbnail": {
+  "shot": 5,
+  "text": "WHAT HAPPENED?",
+  "zoom": 1.2,
+  "focus": [
+   960,
+   480
+  ]
+ },
+ "shots": [
+  {
+   "bg": "fbi",
+   "actor": {
+    "action": "think",
+    "x": 900,
+    "expr": "suspicious"
+   },
+   "say": "For more than a hundred and fifty years, people have suggested every explanation imaginable. Pirates. Giant waves. Sea monsters. Even aliens.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.12
+    ],
+    "focus": [
+     850,
+     520
+    ]
+   },
+   "bg_opts": {
+    "pins": [
+     "SHIP",
+     "LOG",
+     "BARRELS",
+     "PUMP",
+     "BOAT",
+     "?"
+    ]
+   }
+  },
+  {
+   "bg": "fbi",
+   "actor": {
+    "action": "point",
+    "x": 1240,
+    "facing": -1,
+    "expr": "determined"
+   },
+   "say": "But pirates would have taken the cargo and the valuables. And they were still on board.",
+   "cam": {
+    "zoom": [
+     1.1,
+     1.25
+    ],
+    "focus": [
+     850,
+     460
+    ]
+   },
+   "bg_opts": {
+    "pins": [
+     "SHIP",
+     "LOG",
+     "BARRELS",
+     "PUMP",
+     "BOAT",
+     "?"
+    ]
+   }
+  },
+  {
+   "bg": "barrels",
+   "bg_opts": {
+    "empty": 9
+   },
+   "say": "There was one strange clue. When the cargo was unloaded in Genoa, nine of the barrels were empty. They were made of red oak, a more porous wood, and may have leaked.",
+   "caption": "9 EMPTY BARRELS.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.12
+    ]
+   }
+  },
+  {
+   "bg": "ship_cabin",
+   "bg_opts": {
+    "lamp": true
+   },
+   "actor": {
+    "action": "stand",
+    "look_as": "captain",
+    "x": 700,
+    "expr": "anxious",
+    "look": [
+     -1,
+     0.3
+    ]
+   },
+   "say": "One theory says alcohol fumes built up in the closed hold. Maybe there was a rumble, a strong smell, or a small burst of vapor.",
+   "cam": {
+    "zoom": [
+     1.1,
+     1.3
+    ],
+    "focus": [
+     760,
+     460
+    ]
+   }
+  },
+  {
+   "bg": "deck",
+   "bg_opts": {
+    "sky": "storm",
+    "hatch": true,
+    "wet": true
+   },
+   "actors": [
+    {
+     "action": "point",
+     "look_as": "captain",
+     "x": 700,
+     "expr": "scared"
+    },
+    {
+     "action": "walk",
+     "look_as": "sailor",
+     "x": 1300,
+     "move_to": 1000,
+     "facing": -1,
+     "expr": "scared"
+    }
+   ],
+   "say": "Afraid the cargo might explode, Captain Briggs may have ordered everyone into the lifeboat. That could explain why the hatch was found open.",
+   "caption": "ABANDON SHIP?",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.12
+    ],
+    "focus": [
+     900,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "deck",
+   "bg_opts": {
+    "sky": "storm",
+    "wet": true
+   },
+   "actor": {
+    "action": "kneel",
+    "look_as": "sailor2",
+    "x": 1000,
+    "expr": "anxious"
+   },
+   "say": "Another clue: one of the ship's pumps had been taken apart. Maybe the crew believed the ship was taking on water faster than it really was.",
+   "cam": {
+    "zoom": [
+     1.2,
+     1.35
+    ],
+    "focus": [
+     1000,
+     600
+    ]
+   }
+  },
+  {
+   "bg": "atlantic",
+   "bg_opts": {
+    "labels": [
+     "AZORES"
+    ],
+    "routes": [
+     [
+      "AZORES",
+      "FOUND HERE",
+      1
+     ]
+    ]
+   },
+   "say": "And land was close. The island of Santa Maria was in sight. A short trip in a small boat must have seemed safe.",
+   "cam": {
+    "zoom": [
+     1.6,
+     1.8
+    ],
+    "focus": [
+     1040,
+     500
+    ]
+   },
+   "dof": 0
+  },
+  {
+   "bg": "ocean",
+   "bg_opts": {
+    "sky": "storm",
+    "ship_x": 1150,
+    "ship_s": 0.7,
+    "ship_y": 660,
+    "sails": "partial",
+    "yawl": false
+   },
+   "say": "Many researchers believe they planned to stay close, maybe tied to the ship by a line, and wait to see what happened.",
+   "sfx": [
+    "rain"
+   ],
+   "fx": [
+    "rain"
+   ],
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ],
+    "focus": [
+     900,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "ocean",
+   "bg_opts": {
+    "sky": "storm",
+    "ship_x": 1300,
+    "ship_speed": 40,
+    "ship_s": 0.5,
+    "ship_y": 620,
+    "sails": "partial",
+    "yawl": false
+   },
+   "say": "But if that line broke, or the wind rose, the ship would sail away on her own. And a tiny boat would be left alone in the open Atlantic.",
+   "caption": "ALONE.",
+   "sfx": [
+    "rain"
+   ],
+   "fx": [
+    "rain"
+   ],
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ],
+    "focus": [
+     900,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "void",
+   "bg_opts": {
+    "color": "0xFF6070A0"
+   },
+   "say": "No trace of the ten people, or the lifeboat, was ever found.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.06
+    ]
+   }
+  },
+  {
+   "bg": "ocean",
+   "bg_opts": {
+    "sky": "dusk",
+    "ship_x": 900,
+    "ship_speed": 20
+   },
+   "say": "As for the Mary Celeste, she sailed for twelve more years. Sailors called her unlucky.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.06
+    ],
+    "focus": [
+     900,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "ocean",
+   "bg_opts": {
+    "sky": "day",
+    "ship_x": 960,
+    "ship_s": 0.9,
+    "sails": "none",
+    "yawl": false
+   },
+   "say": "In eighteen eighty-five, her last captain deliberately ran her onto a reef off the coast of Haiti, to collect the insurance money. The fraud was discovered.",
+   "caption": "1885.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ],
+    "focus": [
+     960,
+     480
+    ]
+   }
+  },
+  {
+   "bg": "deck",
+   "bg_opts": {
+    "sky": "dusk"
+   },
+   "actors": [
+    {
+     "action": "stand",
+     "look_as": "captain",
+     "x": 760,
+     "expr": "proud"
+    },
+    {
+     "action": "stand",
+     "look_as": "wife",
+     "x": 1000,
+     "expr": "happy"
+    },
+    {
+     "action": "stand",
+     "look_as": "child",
+     "x": 1160,
+     "scale": 0.6,
+     "expr": "happy"
+    }
+   ],
+   "say": "Benjamin Briggs, his wife Sarah, little Sophia, and their seven crewmen were never seen again.",
+   "cam": {
+    "zoom": [
+     1.1,
+     1.25
+    ],
+    "focus": [
+     960,
+     500
+    ]
+   },
+   "grade": "noir"
+  },
+  {
+   "bg": "ocean",
+   "bg_opts": {
+    "sky": "fog",
+    "ship_x": 960,
+    "ship_s": 0.9,
+    "sails": "partial",
+    "yawl": false
+   },
+   "say": "So what do you think happened on the Mary Celeste? Tell me your theory in the comments.",
+   "caption": "WHAT HAPPENED?",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.15
+    ],
+    "focus": [
+     960,
+     440
+    ]
+   },
+   "tail": 1.0
+  }
+ ]
+}

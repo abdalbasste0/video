@@ -14,7 +14,7 @@ import numpy as np
 import skia
 import soundfile as sf
 
-from . import audio, scenes, sets_cooper
+from . import audio, scenes, sets_cooper, sets_sea
 from . import character as ch
 
 FPS = 30
@@ -257,7 +257,7 @@ def draw_world(c, s, lt, T, story):
             pz["shL"] = 78 - pz["torso"] + math.sin(T * 1.9) * 3
             pz["elL"] = -6
         sc = a.get("scale", 1.0)
-        if act not in ("lie", "fall", "hang") and bgname != "sky":  # soft contact shadow
+        if act not in ("lie", "fall", "hang") and bgname not in ("sky", "ocean"):  # soft contact shadow
             sp = skia.Paint(AntiAlias=True)
             sp.setShader(skia.GradientShader.MakeRadial((x, scenes.GROUND), 130 * sc, [0x88000000, 0x00000000]))
             c.save()
@@ -281,6 +281,8 @@ def draw_world(c, s, lt, T, story):
             lights = lights + [(x - 150 if act == "lie" else x + 40, y - 200 if act != "lie" else y - 60,
                                 360, 0xFF8EC9FF, 0.9)]
     ch.set_look(story.get("hero", "detective"))
+    if bgname == "court":
+        sets_sea.court_front(c)
     if bgname == "bedroom" and any(a.get("action") == "lie" for a in _actor_list(s)):
         scenes.blanket(c, o)
     for (lx, ly, r, colr, inten) in lights:

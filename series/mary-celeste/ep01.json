@@ -1,0 +1,438 @@
+{
+ "voice": "am_onyx:0.5,am_michael:0.5",
+ "speed": 0.9,
+ "mood": "dark",
+ "grade": "cold",
+ "letterbox": true,
+ "xfade": 0.35,
+ "handheld": 5,
+ "hero": "detective",
+ "seed": 31,
+ "title": "THE MARY CELESTE | Part 1: The Ghost Ship",
+ "description": "December 1872. A ship is found drifting in the Atlantic: seaworthy, full of food, cargo untouched, and not a single person on board. Ten people had vanished.\n\nPart 1 of an animated mystery series about the Mary Celeste.\n\n#maryceleste #ghostship #unsolvedmystery #animation #history",
+ "tags": [
+  "mary celeste",
+  "ghost ship",
+  "unsolved mystery",
+  "true story",
+  "animated mystery",
+  "history mystery",
+  "sea mystery",
+  "abandoned ship",
+  "1872",
+  "mystery animation"
+ ],
+ "series": {
+  "name": "The Mary Celeste",
+  "part": 1,
+  "episode_title": "The Ghost Ship"
+ },
+ "thumbnail": {
+  "shot": 8,
+  "text": "NO ONE ABOARD.",
+  "zoom": 1.2,
+  "focus": [
+   960,
+   480
+  ]
+ },
+ "shots": [
+  {
+   "bg": "atlantic",
+   "bg_opts": {
+    "labels": [
+     "NEW YORK"
+    ]
+   },
+   "say": "November, eighteen seventy-two. In New York harbor, a small two-masted ship called the Mary Celeste was getting ready to cross the Atlantic.",
+   "caption": "NEW YORK, 1872",
+   "cam": {
+    "zoom": [
+     1.6,
+     1.4
+    ],
+    "focus": [
+     400,
+     420
+    ]
+   },
+   "dof": 0
+  },
+  {
+   "bg": "deck",
+   "bg_opts": {
+    "sky": "day",
+    "wheel": true
+   },
+   "actors": [
+    {
+     "action": "stand",
+     "look_as": "captain",
+     "x": 760,
+     "expr": "proud"
+    },
+    {
+     "action": "stand",
+     "look_as": "wife",
+     "x": 1000,
+     "expr": "happy"
+    },
+    {
+     "action": "stand",
+     "look_as": "child",
+     "x": 1160,
+     "scale": 0.6,
+     "expr": "happy"
+    }
+   ],
+   "say": "Her captain was Benjamin Briggs, an experienced and careful sailor. This time, he brought his wife, Sarah, and their two-year-old daughter, Sophia.",
+   "cam": {
+    "zoom": [
+     1.1,
+     1.2
+    ],
+    "focus": [
+     960,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "deck",
+   "bg_opts": {
+    "sky": "day"
+   },
+   "actors": [
+    {
+     "action": "walk",
+     "look_as": "sailor",
+     "x": 300,
+     "move_to": 800,
+     "expr": "happy"
+    },
+    {
+     "action": "stand",
+     "look_as": "sailor2",
+     "x": 1300,
+     "facing": -1,
+     "expr": "neutral"
+    }
+   ],
+   "say": "With them were seven crewmen. Ten people in all.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.08
+    ],
+    "focus": [
+     900,
+     540
+    ]
+   }
+  },
+  {
+   "bg": "barrels",
+   "say": "In the hold were one thousand seven hundred and one barrels of industrial alcohol, bound for Genoa, Italy.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ]
+   }
+  },
+  {
+   "bg": "ocean",
+   "bg_opts": {
+    "sky": "dusk",
+    "ship_x": 700,
+    "ship_speed": 25
+   },
+   "say": "On November seventh, the Mary Celeste set sail.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.06
+    ],
+    "focus": [
+     900,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "atlantic",
+   "bg_opts": {
+    "routes": [
+     [
+      "NEW YORK",
+      "AZORES"
+     ]
+    ],
+    "labels": [
+     "NEW YORK",
+     "AZORES",
+     "GIBRALTAR",
+     "GENOA"
+    ],
+    "route_time": 5
+   },
+   "say": "Almost a month later, on December fourth, the crew of a British ship, the Dei Gratia, spotted a sail on the horizon. They were between the Azores and Portugal.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ],
+    "focus": [
+     960,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "ocean",
+   "bg_opts": {
+    "sky": "day",
+    "ship_x": 1100,
+    "ship_s": 0.55,
+    "ship_y": 640,
+    "sails": "partial",
+    "yawl": false,
+    "ship2": [
+     400,
+     720,
+     0.8
+    ]
+   },
+   "say": "Something was wrong. The ship was moving strangely, as if no one was steering. Some sails were set. Others were torn, or missing.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.08
+    ],
+    "focus": [
+     900,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "ocean",
+   "bg_opts": {
+    "sky": "fog",
+    "ship_x": 960,
+    "ship_s": 0.9,
+    "sails": "partial",
+    "yawl": false
+   },
+   "say": "The Dei Gratia's captain recognized her. It was the Mary Celeste. They signaled. There was no answer.",
+   "caption": "NO ANSWER.",
+   "sfx": [
+    "heartbeat"
+   ],
+   "cam": {
+    "zoom": [
+     1.0,
+     1.15
+    ],
+    "focus": [
+     960,
+     440
+    ]
+   }
+  },
+  {
+   "bg": "deck",
+   "bg_opts": {
+    "sky": "fog",
+    "hatch": true,
+    "wet": true
+   },
+   "actors": [
+    {
+     "action": "walk",
+     "look_as": "sailor2",
+     "x": 200,
+     "move_to": 700,
+     "expr": "anxious"
+    },
+    {
+     "action": "walk",
+     "look_as": "sailor",
+     "x": 0,
+     "move_to": 450,
+     "expr": "anxious"
+    }
+   ],
+   "say": "Three men rowed across and climbed aboard.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.08
+    ],
+    "focus": [
+     700,
+     540
+    ]
+   }
+  },
+  {
+   "bg": "deck",
+   "bg_opts": {
+    "sky": "fog",
+    "hatch": true,
+    "wet": true,
+    "wheel": true
+   },
+   "say": "There was no one on board. Not one single person.",
+   "caption": "NO ONE.",
+   "tail": 1.0,
+   "sfx": [
+    "boom"
+   ],
+   "cam": {
+    "zoom": [
+     1.0,
+     1.12
+    ],
+    "focus": [
+     1100,
+     560
+    ]
+   }
+  },
+  {
+   "bg": "ship_cabin",
+   "bg_opts": {
+    "toys": true
+   },
+   "actor": {
+    "action": "stand",
+    "look_as": "sailor2",
+    "x": 600,
+    "expr": "scared",
+    "look": [
+     1,
+     0
+    ]
+   },
+   "say": "Below deck, everything was damp, but in order. Clothes. Personal belongings. Even the sailors' pipes had been left behind.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.12
+    ],
+    "focus": [
+     900,
+     540
+    ]
+   }
+  },
+  {
+   "bg": "barrels",
+   "say": "The cargo was almost untouched. And there was enough food and fresh water on board for six months.",
+   "cam": {
+    "zoom": [
+     1.1,
+     1.0
+    ]
+   }
+  },
+  {
+   "bg": "deck",
+   "bg_opts": {
+    "sky": "fog",
+    "hatch": true,
+    "wet": true
+   },
+   "actor": {
+    "action": "kneel",
+    "look_as": "sailor",
+    "x": 1100,
+    "expr": "suspicious"
+   },
+   "say": "There was water below, about three and a half feet of it in the hold. But the ship was not sinking. She was seaworthy.",
+   "cam": {
+    "zoom": [
+     1.2,
+     1.35
+    ],
+    "focus": [
+     1100,
+     600
+    ]
+   }
+  },
+  {
+   "bg": "log",
+   "bg_opts": {
+    "lines": [
+     "NOV 25, 1872",
+     "8 A.M.",
+     "SANTA MARIA ISLAND",
+     "BEARING E.S.E."
+    ]
+   },
+   "say": "The last entry on the ship's log slate was dated November twenty-fifth, at eight a.m. The ship was passing the island of Santa Maria, in the Azores.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ]
+   },
+   "cut": true
+  },
+  {
+   "bg": "atlantic",
+   "bg_opts": {
+    "routes": [
+     [
+      "AZORES",
+      "FOUND HERE"
+     ]
+    ],
+    "found": true,
+    "route_time": 4
+   },
+   "say": "That meant the Mary Celeste had kept sailing, with no one aboard, for about nine days.",
+   "caption": "9 DAYS. ALONE.",
+   "cam": {
+    "zoom": [
+     1.3,
+     1.5
+    ],
+    "focus": [
+     1180,
+     520
+    ]
+   },
+   "dof": 0
+  },
+  {
+   "bg": "ocean",
+   "bg_opts": {
+    "sky": "fog",
+    "ship_x": 960,
+    "ship_s": 1.3,
+    "ship_y": 760,
+    "sails": "partial",
+    "yawl": false
+   },
+   "say": "And then they noticed what was missing. The ship's only lifeboat was gone. So were the captain's navigation instruments, and most of the ship's papers.",
+   "caption": "THE LIFEBOAT.",
+   "sfx": [
+    "heartbeat"
+   ],
+   "cam": {
+    "zoom": [
+     1.6,
+     1.8
+    ],
+    "focus": [
+     500,
+     560
+    ]
+   },
+   "dof": 0
+  }
+ ]
+}

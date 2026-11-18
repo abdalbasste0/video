@@ -1,0 +1,316 @@
+{
+ "voice": "am_onyx:0.5,am_michael:0.5",
+ "speed": 0.9,
+ "mood": "dark",
+ "grade": "cold",
+ "letterbox": true,
+ "xfade": 0.35,
+ "handheld": 5,
+ "hero": "detective",
+ "seed": 32,
+ "title": "THE MARY CELESTE | Part 2: The Hearing at Gibraltar",
+ "description": "The Mary Celeste was towed to Gibraltar, and the man in charge of the inquiry was sure a crime had been committed. Then a young writer named Arthur Conan Doyle turned the case into a legend.\n\nPart 2 of an animated mystery series about the Mary Celeste.\n\n#maryceleste #ghostship #unsolvedmystery #animation #history",
+ "tags": [
+  "mary celeste",
+  "ghost ship",
+  "unsolved mystery",
+  "true story",
+  "animated mystery",
+  "history mystery",
+  "sea mystery",
+  "abandoned ship",
+  "1872",
+  "mystery animation",
+  "gibraltar",
+  "conan doyle"
+ ],
+ "series": {
+  "name": "The Mary Celeste",
+  "part": 2,
+  "episode_title": "The Hearing at Gibraltar",
+  "previously": "In December eighteen seventy-two, the Mary Celeste was found drifting between the Azores and Portugal. Her cargo, her food, and her crew's belongings were on board. But all ten people, and the lifeboat, were gone."
+ },
+ "thumbnail": {
+  "shot": 4,
+  "text": "MURDER?",
+  "zoom": 1.3,
+  "focus": [
+   960,
+   440
+  ]
+ },
+ "shots": [
+  {
+   "bg": "ocean",
+   "bg_opts": {
+    "sky": "day",
+    "ship_x": 1150,
+    "ship_s": 0.6,
+    "ship_y": 650,
+    "sails": "partial",
+    "yawl": false,
+    "ship2": [
+     500,
+     720,
+     0.8
+    ]
+   },
+   "say": "The Dei Gratia's crew split up and sailed both ships to Gibraltar. Bringing in an abandoned ship could mean a large salvage reward.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.08
+    ],
+    "focus": [
+     900,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "court",
+   "actor": {
+    "action": "stand",
+    "look_as": "judge",
+    "x": 960,
+    "y": 470,
+    "expr": "suspicious"
+   },
+   "say": "But the official in charge of the inquiry in Gibraltar, Frederick Solly-Flood, did not believe their story.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ],
+    "focus": [
+     960,
+     480
+    ]
+   }
+  },
+  {
+   "bg": "court",
+   "actor": {
+    "action": "point",
+    "look_as": "judge",
+    "x": 960,
+    "y": 470,
+    "expr": "angry"
+   },
+   "say": "He suspected a crime. Maybe the crew had gotten drunk on the alcohol, and killed the captain and his family.",
+   "caption": "MURDER?",
+   "sfx": [
+    "boom"
+   ],
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ],
+    "focus": [
+     960,
+     480
+    ]
+   }
+  },
+  {
+   "bg": "court",
+   "actor": {
+    "action": "think",
+    "look_as": "judge",
+    "x": 960,
+    "y": 470,
+    "expr": "suspicious"
+   },
+   "say": "Or maybe the two captains had planned it together, to split the reward.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ],
+    "focus": [
+     960,
+     480
+    ]
+   }
+  },
+  {
+   "bg": "deck",
+   "bg_opts": {
+    "sky": "day",
+    "hatch": true
+   },
+   "actor": {
+    "action": "kneel",
+    "look_as": "detective",
+    "x": 900,
+    "expr": "suspicious"
+   },
+   "say": "Inspectors examined every inch of the ship. They found some marks on the bow, and a few stains on the rail and on a sword in the captain's cabin.",
+   "cam": {
+    "zoom": [
+     1.2,
+     1.35
+    ],
+    "focus": [
+     900,
+     580
+    ]
+   }
+  },
+  {
+   "bg": "log",
+   "bg_opts": {
+    "lines": [
+     "ANALYSIS:",
+     "STAINS ARE",
+     "NOT BLOOD."
+    ]
+   },
+   "say": "But when the stains were analyzed, they were not blood.",
+   "caption": "NOT BLOOD.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ]
+   },
+   "cut": true
+  },
+  {
+   "bg": "barrels",
+   "say": "And the alcohol in the barrels was industrial. Drinking it would have made a man violently sick. There was no sign of a fight. No evidence of any crime.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ]
+   }
+  },
+  {
+   "bg": "court",
+   "actor": {
+    "action": "head_down",
+    "look_as": "judge",
+    "x": 960,
+    "y": 470,
+    "expr": "tired"
+   },
+   "say": "In the end, the Dei Gratia's crew was paid a reward. But only about a sixth of the value of the ship and cargo. Many believed the suspicion never went away.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ],
+    "focus": [
+     960,
+     480
+    ]
+   }
+  },
+  {
+   "bg": "void",
+   "bg_opts": {
+    "color": "0xFFFFD08A"
+   },
+   "say": "Then, about eleven years later, the story took a strange turn.",
+   "caption": "1884",
+   "caption_y": 540,
+   "caption_size": 220,
+   "tail": 0.6,
+   "cut": true
+  },
+  {
+   "bg": "ship_cabin",
+   "actor": {
+    "action": "sit_desk",
+    "look_as": "writer",
+    "x": 760,
+    "expr": "happy"
+   },
+   "say": "A young doctor and writer named Arthur Conan Doyle, the man who would later create Sherlock Holmes, published a short story inspired by the ship.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.12
+    ],
+    "focus": [
+     900,
+     540
+    ]
+   }
+  },
+  {
+   "bg": "ship_cabin",
+   "bg_opts": {
+    "lamp": true
+   },
+   "say": "He called her the Marie Celeste. And he added dramatic details that never happened, like half-finished meals still sitting on the table.",
+   "caption": "MARIE CELESTE?",
+   "cam": {
+    "zoom": [
+     1.2,
+     1.4
+    ],
+    "focus": [
+     1080,
+     640
+    ]
+   }
+  },
+  {
+   "bg": "fbi",
+   "actor": {
+    "action": "think",
+    "x": 900,
+    "expr": "suspicious"
+   },
+   "say": "Many readers believed the story was true. And some of those invented details are still repeated today.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.12
+    ],
+    "focus": [
+     850,
+     520
+    ]
+   },
+   "bg_opts": {
+    "pins": [
+     "SHIP",
+     "LOG",
+     "BARRELS",
+     "PUMP",
+     "BOAT",
+     "?"
+    ]
+   }
+  },
+  {
+   "bg": "ocean",
+   "bg_opts": {
+    "sky": "fog",
+    "ship_x": 960,
+    "ship_s": 0.9,
+    "sails": "partial",
+    "yawl": false
+   },
+   "say": "So if there was no crime, why would an experienced captain abandon a perfectly good ship, with his wife and baby daughter, in the middle of the Atlantic?",
+   "caption": "WHY?",
+   "sfx": [
+    "heartbeat"
+   ],
+   "cam": {
+    "zoom": [
+     1.0,
+     1.15
+    ],
+    "focus": [
+     960,
+     440
+    ]
+   }
+  }
+ ]
+}

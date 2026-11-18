@@ -42,6 +42,8 @@ HAT = None
 HAIRSTYLE = None   # None | "slick" | "bun" | "kid"
 GLASSES = False
 NOTEBOOK = False
+BEARD = None
+GLOVE = 0xFF151515
 HATSTYLE = "fedora"  # "fedora" | "pilot"
 COAT_LEN = "long"  # "long" trench coat | "short" suit jacket | "dress"
 SHIRT = 0xFFF1EBDD
@@ -50,18 +52,37 @@ _DETECTIVE = dict(_STICK, COAT=True, HAT=0xFF6B5444, SKIN=0xFFFAFAF8, SKIN_SHADE
                   HOODIE=0xFFD8BF94, HOODIE_FAR=0xFFB89E74, PANTS=0xFF56565C, PANTS_FAR=0xFF46464B,
                   BAND=None, HEAD_RX=88, HEAD_RY=92, THIGH=118, SHIN=118, NOTEBOOK=True)
 LOOKS = {
+    "captain": dict(_DETECTIVE, HAT=0xFF1A2236, HATSTYLE="pilot", HOODIE=0xFF1E2A44, HOODIE_FAR=0xFF162036,
+                    PANTS=0xFF2A2E38, PANTS_FAR=0xFF22252E, COAT_LEN="long", TIE=0xFF0E0E10, BEARD=0xFF4A3426,
+                    HAIRSTYLE=None, NOTEBOOK=False),
+    "sailor": dict(_DETECTIVE, GLOVE=0xFFFAFAF8, HAT=0xFF8A2A2A, HATSTYLE="beanie", HOODIE=0xFFE8E4DA, HOODIE_FAR=0xFFC9C3B6,
+                   PANTS=0xFF2E3A52, PANTS_FAR=0xFF252F44, COAT_LEN="short", TIE=0xFF2E3A52, SHIRT=0xFF2E3A52,
+                   NOTEBOOK=False),
+    "sailor2": dict(_DETECTIVE, GLOVE=0xFFFAFAF8, HAT=0xFF2E4A3A, HATSTYLE="beanie", HOODIE=0xFF6E5A44, HOODIE_FAR=0xFF5A4836,
+                    PANTS=0xFF3A3A40, PANTS_FAR=0xFF2E2E34, COAT_LEN="short", BEARD=0xFF2A211C, NOTEBOOK=False),
+    "wife": dict(_DETECTIVE, GLOVE=0xFFFAFAF8, HAT=None, HAIRSTYLE="bun", HAIR=0xFF3A2A1E, HOODIE=0xFF6A2E3A, HOODIE_FAR=0xFF52222C,
+                 PANTS=0xFF6A2E3A, PANTS_FAR=0xFF52222C, COAT_LEN="dress", TIE=0xFFE8E0D0, SHIRT=0xFFE8E0D0,
+                 THIGH=104, SHIN=104, NOTEBOOK=False),
+    "child": dict(_DETECTIVE, GLOVE=0xFFFAFAF8, HAT=None, HAIRSTYLE="kid", HAIR=0xFF8A5A30, HOODIE=0xFFE8D7A0, HOODIE_FAR=0xFFCDBB86,
+                  PANTS=0xFFE8D7A0, PANTS_FAR=0xFFCDBB86, COAT_LEN="dress", TIE=0xFFE8D7A0, SHIRT=0xFFE8D7A0,
+                  THIGH=60, SHIN=60, NOTEBOOK=False),
+    "judge": dict(_DETECTIVE, HAT=None, HAIRSTYLE="slick", HAIR=0xFFDADADA, HOODIE=0xFF1A1A1E, HOODIE_FAR=0xFF111114,
+                  PANTS=0xFF1A1A1E, PANTS_FAR=0xFF111114, COAT_LEN="long", TIE=0xFFF4F4F4,
+                  NOTEBOOK=False),
+    "writer": dict(_DETECTIVE, HAT=None, HAIRSTYLE="slick", HAIR=0xFF5A3A22, HOODIE=0xFF4A4038, HOODIE_FAR=0xFF3A322C,
+                   PANTS=0xFF3A3A40, PANTS_FAR=0xFF2E2E34, COAT_LEN="short", NOTEBOOK=False),
     "detective": dict(_DETECTIVE),
     "cooper": dict(_DETECTIVE, HAT=None, HAIRSTYLE="slick", HAIR=0xFF241C17, GLASSES=True,
                    HOODIE=0xFF33343A, HOODIE_FAR=0xFF26272C, PANTS=0xFF2B2C31, PANTS_FAR=0xFF222327,
                    COAT_LEN="short", TIE=0xFF0E0E10),
-    "attendant": dict(_DETECTIVE, HAT=None, HAIRSTYLE="bun", HAIR=0xFF6B4A2E, HOODIE=0xFF3A6EA5,
+    "attendant": dict(_DETECTIVE, GLOVE=0xFFFAFAF8, HAT=None, HAIRSTYLE="bun", HAIR=0xFF6B4A2E, HOODIE=0xFF3A6EA5,
                       HOODIE_FAR=0xFF2C5684, PANTS=0xFF2A3A55, PANTS_FAR=0xFF22304A, COAT_LEN="dress",
                       TIE=0xFFE0B040, THIGH=104, SHIN=104),
     "pilot": dict(_DETECTIVE, HAT=0xFF1C2438, HATSTYLE="pilot", HOODIE=0xFF1E2A44, HOODIE_FAR=0xFF162036,
                   PANTS=0xFF1A2336, PANTS_FAR=0xFF141B2A, COAT_LEN="short", TIE=0xFF0E0E10),
     "agent": dict(_DETECTIVE, HAT=0xFF5A5E66, HOODIE=0xFF4A4E58, HOODIE_FAR=0xFF3A3E46,
                   PANTS=0xFF3A3E46, PANTS_FAR=0xFF30333A, COAT_LEN="short", TIE=0xFF1E2A44),
-    "boy": dict(_DETECTIVE, HAT=None, HAIRSTYLE="kid", HAIR=0xFF8A5A30, HOODIE=0xFFC0392B,
+    "boy": dict(_DETECTIVE, GLOVE=0xFFFAFAF8, HAT=None, HAIRSTYLE="kid", HAIR=0xFF8A5A30, HOODIE=0xFFC0392B,
                 HOODIE_FAR=0xFF962D22, PANTS=0xFF3B5A86, PANTS_FAR=0xFF2F4A70, COAT_LEN="short",
                 TIE=0xFFC0392B, SHIRT=0xFFC0392B, THIGH=80, SHIN=80),
     "detective_leo": dict(_DETECTIVE, HAT=None, HOODIE=0xFF7A2A26, HOODIE_FAR=0xFF5A1D1A),
@@ -96,7 +117,7 @@ def set_look(name):
         _DEFAULTS = {k: g[k] for k in ("SKIN", "SKIN_SHADE", "HAIR", "HOODIE", "HOODIE_FAR", "NEON",
                                        "NEON2", "HEADSET", "PANTS", "PANTS_FAR", "EYES",
                                        "STICK", "HEAD_RX", "HEAD_RY", "BAND", "COAT", "HAT", "THIGH", "SHIN", "HAIRSTYLE",
-                                       "GLASSES", "HATSTYLE", "COAT_LEN", "SHIRT", "TIE", "NOTEBOOK")}
+                                       "GLASSES", "HATSTYLE", "COAT_LEN", "SHIRT", "TIE", "NOTEBOOK", "BEARD", "GLOVE")}
     g.update(_DEFAULTS)
     g.update(LOOKS.get(name, {}))
     if not g["STICK"]:
@@ -281,9 +302,37 @@ def _pilot_cap(c):
     c.drawPath(visor, paint(0xFF0E0E10))
 
 
+def _beanie(c):
+    ry = HEAD_RY
+    p = skia.Path()
+    p.moveTo(-HEAD_RX * 0.98, -ry * 0.35)
+    p.cubicTo(-HEAD_RX * 1.0, -ry * 1.2, HEAD_RX * 1.0, -ry * 1.2, HEAD_RX * 0.98, -ry * 0.35)
+    p.close()
+    c.drawPath(p, paint(OUTLINE, 12))
+    c.drawPath(p, paint(HAT))
+    r = skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(-HEAD_RX * 1.02, -ry * 0.5, HEAD_RX * 1.02, -ry * 0.28), 14, 14)
+    c.drawRRect(r, paint(OUTLINE))
+    c.drawRRect(skia.RRect.MakeRectXY(r.rect().makeInset(5, 5), 10, 10), paint(HAT))
+    for k in range(-3, 4):
+        c.drawLine(k * HEAD_RX * 0.28, -ry * 0.46, k * HEAD_RX * 0.28, -ry * 0.32, paint(0x33000000, 4))
+
+
+def _beard(c):
+    p = skia.Path()
+    p.moveTo(-HEAD_RX * 0.88, HEAD_RY * 0.25)
+    p.cubicTo(-HEAD_RX * 0.7, HEAD_RY * 1.2, HEAD_RX * 0.95, HEAD_RY * 1.2, HEAD_RX * 0.96, HEAD_RY * 0.3)
+    p.cubicTo(HEAD_RX * 0.6, HEAD_RY * 0.75, HEAD_RX * 0.2, HEAD_RY * 0.75, 0, HEAD_RY * 0.72)
+    p.cubicTo(-HEAD_RX * 0.3, HEAD_RY * 0.75, -HEAD_RX * 0.6, HEAD_RY * 0.6, -HEAD_RX * 0.88, HEAD_RY * 0.25)
+    p.close()
+    c.drawPath(p, paint(OUTLINE, 8))
+    c.drawPath(p, paint(BEARD))
+
+
 def _fedora(c):
     if HATSTYLE == "pilot":
         return _pilot_cap(c)
+    if HATSTYLE == "beanie":
+        return _beanie(c)
     """Fedora: wide brim, pinched crown, dark band."""
     ry = HEAD_RY
     c.save()
@@ -400,6 +449,8 @@ def draw_head(c, cx, cy, tilt, expr, t, look=(0, 0), blink_seed=0.0, talk=0.0):
             _fedora(c)
         c.restore()
         return
+    if BEARD is not None:
+        _beard(c)
     # mouth
     curve, mopen, w = e["mouth"]
     mopen = max(mopen, talk)
@@ -505,7 +556,6 @@ def _leg_pts(hip, a1, a2):
 
 def draw_coat(c, p, X, Y, scale, facing, expr, t, look, blink_seed, prop_hand, talk):
     """Detective: trench coat over shirt and tie, grey trousers, brown shoes, black gloves."""
-    GLOVE = 0xFF151515
     c.save()
     c.translate(X + p["x"], Y + p["y"])
     c.scale(scale * facing, scale)
