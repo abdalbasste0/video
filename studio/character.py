@@ -308,7 +308,7 @@ def draw(c, p, X, Y, scale=1.0, facing=1, expr="neutral", t=0.0, look=(0, 0),
         joint_chain(c, hip, p["hipR"], THIGH, p["hipR"] - p["knR"], SHIN, PANTS_FAR, 34,
                     SHOE, 0)
         _foot(c, hip, p["hipR"], p["hipR"] - p["knR"], PANTS_FAR)
-    joint_chain(c, sh, p["torso"] + p["shR"], UPPER_ARM, p["torso"] + p["shR"] + p["elR"],
+    joint_chain(c, sh, p["torso"] + p["shR"], UPPER_ARM, p["torso"] + p["shR"] - p["elR"],
                 FOREARM, HOODIE_FAR, 30, SKIN_SHADE, 15)
     # torso (hoodie)
     body = skia.Path()
@@ -343,14 +343,14 @@ def draw(c, p, X, Y, scale=1.0, facing=1, expr="neutral", t=0.0, look=(0, 0),
     draw_head(c, head_c[0], head_c[1], p["head"], expr, t, look, blink_seed, talk)
     # near arm last
     elbow, hand = joint_chain(c, sh, p["torso"] + p["shL"], UPPER_ARM,
-                              p["torso"] + p["shL"] + p["elL"], FOREARM, HOODIE, 32, SKIN, 16)
+                              p["torso"] + p["shL"] - p["elL"], FOREARM, HOODIE, 32, SKIN, 16)
     if BAND:  # red wristband just above the hand
         bx = hand[0] + (elbow[0] - hand[0]) * 0.22
         by = hand[1] + (elbow[1] - hand[1]) * 0.22
         c.drawCircle(bx, by, 14, paint(OUTLINE))
         c.drawCircle(bx, by, 10, paint(BAND))
     if prop_hand:
-        prop_hand(c, hand, p["torso"] + p["shL"] + p["elL"])
+        prop_hand(c, hand, p["torso"] + p["shL"] - p["elL"])
     c.restore()
 
 
