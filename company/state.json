@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-18T17:51:01+00:00",
+  "updated": "2026-11-18T19:39:50+00:00",
   "agents": {
     "ceo": {
       "status": "idle",
@@ -71,7 +71,7 @@
       "status": "idle",
       "task": null,
       "bubble": "Handed to Yasmin ✓",
-      "since": "2026-11-17T08:51:19+00:00"
+      "since": "2026-11-18T19:39:50+00:00"
     },
     "growth-analyst": {
       "status": "idle",
@@ -157,7 +157,7 @@
     "T-002": {
       "id": "T-002",
       "title": "10 pixel-art story videos + 10 affiliate products",
-      "status": "review",
+      "status": "approved",
       "owner": "ceo",
       "project": "2026-11-17-affiliate-pixel-stories",
       "workers": [
@@ -167,7 +167,8 @@
         "qa-reviewer",
         "growth-analyst",
         "video-editor",
-        "thumbnail-designer"
+        "thumbnail-designer",
+        "publisher"
       ],
       "deliverables": [
         "company/projects/2026-11-17-affiliate-pixel-stories/01-affiliate-products.md",
@@ -186,7 +187,8 @@
         "company/projects/2026-11-18-chibi-style/chibi/synthesia.chibi.json",
         "company/projects/2026-11-18-chibi-style/chibi/elevenlabs.chibi.json",
         "company/projects/2026-11-18-chibi-style/chibi/kit.chibi.json",
-        "company/projects/2026-11-18-chibi-style/chibi/webflow.chibi.json"
+        "company/projects/2026-11-18-chibi-style/chibi/webflow.chibi.json",
+        "company/projects/2026-11-18-chibi-style/schedule.md"
       ],
       "notes": [
         {
@@ -196,10 +198,14 @@
         {
           "t": "2026-11-18T17:51:01+00:00",
           "note": "Chibi-map style: 10 long + 10 short rendered with Chatterbox voice; 10 shorts emailed to fikraff3@gmail.com (under 3 MB each); full-quality 20 delivered in chat."
+        },
+        {
+          "t": "2026-11-18T19:39:50+00:00",
+          "note": "Owner approved. 20 posts scheduled in Metricool (YouTube + Shorts + TikTok), 24 Nov - 18 Dec."
         }
       ],
       "created": "2026-11-17T16:32:36+00:00",
-      "updated": "2026-11-18T17:51:01+00:00"
+      "updated": "2026-11-18T19:39:50+00:00"
     }
   },
   "needs_you": {
@@ -376,6 +382,14 @@
       "task": "T-002",
       "done": false,
       "created": "2026-11-18T17:51:01+00:00"
+    },
+    "N-022": {
+      "id": "N-022",
+      "text": "Replace the official links with your affiliate links in the 20 Metricool posts before each date (first: Webflow, Tue 24 Nov 18:00). Schedule: company/projects/2026-11-18-chibi-style/schedule.md",
+      "from": "publisher",
+      "task": "T-002",
+      "done": false,
+      "created": "2026-11-18T19:39:50+00:00"
     }
   },
   "log": [
@@ -1344,10 +1358,38 @@
       "kind": "xp",
       "text": "+10 XP: delivered: 10 chibi-map videos delivered, shorts emailed",
       "task": null
+    },
+    {
+      "t": "2026-11-18T19:39:50+00:00",
+      "agent": "publisher",
+      "kind": "needs-you",
+      "text": "Replace the official links with your affiliate links in the 20 Metricool posts before each date (first: Webflow, Tue 24 Nov 18:00). Schedule: company/projects/2026-11-18-chibi-style/schedule.md",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-18T19:39:50+00:00",
+      "agent": "ceo",
+      "kind": "task",
+      "text": "T-002 → approved: Owner approved. 20 posts scheduled in Metricool (YouTube + Shorts + TikTok), 24 Nov - 18 Dec.",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-18T19:39:50+00:00",
+      "agent": "publisher",
+      "kind": "done",
+      "text": "Scheduled 10 long + 10 short on YouTube/TikTok via Metricool → company/projects/2026-11-18-chibi-style/schedule.md",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-18T19:39:50+00:00",
+      "agent": "publisher",
+      "kind": "xp",
+      "text": "+10 XP: delivered: Scheduled 10 long + 10 short on YouTube/TikTok via",
+      "task": null
     }
   ],
   "counters": {
     "task": 2,
-    "need": 21
+    "need": 22
   }
 }
