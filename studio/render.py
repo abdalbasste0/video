@@ -111,7 +111,7 @@ def subtitles_draw(c, s, lt):
         if p <= acc + 1e-6:
             break
     vert = MAXW[0] < 1000
-    draw_text_center(c, chunk.upper(), W / 2, H - (300 if vert else 110), 46 if vert else 54,
+    draw_text_center(c, chunk.upper(), W / 2, H - (300 if vert else (60 if STORY[0].get('letterbox') else 110)), 46 if vert else 54,
                      0xFFFFFF00 if vert else 0xFFFFFFFF, 10, "Black" if vert else "ExtraBold")
 
 
@@ -123,61 +123,178 @@ def vignette(c):
     c.drawRect(skia.Rect.MakeWH(W, H), p)
 
 
-def draw_shot(c, s, lt, T):
+GRADES = {  # (saturation, r, g, b multipliers)
+    "none": (1.0, 1.0, 1.0, 1.0),
+    "warm": (1.08, 1.06, 1.0, 0.92),
+    "noir": (0.55, 0.88, 0.95, 1.1),
+    "cold": (0.85, 0.9, 1.0, 1.12),
+}
+
+
+def grade_filter(name):
+    sat, r, g, b = GRADES.get(name, GRADES["none"])
+    lr, lg, lb = 0.2126, 0.7152, 0.0722
+    m = []
+    for row, mul in enumerate((r, g, b)):
+        coeffs = [(1 - sat) * lr, (1 - sat) * lg, (1 - sat) * lb]
+        coeffs[row] += sat
+        m += [x * mul for x in coeffs] + [0, 0]
+    m += [0, 0, 0, 1, 0]
+    return skia.ColorFilters.Matrix(m)
+
+
+_GRAIN = []
+
+
+def grain(c, T):
+    if not _GRAIN:
+        rng = np.random.default_rng(0)
+        for _ in range(6):
+            n = rng.integers(0, 255, (270, 480), dtype=np.uint8)
+            rgba = np.dstack([n, n, n, np.full_like(n, 255)])
+            _GRAIN.append(skia.Image.fromarray(rgba, colorType=skia.kRGBA_8888_ColorType))
+    p = skia.Paint()
+    p.setAlphaf(0.06)
+    p.setBlendMode(skia.BlendMode.kOverlay)
+    c.drawImageRect(_GRAIN[int(T * 24) % 6], skia.Rect.MakeWH(W, H),
+                    skia.SamplingOptions(skia.FilterMode.kNearest), p)
+
+
+def letterbox(c, bar=118):
+    c.drawRect(skia.Rect.MakeLTRB(0, 0, W, bar), ch.paint(0xFF000000))
+    c.drawRect(skia.Rect.MakeLTRB(0, H - bar, W, H), ch.paint(0xFF000000))
+
+
+def _actor_list(s):
+    if s.get("actors"):
+        return s["actors"]
+    return [s["actor"]] if s.get("actor") else []
+
+
+def draw_world(c, s, lt, T, story):
+    """Everything seen through the camera, plus lighting and grade. Returns nothing."""
     o = s.get("bg_opts", {})
     bgname = s.get("bg", "void")
-    a = s.get("actor")
     cam = s.get("cam", {})
     k = ch.ease(lt / max(0.01, s["dur"]))
     z0, z1 = cam.get("zoom", [1.0, 1.06])
     zoom = ch.lerp(z0, z1, k)
-    fx, fy = cam.get("focus", [W / 2, H / 2])
+    f0 = cam.get("focus", [W / 2, H / 2])
+    f1 = cam.get("focus_to", f0)
+    fx, fy = ch.lerp(f0[0], f1[0], k), ch.lerp(f0[1], f1[1], k)
     if zoom >= 1:  # keep the view inside the world
         hw, hh = W / 2 / zoom, H / 2 / zoom
         fx = min(max(fx, hw), W - hw)
         fy = min(max(fy, hh), H - hh)
     shake = cam.get("shake", 0)
+    drift = story.get("handheld", 0)
+    grade = s.get("grade", story.get("grade", "none"))
+    gp = skia.Paint()
+    gp.setColorFilter(grade_filter(grade))
+    c.saveLayer(None, gp)
     c.save()
     c.translate(W / 2, H / 2)
     c.scale(zoom, zoom)
-    c.translate(-fx + math.sin(T * 40) * shake, -fy + math.cos(T * 33) * shake)
+    c.translate(-fx + math.sin(T * 40) * shake + math.sin(T * 0.7) * drift,
+                -fy + math.cos(T * 33) * shake + math.cos(T * 0.53) * drift)
+    cam_m = c.getTotalMatrix()
+    dof = s.get("dof", 2.5 if zoom > 1.3 else 0)
+    if dof:
+        bp = skia.Paint()
+        bp.setImageFilter(skia.ImageFilters.Blur(dof * zoom, dof * zoom))
+        c.saveLayer(None, bp)
     _, lights = scenes.BACKGROUNDS[bgname](c, T, W, H, o)
-    if bgname == "desk":
+    if dof:
+        c.restore()
+    if bgname in ("desk", "room"):
         lights = lights + scenes.desk_front(c, T, o)
-    if a:
+    hands = {}
+    for i, a in enumerate(_actor_list(s)):
+        ch.set_look(a.get("look_as", "streamer"))
         act = a.get("action", "stand")
         x0 = a.get("x", W / 2)
         x1 = a.get("move_to", x0)
-        x = ch.lerp(x0, x1, lt / s["dur"])
+        mk = ch.ease(lt / s["dur"]) if a.get("ease_move") else lt / s["dur"]
+        x = ch.lerp(x0, x1, mk)
         y = a.get("y", ACTION_Y.get(act, STAND_Y))
         if bgname == "mountain":
             y = scenes.slope_y(x) - ch.THIGH - ch.SHIN - 12
+        if a.get("appear_at") is not None and lt < a["appear_at"]:
+            continue
         pz = ch.ACTIONS[act](T)
         if a.get("then") and lt > a.get("then_at", s["dur"] / 2):
             q = ch.ACTIONS[a["then"]](T)
             pz = ch.blend(pz, q, ch.ease((lt - a.get("then_at", s["dur"] / 2)) / 0.6))
+        if a.get("prop") == "flashlight":  # arm raised, pointing the light ahead
+            pz["shL"] = 78 - pz["torso"] + math.sin(T * 1.9) * 3
+            pz["elL"] = -6
+        sc = a.get("scale", 1.0)
+        if act not in ("lie",):  # soft contact shadow
+            sp = skia.Paint(AntiAlias=True)
+            sp.setShader(skia.GradientShader.MakeRadial((x, scenes.GROUND), 130 * sc, [0x88000000, 0x00000000]))
+            c.save()
+            c.scale(1, 0.18)
+            c.translate(0, scenes.GROUND / 0.18 - scenes.GROUND)
+            c.drawCircle(x, scenes.GROUND, 130 * sc, sp)
+            c.restore()
         prop = None
         if a.get("prop") == "phone":
             prop = scenes.phone_prop
-        ch.draw(c, pz, x, y, scale=a.get("scale", 1.0), facing=a.get("facing", 1),
-                expr=a.get("expr", "neutral"), t=T, look=tuple(a.get("look", (0, 0))),
-                prop_hand=prop)
+        elif a.get("prop") == "flashlight":
+            def prop(cc, hand, ang, _i=i):
+                scenes.flashlight_prop(cc, hand, ang)
+                hands[_i] = cc.getTotalMatrix().mapXY(*hand)
+        ch.draw(c, pz, x, y, scale=sc, facing=a.get("facing", 1),
+                expr=a.get("expr", "neutral"), t=T + i * 1.7, look=tuple(a.get("look", (0, 0))),
+                prop_hand=prop, blink_seed=i * 1.3)
         if a.get("prop") == "phone":
-            # phone light on the face
             lights = lights + [(x - 150 if act == "lie" else x + 40, y - 200 if act != "lie" else y - 60,
                                 360, 0xFF8EC9FF, 0.9)]
-    if bgname == "bedroom" and a and a.get("action") == "lie":
+    ch.set_look("streamer")
+    if bgname == "bedroom" and any(a.get("action") == "lie" for a in _actor_list(s)):
         scenes.blanket(c, o)
-    for (lx, ly, r, col, inten) in lights:
-        scenes.glow(c, lx, ly, r, col, inten * (0.92 + 0.08 * math.sin(T * 7)))
+    for (lx, ly, r, colr, inten) in lights:
+        scenes.glow(c, lx, ly, r, colr, inten * (0.92 + 0.08 * math.sin(T * 7)))
     if "rain" in s.get("fx", []):
         scenes.rain(c, T, W, H)
     c.restore()
-    # overlays (not affected by camera)
+    # darkness + flashlight beam in screen space
+    dark = s.get("dark", 0)
+    if dark:
+        beam = None
+        fl = s.get("flashlight")
+        if fl and hands:
+            src = list(hands.values())[0]
+            t0, t1 = fl.get("to", [[W / 2, H / 2]] * 2) if len(fl.get("to", [])) == 2 else (fl["to"][0], fl["to"][0])
+            tx = ch.lerp(t0[0], t1[0], k) + math.sin(T * 1.9) * 25
+            ty = ch.lerp(t0[1], t1[1], k) + math.cos(T * 1.4) * 18
+            tgt = cam_m.mapXY(tx, ty)
+            beam = ((src.x(), src.y()), (tgt.x(), tgt.y()), fl.get("spread", 13))
+        holes = [(cam_m.mapXY(hx, hy).x(), cam_m.mapXY(hx, hy).y(), r * zoom) for hx, hy, r in s.get("holes", [])]
+        scenes.darkness(c, W, H, dark, beam, holes)
+    if "dust" in s.get("fx", []):
+        scenes.dust(c, T, W, H)
     tint = s.get("tint")
     if tint:
         c.drawRect(skia.Rect.MakeWH(W, H), ch.paint(int(tint, 16)))
+    c.restore()  # grade layer
+
+
+def draw_shot(c, s, lt, T, story=None, nxt=None):
+    story = story or {}
+    draw_world(c, s, lt, T, story)
+    xf = story.get("xfade", 0)
+    if nxt is not None and xf and lt > s["dur"] - xf and not s.get("cut"):
+        a = (lt - (s["dur"] - xf)) / xf
+        lp = skia.Paint()
+        lp.setAlphaf(ch.ease(a))
+        c.saveLayer(None, lp)
+        draw_world(c, nxt, lt - s["dur"], T, story)
+        c.restore()
     vignette(c)
+    grain(c, T)
+    if story.get("letterbox"):
+        letterbox(c)
     caption_draw(c, s, lt)
     subtitles_draw(c, s, lt)
     fade_in = s.get("fade_in", 0.0)
@@ -187,22 +304,30 @@ def draw_shot(c, s, lt, T):
         alpha = 1 - lt / fade_in
     if fade_out and lt > s["dur"] - fade_out:
         alpha = max(alpha, (lt - (s["dur"] - fade_out)) / fade_out)
+    flash = s.get("flash")
+    if flash is not None and flash <= lt < flash + 0.12:
+        c.drawRect(skia.Rect.MakeWH(W, H), ch.paint(0xCCFFFFFF))
     if alpha > 0:
         c.drawRect(skia.Rect.MakeWH(W, H), ch.paint(skia.Color4f(0, 0, 0, alpha).toColor()))
+
+
+STORY = [{}]
 
 
 def frame_at(shots, T, surface):
     c = surface.getCanvas()
     c.clear(0xFF000000)
-    for s in shots:
+    for i, s in enumerate(shots):
         if s["start"] <= T < s["start"] + s["dur"]:
-            draw_shot(c, s, T - s["start"], T)
+            nxt = shots[i + 1] if i + 1 < len(shots) else None
+            draw_shot(c, s, T - s["start"], T, STORY[0], nxt)
             break
     return surface
 
 
 def _render_chunk(args):
-    shots, f0, f1, path, vertical = args
+    shots, f0, f1, path, vertical, story = args
+    STORY[0] = dict(story, letterbox=False) if vertical else story
     surface = skia.Surface(W, H)
     MAXW[0] = 560 if vertical else W * 0.9
     ow, oh = (1080, 1920) if vertical else (W, H)
@@ -256,7 +381,9 @@ def thumbnail(story, shots, path):
     c.clear(0xFF000000)
     lt = th.get("t", s["dur"] * 0.6)
     s["cam"] = {"zoom": [th.get("zoom", 1.35)] * 2, "focus": th.get("focus", [W / 2, H / 2 + 60])}
-    draw_shot(c, s, lt, s["start"] + lt)
+    st = dict(story)
+    st['letterbox'] = False
+    draw_shot(c, s, lt, s["start"] + lt, st)
     draw_text_center(c, th.get("text", story["title"]).upper(), W / 2, 150, 190,
                      0xFFFFFFFF, 26, "Black")
     surf.makeImageSnapshot().save(path)
@@ -276,6 +403,7 @@ def main():
     work = os.path.join(out, "work")
     os.makedirs(work, exist_ok=True)
     shots, total = build_timeline(story, work)
+    STORY[0] = story
     print(f"{len(shots)} shots, {total:.1f}s")
     if args.preview:
         surf = skia.Surface(W, H)
@@ -292,7 +420,7 @@ def main():
     for vertical, name in targets:
         k = args.workers
         bounds = [nf * i // k for i in range(k + 1)]
-        jobs = [(shots, bounds[i], bounds[i + 1], os.path.join(work, f"part{i}{'v' if vertical else ''}.mp4"), vertical)
+        jobs = [(shots, bounds[i], bounds[i + 1], os.path.join(work, f"part{i}{'v' if vertical else ''}.mp4"), vertical, story)
                 for i in range(k)]
         with Pool(k) as pool:
             parts = pool.map(_render_chunk, jobs)

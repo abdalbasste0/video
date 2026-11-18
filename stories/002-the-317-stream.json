@@ -1,0 +1,628 @@
+{
+ "title": "THE 3:17 STREAM | An Animated Mystery",
+ "description": "At 3:17 a.m., a small streamer stopped mid-sentence, turned to the door behind him, and said three words. Then he walked out of frame and never came back.\n\nOne of his eleven viewers couldn't let it go.\n\nThis is a fictional animated mystery. What would YOU have done? Tell me in the comments.\n\n#mystery #animation #horrorstory #shortfilm #unsolved",
+ "tags": [
+  "animated mystery",
+  "mystery story",
+  "scary story animated",
+  "unsolved mystery",
+  "streamer disappeared",
+  "horror animation",
+  "short film",
+  "creepy story",
+  "3:17",
+  "missing streamer"
+ ],
+ "voice": "am_onyx:0.5,am_michael:0.5",
+ "speed": 0.88,
+ "mood": "dark",
+ "seed": 9,
+ "grade": "noir",
+ "letterbox": true,
+ "xfade": 0.35,
+ "handheld": 6,
+ "thumbnail": {
+  "shot": 3,
+  "text": "WHO LET YOU IN?",
+  "zoom": 1.15,
+  "focus": [
+   760,
+   560
+  ]
+ },
+ "shots": [
+  {
+   "bg": "clock",
+   "bg_opts": {
+    "clock": "3:17"
+   },
+   "say": "At three seventeen a.m., a small streamer named Leo was live, playing a horror game for eleven viewers.",
+   "sfx": [
+    "heartbeat"
+   ],
+   "cam": {
+    "zoom": [
+     1.0,
+     1.12
+    ]
+   },
+   "fade_in": 1.0,
+   "cut": true
+  },
+  {
+   "bg": "room",
+   "bg_opts": {
+    "desk_x": 960,
+    "live": true,
+    "viewers": 11,
+    "door": 0.0,
+    "screen_colors": [
+     "0xFF5A1010",
+     "0xFF1A0A2A"
+    ]
+   },
+   "actor": {
+    "action": "sit_desk",
+    "expr": "happy",
+    "x": 880,
+    "look_as": "leo"
+   },
+   "say": "He was laughing. Talking to chat. Then, in the middle of a sentence, he stopped.",
+   "sfx": [
+    "typing"
+   ],
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ],
+    "focus": [
+     900,
+     560
+    ]
+   }
+  },
+  {
+   "bg": "room",
+   "bg_opts": {
+    "desk_x": 960,
+    "live": true,
+    "viewers": 11,
+    "door": 0.35,
+    "screen_colors": [
+     "0xFF5A1010",
+     "0xFF1A0A2A"
+    ]
+   },
+   "actor": {
+    "action": "sit_desk",
+    "expr": "scared",
+    "x": 880,
+    "look_as": "leo",
+    "look": [
+     -1,
+     0
+    ]
+   },
+   "say": "He turned toward the door behind him. And said only three words.",
+   "sfx": [
+    "heartbeat"
+   ],
+   "cam": {
+    "zoom": [
+     1.3,
+     1.6
+    ],
+    "focus": [
+     700,
+     480
+    ]
+   },
+   "dof": 0
+  },
+  {
+   "bg": "room",
+   "bg_opts": {
+    "desk_x": 960,
+    "live": true,
+    "viewers": 11,
+    "door": 0.6,
+    "screen_colors": [
+     "0xFF5A1010",
+     "0xFF1A0A2A"
+    ]
+   },
+   "actors": [
+    {
+     "action": "sit_desk",
+     "expr": "shocked",
+     "x": 880,
+     "look_as": "leo",
+     "look": [
+      -1,
+      0
+     ]
+    },
+    {
+     "action": "stand",
+     "x": 445,
+     "look_as": "shadow",
+     "appear_at": 0.6
+    }
+   ],
+   "say": "Who let you in?",
+   "caption": "WHO LET YOU IN?",
+   "caption_color": "0xFFFF4040",
+   "sfx": [
+    "boom"
+   ],
+   "cam": {
+    "zoom": [
+     1.05,
+     1.15
+    ],
+    "focus": [
+     760,
+     560
+    ]
+   },
+   "tail": 1.2,
+   "flash": 0.6,
+   "cut": true
+  },
+  {
+   "bg": "room",
+   "bg_opts": {
+    "desk_x": 960,
+    "live": true,
+    "viewers": 11,
+    "door": 1.0,
+    "screen_colors": [
+     "0xFF5A1010",
+     "0xFF1A0A2A"
+    ]
+   },
+   "say": "Then he stood up, walked out of frame, and never came back. The stream kept running for six more hours. Six hours of an empty chair.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.15
+    ],
+    "focus": [
+     800,
+     560
+    ]
+   },
+   "fx": [
+    "dust"
+   ]
+  },
+  {
+   "bg": "hallway",
+   "bg_opts": {
+    "tape": true
+   },
+   "actor": {
+    "action": "stand",
+    "expr": "neutral",
+    "x": 1050,
+    "look_as": "officer",
+    "facing": -1
+   },
+   "say": "Police found the apartment locked. From the inside. His phone was on the desk. His shoes were by the door. Nobody in the building heard a thing.",
+   "caption": "MISSING.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ],
+    "focus": [
+     1100,
+     560
+    ]
+   }
+  },
+  {
+   "bg": "street",
+   "fx": [
+    "rain"
+   ],
+   "actor": {
+    "action": "trudge",
+    "expr": "suspicious",
+    "x": 350,
+    "move_to": 900
+   },
+   "say": "But one of those eleven viewers couldn't let it go. His name was Kai.",
+   "sfx": [
+    "rain"
+   ],
+   "cam": {
+    "zoom": [
+     1.05,
+     1.12
+    ],
+    "focus": [
+     700,
+     560
+    ]
+   }
+  },
+  {
+   "bg": "desk",
+   "bg_opts": {
+    "desk_x": 960,
+    "screen_colors": [
+     "0xFF20304A",
+     "0xFF0A1020"
+    ]
+   },
+   "actor": {
+    "action": "sit_desk",
+    "expr": "suspicious",
+    "x": 880
+   },
+   "say": "He went back to the recording, frame by frame. At three sixteen, the door behind Leo is closed. At three seventeen, it's open.",
+   "sfx": [
+    "typing"
+   ],
+   "cam": {
+    "zoom": [
+     1.2,
+     1.45
+    ],
+    "focus": [
+     1150,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "void",
+   "bg_opts": {
+    "color": "0xFF6070A0"
+   },
+   "actor": {
+    "action": "head_down",
+    "expr": "anxious"
+   },
+   "say": "But no one ever walks through it. Not in. Not out.",
+   "caption": "NO ONE.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.2
+    ],
+    "focus": [
+     960,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "hallway",
+   "bg_opts": {
+    "tape": true
+   },
+   "actor": {
+    "action": "walk",
+    "expr": "determined",
+    "x": 300,
+    "move_to": 1000,
+    "prop": "flashlight"
+   },
+   "dark": 0.78,
+   "flashlight": {
+    "to": [
+     [
+      1100,
+      600
+     ],
+     [
+      1350,
+      520
+     ]
+    ],
+    "spread": 14
+   },
+   "holes": [
+    [
+     960,
+     40,
+     260
+    ],
+    [
+     300,
+     520,
+     330
+    ]
+   ],
+   "say": "So Kai went to the building. Apartment four B. The door was still sealed with police tape.",
+   "cam": {
+    "zoom": [
+     1.05,
+     1.15
+    ],
+    "focus": [
+     900,
+     560
+    ]
+   },
+   "fx": [
+    "dust"
+   ]
+  },
+  {
+   "bg": "hallway",
+   "bg_opts": {
+    "tape": false,
+    "open": 0.9
+   },
+   "actor": {
+    "action": "stand",
+    "expr": "scared",
+    "x": 1000,
+    "prop": "flashlight"
+   },
+   "dark": 0.78,
+   "flashlight": {
+    "to": [
+     [
+      1300,
+      500
+     ],
+     [
+      1400,
+      700
+     ]
+    ],
+    "spread": 12
+   },
+   "say": "Inside, everything was exactly as it was that night. Except for one thing the police had missed.",
+   "sfx": [
+    "heartbeat"
+   ],
+   "cam": {
+    "zoom": [
+     1.2,
+     1.4
+    ],
+    "focus": [
+     1150,
+     520
+    ]
+   },
+   "holes": [
+    [
+     1000,
+     520,
+     330
+    ]
+   ]
+  },
+  {
+   "bg": "clock",
+   "bg_opts": {
+    "clock": "3:17"
+   },
+   "say": "Every clock in the apartment had stopped. At three seventeen.",
+   "caption": "STOPPED.",
+   "caption_y": 860,
+   "sfx": [
+    "boom"
+   ],
+   "cam": {
+    "zoom": [
+     1.2,
+     1.0
+    ]
+   },
+   "cut": true
+  },
+  {
+   "bg": "room",
+   "bg_opts": {
+    "desk_x": 960,
+    "screen": false,
+    "door": 0.0
+   },
+   "actor": {
+    "action": "stand",
+    "expr": "scared",
+    "x": 760,
+    "facing": -1,
+    "prop": "flashlight"
+   },
+   "dark": 0.78,
+   "flashlight": {
+    "to": [
+     [
+      600,
+      520
+     ],
+     [
+      450,
+      600
+     ]
+    ],
+    "spread": 12
+   },
+   "say": "And on the back of the door, scratched deep into the wood, from the inside, was a number.",
+   "cam": {
+    "zoom": [
+     1.1,
+     1.3
+    ],
+    "focus": [
+     600,
+     560
+    ]
+   },
+   "fx": [
+    "dust"
+   ],
+   "holes": [
+    [
+     760,
+     520,
+     330
+    ]
+   ]
+  },
+  {
+   "bg": "void",
+   "bg_opts": {
+    "color": "0xFFAA2020"
+   },
+   "say": "Eleven.",
+   "caption": "11",
+   "caption_y": 540,
+   "caption_size": 260,
+   "caption_color": "0xFFFF3030",
+   "tail": 1.2,
+   "sfx": [
+    "boom"
+   ],
+   "cut": true
+  },
+  {
+   "bg": "void",
+   "bg_opts": {
+    "color": "0xFF6070A0"
+   },
+   "actor": {
+    "action": "stand",
+    "expr": "anxious"
+   },
+   "say": "Eleven viewers were watching that night. Kai was one of them.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.3
+    ],
+    "focus": [
+     960,
+     480
+    ]
+   }
+  },
+  {
+   "bg": "desk",
+   "bg_opts": {
+    "desk_x": 960,
+    "screen_colors": [
+     "0xFF3A0A0A",
+     "0xFF0A0A0A"
+    ]
+   },
+   "actor": {
+    "action": "sit_desk",
+    "expr": "scared",
+    "x": 880
+   },
+   "say": "He pulled up the old viewer list. Ten of the names were gone. Deleted accounts. Every single one.",
+   "sfx": [
+    "typing"
+   ],
+   "cam": {
+    "zoom": [
+     1.2,
+     1.5
+    ],
+    "focus": [
+     1100,
+     500
+    ]
+   }
+  },
+  {
+   "bg": "room",
+   "bg_opts": {
+    "desk_x": 960,
+    "screen_colors": [
+     "0xFF3A0A0A",
+     "0xFF0A0A0A"
+    ],
+    "door": 0.0
+   },
+   "actor": {
+    "action": "sit_desk",
+    "expr": "shocked",
+    "x": 880
+   },
+   "say": "Only one name was left. His own.",
+   "cam": {
+    "zoom": [
+     1.3,
+     1.5
+    ],
+    "focus": [
+     900,
+     420
+    ]
+   },
+   "dof": 0,
+   "sfx": [
+    "heartbeat"
+   ]
+  },
+  {
+   "bg": "room",
+   "bg_opts": {
+    "desk_x": 960,
+    "screen_colors": [
+     "0xFF3A0A0A",
+     "0xFF0A0A0A"
+    ],
+    "door": 0.45
+   },
+   "actors": [
+    {
+     "action": "sit_desk",
+     "expr": "scared",
+     "x": 880,
+     "look": [
+      -1,
+      0
+     ]
+    },
+    {
+     "action": "stand",
+     "x": 445,
+     "look_as": "shadow",
+     "appear_at": 1.6
+    }
+   ],
+   "say": "Behind him, very quietly, his door clicked open.",
+   "caption": "3:17.",
+   "sfx": [
+    "boom"
+   ],
+   "flash": 1.6,
+   "cam": {
+    "zoom": [
+     1.0,
+     1.08
+    ],
+    "focus": [
+     760,
+     560
+    ]
+   },
+   "tail": 1.6,
+   "cut": true
+  },
+  {
+   "bg": "void",
+   "bg_opts": {
+    "color": "0xFF202430"
+   },
+   "say": "What would you have done? Tell me in the comments.",
+   "caption": "WOULD YOU TURN AROUND?",
+   "caption_y": 540,
+   "caption_size": 96,
+   "tail": 1.4,
+   "fade_out": 1.2
+  }
+ ]
+}

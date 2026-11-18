@@ -295,3 +295,110 @@ BACKGROUNDS = {
     "bedroom": bg_bedroom, "desk": bg_desk, "street": bg_street, "gym": bg_gym,
     "mountain": bg_mountain, "void": bg_void, "clock": bg_clock,
 }
+
+
+# ================================================================ mystery set
+def door(c, x, y0, w, h, openness=0.0, label=None, tape=False, t=0.0):
+    """Door in a wall. openness 0..1 reveals a dark gap."""
+    outlined_rect(c, x - 12, y0 - 12, x + w + 12, GROUND, 0xFF3A2C22, 4, 8)  # frame
+    c.drawRect(skia.Rect.MakeLTRB(x, y0, x + w, GROUND), paint(0xFF020203))
+    leaf_w = w * (1 - 0.82 * openness)
+    outlined_rect(c, x, y0, x + leaf_w, GROUND, 0xFF5A4232, 4, 7)
+    if leaf_w > 40:
+        c.drawCircle(x + leaf_w - 26, (y0 + GROUND) / 2 + 20, 9, paint(0xFFC9A54A))
+    if label:
+        f = font(40, "Black")
+        c.drawString(label, x + leaf_w / 2 - f.measureText(label) / 2, y0 + 80, f, paint(0xFFC9A54A))
+    if tape:
+        for (ax, ay, bx, by) in ((x - 30, y0 + 120, x + w + 30, y0 + 330), (x - 30, y0 + 330, x + w + 30, y0 + 120)):
+            c.drawLine(ax, ay, bx, by, paint(OUTLINE, 34, cap=False))
+            c.drawLine(ax, ay, bx, by, paint(0xFFF2CF1D, 26, cap=False))
+            ang = math.degrees(math.atan2(by - ay, bx - ax))
+            c.save()
+            c.translate((ax + bx) / 2, (ay + by) / 2)
+            c.rotate(ang)
+            f = font(17, "Black")
+            msg = "POLICE LINE  DO NOT CROSS"
+            c.drawString(msg, -f.measureText(msg) / 2, 6, f, paint(0xFF111111))
+            c.restore()
+
+
+def bg_hallway(c, t, W, H, o):
+    vgrad(c, 0xFF2A2A2A, 0xFF181818, skia.Rect.MakeWH(W, H))
+    # wallpaper stripes
+    for x in range(0, W, 60):
+        c.drawRect(skia.Rect.MakeLTRB(x, 0, x + 26, GROUND), paint(0x0FFFFFFF))
+    c.drawRect(skia.Rect.MakeLTRB(0, 640, W, 660), paint(0xFF3A3026))  # chair rail
+    door(c, 200, 330, 230, 0, label="4A")
+    door(c, 1230, 330, 230, o.get("open", 0.0), label="4B", tape=o.get("tape", True), t=t)
+    vgrad(c, 0xFF3B2F2A, 0xFF120E0C, skia.Rect.MakeLTRB(0, GROUND, W, H))
+    c.drawLine(0, GROUND, W, GROUND, paint(OUTLINE, 6))
+    # flickering ceiling light
+    flick = 1.0 if (math.sin(t * 13) + math.sin(t * 31)) > -1.2 else 0.15
+    c.drawRect(skia.Rect.MakeLTRB(860, 0, 1060, 26), paint(0xFF444444))
+    c.drawRect(skia.Rect.MakeLTRB(880, 26, 1040, 40), paint(0xFFFFF3C4 if flick > 0.5 else 0xFF555044))
+    return GROUND, [(960, 60, 900, 0xFFFFE9B0, 0.75 * flick)]
+
+
+def bg_room_door(c, t, W, H, o):
+    """Streaming room seen from the side, with the door behind the chair."""
+    gy, lights = bg_desk(c, t, W, H, o)
+    door(c, 330, 330, 230, o.get("door", 0.0))
+    return gy, lights
+
+
+BACKGROUNDS["hallway"] = bg_hallway
+BACKGROUNDS["room"] = bg_room_door
+
+
+def darkness(c, W, H, amount, beam=None, holes=()):
+    """Cover the scene in darkness; cut a flashlight cone (beam) and soft holes for lamps."""
+    if amount <= 0:
+        return
+    c.saveLayer(None, None)
+    c.drawRect(skia.Rect.MakeWH(W, H), paint(skia.Color4f(0.01, 0.01, 0.03, amount).toColor()))
+    cut = skia.Paint(AntiAlias=True)
+    cut.setBlendMode(skia.BlendMode.kDstOut)
+    if beam:
+        (sx, sy), (tx, ty), spread = beam
+        ang = math.atan2(ty - sy, tx - sx)
+        L = math.hypot(tx - sx, ty - sy) * 1.5
+        cone = skia.Path()
+        cone.moveTo(sx, sy)
+        for k in (-1, 1):
+            a = ang + k * math.radians(spread)
+            cone.lineTo(sx + math.cos(a) * L, sy + math.sin(a) * L)
+        cone.close()
+        cp = skia.Paint(AntiAlias=True)
+        cp.setBlendMode(skia.BlendMode.kDstOut)
+        cp.setShader(skia.GradientShader.MakeRadial((sx, sy), L, [0xFFFFFFFF, 0x99FFFFFF, 0x00FFFFFF], [0, 0.55, 1]))
+        cp.setMaskFilter(skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 22))
+        c.drawPath(cone, cp)
+        cut.setShader(skia.GradientShader.MakeRadial((tx, ty), 260, [0xFFFFFFFF, 0x00FFFFFF]))
+        c.drawCircle(tx, ty, 260, cut)
+    for (hx, hy, r) in holes:
+        hp = skia.Paint(AntiAlias=True)
+        hp.setBlendMode(skia.BlendMode.kDstOut)
+        hp.setShader(skia.GradientShader.MakeRadial((hx, hy), r, [0xAAFFFFFF, 0x00FFFFFF]))
+        c.drawCircle(hx, hy, r, hp)
+    c.restore()
+    if beam:
+        glow(c, tx, ty, 300, 0xFFFFE6B0, 0.45)
+
+
+def dust(c, t, W, H, n=40, color=0x66FFFFFF):
+    rnd = random.Random(5)
+    for i in range(n):
+        x = (rnd.random() * W + t * (8 + rnd.random() * 18)) % W
+        y = (rnd.random() * H + math.sin(t * 0.6 + i) * 30 - t * 6) % H
+        c.drawCircle(x, y, 1.5 + rnd.random() * 2.5, paint(color))
+
+
+def flashlight_prop(c, hand, angle):
+    c.save()
+    c.translate(hand[0], hand[1])
+    c.rotate(-angle + 90)
+    outlined_rect(c, -10, -12, 50, 12, 0xFF2A2A2E, 5, 5)
+    outlined_rect(c, 46, -17, 66, 17, 0xFF3A3A40, 4, 5)
+    c.drawCircle(68, 0, 12, paint(0xFFFFF6D8))
+    c.restore()

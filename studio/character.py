@@ -30,6 +30,31 @@ SHIN = 96
 HEAD_RX, HEAD_RY = 80, 88
 NECK = 92  # neck point -> head centre
 
+LOOKS = {
+    "streamer": {},
+    "leo": dict(HOODIE=0xFF8E2B2B, HOODIE_FAR=0xFF6A1E1E, NEON=0xFFFFC23D, NEON2=0xFFFFFFFF,
+                HAIR=0xFF6B4226, PANTS=0xFF2A3550, PANTS_FAR=0xFF1E2740),
+    "officer": dict(HOODIE=0xFF1F3A66, HOODIE_FAR=0xFF162B4D, NEON=0xFF1F3A66, NEON2=0xFFE0C060,
+                    HAIR=0xFF111111, PANTS=0xFF1A2236, PANTS_FAR=0xFF121827, HEADSET=None),
+    "shadow": dict(SKIN=0xFF0A0A0E, SKIN_SHADE=0xFF050507, HAIR=0xFF050507, HOODIE=0xFF0A0A0E,
+                   HOODIE_FAR=0xFF050507, NEON=0xFF0A0A0E, NEON2=0xFF0A0A0E, PANTS=0xFF08080B,
+                   PANTS_FAR=0xFF050507, HEADSET=None, EYES=0xFFFFFFFF),
+}
+_DEFAULTS = None
+
+
+def set_look(name):
+    """Swap the module palette (each render worker draws one character at a time)."""
+    global _DEFAULTS
+    g = globals()
+    if _DEFAULTS is None:
+        _DEFAULTS = {k: g[k] for k in ("SKIN", "SKIN_SHADE", "HAIR", "HOODIE", "HOODIE_FAR", "NEON",
+                                       "NEON2", "HEADSET", "PANTS", "PANTS_FAR", "EYES")}
+    g.update(_DEFAULTS)
+    g.update(LOOKS.get(name, {}))
+
+
+EYES = None
 BASE = dict(torso=0, head=0, shL=8, elL=-12, shR=-6, elR=-10,
             hipL=4, knL=0, hipR=-4, knR=0, x=0, y=0, rot=0)
 
@@ -66,6 +91,8 @@ EXPR = {
     "proud":      dict(brow=(-2, -6), lid=0.2, mouth=(0.6, 0.0, 30), pupil=8),
     "shocked":    dict(brow=(-16, -12), lid=0.0, mouth=(0.0, 0.7, 18), pupil=5),
     "anxious":    dict(brow=(-12, 4), lid=0.0, mouth=(-0.3, 0.1, 24), pupil=5),
+    "scared":     dict(brow=(-18, -6), lid=0.0, mouth=(-0.4, 0.45, 22), pupil=4),
+    "suspicious": dict(brow=(10, -4), lid=0.4, mouth=(-0.2, 0.0, 20), pupil=7),
     "empty":      dict(brow=(0, 2), lid=0.45, mouth=(-0.05, 0.0, 18), pupil=6),
 }
 
@@ -110,6 +137,30 @@ def joint_chain(c, start, a1, l1, a2, l2, color, width, end_color=None, end_r=0)
     return mid, end
 
 
+def _headset(c):
+    """Gaming headset: band over the head, big ear cup, mic boom to the mouth."""
+    band = skia.Path()
+    band.moveTo(-HEAD_RX + 4, 4)
+    band.cubicTo(-HEAD_RX - 6, -120, 52, -132, 74, -30)
+    c.drawPath(band, paint(OUTLINE, 22))
+    c.drawPath(band, paint(HEADSET, 12))
+    c.drawPath(band, paint(NEON, 3))
+    mic = skia.Path()
+    mic.moveTo(-HEAD_RX + 10, 30)
+    mic.cubicTo(-50, 86, 0, 82, 22, 62)
+    c.drawPath(mic, paint(OUTLINE, 11))
+    c.drawPath(mic, paint(HEADSET, 6))
+    c.drawCircle(24, 61, 11, paint(OUTLINE))
+    c.drawCircle(24, 61, 7, paint(0xFF3A3D48))
+    cup = skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(-HEAD_RX - 22, -30, -HEAD_RX + 32, 46), 22, 22)
+    c.drawRRect(cup, paint(OUTLINE))
+    c.drawRRect(cup, paint(HEADSET))
+    inner = skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(-HEAD_RX - 10, -18, -HEAD_RX + 20, 34), 14, 14)
+    c.drawRRect(inner, paint(NEON, 4))
+    c.drawRRect(skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(HEAD_RX - 14, -24, HEAD_RX + 6, 30), 10, 10),
+                paint(OUTLINE))
+
+
 def draw_head(c, cx, cy, tilt, expr, t, look=(0, 0), blink_seed=0.0, talk=0.0):
     e = EXPR.get(expr, EXPR["neutral"])
     c.save()
@@ -137,27 +188,11 @@ def draw_head(c, cx, cy, tilt, expr, t, look=(0, 0), blink_seed=0.0, talk=0.0):
     hp.close()
     c.drawPath(hp, paint(OUTLINE, 10))
     c.drawPath(hp, paint(HAIR))
-    # gaming headset: band over the head, big ear cup, mic boom to the mouth
-    band = skia.Path()
-    band.moveTo(-HEAD_RX + 4, 4)
-    band.cubicTo(-HEAD_RX - 6, -120, 52, -132, 74, -30)
-    c.drawPath(band, paint(OUTLINE, 22))
-    c.drawPath(band, paint(HEADSET, 12))
-    c.drawPath(band, paint(NEON, 3))
-    mic = skia.Path()
-    mic.moveTo(-HEAD_RX + 10, 30)
-    mic.cubicTo(-50, 86, 0, 82, 22, 62)
-    c.drawPath(mic, paint(OUTLINE, 11))
-    c.drawPath(mic, paint(HEADSET, 6))
-    c.drawCircle(24, 61, 11, paint(OUTLINE))
-    c.drawCircle(24, 61, 7, paint(0xFF3A3D48))
-    cup = skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(-HEAD_RX - 22, -30, -HEAD_RX + 32, 46), 22, 22)
-    c.drawRRect(cup, paint(OUTLINE))
-    c.drawRRect(cup.makeOffset(0, 0), paint(HEADSET))
-    inner = skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(-HEAD_RX - 10, -18, -HEAD_RX + 20, 34), 14, 14)
-    c.drawRRect(inner, paint(NEON, 4))
-    # far cup peeking out on the face side
-    c.drawRRect(skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(HEAD_RX - 14, -24, HEAD_RX + 6, 30), 10, 10), paint(OUTLINE))
+    if HEADSET is None:
+        c.drawCircle(-HEAD_RX + 6, 10, 15, paint(OUTLINE))
+        c.drawCircle(-HEAD_RX + 6, 10, 10, paint(SKIN_SHADE))
+    else:
+        _headset(c)
 
     # blinking
     bt = (t + blink_seed) % 3.7
@@ -168,6 +203,9 @@ def draw_head(c, cx, cy, tilt, expr, t, look=(0, 0), blink_seed=0.0, talk=0.0):
         ey = -2
         rx, ry = 17, 21
         c.drawOval(skia.Rect.MakeLTRB(ex - rx - 4, ey - ry - 4, ex + rx + 4, ey + ry + 4), paint(OUTLINE))
+        if EYES is not None:  # silhouette: two glowing slits, nothing else
+            c.drawOval(skia.Rect.MakeLTRB(ex - 12, ey - 5, ex + 12, ey + 5), paint(EYES))
+            continue
         c.drawOval(skia.Rect.MakeLTRB(ex - rx, ey - ry, ex + rx, ey + ry), paint(0xFFFFFFFF))
         pr = e["pupil"]
         c.drawCircle(ex + 4 + look[0] * 7, ey + 2 + look[1] * 7, pr + 1, paint(OUTLINE))
@@ -189,6 +227,9 @@ def draw_head(c, cx, cy, tilt, expr, t, look=(0, 0), blink_seed=0.0, talk=0.0):
             p0 = (ex - 14, ey - 34 + inner)
             p1 = (ex + 18, ey - 34 + outer)
         c.drawLine(p0[0], p0[1], p1[0], p1[1], paint(OUTLINE, 9))
+    if EYES is not None:
+        c.restore()
+        return
     # mouth
     curve, mopen, w = e["mouth"]
     mopen = max(mopen, talk)
@@ -237,6 +278,9 @@ def draw(c, p, X, Y, scale=1.0, facing=1, expr="neutral", t=0.0, look=(0, 0),
     body.close()
     c.drawPath(body, paint(OUTLINE, 12))
     c.drawPath(body, paint(HOODIE))
+    sh_p = skia.Paint(AntiAlias=True)
+    sh_p.setShader(skia.GradientShader.MakeLinear([(-40, 0), (40, 0)], [0x55000000, 0x00000000]))
+    c.drawPath(body, sh_p)
     # neon chest stripe + drawstrings
     c.drawLine(hip[0] - 26 + tdx * 70, hip[1] - tdy * 70, hip[0] + 28 + tdx * 70, hip[1] - tdy * 70,
                paint(NEON2, 7))
