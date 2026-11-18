@@ -25,3 +25,6 @@ The company's official voice. An original voice, not a clone of anyone. Created 
 ## Rules
 - The voice is AI-generated, so turn on the AI label on YouTube, TikTok, Instagram and Facebook.
 - Don't use Sofia to imitate a real person, and don't say she's a real person.
+
+## Current Sofia voice (2026-11-18)
+Generated here with **Kokoro**, the open-source engine inside Voicebox: voice **af_bella**, speed 1.1. Samples of the 5 candidate female voices: `company/voices/sample_*.mp3`. To switch voice, run `tools/pixel_story/voice.py --voice af_heart` (or another) and re-render.

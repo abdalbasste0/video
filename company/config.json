@@ -233,8 +233,8 @@
   "tool_stack": {
     "note": "Owner's choice (2026-11-17): open-source apps instead of paid SaaS. Most run on the OWNER's computer, not in the cloud session; agents prepare inputs and the owner runs the app, then drops outputs in company/inbox/.",
     "voice": {
-      "tool": "VoiceStudio",
-      "repo": "https://github.com/debpalash/VoiceStudio",
+      "tool": "Voicebox (jamiepine/voicebox) / Kokoro engine",
+      "repo": "https://github.com/jamiepine/voicebox",
       "license": "AGPL-3.0",
       "replaces": "ElevenLabs",
       "where": "owner computer",
@@ -324,9 +324,11 @@
   "brand_voice": {
     "name": "Sofia",
     "file": "company/voices/sofia.md",
-    "tool": "VoiceStudio",
+    "tool": "Voicebox engine (Kokoro-82M, open source) via tools/pixel_story/voice.py",
     "style": "lively, energetic young American female",
-    "status": "to be created by owner in VoiceStudio",
-    "ai_label_required": true
+    "status": "active",
+    "ai_label_required": true,
+    "kokoro_voice": "af_bella",
+    "speed": 1.1
   }
 }
