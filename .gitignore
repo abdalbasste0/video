@@ -5,3 +5,4 @@ company/inbox/footage/*
 !company/inbox/footage/.gitkeep
 company/projects/*/renders/
 tools/chibi/node_modules/
+company/projects/2026-11-18-chibi-style/deliver/
