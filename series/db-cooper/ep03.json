@@ -1,0 +1,380 @@
+{
+ "voice": "am_onyx:0.5,am_michael:0.5",
+ "speed": 0.9,
+ "mood": "dark",
+ "grade": "cold",
+ "letterbox": true,
+ "xfade": 0.35,
+ "handheld": 5,
+ "hero": "detective",
+ "seed": 23,
+ "title": "THE D.B. COOPER MYSTERY | Part 3: The Money in the Sand",
+ "description": "For nine years, not a single ransom bill turned up. Then, in 1980, an eight-year-old boy digging on a riverbank found something that made the mystery even stranger.\n\nPart 3 of an animated true-crime series about the D.B. Cooper case.\n\n#dbcooper #truecrime #unsolvedmystery #animation #mystery",
+ "tags": [
+  "d.b. cooper",
+  "db cooper",
+  "true crime",
+  "unsolved mystery",
+  "flight 305",
+  "animated true crime",
+  "fbi",
+  "unsolved cases",
+  "mystery animation",
+  "tena bar",
+  "cooper money found"
+ ],
+ "series": {
+  "name": "The D.B. Cooper Mystery",
+  "part": 3,
+  "episode_title": "The Money in the Sand",
+  "previously": "At eight thirteen p.m., somewhere over southwest Washington, Dan Cooper jumped from Flight three-oh-five into a freezing storm, with two hundred thousand dollars. When the jet landed in Reno, he was gone."
+ },
+ "thumbnail": {
+  "shot": 11,
+  "text": "$5,800.",
+  "zoom": 1.3,
+  "focus": [
+   1100,
+   760
+  ]
+ },
+ "shots": [
+  {
+   "bg": "newspaper",
+   "bg_opts": {
+    "headline": [
+     "HIJACKER JUMPS",
+     "WITH $200,000"
+    ]
+   },
+   "say": "By the next morning, the story was on every front page in America.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.08
+    ]
+   },
+   "cut": true
+  },
+  {
+   "bg": "fbi",
+   "actor": {
+    "action": "stand",
+    "look_as": "agent",
+    "x": 900,
+    "expr": "suspicious"
+   },
+   "say": "Early on, police questioned a Portland man whose name really was D. B. Cooper. He was cleared almost immediately. But a reporter repeated the name, and it stuck forever.",
+   "caption": "\"D.B. COOPER\"",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.15
+    ],
+    "focus": [
+     850,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "map",
+   "bg_opts": {
+    "zone": [
+     1080,
+     600
+    ],
+    "zone_label": "SEARCH AREA",
+    "route_time": 3
+   },
+   "say": "Using the flight path and the timing of that bump, the FBI estimated where he might have landed. Thick forest, north of Portland, near the Lewis River.",
+   "cam": {
+    "zoom": [
+     1.2,
+     1.5
+    ],
+    "focus": [
+     1040,
+     640
+    ]
+   },
+   "dof": 0
+  },
+  {
+   "bg": "forest",
+   "bg_opts": {
+    "night": false
+   },
+   "actors": [
+    {
+     "action": "walk",
+     "look_as": "agent",
+     "x": 200,
+     "move_to": 700,
+     "expr": "determined"
+    },
+    {
+     "action": "walk",
+     "look_as": "pilot",
+     "x": 600,
+     "move_to": 1100,
+     "expr": "neutral"
+    },
+    {
+     "action": "walk",
+     "x": 1000,
+     "move_to": 1500,
+     "expr": "suspicious"
+    }
+   ],
+   "say": "Hundreds of agents and soldiers searched those woods. On foot. From helicopters. Even with boats on the lakes.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.06
+    ],
+    "focus": [
+     900,
+     560
+    ]
+   }
+  },
+  {
+   "bg": "forest",
+   "bg_opts": {
+    "night": false
+   },
+   "actor": {
+    "action": "head_down",
+    "look_as": "agent",
+    "x": 960,
+    "expr": "sad"
+   },
+   "say": "They found nothing. No parachute. No body. No money.",
+   "caption": "NOTHING.",
+   "cam": {
+    "zoom": [
+     1.2,
+     1.35
+    ],
+    "focus": [
+     960,
+     480
+    ]
+   }
+  },
+  {
+   "bg": "money",
+   "bg_opts": {
+    "serials": true
+   },
+   "say": "Banks across the country were given the list of serial numbers. If even one of those bills was ever spent, the FBI would know.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ]
+   }
+  },
+  {
+   "bg": "fbi",
+   "actor": {
+    "action": "think",
+    "x": 900,
+    "expr": "tired"
+   },
+   "say": "Months passed. Then years. Not a single bill ever turned up.",
+   "caption": "NOT ONE BILL.",
+   "cam": {
+    "zoom": [
+     1.1,
+     1.25
+    ],
+    "focus": [
+     900,
+     480
+    ]
+   }
+  },
+  {
+   "bg": "void",
+   "bg_opts": {
+    "color": "0xFFFFD08A"
+   },
+   "say": "Then, in February, nineteen eighty.",
+   "caption": "1980",
+   "caption_y": 540,
+   "caption_size": 220,
+   "tail": 0.8,
+   "cut": true
+  },
+  {
+   "bg": "riverbank",
+   "actor": {
+    "action": "dig",
+    "look_as": "boy",
+    "x": 1000,
+    "expr": "happy"
+   },
+   "say": "An eight-year-old boy was on a family trip along the Columbia River, at a sandy beach called Tena Bar. He was raking the sand flat to build a campfire.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.12
+    ],
+    "focus": [
+     1000,
+     620
+    ]
+   }
+  },
+  {
+   "bg": "riverbank",
+   "bg_opts": {
+    "money": true
+   },
+   "actor": {
+    "action": "dig",
+    "look_as": "boy",
+    "x": 1000,
+    "expr": "surprised"
+   },
+   "say": "Just under the surface, he found three bundles of old twenty-dollar bills. Wet. Rotting. Still held together with rubber bands.",
+   "sfx": [
+    "ding"
+   ],
+   "cam": {
+    "zoom": [
+     1.4,
+     1.7
+    ],
+    "focus": [
+     1080,
+     760
+    ]
+   }
+  },
+  {
+   "bg": "money",
+   "bg_opts": {},
+   "say": "The FBI checked the serial numbers. They matched. It was Cooper's money. About five thousand eight hundred dollars.",
+   "caption": "IT MATCHED.",
+   "sfx": [
+    "boom"
+   ],
+   "cam": {
+    "zoom": [
+     1.1,
+     1.25
+    ]
+   }
+  },
+  {
+   "bg": "riverbank",
+   "bg_opts": {
+    "money": true
+   },
+   "actor": {
+    "action": "stand",
+    "look_as": "boy",
+    "x": 900,
+    "expr": "surprised"
+   },
+   "say": "Nine years of silence. And then, a pile of the ransom, sitting in the sand.",
+   "cam": {
+    "zoom": [
+     1.2,
+     1.35
+    ],
+    "focus": [
+     1000,
+     600
+    ]
+   }
+  },
+  {
+   "bg": "map",
+   "bg_opts": {
+    "zone": [
+     1080,
+     600
+    ],
+    "zone_label": "SEARCH AREA",
+    "pin": [
+     900,
+     735
+    ],
+    "pin_label": "TENA BAR"
+   },
+   "say": "But the discovery made the mystery stranger, not simpler. Tena Bar is about twenty miles from where the FBI believed he landed.",
+   "cam": {
+    "zoom": [
+     1.3,
+     1.5
+    ],
+    "focus": [
+     970,
+     680
+    ]
+   },
+   "dof": 0
+  },
+  {
+   "bg": "fbi",
+   "actor": {
+    "action": "point",
+    "x": 1240,
+    "facing": -1,
+    "expr": "suspicious"
+   },
+   "say": "Did the money wash down a creek into the river? Was it buried there by someone? Did Cooper drop it as he fled? Experts have argued about it for decades.",
+   "cam": {
+    "zoom": [
+     1.1,
+     1.25
+    ],
+    "focus": [
+     850,
+     460
+    ]
+   }
+  },
+  {
+   "bg": "void",
+   "bg_opts": {
+    "color": "0xFF6070A0"
+   },
+   "say": "The rest of the money, more than one hundred ninety thousand dollars, has never been found.",
+   "caption": "$194,200 MISSING.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ]
+   }
+  },
+  {
+   "bg": "fbi",
+   "actor": {
+    "action": "think",
+    "x": 900,
+    "expr": "determined"
+   },
+   "say": "Which left investigators with one real clue. The black clip-on tie he left behind on his seat.",
+   "caption": "THE TIE.",
+   "sfx": [
+    "heartbeat"
+   ],
+   "cam": {
+    "zoom": [
+     1.2,
+     1.45
+    ],
+    "focus": [
+     900,
+     440
+    ]
+   }
+  }
+ ]
+}

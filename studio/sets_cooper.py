@@ -416,7 +416,7 @@ def bg_map(c, t, W, H, o):
     if o.get("pin"):
         px, py = o["pin"]
         c.drawCircle(px, py, 18, paint(0xFF4CAF50))
-        c.drawString(o.get("pin_label", ""), px + 26, py + 10, font(30, "Black"), paint(0xFF9CE29E))
+        c.drawString(o.get("pin_label", ""), px - 60, py + 50, font(30, "Black"), paint(0xFF9CE29E))
     return GROUND, []
 
 

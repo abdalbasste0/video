@@ -1,0 +1,325 @@
+{
+ "voice": "am_onyx:0.5,am_michael:0.5",
+ "speed": 0.9,
+ "mood": "dark",
+ "grade": "cold",
+ "letterbox": true,
+ "xfade": 0.35,
+ "handheld": 5,
+ "hero": "detective",
+ "seed": 24,
+ "title": "THE D.B. COOPER MYSTERY | Part 4: Who Was D.B. Cooper?",
+ "description": "A tie, a partial DNA profile, hundreds of suspects, and a case the FBI stopped actively investigating after 45 years. Who was D.B. Cooper? The final part.\n\nPart 4 (final) of an animated true-crime series about the D.B. Cooper case. Tell us your theory in the comments.\n\n#dbcooper #truecrime #unsolvedmystery #animation #mystery",
+ "tags": [
+  "d.b. cooper",
+  "db cooper",
+  "true crime",
+  "unsolved mystery",
+  "flight 305",
+  "animated true crime",
+  "fbi",
+  "unsolved cases",
+  "mystery animation",
+  "db cooper suspects",
+  "cooper vane",
+  "richard mccoy"
+ ],
+ "series": {
+  "name": "The D.B. Cooper Mystery",
+  "part": 4,
+  "episode_title": "Who Was D.B. Cooper?",
+  "final": true,
+  "previously": "Nine years after the hijacking, a boy found about five thousand eight hundred dollars of Cooper's money buried in the sand of the Columbia River. The rest was never found. The only other real clue was a black clip-on tie."
+ },
+ "thumbnail": {
+  "shot": 12,
+  "text": "WHO WAS HE?",
+  "zoom": 1.3,
+  "focus": [
+   960,
+   440
+  ]
+ },
+ "shots": [
+  {
+   "bg": "note",
+   "bg_opts": {
+    "lines": [
+     "EVIDENCE:",
+     "BLACK CLIP-ON TIE",
+     "MOTHER-OF-PEARL TIE CLIP"
+    ]
+   },
+   "say": "A cheap black clip-on tie, with a mother-of-pearl tie clip. For decades, it sat in an FBI evidence box.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ]
+   },
+   "cut": true
+  },
+  {
+   "bg": "fbi",
+   "actor": {
+    "action": "think",
+    "x": 900,
+    "expr": "suspicious"
+   },
+   "say": "In the two thousands, the FBI took a partial DNA profile from that tie. It has never been matched to anyone.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.15
+    ],
+    "focus": [
+     850,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "fbi",
+   "actor": {
+    "action": "point",
+    "x": 1240,
+    "facing": -1,
+    "expr": "determined"
+   },
+   "say": "Later, independent researchers found tiny particles on it, including pure titanium. In nineteen seventy-one, that metal was used mainly in aircraft and chemical plants.",
+   "caption": "TITANIUM.",
+   "cam": {
+    "zoom": [
+     1.1,
+     1.3
+    ],
+    "focus": [
+     850,
+     460
+    ]
+   }
+  },
+  {
+   "bg": "void",
+   "bg_opts": {
+    "color": "0xFF6070A0"
+   },
+   "actors": [
+    {
+     "action": "stand",
+     "look_as": "detective_shadow",
+     "x": 600
+    },
+    {
+     "action": "stand",
+     "look_as": "detective_shadow",
+     "x": 960
+    },
+    {
+     "action": "stand",
+     "look_as": "detective_shadow",
+     "x": 1320
+    }
+   ],
+   "say": "Over the years, the FBI looked at more than eight hundred suspects. Pilots. Paratroopers. Airline workers. Drifters.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.08
+    ]
+   }
+  },
+  {
+   "bg": "sky",
+   "bg_opts": {
+    "jet": true,
+    "jet_x": 420,
+    "jet_y": 620,
+    "jet_s": 0.6,
+    "jet_speed": 30,
+    "stairs": 1.0
+   },
+   "say": "One of the most famous was Richard McCoy. Just five months after Cooper, he hijacked another plane, took a ransom and parachutes, and jumped. He was caught within days.",
+   "caption": "RICHARD McCOY",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.1
+    ],
+    "focus": [
+     900,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "fbi",
+   "actor": {
+    "action": "stand",
+    "look_as": "agent",
+    "x": 900,
+    "expr": "neutral"
+   },
+   "say": "It looked like a perfect match. But agents later ruled him out as Cooper. The witnesses on Flight three-oh-five did not recognize him.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.12
+    ],
+    "focus": [
+     880,
+     520
+    ]
+   }
+  },
+  {
+   "bg": "newspaper",
+   "bg_opts": {
+    "headline": [
+     "ANOTHER",
+     "SKYJACKING"
+    ]
+   },
+   "say": "And McCoy was not the only one. In nineteen seventy-two alone, there were more than a dozen copycat hijackings with parachutes.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.08
+    ]
+   },
+   "cut": true
+  },
+  {
+   "bg": "newspaper",
+   "bg_opts": {
+    "headline": [
+     "EVERY BAG",
+     "WILL BE SEARCHED"
+    ]
+   },
+   "say": "Those copycats changed air travel forever. By early nineteen seventy-three, every passenger and every carry-on bag in America had to be screened before boarding.",
+   "cam": {
+    "zoom": [
+     1.0,
+     1.08
+    ]
+   }
+  },
+  {
+   "bg": "tarmac",
+   "bg_opts": {
+    "jet_x": 160,
+    "stairs": 0.4
+   },
+   "say": "Boeing even added a small device to the seven twenty-seven, so the rear stairs could not be lowered in flight. It became known as the Cooper vane.",
+   "caption": "THE COOPER VANE.",
+   "cam": {
+    "zoom": [
+     1.5,
+     1.7
+    ],
+    "focus": [
+     1430,
+     640
+    ]
+   },
+   "dof": 0
+  },
+  {
+   "bg": "fbi",
+   "actor": {
+    "action": "head_down",
+    "look_as": "agent",
+    "x": 900,
+    "expr": "tired"
+   },
+   "say": "In July, two thousand sixteen, after forty-five years, the FBI announced it would stop actively investigating the case.",
+   "caption": "CASE CLOSED?",
+   "cam": {
+    "zoom": [
+     1.1,
+     1.25
+    ],
+    "focus": [
+     900,
+     480
+    ]
+   }
+  },
+  {
+   "bg": "forest",
+   "fx": [
+    "rain"
+   ],
+   "actor": {
+    "action": "hang",
+    "look_as": "cooper",
+    "x": 960,
+    "y": 760,
+    "chute": true,
+    "scale": 0.7,
+    "expr": "neutral"
+   },
+   "say": "Some believe Cooper died that night, in the freezing forest, and the money slowly washed into the river. Others believe he walked away, and spent the rest of his life in silence.",
+   "sfx": [
+    "rain"
+   ],
+   "cam": {
+    "zoom": [
+     1.0,
+     1.08
+    ],
+    "focus": [
+     960,
+     560
+    ]
+   }
+  },
+  {
+   "bg": "void",
+   "bg_opts": {
+    "color": "0xFFFFD08A"
+   },
+   "actor": {
+    "action": "stand",
+    "look_as": "cooper",
+    "expr": "neutral"
+   },
+   "say": "Either way, it remains the only unsolved airline hijacking in American history.",
+   "cam": {
+    "zoom": [
+     1.1,
+     1.4
+    ],
+    "focus": [
+     960,
+     440
+    ]
+   }
+  },
+  {
+   "bg": "void",
+   "bg_opts": {
+    "color": "0xFF6070A0"
+   },
+   "actor": {
+    "action": "stand",
+    "look_as": "cooper",
+    "expr": "neutral"
+   },
+   "say": "So who do you think he really was? Tell me your theory in the comments.",
+   "caption": "WHO WAS HE?",
+   "cam": {
+    "zoom": [
+     1.4,
+     1.6
+    ],
+    "focus": [
+     960,
+     420
+    ]
+   },
+   "tail": 1.0
+  }
+ ]
+}
