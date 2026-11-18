@@ -50,11 +50,62 @@ def series_shots(story):
     return head + story["shots"] + tail
 
 
+CLIP_EXT = (".mp4", ".mov", ".webm", ".png", ".jpg", ".jpeg", ".webp")
+
+
+def attach_clips(story, workdir):
+    """Use clips/<slug>/shotNN.(mp4|png...) from Google Flow when present; otherwise code animation."""
+    folder = os.path.join(ROOT, "clips", story.get("_slug", ""))
+    if not os.path.isdir(folder):
+        return
+    for s in story["shots"]:
+        src = next((os.path.join(folder, f"shot{s['_n']:02d}{e}") for e in CLIP_EXT
+                    if os.path.exists(os.path.join(folder, f"shot{s['_n']:02d}{e}"))), None)
+        if not src:
+            continue
+        out = os.path.join(workdir, f"clip{s['_n']:02d}")
+        stamp = os.path.join(out, "src.txt")
+        sig = f"{src}|{os.path.getmtime(src)}"
+        if not (os.path.exists(stamp) and open(stamp).read() == sig):
+            os.makedirs(out, exist_ok=True)
+            for f in os.listdir(out):
+                os.remove(os.path.join(out, f))
+            vf = f"scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H}"
+            if src.endswith((".mp4", ".mov", ".webm")):
+                cmd = ["ffmpeg", "-y", "-loglevel", "error", "-i", src, "-vf", vf + f",fps={FPS}", "-q:v", "3",
+                       os.path.join(out, "%05d.jpg")]
+            else:
+                cmd = ["ffmpeg", "-y", "-loglevel", "error", "-i", src, "-vf", vf, "-q:v", "2",
+                       os.path.join(out, "00001.jpg")]
+            subprocess.run(cmd, check=True)
+            open(stamp, "w").write(sig)
+        s["clip_frames"] = out
+        s["clip_n"] = len([f for f in os.listdir(out) if f.endswith(".jpg")])
+        print(f"shot {s['_n']:02d}: using {os.path.basename(src)} ({s['clip_n']} frames)")
+
+
+def draw_clip(c, s, lt):
+    """Flow clip stretched over the whole shot (like slowing it down in an editor); stills get a slow push-in."""
+    n = s["clip_n"]
+    k = min(0.9999, max(0.0, lt / max(0.01, s["dur"])))
+    img = skia.Image.open(os.path.join(s["clip_frames"], f"{int(k * n) + 1:05d}.jpg"))
+    c.save()
+    if n == 1:
+        z = ch.lerp(1.0, 1.08, ch.ease(k))
+        c.translate(W / 2, H / 2)
+        c.scale(z, z)
+        c.translate(-W / 2, -H / 2)
+    c.drawImageRect(img, skia.Rect.MakeWH(W, H), skia.SamplingOptions(skia.FilterMode.kLinear))
+    c.restore()
+
+
 def build_timeline(story, workdir, cache=True):
     os.makedirs(workdir, exist_ok=True)
     voice = story.get("voice", "am_michael")
     speed = story.get("speed", 0.92)
     t = 0.0
+    story = dict(story, shots=[dict(x, _n=i + 1) for i, x in enumerate(story["shots"])])
+    attach_clips(story, workdir)
     shots = []
     for i, s in enumerate(series_shots(story)):
         s = dict(s)
@@ -217,6 +268,10 @@ def draw_world(c, s, lt, T, story):
     gp = skia.Paint()
     gp.setColorFilter(grade_filter(grade))
     c.saveLayer(None, gp)
+    if s.get("clip_frames"):
+        draw_clip(c, s, lt)
+        c.restore()
+        return
     c.save()
     c.translate(W / 2, H / 2)
     c.scale(zoom, zoom)
@@ -434,6 +489,7 @@ def main():
     parent = os.path.basename(os.path.dirname(os.path.abspath(args.story)))
     if parent != "stories":  # series/<name>/epNN.json -> <name>-epNN
         slug = f"{parent}-{slug}"
+    story["_slug"] = slug
     out = os.path.join(ROOT, "output", slug)
     work = os.path.join(out, "work")
     os.makedirs(work, exist_ok=True)

@@ -3,3 +3,5 @@ output/
 secrets/
 __pycache__/
 *.pyc
+clips/**/*.mp4
+clips/**/*.mov

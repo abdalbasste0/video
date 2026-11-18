@@ -56,7 +56,12 @@
      420
     ]
    },
-   "dof": 0
+   "dof": 0,
+   "flow": {
+    "image": "A wide view of New York harbor in November 1872, grey morning, wooden piers, a small two-masted brigantine named Mary Celeste being loaded with barrels, seagulls.",
+    "motion": "Slow push-in toward the ship, seagulls flying, water gently moving, sailors carrying barrels.",
+    "cast": []
+   }
   },
   {
    "bg": "deck",
@@ -95,6 +100,15 @@
      960,
      520
     ]
+   },
+   "flow": {
+    "image": "On the wooden deck of a small sailing ship in harbor, the captain stands with his wife and their little daughter, smiling, masts and ropes behind them.",
+    "motion": "The family looks around the ship, the little girl points at a seagull, flags and ropes sway in the breeze, slow camera dolly.",
+    "cast": [
+     "captain",
+     "wife",
+     "child"
+    ]
    }
   },
   {
@@ -128,6 +142,14 @@
      900,
      540
     ]
+   },
+   "flow": {
+    "image": "Sailors working on the deck of a small brigantine, pulling ropes and rolling a barrel, sails being raised.",
+    "motion": "One sailor pulls a rope hand over hand, the other rolls a barrel, sails flutter, light camera pan.",
+    "cast": [
+     "sailor",
+     "sailor2"
+    ]
    }
   },
   {
@@ -138,6 +160,11 @@
      1.0,
      1.1
     ]
+   },
+   "flow": {
+    "image": "Inside a dark wooden ship's cargo hold lit by a lantern, rows of stacked wooden barrels of alcohol.",
+    "motion": "Lantern light flickers and sways, slow push along the rows of barrels, dust floating in the light.",
+    "cast": []
    }
   },
   {
@@ -157,6 +184,11 @@
      900,
      520
     ]
+   },
+   "flow": {
+    "image": "A small two-masted brigantine with full white sails leaving harbor at sunset, orange and purple sky, calm sea.",
+    "motion": "The ship sails slowly across the frame, waves roll, sails fill with wind, sunset light shimmers on the water.",
+    "cast": []
    }
   },
   {
@@ -213,6 +245,11 @@
      900,
      520
     ]
+   },
+   "flow": {
+    "image": "Open Atlantic ocean on a bright day, a lone two-masted brigantine in the distance with some sails torn and loose, drifting strangely; a second sailing ship in the foreground.",
+    "motion": "The distant ship drifts and turns oddly, torn sails flapping, waves rolling, the camera slowly zooms toward it.",
+    "cast": []
    }
   },
   {
@@ -238,6 +275,11 @@
      960,
      440
     ]
+   },
+   "flow": {
+    "image": "A lonely two-masted sailing ship with torn sails drifting in thick sea fog, no one visible on deck, eerie grey light.",
+    "motion": "Fog drifts past, the ship rocks slowly on the waves, a torn sail flaps, very slow push-in, eerie mood.",
+    "cast": []
    }
   },
   {
@@ -273,6 +315,14 @@
      700,
      540
     ]
+   },
+   "flow": {
+    "image": "Two sailors climbing over the rail onto the wet deck of a foggy abandoned ship, an open cargo hatch, coiled ropes.",
+    "motion": "The two sailors step onto the deck and look around nervously, fog drifts, the ship creaks and rocks.",
+    "cast": [
+     "sailor",
+     "sailor2"
+    ]
    }
   },
   {
@@ -298,6 +348,11 @@
      1100,
      560
     ]
+   },
+   "flow": {
+    "image": "The empty wet deck of an abandoned sailing ship in fog, ship's wheel turning by itself, an open hatch, no people at all.",
+    "motion": "The wheel slowly turns on its own, ropes sway, fog rolls across the empty deck, slow camera pan.",
+    "cast": []
    }
   },
   {
@@ -325,6 +380,13 @@
      900,
      540
     ]
+   },
+   "flow": {
+    "image": "A damp wooden captain's cabin below deck: a bunk, a table with a logbook, clothes hanging, a child's toy on the floor, a round porthole, a sailor looking around in shock.",
+    "motion": "The hanging lamp swings, the sailor slowly looks around the cabin, dust in the light, slow push-in.",
+    "cast": [
+     "sailor2"
+    ]
    }
   },
   {
@@ -335,6 +397,11 @@
      1.1,
      1.0
     ]
+   },
+   "flow": {
+    "image": "Ship's storeroom with sacks of food, water casks and barrels, all untouched, lit by soft light through the planks.",
+    "motion": "Slow camera glide past the supplies, light flickers through the planks, dust floats.",
+    "cast": []
    }
   },
   {
@@ -360,6 +427,13 @@
      1100,
      600
     ]
+   },
+   "flow": {
+    "image": "A sailor kneeling by an open cargo hatch on a wet deck, looking down at water sloshing in the dark hold below.",
+    "motion": "Water sloshes in the hold, the sailor leans in to look, the ship rocks gently.",
+    "cast": [
+     "sailor"
+    ]
    }
   },
   {
@@ -379,7 +453,12 @@
      1.1
     ]
    },
-   "cut": true
+   "cut": true,
+   "flow": {
+    "image": "Close-up of an old ship's logbook page by lamplight, handwritten entry, a quill pen beside it.",
+    "motion": "Lamplight flickers, the page edge lifts slightly in a draft, slow push-in onto the handwriting.",
+    "cast": []
+   }
   },
   {
    "bg": "atlantic",
@@ -432,7 +511,12 @@
      560
     ]
    },
-   "dof": 0
+   "dof": 0,
+   "flow": {
+    "image": "The stern of a lonely sailing ship in fog, with empty lifeboat davits and cut ropes hanging where the lifeboat used to be.",
+    "motion": "Cut ropes swing from the empty davits, fog drifts, the ship rocks, slow push-in toward the empty space.",
+    "cast": []
+   }
   }
  ]
 }

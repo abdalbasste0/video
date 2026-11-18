@@ -1,0 +1,31 @@
+{
+ "style": "Hand-painted storybook cartoon illustration, cinematic 16:9 frame, warm natural light with soft god rays, rich painted backgrounds with brush texture, clean dark ink outlines. All people are simple stickman characters with large plain white round heads, simple black dot eyes and thick expressive eyebrows, thin limbs, black outline, wearing 1870s clothing.",
+ "cast": {
+  "captain": {
+   "look": "captain",
+   "expr": "neutral",
+   "desc": "Captain Benjamin Briggs: white round head with a short dark-brown beard along the jaw, navy peaked captain's cap with a gold badge, long navy blue coat, dark trousers, brown boots."
+  },
+  "wife": {
+   "look": "wife",
+   "expr": "happy",
+   "desc": "Sarah Briggs: white round head, dark brown hair in a bun, long burgundy 1870s dress with a white collar."
+  },
+  "child": {
+   "look": "child",
+   "expr": "happy",
+   "ref_scale": 1.9,
+   "desc": "Sophia, a 2-year-old girl: small, white round head, short light-brown hair, cream dress."
+  },
+  "sailor": {
+   "look": "sailor",
+   "expr": "neutral",
+   "desc": "a sailor: white round head, red knit cap, off-white jacket, navy trousers."
+  },
+  "sailor2": {
+   "look": "sailor2",
+   "expr": "neutral",
+   "desc": "a sailor: white round head, green knit cap, short black beard, brown jacket, grey trousers."
+  }
+ }
+}
