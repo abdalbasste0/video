@@ -56,7 +56,7 @@ function face(f, skin) {
     smirk: `<path d="M-10,-150 Q6,-146 16,-156" fill="none" stroke="${INK}" stroke-width="3.4" stroke-linecap="round"/>`,
     open: `<ellipse cx="0" cy="-150" rx="9" ry="8" fill="#7a2e26" stroke="${INK}" stroke-width="3"/>`,
   };
-  let out = blush + eye(-25) + eye(25) + brows + nose + (mouths[f.mouth || "smile"]);
+  let out = blush + `<g data-eyes="1">` + eye(-25) + eye(25) + `</g>` + brows + nose + (mouths[f.mouth || "smile"]);
   if (f.glasses) {
     const g = f.glasses === "round"
       ? `<circle cx="-25" cy="-186" r="16"/><circle cx="25" cy="-186" r="16"/>`
@@ -185,4 +185,4 @@ function scene(sc) {
     <g filter="url(#paper)">${m.svg}</g>${chars}${sc.caption ? caption(sc.caption, W, sc.captionY || H * 0.74, sc.captionSize) : ""}${sc.extra || ""}</svg>`;
 }
 
-module.exports = { character, scene, DEFS, mapLayer, caption };
+module.exports = { character, scene, DEFS, mapLayer, caption, shade, INK, COUNTRIES, STATES };

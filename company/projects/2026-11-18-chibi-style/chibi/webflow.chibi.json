@@ -1,0 +1,928 @@
+{
+ "story": "webflow",
+ "cast": {
+  "vlad": "vlad_magdalin",
+  "sergie": "sergie_magdalin",
+  "bryant": "bryant_chou",
+  "linda": "linda_tong"
+ },
+ "scenes": [
+  {
+   "date": "2012",
+   "map": {
+    "center": [
+     -119.5,
+     37.2
+    ],
+    "scale": 2600,
+    "highlight": [
+     {
+      "state": "California"
+     }
+    ],
+    "states": true,
+    "pins": [
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "San Francisco"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "vlad",
+     "pos": [
+      0.5,
+      0.78
+     ],
+     "mouth": "sad",
+     "brows": "worried"
+    }
+   ],
+   "props": [
+    {
+     "type": "stamp",
+     "text": "REJECTED",
+     "pos": [
+      0.5,
+      0.42
+     ],
+     "enterAt": 3.0
+    },
+    {
+     "type": "money",
+     "text": "$0",
+     "pos": [
+      0.72,
+      0.8
+     ],
+     "enterAt": 5.5
+    }
+   ],
+   "camera": {
+    "zoom": 1.08
+   }
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "vlad",
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "title",
+     "lines": [
+      "WEBFLOW",
+      "the fourth try"
+     ],
+     "pos": [
+      0.5,
+      0.2
+     ]
+    }
+   ],
+   "dim": 0.25
+  },
+  {
+   "date": "2004",
+   "map": {
+    "center": [
+     -119.5,
+     37.2
+    ],
+    "scale": 2600,
+    "states": true,
+    "highlight": [
+     {
+      "state": "California"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "vlad",
+     "pos": [
+      0.42,
+      0.8
+     ],
+     "mouth": "grin",
+     "brows": "raised"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.58,
+      0.82
+     ]
+    },
+    {
+     "type": "bubble",
+     "text": "Build websites visually, no code!",
+     "near": 0,
+     "enterAt": 2.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -119.5,
+     37.2
+    ],
+    "scale": 2600,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "vlad",
+     "pos": [
+      0.5,
+      0.8
+     ],
+     "mouth": "sad"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "2005",
+     "sub": "FAILED",
+     "pos": [
+      0.22,
+      0.42
+     ],
+     "enterAt": 1.2
+    },
+    {
+     "type": "card",
+     "text": "2007",
+     "sub": "FAILED",
+     "pos": [
+      0.5,
+      0.36
+     ],
+     "enterAt": 4.0
+    },
+    {
+     "type": "card",
+     "text": "2008",
+     "sub": "FAILED",
+     "pos": [
+      0.78,
+      0.42
+     ],
+     "enterAt": 6.6
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -121.6,
+     37.6
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -122.08,
+       37.42
+      ],
+      "label": "Mountain View"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "vlad",
+     "pos": [
+      0.4,
+      0.82
+     ]
+    },
+    {
+     "id": "bryant",
+     "pos": [
+      0.58,
+      0.82
+     ],
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "building",
+     "label": "INTUIT",
+     "pos": [
+      0.18,
+      0.92
+     ]
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -121.6,
+     37.6
+    ],
+    "scale": 9000
+   },
+   "characters": [
+    {
+     "id": "vlad",
+     "pos": [
+      0.3,
+      0.8
+     ],
+     "to": [
+      0.42,
+      0.8
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "sergie",
+     "pos": [
+      0.56,
+      0.8
+     ],
+     "enterAt": 2.2
+    },
+    {
+     "id": "bryant",
+     "pos": [
+      0.72,
+      0.8
+     ],
+     "enterAt": 3.4,
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "bubble",
+     "text": "Let's try again!",
+     "near": 0,
+     "enterAt": 1.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -121.6,
+     37.6
+    ],
+    "scale": 9000
+   },
+   "characters": [
+    {
+     "id": "vlad"
+    },
+    {
+     "id": "sergie"
+    },
+    {
+     "id": "bryant"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "ATTEMPT #4",
+     "pos": [
+      0.5,
+      0.34
+     ],
+     "color": "#2f63c6"
+    },
+    {
+     "type": "money",
+     "text": "NO SALARY",
+     "pos": [
+      0.85,
+      0.8
+     ],
+     "enterAt": 3.0
+    }
+   ]
+  },
+  {
+   "date": "2012",
+   "map": {
+    "center": [
+     -121.6,
+     37.6
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -122.07,
+       37.39
+      ],
+      "label": "Y Combinator"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "vlad",
+     "pos": [
+      0.32,
+      0.8
+     ]
+    },
+    {
+     "id": "sergie",
+     "pos": [
+      0.46,
+      0.8
+     ]
+    },
+    {
+     "id": "bryant",
+     "pos": [
+      0.6,
+      0.8
+     ]
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "Y COMBINATOR",
+     "pos": [
+      0.82,
+      0.86
+     ]
+    },
+    {
+     "type": "stamp",
+     "text": "REJECTED",
+     "pos": [
+      0.5,
+      0.4
+     ],
+     "enterAt": 4.6
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -121.6,
+     37.6
+    ],
+    "scale": 9000
+   },
+   "characters": [
+    {
+     "id": "vlad",
+     "mouth": "sad",
+     "brows": "worried"
+    },
+    {
+     "id": "sergie",
+     "mouth": "sad"
+    },
+    {
+     "id": "bryant",
+     "mouth": "sad"
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "SAVINGS",
+     "chart": "down",
+     "pos": [
+      0.5,
+      0.55
+     ],
+     "enterAt": 0.8
+    }
+   ],
+   "dim": 0.15
+  },
+  {
+   "date": "MAR 2013",
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "vlad",
+     "pos": [
+      0.5,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.64,
+      0.84
+     ]
+    },
+    {
+     "type": "sign",
+     "text": "HACKER NEWS",
+     "pos": [
+      0.25,
+      0.8
+     ],
+     "color": "#ff6600",
+     "textColor": "#ffffff"
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "vlad",
+     "pos": [
+      0.5,
+      0.88
+     ],
+     "mouth": "grin",
+     "brows": "raised"
+    }
+   ],
+   "props": [
+    {
+     "type": "crowd",
+     "count": 30,
+     "pos": [
+      0.5,
+      0.42
+     ],
+     "enterAt": 0.4
+    },
+    {
+     "type": "card",
+     "text": "20,000",
+     "sub": "ON THE WAITLIST",
+     "count": true,
+     "pos": [
+      0.5,
+      0.26
+     ],
+     "enterAt": 2.2
+    }
+   ]
+  },
+  {
+   "date": "SUMMER 2013",
+   "map": {
+    "center": [
+     -121.6,
+     37.6
+    ],
+    "scale": 9000
+   },
+   "characters": [
+    {
+     "id": "vlad",
+     "pos": [
+      0.32,
+      0.8
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "sergie",
+     "pos": [
+      0.46,
+      0.8
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "bryant",
+     "pos": [
+      0.6,
+      0.8
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "Y COMBINATOR",
+     "pos": [
+      0.82,
+      0.86
+     ]
+    },
+    {
+     "type": "stamp",
+     "text": "ACCEPTED",
+     "pos": [
+      0.5,
+      0.4
+     ],
+     "enterAt": 3.4
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -60,
+     35
+    ],
+    "scale": 300
+   },
+   "characters": [
+    {
+     "id": "vlad",
+     "pos": [
+      0.5,
+      0.86
+     ]
+    }
+   ],
+   "props": [
+    {
+     "type": "crowd",
+     "count": 24,
+     "at": [
+      -98,
+      40
+     ],
+     "enterAt": 0.3
+    },
+    {
+     "type": "crowd",
+     "count": 16,
+     "at": [
+      10,
+      49
+     ],
+     "enterAt": 2.5
+    },
+    {
+     "type": "arrow",
+     "from": [
+      -100,
+      38
+     ],
+     "to": [
+      5,
+      48
+     ],
+     "enterAt": 2.0
+    },
+    {
+     "type": "building",
+     "label": "WEBFLOW",
+     "pos": [
+      0.12,
+      0.92
+     ],
+     "enterAt": 5.0
+    }
+   ]
+  },
+  {
+   "date": "MAR 2022",
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "vlad",
+     "pos": [
+      0.3,
+      0.84
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "money",
+     "text": "$120M RAISED",
+     "pos": [
+      0.55,
+      0.84
+     ],
+     "enterAt": 1.0
+    },
+    {
+     "type": "card",
+     "text": "$4 BILLION",
+     "sub": "VALUATION",
+     "count": true,
+     "pos": [
+      0.5,
+      0.34
+     ],
+     "enterAt": 3.4
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "vlad",
+     "pos": [
+      0.22,
+      0.84
+     ]
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "YEARLY REVENUE",
+     "chart": "up",
+     "lines": [],
+     "pos": [
+      0.5,
+      0.62
+     ],
+     "enterAt": 0.5
+    },
+    {
+     "type": "card",
+     "text": "3.5M+ USERS",
+     "pos": [
+      0.78,
+      0.38
+     ],
+     "enterAt": 3.5,
+     "size": 56
+    }
+   ]
+  },
+  {
+   "date": "2024",
+   "map": {
+    "center": [
+     -121.6,
+     37.6
+    ],
+    "scale": 9000
+   },
+   "characters": [
+    {
+     "id": "vlad",
+     "pos": [
+      0.36,
+      0.8
+     ],
+     "mouth": "smile"
+    },
+    {
+     "id": "linda",
+     "pos": [
+      0.62,
+      0.8
+     ],
+     "enterAt": 1.2,
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "NEW CEO",
+     "pos": [
+      0.62,
+      0.34
+     ],
+     "enterAt": 2.0,
+     "color": "#2f63c6"
+    },
+    {
+     "type": "sign",
+     "text": "BOARD CHAIR",
+     "pos": [
+      0.18,
+      0.86
+     ],
+     "enterAt": 4.6
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "vlad",
+     "pos": [
+      0.5,
+      0.82
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "3 FAILS",
+     "pos": [
+      0.2,
+      0.4
+     ],
+     "enterAt": 0.5,
+     "color": "#c4302b"
+    },
+    {
+     "type": "card",
+     "text": "1 REJECTION",
+     "pos": [
+      0.5,
+      0.3
+     ],
+     "enterAt": 2.0,
+     "color": "#c4302b",
+     "size": 60
+    },
+    {
+     "type": "card",
+     "text": "$4B",
+     "pos": [
+      0.8,
+      0.4
+     ],
+     "enterAt": 5.5
+    }
+   ],
+   "camera": {
+    "zoom": 1.1
+   }
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "vlad",
+     "pos": [
+      0.38,
+      0.84
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.55,
+      0.86
+     ]
+    },
+    {
+     "type": "card",
+     "text": "FREE STARTER PLAN",
+     "pos": [
+      0.5,
+      0.32
+     ],
+     "size": 60,
+     "color": "#2f63c6"
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "vlad",
+     "pos": [
+      0.5,
+      0.84
+     ]
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "FREE: LEARN",
+     "lines": [
+      "PAID: YOUR DOMAIN",
+      "+ MORE PAGES"
+     ],
+     "pos": [
+      0.5,
+      0.6
+     ],
+     "enterAt": 0.5
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "vlad",
+     "pos": [
+      0.5,
+      0.84
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "LINK IN DESCRIPTION",
+     "pos": [
+      0.5,
+      0.5
+     ],
+     "scale": 1.3,
+     "color": "#ffd36a"
+    },
+    {
+     "type": "card",
+     "text": "AFFILIATE LINK",
+     "size": 40,
+     "pos": [
+      0.5,
+      0.2
+     ],
+     "color": "#55606e",
+     "enterAt": 2.5
+    }
+   ]
+  }
+ ]
+}
