@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17T17:03:00+00:00",
+  "updated": "2026-11-18T14:00:14+00:00",
   "agents": {
     "ceo": {
       "status": "idle",
@@ -56,10 +56,11 @@
       "since": "2026-11-17T08:59:52+00:00"
     },
     "thumbnail-designer": {
-      "status": "idle",
-      "task": null,
-      "bubble": "Handed to Yasmin ✓",
-      "since": "2026-11-17T08:55:38+00:00"
+      "status": "working",
+      "task": "Chibi maps: synthesia, speechify, descript",
+      "bubble": "Chibi maps: synthesia, speechify, descript",
+      "since": "2026-11-18T14:00:14+00:00",
+      "task_id": "T-002"
     },
     "recording-producer": {
       "status": "idle",
@@ -166,7 +167,8 @@
         "scriptwriter-long",
         "qa-reviewer",
         "growth-analyst",
-        "video-editor"
+        "video-editor",
+        "thumbnail-designer"
       ],
       "deliverables": [
         "company/projects/2026-11-17-affiliate-pixel-stories/01-affiliate-products.md",
@@ -1214,6 +1216,27 @@
       "kind": "xp",
       "text": "+10 XP: delivered: 10 affiliate pixel stories delivered (silent, capt",
       "task": null
+    },
+    {
+      "t": "2026-11-18T14:00:13+00:00",
+      "agent": "thumbnail-designer",
+      "kind": "start",
+      "text": "Chibi maps for kit, hubspot, fireflies",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-18T14:00:13+00:00",
+      "agent": "thumbnail-designer",
+      "kind": "start",
+      "text": "Chibi maps: ElevenLabs, Lovable, HeyGen",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-18T14:00:14+00:00",
+      "agent": "thumbnail-designer",
+      "kind": "start",
+      "text": "Chibi maps: synthesia, speechify, descript",
+      "task": "T-002"
     }
   ],
   "counters": {
