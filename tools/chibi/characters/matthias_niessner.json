@@ -1,0 +1,18 @@
+{
+ "name": "Matthias Niessner",
+ "role": "Synthesia co-founder, professor (TU Munich)",
+ "note": "From memory of public photos; web search was blocked in this session (proxy 403), so not re-checked. Medium: light skin, short dark-brown hair, clean-shaven, smart-casual. Guessed: blazer, no glasses.",
+ "skin": "#f1cfb0",
+ "hair": {
+  "style": "short-side",
+  "color": "#4a3324"
+ },
+ "face": {
+  "mouth": "smile"
+ },
+ "outfit": {
+  "type": "blazer",
+  "color": "#3a4250",
+  "accent": "#eef1f4"
+ }
+}

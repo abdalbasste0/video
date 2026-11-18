@@ -1,0 +1,20 @@
+{
+ "name": "Anton Osika",
+ "role": "Lovable co-founder and CEO, creator of GPT Engineer",
+ "note": "Web search blocked in this session (proxy 403); from general memory of public photos. Fairly sure: fair skin, light-brown tousled hair, short beard, casual t-shirt/hoodie on stage. Guessed: exact colours. Owner to confirm.",
+ "skin": "#f3d3b6",
+ "hair": {
+  "style": "short-side",
+  "color": "#8a6a48"
+ },
+ "facialHair": "trimmed",
+ "facialHairColor": "#7a5a3c",
+ "face": {
+  "mouth": "smile",
+  "brows": "normal"
+ },
+ "outfit": {
+  "type": "tshirt",
+  "color": "#2c2f36"
+ }
+}

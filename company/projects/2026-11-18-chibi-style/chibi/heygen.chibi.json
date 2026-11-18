@@ -1,0 +1,1087 @@
+{
+ "story": "heygen",
+ "cast": {
+  "joshua": "joshua_xu",
+  "wayne": "wayne_liang"
+ },
+ "scenes": [
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "joshua",
+     "pos": [
+      0.36,
+      0.82
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "$200M",
+     "pos": [
+      0.24,
+      0.34
+     ],
+     "enterAt": 4.6,
+     "count": true,
+     "sub": "PER YEAR"
+    },
+    {
+     "type": "stamp",
+     "text": "LOW CASH BURN",
+     "pos": [
+      0.66,
+      0.38
+     ],
+     "enterAt": 9.4
+    }
+   ],
+   "date": "JUN 2026",
+   "camera": {
+    "zoom": 1.1
+   }
+  },
+  {
+   "map": {
+    "center": [
+     10,
+     30
+    ],
+    "scale": 160
+   },
+   "characters": [
+    {
+     "id": "joshua",
+     "pos": [
+      0.42,
+      0.84
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "title",
+     "lines": [
+      "HEYGEN",
+      "no camera needed"
+     ],
+     "pos": [
+      0.5,
+      0.2
+     ],
+     "enterAt": 0.3
+    },
+    {
+     "type": "laptop",
+     "pos": [
+      0.58,
+      0.86
+     ],
+     "enterAt": 2.0
+    }
+   ],
+   "dim": 0.25
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true,
+    "pins": [
+     {
+      "lonlat": [
+       -79.94,
+       40.44
+      ],
+      "label": "Carnegie Mellon"
+     },
+     {
+      "lonlat": [
+       -118.24,
+       34.05
+      ],
+      "label": "Snapchat, LA"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "joshua",
+     "pos": [
+      0.5,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "arrow",
+     "from": [
+      -79.94,
+      40.44
+     ],
+     "to": [
+      -118.24,
+      34.05
+     ],
+     "enterAt": 4.6
+    },
+    {
+     "type": "card",
+     "text": "6 YEARS",
+     "pos": [
+      0.76,
+      0.36
+     ],
+     "enterAt": 6.6,
+     "size": 62
+    },
+    {
+     "type": "laptop",
+     "pos": [
+      0.66,
+      0.84
+     ],
+     "enterAt": 8.4
+    }
+   ],
+   "date": "2014"
+  },
+  {
+   "map": {
+    "center": [
+     112,
+     30
+    ],
+    "scale": 1500,
+    "highlight": [
+     {
+      "country": "China"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       114.06,
+       22.54
+      ],
+      "label": "Shenzhen"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "joshua",
+     "pos": [
+      0.4,
+      0.82
+     ],
+     "mouth": "smile"
+    },
+    {
+     "id": "wayne",
+     "pos": [
+      0.58,
+      0.82
+     ],
+     "mouth": "grin",
+     "flip": true,
+     "enterAt": 4.4
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "SURREAL",
+     "pos": [
+      0.82,
+      0.86
+     ],
+     "enterAt": 9.0
+    }
+   ],
+   "date": "DEC 2020",
+   "camera": {
+    "zoom": 1.08,
+    "focus": [
+     114.06,
+     22.54
+    ]
+   }
+  },
+  {
+   "map": {
+    "center": [
+     114.06,
+     22.54
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       114.06,
+       22.54
+      ],
+      "label": "Shenzhen"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "joshua",
+     "pos": [
+      0.32,
+      0.82
+     ],
+     "mouth": "neutral",
+     "brows": "worried"
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "THE IDEA",
+     "lines": [
+      "VIDEO WITHOUT",
+      "A CAMERA"
+     ],
+     "pos": [
+      0.72,
+      0.84
+     ],
+     "enterAt": 6.0
+    },
+    {
+     "type": "stamp",
+     "text": "NO CAMERA",
+     "pos": [
+      0.5,
+      0.36
+     ],
+     "enterAt": 8.6
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -10,
+     30
+    ],
+    "scale": 220,
+    "pins": [
+     {
+      "lonlat": [
+       114.06,
+       22.54
+      ],
+      "label": "Shenzhen"
+     },
+     {
+      "lonlat": [
+       -118.24,
+       34.05
+      ],
+      "label": "Los Angeles"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "joshua",
+     "pos": [
+      0.4,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "wayne",
+     "pos": [
+      0.58,
+      0.82
+     ],
+     "mouth": "smile",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "MOVIO",
+     "pos": [
+      0.18,
+      0.86
+     ],
+     "enterAt": 1.6
+    },
+    {
+     "type": "arrow",
+     "from": [
+      114.06,
+      22.54
+     ],
+     "to": [
+      -118.24,
+      34.05
+     ],
+     "enterAt": 3.4
+    },
+    {
+     "type": "stamp",
+     "text": "LAUNCH",
+     "pos": [
+      0.5,
+      0.36
+     ],
+     "enterAt": 8.4
+    }
+   ],
+   "date": "JUL 2022"
+  },
+  {
+   "map": {
+    "center": [
+     -118.3,
+     34.05
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -118.24,
+       34.05
+      ],
+      "label": "Los Angeles"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "joshua",
+     "pos": [
+      0.38,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "wayne",
+     "pos": [
+      0.56,
+      0.82
+     ],
+     "mouth": "grin",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "178 DAYS",
+     "pos": [
+      0.24,
+      0.36
+     ],
+     "enterAt": 3.2,
+     "sub": "TO $1M/YEAR",
+     "size": 60
+    },
+    {
+     "type": "card",
+     "text": "DAY 217",
+     "pos": [
+      0.76,
+      0.36
+     ],
+     "enterAt": 8.6,
+     "sub": "PROFITABLE",
+     "size": 60
+    }
+   ],
+   "date": "DAY 178"
+  },
+  {
+   "map": {
+    "center": [
+     -118.3,
+     34.05
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -118.24,
+       34.05
+      ],
+      "label": "Los Angeles"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "joshua",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "wayne",
+     "pos": [
+      0.48,
+      0.82
+     ],
+     "mouth": "smile"
+    },
+    {
+     "id": "engineer",
+     "pos": [
+      0.66,
+      0.82
+     ],
+     "mouth": "grin",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "money",
+     "text": "BILLS PAID",
+     "pos": [
+      0.86,
+      0.82
+     ],
+     "enterAt": 3.0
+    },
+    {
+     "type": "bubble",
+     "text": "Noodles again!",
+     "near": 2,
+     "enterAt": 5.4
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "joshua",
+     "pos": [
+      0.34,
+      0.82
+     ],
+     "mouth": "smile"
+    },
+    {
+     "id": "wayne",
+     "pos": [
+      0.52,
+      0.82
+     ],
+     "mouth": "smile",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "MOVIO",
+     "pos": [
+      0.16,
+      0.86
+     ],
+     "enterAt": 0.6
+    },
+    {
+     "type": "stamp",
+     "text": "NOW: HEYGEN",
+     "pos": [
+      0.5,
+      0.36
+     ],
+     "enterAt": 2.0
+    },
+    {
+     "type": "board",
+     "title": "AI VIDEO",
+     "lines": [
+      "FULL PLATFORM"
+     ],
+     "pos": [
+      0.8,
+      0.84
+     ],
+     "enterAt": 6.6
+    }
+   ],
+   "date": "APR 2023"
+  },
+  {
+   "map": {
+    "center": [
+     -10,
+     30
+    ],
+    "scale": 220,
+    "highlight": [
+     {
+      "country": "United States of America"
+     },
+     {
+      "country": "China",
+      "color": "#c4302b"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       -77.04,
+       38.9
+      ],
+      "label": "Washington"
+     },
+     {
+      "lonlat": [
+       116.4,
+       39.9
+      ],
+      "label": "Beijing"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "joshua",
+     "pos": [
+      0.4,
+      0.82
+     ],
+     "mouth": "sad",
+     "brows": "worried"
+    }
+   ],
+   "props": [
+    {
+     "type": "building",
+     "label": "CONGRESS",
+     "pos": [
+      0.78,
+      0.88
+     ],
+     "enterAt": 8.4
+    },
+    {
+     "type": "stamp",
+     "text": "QUESTIONS",
+     "pos": [
+      0.5,
+      0.34
+     ],
+     "enterAt": 9.6
+    }
+   ],
+   "date": "2023",
+   "dim": 0.35
+  },
+  {
+   "map": {
+    "center": [
+     -10,
+     30
+    ],
+    "scale": 220,
+    "pins": [
+     {
+      "lonlat": [
+       114.06,
+       22.54
+      ],
+      "label": "Shenzhen"
+     },
+     {
+      "lonlat": [
+       -118.24,
+       34.05
+      ],
+      "label": "Los Angeles"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "joshua",
+     "pos": [
+      0.4,
+      0.82
+     ],
+     "mouth": "neutral",
+     "brows": "raised"
+    },
+    {
+     "id": "wayne",
+     "pos": [
+      0.58,
+      0.82
+     ],
+     "mouth": "neutral",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "arrow",
+     "from": [
+      114.06,
+      22.54
+     ],
+     "to": [
+      -118.24,
+      34.05
+     ],
+     "enterAt": 4.0
+    },
+    {
+     "type": "board",
+     "title": "INVESTORS",
+     "lines": [
+      "CHINA TO US"
+     ],
+     "pos": [
+      0.82,
+      0.84
+     ],
+     "enterAt": 4.6
+    },
+    {
+     "type": "stamp",
+     "text": "DISSOLVED",
+     "pos": [
+      0.5,
+      0.34
+     ],
+     "enterAt": 9.4
+    }
+   ],
+   "date": "2023",
+   "dim": 0.15
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "investor",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "smirk"
+    },
+    {
+     "id": "joshua",
+     "pos": [
+      0.6,
+      0.82
+     ],
+     "mouth": "grin",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "$60M",
+     "pos": [
+      0.26,
+      0.34
+     ],
+     "enterAt": 3.6,
+     "count": true
+    },
+    {
+     "type": "sign",
+     "text": "BENCHMARK",
+     "pos": [
+      0.86,
+      0.86
+     ],
+     "enterAt": 6.2
+    },
+    {
+     "type": "card",
+     "text": "~$500M",
+     "pos": [
+      0.72,
+      0.34
+     ],
+     "enterAt": 8.6,
+     "sub": "VALUATION"
+    }
+   ],
+   "date": "JUN 2024"
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "joshua",
+     "pos": [
+      0.2,
+      0.84
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "YEARLY REVENUE",
+     "lines": [],
+     "pos": [
+      0.44,
+      0.84
+     ],
+     "enterAt": 0.6,
+     "chart": "up"
+    },
+    {
+     "type": "card",
+     "text": "2X",
+     "pos": [
+      0.32,
+      0.34
+     ],
+     "enterAt": 4.6,
+     "sub": "8 MONTHS",
+     "size": 70
+    },
+    {
+     "type": "card",
+     "text": "$200M+",
+     "pos": [
+      0.72,
+      0.34
+     ],
+     "enterAt": 8.0,
+     "count": true
+    }
+   ],
+   "date": "JUN 2026",
+   "camera": {
+    "zoom": 1.08
+   }
+  },
+  {
+   "map": {
+    "center": [
+     10,
+     30
+    ],
+    "scale": 160
+   },
+   "characters": [
+    {
+     "id": "joshua",
+     "pos": [
+      0.2,
+      0.84
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "arrow",
+     "from": [
+      -118.24,
+      34.05
+     ],
+     "to": [
+      -0.13,
+      51.51
+     ],
+     "enterAt": 1.0
+    },
+    {
+     "type": "arrow",
+     "from": [
+      -118.24,
+      34.05
+     ],
+     "to": [
+      139.69,
+      35.69
+     ],
+     "enterAt": 1.6
+    },
+    {
+     "type": "arrow",
+     "from": [
+      -118.24,
+      34.05
+     ],
+     "to": [
+      3.38,
+      6.52
+     ],
+     "enterAt": 2.2
+    },
+    {
+     "type": "crowd",
+     "count": 24,
+     "pos": [
+      0.6,
+      0.62
+     ],
+     "enterAt": 2.6
+    },
+    {
+     "type": "card",
+     "text": "30M+",
+     "pos": [
+      0.36,
+      0.34
+     ],
+     "enterAt": 4.2,
+     "sub": "USERS"
+    },
+    {
+     "type": "card",
+     "text": "196",
+     "pos": [
+      0.74,
+      0.34
+     ],
+     "enterAt": 6.0,
+     "count": true,
+     "sub": "COUNTRIES"
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -35,
+     46
+    ],
+    "scale": 300
+   },
+   "characters": [
+    {
+     "id": "user",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.46,
+      0.84
+     ],
+     "enterAt": 0.4
+    },
+    {
+     "type": "board",
+     "title": "SCRIPT",
+     "lines": [
+      "AVATAR",
+      "TALKING VIDEO"
+     ],
+     "pos": [
+      0.76,
+      0.84
+     ],
+     "enterAt": 2.4
+    },
+    {
+     "type": "arrow",
+     "from": [
+      -74.0,
+      40.71
+     ],
+     "to": [
+      13.4,
+      52.52
+     ],
+     "enterAt": 8.0
+    },
+    {
+     "type": "sign",
+     "text": "TRANSLATE",
+     "pos": [
+      0.5,
+      0.4
+     ],
+     "enterAt": 9.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -35,
+     46
+    ],
+    "scale": 300
+   },
+   "characters": [
+    {
+     "id": "user",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.46,
+      0.84
+     ],
+     "enterAt": 0.4
+    },
+    {
+     "type": "card",
+     "text": "3",
+     "pos": [
+      0.3,
+      0.34
+     ],
+     "enterAt": 2.4,
+     "count": true,
+     "sub": "VIDEOS/MO"
+    },
+    {
+     "type": "card",
+     "text": "720p",
+     "pos": [
+      0.72,
+      0.34
+     ],
+     "enterAt": 4.6,
+     "sub": "WATERMARK",
+     "size": 70
+    },
+    {
+     "type": "sign",
+     "text": "TEST FIRST",
+     "pos": [
+      0.84,
+      0.86
+     ],
+     "enterAt": 8.6
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "joshua",
+     "pos": [
+      0.3,
+      0.84
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "user",
+     "pos": [
+      0.7,
+      0.84
+     ],
+     "mouth": "grin",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "crowd",
+     "count": 10,
+     "pos": [
+      0.5,
+      0.66
+     ],
+     "enterAt": 1.0
+    },
+    {
+     "type": "sign",
+     "text": "LINK IN DESCRIPTION",
+     "pos": [
+      0.5,
+      0.5
+     ],
+     "enterAt": 0.3,
+     "scale": 1.3,
+     "color": "#ffd36a"
+    },
+    {
+     "type": "sign",
+     "text": "AFFILIATE LINK",
+     "pos": [
+      0.5,
+      0.24
+     ],
+     "enterAt": 2.5,
+     "color": "#55606e",
+     "textColor": "#f6efdc"
+    }
+   ],
+   "camera": {
+    "zoom": 1.08
+   }
+  }
+ ]
+}

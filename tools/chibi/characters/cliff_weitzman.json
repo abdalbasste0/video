@@ -1,0 +1,17 @@
+{
+ "name": "Cliff Weitzman",
+ "role": "Speechify founder and CEO",
+ "note": "From memory of public photos; web search was blocked in this session (proxy 403), so not re-checked. Fairly sure: light skin, full wavy dark-brown hair, clean-shaven, usually a plain dark t-shirt. Use scale 0.8 for the child scenes.",
+ "skin": "#f0cba8",
+ "hair": {
+  "style": "curly",
+  "color": "#3b2a1e"
+ },
+ "face": {
+  "mouth": "smile"
+ },
+ "outfit": {
+  "type": "tshirt",
+  "color": "#2e333c"
+ }
+}

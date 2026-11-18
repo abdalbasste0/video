@@ -1,0 +1,20 @@
+{
+ "name": "Steffen Tjerrild",
+ "role": "Synthesia co-founder (COO/CFO side)",
+ "note": "From memory of public photos; web search was blocked in this session (proxy 403), so not re-checked. Low confidence: light skin, short light-brown hair and a trimmed beard are a guess. Owner: please send a reference photo.",
+ "skin": "#f0cba8",
+ "hair": {
+  "style": "short-side",
+  "color": "#8a6a48"
+ },
+ "facialHair": "trimmed",
+ "facialHairColor": "#7a5c3e",
+ "face": {
+  "mouth": "smile"
+ },
+ "outfit": {
+  "type": "blazer",
+  "color": "#2f3c5c",
+  "accent": "#f2f0ea"
+ }
+}

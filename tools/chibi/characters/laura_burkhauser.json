@@ -1,0 +1,18 @@
+{
+ "name": "Laura Burkhauser",
+ "role": "Descript CEO since 2025",
+ "note": "From memory of public photos; web search was blocked in this session (proxy 403), so not re-checked. Low confidence: long light-brown hair and light skin are a guess. Owner: please send a reference photo before publishing.",
+ "skin": "#f3d3b8",
+ "hair": {
+  "style": "long",
+  "color": "#9a7650"
+ },
+ "face": {
+  "mouth": "smile"
+ },
+ "outfit": {
+  "type": "blazer",
+  "color": "#2f4a5c",
+  "accent": "#f2f0ea"
+ }
+}

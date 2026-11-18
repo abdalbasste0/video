@@ -1,0 +1,1211 @@
+{
+ "story": "lovable",
+ "cast": {
+  "anton": "anton_osika",
+  "fabian": "fabian_hedin"
+ },
+ "scenes": [
+  {
+   "map": {
+    "center": [
+     15,
+     57
+    ],
+    "scale": 700,
+    "highlight": [
+     {
+      "country": "Sweden"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       18.07,
+       59.33
+      ],
+      "label": "Stockholm"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "anton",
+     "pos": [
+      0.36,
+      0.82
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.52,
+      0.84
+     ],
+     "enterAt": 0.4
+    },
+    {
+     "type": "card",
+     "text": "$13.3B",
+     "pos": [
+      0.5,
+      0.34
+     ],
+     "enterAt": 4.2,
+     "count": true,
+     "sub": "VALUATION"
+    },
+    {
+     "type": "sign",
+     "text": "SIDE PROJECT",
+     "pos": [
+      0.82,
+      0.86
+     ],
+     "enterAt": 8.4
+    }
+   ],
+   "date": "AUG 2026",
+   "camera": {
+    "zoom": 1.1,
+    "focus": [
+     18.07,
+     59.33
+    ]
+   }
+  },
+  {
+   "map": {
+    "center": [
+     10,
+     30
+    ],
+    "scale": 160
+   },
+   "characters": [
+    {
+     "id": "anton",
+     "pos": [
+      0.42,
+      0.84
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "title",
+     "lines": [
+      "LOVABLE",
+      "chat it, get an app"
+     ],
+     "pos": [
+      0.5,
+      0.2
+     ],
+     "enterAt": 0.3
+    },
+    {
+     "type": "laptop",
+     "pos": [
+      0.58,
+      0.86
+     ],
+     "enterAt": 2.0
+    }
+   ],
+   "dim": 0.25
+  },
+  {
+   "map": {
+    "center": [
+     18.07,
+     59.33
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       18.07,
+       59.33
+      ],
+      "label": "Stockholm"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "anton",
+     "pos": [
+      0.4,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.56,
+      0.84
+     ],
+     "enterAt": 0.4
+    },
+    {
+     "type": "stamp",
+     "text": "OPEN SOURCE",
+     "pos": [
+      0.5,
+      0.36
+     ],
+     "enterAt": 4.2
+    },
+    {
+     "type": "sign",
+     "text": "GPT ENGINEER",
+     "pos": [
+      0.8,
+      0.86
+     ],
+     "enterAt": 7.0
+    }
+   ],
+   "date": "JUN 2023"
+  },
+  {
+   "map": {
+    "center": [
+     10,
+     30
+    ],
+    "scale": 160
+   },
+   "characters": [
+    {
+     "id": "anton",
+     "pos": [
+      0.22,
+      0.84
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "arrow",
+     "from": [
+      18.07,
+      59.33
+     ],
+     "to": [
+      -122.42,
+      37.77
+     ],
+     "enterAt": 1.4
+    },
+    {
+     "type": "arrow",
+     "from": [
+      18.07,
+      59.33
+     ],
+     "to": [
+      77.59,
+      12.97
+     ],
+     "enterAt": 2.2
+    },
+    {
+     "type": "arrow",
+     "from": [
+      18.07,
+      59.33
+     ],
+     "to": [
+      -46.63,
+      -23.55
+     ],
+     "enterAt": 3.0
+    },
+    {
+     "type": "crowd",
+     "count": 18,
+     "pos": [
+      0.6,
+      0.62
+     ],
+     "enterAt": 4.4
+    },
+    {
+     "type": "card",
+     "text": "10K+",
+     "pos": [
+      0.74,
+      0.34
+     ],
+     "enterAt": 7.4,
+     "sub": "STARS"
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     16,
+     61
+    ],
+    "scale": 1500,
+    "highlight": [
+     {
+      "country": "Sweden"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       18.07,
+       59.33
+      ],
+      "label": "Stockholm"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "anton",
+     "pos": [
+      0.36,
+      0.82
+     ],
+     "mouth": "smile"
+    },
+    {
+     "id": "fabian",
+     "pos": [
+      0.56,
+      0.82
+     ],
+     "mouth": "grin",
+     "flip": true,
+     "enterAt": 1.6
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "GPT ENGINEER APP",
+     "pos": [
+      0.5,
+      0.4
+     ],
+     "enterAt": 7.6
+    }
+   ],
+   "date": "2023"
+  },
+  {
+   "map": {
+    "center": [
+     18.07,
+     59.33
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       18.07,
+       59.33
+      ],
+      "label": "Stockholm"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "anton",
+     "pos": [
+      0.24,
+      0.82
+     ],
+     "mouth": "neutral",
+     "brows": "worried"
+    },
+    {
+     "id": "fabian",
+     "pos": [
+      0.4,
+      0.82
+     ],
+     "mouth": "neutral",
+     "brows": "worried"
+    },
+    {
+     "id": "user",
+     "pos": [
+      0.78,
+      0.82
+     ],
+     "mouth": "sad",
+     "brows": "worried",
+     "flip": true,
+     "enterAt": 4.6
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "MADE FOR CODERS",
+     "lines": [
+      "NOT FOR EVERYONE"
+     ],
+     "pos": [
+      0.6,
+      0.84
+     ],
+     "enterAt": 1.8
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     18.07,
+     59.33
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       18.07,
+       59.33
+      ],
+      "label": "Stockholm"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "anton",
+     "pos": [
+      0.36,
+      0.82
+     ],
+     "mouth": "neutral",
+     "brows": "raised"
+    },
+    {
+     "id": "fabian",
+     "pos": [
+      0.54,
+      0.82
+     ],
+     "mouth": "open",
+     "brows": "worried",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "stamp",
+     "text": "RISKY CHOICE",
+     "pos": [
+      0.5,
+      0.36
+     ],
+     "enterAt": 1.0
+    },
+    {
+     "type": "board",
+     "title": "REBUILD",
+     "lines": [
+      "FOR NON-CODERS"
+     ],
+     "pos": [
+      0.8,
+      0.84
+     ],
+     "enterAt": 3.6
+    },
+    {
+     "type": "sign",
+     "text": "BYE, OLD NAME",
+     "pos": [
+      0.16,
+      0.86
+     ],
+     "enterAt": 8.4
+    }
+   ],
+   "dim": 0.35
+  },
+  {
+   "map": {
+    "center": [
+     -25,
+     48
+    ],
+    "scale": 300
+   },
+   "characters": [
+    {
+     "id": "anton",
+     "pos": [
+      0.4,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "fabian",
+     "pos": [
+      0.58,
+      0.82
+     ],
+     "mouth": "grin",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "LOVABLE",
+     "pos": [
+      0.5,
+      0.4
+     ],
+     "enterAt": 2.6,
+     "color": "#ffd36a"
+    },
+    {
+     "type": "card",
+     "text": "#1 PRODUCT HUNT",
+     "pos": [
+      0.24,
+      0.34
+     ],
+     "enterAt": 6.6,
+     "size": 38
+    },
+    {
+     "type": "card",
+     "text": "#1 HACKER NEWS",
+     "pos": [
+      0.76,
+      0.34
+     ],
+     "enterAt": 8.2,
+     "size": 38
+    }
+   ],
+   "date": "NOV 2024",
+   "camera": {
+    "zoom": 1.08
+   }
+  },
+  {
+   "map": {
+    "center": [
+     12,
+     55
+    ],
+    "scale": 700
+   },
+   "characters": [
+    {
+     "id": "anton",
+     "pos": [
+      0.34,
+      0.82
+     ],
+     "mouth": "sad",
+     "brows": "worried"
+    },
+    {
+     "id": "engineer",
+     "pos": [
+      0.66,
+      0.82
+     ],
+     "mouth": "neutral",
+     "brows": "raised",
+     "flip": true,
+     "enterAt": 5.2
+    }
+   ],
+   "props": [
+    {
+     "type": "stamp",
+     "text": "DATA EXPOSED?",
+     "pos": [
+      0.5,
+      0.36
+     ],
+     "enterAt": 8.4
+    }
+   ],
+   "date": "MAR 2025",
+   "dim": 0.4
+  },
+  {
+   "map": {
+    "center": [
+     12,
+     55
+    ],
+    "scale": 700
+   },
+   "characters": [
+    {
+     "id": "anton",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "neutral",
+     "brows": "angry"
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "SECURITY CODE",
+     "lines": [
+      "CVE-2025-48757"
+     ],
+     "pos": [
+      0.56,
+      0.84
+     ],
+     "enterAt": 1.4
+    },
+    {
+     "type": "stamp",
+     "text": "DISPUTED",
+     "pos": [
+      0.5,
+      0.34
+     ],
+     "enterAt": 4.6
+    },
+    {
+     "type": "sign",
+     "text": "SECURITY SCANNER",
+     "pos": [
+      0.82,
+      0.86
+     ],
+     "enterAt": 9.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -35,
+     46
+    ],
+    "scale": 300
+   },
+   "characters": [
+    {
+     "id": "anton",
+     "pos": [
+      0.26,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "fabian",
+     "pos": [
+      0.42,
+      0.82
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "REVENUE",
+     "lines": [],
+     "pos": [
+      0.76,
+      0.84
+     ],
+     "enterAt": 0.8,
+     "chart": "up"
+    },
+    {
+     "type": "card",
+     "text": "~8 MONTHS",
+     "pos": [
+      0.24,
+      0.34
+     ],
+     "enterAt": 4.4,
+     "size": 60
+    },
+    {
+     "type": "card",
+     "text": "$100M",
+     "pos": [
+      0.68,
+      0.34
+     ],
+     "enterAt": 7.4,
+     "count": true,
+     "sub": "PER YEAR"
+    }
+   ],
+   "date": "JUL 2025"
+  },
+  {
+   "map": {
+    "center": [
+     18.07,
+     59.33
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       18.07,
+       59.33
+      ],
+      "label": "Stockholm"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "anton",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "crowd",
+     "count": 14,
+     "pos": [
+      0.68,
+      0.66
+     ],
+     "enterAt": 0.8
+    },
+    {
+     "type": "laptop",
+     "pos": [
+      0.46,
+      0.84
+     ],
+     "enterAt": 4.0
+    },
+    {
+     "type": "bubble",
+     "text": "Describe. Watch. Chat.",
+     "near": 0,
+     "enterAt": 6.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -35,
+     46
+    ],
+    "scale": 300,
+    "pins": [
+     {
+      "lonlat": [
+       -74.0,
+       40.71
+      ],
+      "label": "New York"
+     },
+     {
+      "lonlat": [
+       18.07,
+       59.33
+      ],
+      "label": "Stockholm"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "investor",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "smirk"
+    },
+    {
+     "id": "anton",
+     "pos": [
+      0.64,
+      0.82
+     ],
+     "mouth": "grin",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "arrow",
+     "from": [
+      -74.0,
+      40.71
+     ],
+     "to": [
+      18.07,
+      59.33
+     ],
+     "enterAt": 0.6
+    },
+    {
+     "type": "card",
+     "text": "$330M",
+     "pos": [
+      0.26,
+      0.34
+     ],
+     "enterAt": 2.8
+    },
+    {
+     "type": "card",
+     "text": "$6.6B",
+     "pos": [
+      0.72,
+      0.34
+     ],
+     "enterAt": 6.0,
+     "count": true,
+     "sub": "VALUATION"
+    }
+   ],
+   "date": "DEC 2025"
+  },
+  {
+   "map": {
+    "center": [
+     12,
+     55
+    ],
+    "scale": 700
+   },
+   "characters": [
+    {
+     "id": "anton",
+     "pos": [
+      0.18,
+      0.84
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "RUN RATE",
+     "lines": [],
+     "pos": [
+      0.4,
+      0.84
+     ],
+     "enterAt": 0.6,
+     "chart": "bars"
+    },
+    {
+     "type": "card",
+     "text": "$400M",
+     "pos": [
+      0.2,
+      0.34
+     ],
+     "enterAt": 4.6,
+     "count": true,
+     "size": 62
+    },
+    {
+     "type": "card",
+     "text": "+$100M",
+     "pos": [
+      0.5,
+      0.3
+     ],
+     "enterAt": 8.0,
+     "sub": "IN ONE MONTH",
+     "size": 62
+    },
+    {
+     "type": "card",
+     "text": "146",
+     "pos": [
+      0.8,
+      0.34
+     ],
+     "enterAt": 11.0,
+     "count": true,
+     "sub": "EMPLOYEES",
+     "size": 62
+    }
+   ],
+   "date": "EARLY 2026"
+  },
+  {
+   "map": {
+    "center": [
+     -35,
+     46
+    ],
+    "scale": 300,
+    "pins": [
+     {
+      "lonlat": [
+       -122.18,
+       37.45
+      ],
+      "label": "Menlo Park"
+     },
+     {
+      "lonlat": [
+       18.07,
+       59.33
+      ],
+      "label": "Stockholm"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "investor",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "smirk"
+    },
+    {
+     "id": "anton",
+     "pos": [
+      0.5,
+      0.82
+     ],
+     "mouth": "grin",
+     "flip": true
+    },
+    {
+     "id": "fabian",
+     "pos": [
+      0.68,
+      0.82
+     ],
+     "mouth": "grin",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "arrow",
+     "from": [
+      -122.18,
+      37.45
+     ],
+     "to": [
+      18.07,
+      59.33
+     ],
+     "enterAt": 0.6
+    },
+    {
+     "type": "card",
+     "text": "$400M",
+     "pos": [
+      0.2,
+      0.34
+     ],
+     "enterAt": 1.8
+    },
+    {
+     "type": "card",
+     "text": "$13.3B",
+     "pos": [
+      0.8,
+      0.34
+     ],
+     "enterAt": 5.6,
+     "count": true,
+     "color": "#2f8a4a"
+    },
+    {
+     "type": "stamp",
+     "text": "DOUBLED",
+     "pos": [
+      0.5,
+      0.36
+     ],
+     "enterAt": 9.0
+    }
+   ],
+   "date": "AUG 2026",
+   "camera": {
+    "zoom": 1.1
+   }
+  },
+  {
+   "map": {
+    "center": [
+     8,
+     56
+    ],
+    "scale": 700,
+    "highlight": [
+     {
+      "country": "Sweden"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       18.07,
+       59.33
+      ],
+      "label": "Stockholm"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "anton",
+     "pos": [
+      0.38,
+      0.82
+     ],
+     "mouth": "smile"
+    },
+    {
+     "id": "fabian",
+     "pos": [
+      0.56,
+      0.82
+     ],
+     "mouth": "smile",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "HQ: STOCKHOLM",
+     "pos": [
+      0.82,
+      0.86
+     ],
+     "enterAt": 5.4
+    },
+    {
+     "type": "crowd",
+     "count": 8,
+     "pos": [
+      0.2,
+      0.66
+     ],
+     "enterAt": 2.0
+    }
+   ],
+   "camera": {
+    "zoom": 1.08,
+    "focus": [
+     18.07,
+     59.33
+    ]
+   }
+  },
+  {
+   "map": {
+    "center": [
+     0,
+     40
+    ],
+    "scale": 160
+   },
+   "characters": [
+    {
+     "id": "user",
+     "pos": [
+      0.32,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.48,
+      0.84
+     ],
+     "enterAt": 0.4
+    },
+    {
+     "type": "board",
+     "title": "FREE PLAN",
+     "lines": [
+      "CREDITS EVERY DAY"
+     ],
+     "pos": [
+      0.86,
+      0.84
+     ],
+     "enterAt": 3.0
+    },
+    {
+     "type": "bubble",
+     "text": "A booking page, please!",
+     "near": 0,
+     "enterAt": 6.4
+    },
+    {
+     "type": "sign",
+     "text": "FIRST VERSION",
+     "pos": [
+      0.62,
+      0.86
+     ],
+     "enterAt": 9.4
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     0,
+     40
+    ],
+    "scale": 160
+   },
+   "characters": [
+    {
+     "id": "user",
+     "pos": [
+      0.32,
+      0.82
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.48,
+      0.84
+     ],
+     "enterAt": 0.4
+    },
+    {
+     "type": "bubble",
+     "text": "Make it blue!",
+     "near": 0,
+     "enterAt": 1.6
+    },
+    {
+     "type": "board",
+     "title": "PAID PLANS",
+     "lines": [
+      "MORE CREDITS"
+     ],
+     "pos": [
+      0.8,
+      0.84
+     ],
+     "enterAt": 4.8
+    },
+    {
+     "type": "stamp",
+     "text": "CHECK PRICING",
+     "pos": [
+      0.66,
+      0.36
+     ],
+     "enterAt": 8.4
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     12,
+     55
+    ],
+    "scale": 700
+   },
+   "characters": [
+    {
+     "id": "anton",
+     "pos": [
+      0.3,
+      0.84
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "user",
+     "pos": [
+      0.7,
+      0.84
+     ],
+     "mouth": "grin",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "crowd",
+     "count": 10,
+     "pos": [
+      0.5,
+      0.66
+     ],
+     "enterAt": 1.0
+    },
+    {
+     "type": "sign",
+     "text": "LINK IN DESCRIPTION",
+     "pos": [
+      0.5,
+      0.5
+     ],
+     "enterAt": 0.3,
+     "scale": 1.3,
+     "color": "#ffd36a"
+    },
+    {
+     "type": "sign",
+     "text": "AFFILIATE LINK",
+     "pos": [
+      0.5,
+      0.24
+     ],
+     "enterAt": 2.5,
+     "color": "#55606e",
+     "textColor": "#f6efdc"
+    }
+   ],
+   "camera": {
+    "zoom": 1.08
+   }
+  }
+ ]
+}

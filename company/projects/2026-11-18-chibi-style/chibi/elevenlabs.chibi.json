@@ -1,0 +1,1116 @@
+{
+ "story": "elevenlabs",
+ "cast": {
+  "mati": "mati_staniszewski",
+  "piotr": "piotr_dabkowski"
+ },
+ "scenes": [
+  {
+   "map": {
+    "center": [
+     0,
+     40
+    ],
+    "scale": 160
+   },
+   "characters": [
+    {
+     "id": "mati",
+     "pos": [
+      0.4,
+      0.82
+     ],
+     "mouth": "sad",
+     "brows": "worried"
+    },
+    {
+     "id": "piotr",
+     "pos": [
+      0.6,
+      0.82
+     ],
+     "mouth": "sad",
+     "brows": "worried",
+     "flip": true,
+     "enterAt": 0.6
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.5,
+      0.86
+     ],
+     "enterAt": 1.5
+    },
+    {
+     "type": "stamp",
+     "text": "FAKE VOICES",
+     "pos": [
+      0.5,
+      0.38
+     ],
+     "enterAt": 6.6
+    }
+   ],
+   "date": "JAN 2023",
+   "dim": 0.3,
+   "camera": {
+    "zoom": 1.1
+   }
+  },
+  {
+   "map": {
+    "center": [
+     -35,
+     46
+    ],
+    "scale": 300
+   },
+   "characters": [
+    {
+     "id": "mati",
+     "pos": [
+      0.5,
+      0.84
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "title",
+     "lines": [
+      "ELEVENLABS",
+      "the voice startup"
+     ],
+     "pos": [
+      0.5,
+      0.2
+     ],
+     "enterAt": 0.3
+    },
+    {
+     "type": "card",
+     "text": "$11B",
+     "pos": [
+      0.8,
+      0.4
+     ],
+     "enterAt": 4.2,
+     "count": true
+    }
+   ],
+   "dim": 0.25
+  },
+  {
+   "map": {
+    "center": [
+     19.4,
+     52
+    ],
+    "scale": 2600,
+    "highlight": [
+     {
+      "country": "Poland"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       21.01,
+       52.23
+      ],
+      "label": "Warsaw"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "mati",
+     "pos": [
+      0.38,
+      0.82
+     ],
+     "enterAt": 3.4
+    },
+    {
+     "id": "piotr",
+     "pos": [
+      0.56,
+      0.82
+     ],
+     "enterAt": 4.6,
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "building",
+     "label": "HIGH SCHOOL",
+     "pos": [
+      0.16,
+      0.88
+     ],
+     "enterAt": 5.6
+    },
+    {
+     "type": "board",
+     "title": "MOVIE NIGHTS",
+     "lines": [
+      "USA FILMS"
+     ],
+     "pos": [
+      0.82,
+      0.84
+     ],
+     "enterAt": 8.0
+    }
+   ],
+   "camera": {
+    "zoom": 1.08,
+    "focus": [
+     21.01,
+     52.23
+    ]
+   }
+  },
+  {
+   "map": {
+    "center": [
+     21.01,
+     52.23
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       21.01,
+       52.23
+      ],
+      "label": "Warsaw"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "mati",
+     "pos": [
+      0.24,
+      0.82
+     ],
+     "mouth": "sad"
+    },
+    {
+     "id": "piotr",
+     "pos": [
+      0.4,
+      0.82
+     ],
+     "mouth": "neutral",
+     "brows": "worried"
+    },
+    {
+     "id": "person",
+     "pos": [
+      0.74,
+      0.82
+     ],
+     "mouth": "neutral",
+     "flip": true,
+     "enterAt": 2.5
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "ONE NARRATOR",
+     "lines": [
+      "EVERY ROLE"
+     ],
+     "pos": [
+      0.56,
+      0.84
+     ],
+     "enterAt": 3.0
+    },
+    {
+     "type": "bubble",
+     "text": "Same voice. Every role.",
+     "near": 2,
+     "enterAt": 7.5,
+     "side": "left"
+    }
+   ],
+   "dim": 0.1
+  },
+  {
+   "map": {
+    "center": [
+     8,
+     51
+    ],
+    "scale": 700
+   },
+   "characters": [
+    {
+     "id": "mati",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "smile"
+    },
+    {
+     "id": "piotr",
+     "pos": [
+      0.7,
+      0.82
+     ],
+     "mouth": "smile",
+     "flip": true,
+     "enterAt": 2.6
+    }
+   ],
+   "props": [
+    {
+     "type": "building",
+     "label": "PALANTIR",
+     "pos": [
+      0.12,
+      0.88
+     ],
+     "enterAt": 1.6
+    },
+    {
+     "type": "building",
+     "label": "GOOGLE",
+     "pos": [
+      0.88,
+      0.88
+     ],
+     "enterAt": 4.4
+    },
+    {
+     "type": "stamp",
+     "text": "MOVIE PROBLEM",
+     "pos": [
+      0.5,
+      0.36
+     ],
+     "enterAt": 7.8
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     19.4,
+     52
+    ],
+    "scale": 2600,
+    "highlight": [
+     {
+      "country": "Poland"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       21.01,
+       52.23
+      ],
+      "label": "Warsaw"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "mati",
+     "pos": [
+      0.32,
+      0.82
+     ],
+     "mouth": "grin",
+     "to": [
+      0.4,
+      0.82
+     ]
+    },
+    {
+     "id": "piotr",
+     "pos": [
+      0.6,
+      0.82
+     ],
+     "mouth": "grin",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "ELEVENLABS",
+     "pos": [
+      0.82,
+      0.86
+     ],
+     "enterAt": 1.4
+    },
+    {
+     "type": "board",
+     "title": "PITCH DECK",
+     "lines": [
+      "AI DUBBING",
+      "SAME FEELING"
+     ],
+     "pos": [
+      0.16,
+      0.84
+     ],
+     "enterAt": 4.6
+    }
+   ],
+   "date": "2022"
+  },
+  {
+   "map": {
+    "center": [
+     15,
+     52
+    ],
+    "scale": 700
+   },
+   "characters": [
+    {
+     "id": "piotr",
+     "pos": [
+      0.36,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.52,
+      0.84
+     ],
+     "enterAt": 0.4
+    },
+    {
+     "type": "board",
+     "title": "VOICE QUALITY",
+     "lines": [],
+     "pos": [
+      0.78,
+      0.84
+     ],
+     "enterAt": 1.0,
+     "chart": "up"
+    },
+    {
+     "type": "bubble",
+     "text": "Less robot, more human.",
+     "near": 0,
+     "enterAt": 5.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     10,
+     30
+    ],
+    "scale": 160
+   },
+   "characters": [
+    {
+     "id": "mati",
+     "pos": [
+      0.18,
+      0.84
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "arrow",
+     "from": [
+      21.01,
+      52.23
+     ],
+     "to": [
+      -74.0,
+      40.71
+     ],
+     "enterAt": 1.5
+    },
+    {
+     "type": "arrow",
+     "from": [
+      21.01,
+      52.23
+     ],
+     "to": [
+      -46.63,
+      -23.55
+     ],
+     "enterAt": 2.3
+    },
+    {
+     "type": "arrow",
+     "from": [
+      21.01,
+      52.23
+     ],
+     "to": [
+      139.69,
+      35.69
+     ],
+     "enterAt": 3.1
+    },
+    {
+     "type": "crowd",
+     "count": 16,
+     "pos": [
+      0.5,
+      0.62
+     ],
+     "enterAt": 4.5
+    },
+    {
+     "type": "sign",
+     "text": "PUBLIC BETA",
+     "pos": [
+      0.82,
+      0.86
+     ],
+     "enterAt": 1.0
+    }
+   ],
+   "date": "JAN 2023"
+  },
+  {
+   "map": {
+    "center": [
+     -35,
+     46
+    ],
+    "scale": 300
+   },
+   "characters": [
+    {
+     "id": "mati",
+     "pos": [
+      0.4,
+      0.82
+     ],
+     "mouth": "sad",
+     "brows": "worried"
+    },
+    {
+     "id": "piotr",
+     "pos": [
+      0.6,
+      0.82
+     ],
+     "mouth": "open",
+     "brows": "worried",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "stamp",
+     "text": "DEEPFAKE SCANDAL",
+     "pos": [
+      0.5,
+      0.38
+     ],
+     "enterAt": 3.6
+    }
+   ],
+   "dim": 0.4,
+   "camera": {
+    "zoom": 1.12
+   }
+  },
+  {
+   "map": {
+    "center": [
+     19.4,
+     52
+    ],
+    "scale": 1500,
+    "highlight": [
+     {
+      "country": "Poland"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "mati",
+     "pos": [
+      0.32,
+      0.82
+     ],
+     "mouth": "neutral",
+     "brows": "raised"
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "NEW SAFEGUARDS",
+     "lines": [
+      "TRACE AUDIO TO USER",
+      "STRICTER CLONING"
+     ],
+     "pos": [
+      0.64,
+      0.84
+     ],
+     "enterAt": 3.4
+    },
+    {
+     "type": "stamp",
+     "text": "ANSWERED",
+     "pos": [
+      0.5,
+      0.36
+     ],
+     "enterAt": 1.2
+    }
+   ],
+   "date": "30 JAN 2023"
+  },
+  {
+   "map": {
+    "center": [
+     10,
+     35
+    ],
+    "scale": 160
+   },
+   "characters": [
+    {
+     "id": "mati",
+     "pos": [
+      0.22,
+      0.82
+     ],
+     "mouth": "smile"
+    },
+    {
+     "id": "piotr",
+     "pos": [
+      0.38,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "crowd",
+     "count": 20,
+     "pos": [
+      0.6,
+      0.62
+     ],
+     "enterAt": 2.6
+    },
+    {
+     "type": "board",
+     "title": "SHIPPING",
+     "lines": [
+      "LANGUAGES",
+      "AI DUBBING",
+      "AUDIOBOOKS"
+     ],
+     "pos": [
+      0.88,
+      0.86
+     ],
+     "enterAt": 4.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -35,
+     46
+    ],
+    "scale": 300,
+    "pins": [
+     {
+      "lonlat": [
+       -122.18,
+       37.45
+      ],
+      "label": "Menlo Park"
+     },
+     {
+      "lonlat": [
+       21.01,
+       52.23
+      ],
+      "label": "Warsaw"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "investor",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "smirk"
+    },
+    {
+     "id": "mati",
+     "pos": [
+      0.66,
+      0.82
+     ],
+     "mouth": "grin",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "arrow",
+     "from": [
+      -122.18,
+      37.45
+     ],
+     "to": [
+      21.01,
+      52.23
+     ],
+     "enterAt": 0.8
+    },
+    {
+     "type": "card",
+     "text": "$80M",
+     "pos": [
+      0.25,
+      0.36
+     ],
+     "enterAt": 2.0
+    },
+    {
+     "type": "card",
+     "text": "$1.1B",
+     "pos": [
+      0.72,
+      0.34
+     ],
+     "enterAt": 7.4,
+     "count": true,
+     "sub": "REPORTED",
+     "size": 72
+    }
+   ],
+   "date": "JAN 2024"
+  },
+  {
+   "map": {
+    "center": [
+     -35,
+     46
+    ],
+    "scale": 300
+   },
+   "characters": [
+    {
+     "id": "mati",
+     "pos": [
+      0.2,
+      0.84
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "YEARLY REVENUE",
+     "lines": [],
+     "pos": [
+      0.42,
+      0.84
+     ],
+     "enterAt": 0.6,
+     "chart": "bars"
+    },
+    {
+     "type": "card",
+     "text": "$100M",
+     "pos": [
+      0.2,
+      0.34
+     ],
+     "enterAt": 3.6,
+     "count": true,
+     "size": 60
+    },
+    {
+     "type": "card",
+     "text": "$200M",
+     "pos": [
+      0.5,
+      0.3
+     ],
+     "enterAt": 6.4,
+     "count": true,
+     "size": 60
+    },
+    {
+     "type": "card",
+     "text": "$330M",
+     "pos": [
+      0.8,
+      0.34
+     ],
+     "enterAt": 8.6,
+     "count": true,
+     "size": 60,
+     "sub": "LATE 2025"
+    }
+   ],
+   "date": "2025"
+  },
+  {
+   "map": {
+    "center": [
+     -35,
+     46
+    ],
+    "scale": 300
+   },
+   "characters": [
+    {
+     "id": "investor",
+     "pos": [
+      0.24,
+      0.82
+     ],
+     "mouth": "smirk"
+    },
+    {
+     "id": "mati",
+     "pos": [
+      0.46,
+      0.82
+     ],
+     "mouth": "grin",
+     "flip": true
+    },
+    {
+     "id": "piotr",
+     "pos": [
+      0.64,
+      0.82
+     ],
+     "mouth": "grin",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "$500M",
+     "pos": [
+      0.24,
+      0.34
+     ],
+     "enterAt": 1.6
+    },
+    {
+     "type": "card",
+     "text": "$11B",
+     "pos": [
+      0.68,
+      0.32
+     ],
+     "enterAt": 5.6,
+     "count": true,
+     "sub": "VALUATION",
+     "color": "#2f8a4a"
+    },
+    {
+     "type": "sign",
+     "text": "FUTURE IPO?",
+     "pos": [
+      0.86,
+      0.86
+     ],
+     "enterAt": 9.2
+    }
+   ],
+   "date": "FEB 2026",
+   "camera": {
+    "zoom": 1.1
+   }
+  },
+  {
+   "map": {
+    "center": [
+     19.4,
+     52
+    ],
+    "scale": 2600,
+    "highlight": [
+     {
+      "country": "Poland"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       21.01,
+       52.23
+      ],
+      "label": "Warsaw"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "mati",
+     "pos": [
+      0.36,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "piotr",
+     "pos": [
+      0.56,
+      0.82
+     ],
+     "mouth": "grin",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "~$11M",
+     "pos": [
+      0.26,
+      0.34
+     ],
+     "enterAt": 5.0,
+     "sub": "STAKE",
+     "size": 66
+    },
+    {
+     "type": "stamp",
+     "text": "NATIONAL BET",
+     "pos": [
+      0.72,
+      0.36
+     ],
+     "enterAt": 9.6
+    }
+   ],
+   "date": "JUN 2026"
+  },
+  {
+   "map": {
+    "center": [
+     0,
+     40
+    ],
+    "scale": 160
+   },
+   "characters": [
+    {
+     "id": "user",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.46,
+      0.84
+     ],
+     "enterAt": 0.4
+    },
+    {
+     "type": "card",
+     "text": "10,000",
+     "pos": [
+      0.3,
+      0.34
+     ],
+     "enterAt": 5.6,
+     "count": true,
+     "sub": "CREDITS / MONTH"
+    },
+    {
+     "type": "card",
+     "text": "~10 MIN",
+     "pos": [
+      0.72,
+      0.34
+     ],
+     "enterAt": 8.4,
+     "sub": "OF SPEECH",
+     "size": 66
+    },
+    {
+     "type": "sign",
+     "text": "FREE PLAN",
+     "pos": [
+      0.82,
+      0.86
+     ],
+     "enterAt": 3.2
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -35,
+     46
+    ],
+    "scale": 300
+   },
+   "characters": [
+    {
+     "id": "user",
+     "pos": [
+      0.22,
+      0.82
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.36,
+      0.84
+     ],
+     "enterAt": 0.4
+    },
+    {
+     "type": "board",
+     "title": "SCRIPT TO VOICE",
+     "lines": [
+      "PICK A VOICE",
+      "DOWNLOAD"
+     ],
+     "pos": [
+      0.84,
+      0.84
+     ],
+     "enterAt": 0.6
+    },
+    {
+     "type": "sign",
+     "text": "PAID = COMMERCIAL",
+     "pos": [
+      0.58,
+      0.86
+     ],
+     "enterAt": 5.6
+    },
+    {
+     "type": "stamp",
+     "text": "PERMISSION ONLY",
+     "pos": [
+      0.5,
+      0.34
+     ],
+     "enterAt": 8.6
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     0,
+     40
+    ],
+    "scale": 160
+   },
+   "characters": [
+    {
+     "id": "mati",
+     "pos": [
+      0.3,
+      0.84
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "user",
+     "pos": [
+      0.7,
+      0.84
+     ],
+     "mouth": "grin",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "crowd",
+     "count": 10,
+     "pos": [
+      0.5,
+      0.66
+     ],
+     "enterAt": 1.0
+    },
+    {
+     "type": "sign",
+     "text": "LINK IN DESCRIPTION",
+     "pos": [
+      0.5,
+      0.5
+     ],
+     "enterAt": 0.3,
+     "scale": 1.3,
+     "color": "#ffd36a"
+    },
+    {
+     "type": "sign",
+     "text": "AFFILIATE LINK",
+     "pos": [
+      0.5,
+      0.24
+     ],
+     "enterAt": 2.5,
+     "color": "#55606e",
+     "textColor": "#f6efdc"
+    }
+   ],
+   "camera": {
+    "zoom": 1.08
+   }
+  }
+ ]
+}

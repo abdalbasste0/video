@@ -1,0 +1,1126 @@
+{
+ "story": "hubspot",
+ "cast": {
+  "brian": "brian_halligan",
+  "dharmesh": "dharmesh_shah"
+ },
+ "scenes": [
+  {
+   "date": "MAY 8, 2026",
+   "map": {
+    "center": [
+     -74.0,
+     40.72
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -74.009,
+       40.706
+      ],
+      "label": "Wall Street"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "investor",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "sad",
+     "brows": "worried"
+    },
+    {
+     "id": "investor",
+     "pos": [
+      0.7,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "open",
+     "brows": "worried",
+     "enterAt": 6.0
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "pos": [
+      0.3,
+      0.3
+     ],
+     "text": "-20%",
+     "sub": "IN ONE DAY",
+     "color": "#c4302b",
+     "enterAt": 3.0
+    },
+    {
+     "type": "stamp",
+     "pos": [
+      0.7,
+      0.3
+     ],
+     "text": "AI FEAR",
+     "enterAt": 9.2
+    }
+   ],
+   "dim": 0.2
+  },
+  {
+   "map": {
+    "center": [
+     -73.0,
+     41.6
+    ],
+    "scale": 2600,
+    "states": true,
+    "pins": [
+     {
+      "lonlat": [
+       -71.06,
+       42.36
+      ],
+      "label": "Boston"
+     },
+     {
+      "lonlat": [
+       -74.01,
+       40.71
+      ],
+      "label": "New York"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "investor",
+     "pos": [
+      0.15,
+      0.84
+     ],
+     "mouth": "open",
+     "brows": "raised"
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "pos": [
+      0.45,
+      0.62
+     ],
+     "title": "REVENUE",
+     "chart": "up",
+     "enterAt": 1.0
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.74,
+      0.3
+     ],
+     "text": "+23%",
+     "sub": "REVENUE",
+     "count": true,
+     "enterAt": 3.4
+    },
+    {
+     "type": "arrow",
+     "from": [
+      -74.01,
+      40.71
+     ],
+     "to": [
+      -71.06,
+      42.36
+     ],
+     "enterAt": 7.6
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -71.1,
+     42.36
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -71.094,
+       42.36
+      ],
+      "label": "MIT"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "brian",
+     "pos": [
+      0.36,
+      0.8
+     ]
+    },
+    {
+     "id": "dharmesh",
+     "pos": [
+      0.58,
+      0.8
+     ],
+     "flip": true,
+     "enterAt": 1.2
+    }
+   ],
+   "props": [
+    {
+     "type": "building",
+     "pos": [
+      0.84,
+      0.92
+     ],
+     "label": "MIT",
+     "enterAt": 3.0
+    },
+    {
+     "type": "bubble",
+     "text": "Nobody wants cold calls!",
+     "near": 1,
+     "enterAt": 5.6
+    }
+   ]
+  },
+  {
+   "date": "JUN 2006",
+   "map": {
+    "center": [
+     -71.7,
+     41.0
+    ],
+    "scale": 6000,
+    "states": true,
+    "highlight": [
+     {
+      "state": "Massachusetts"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       -71.11,
+       42.37
+      ],
+      "label": "Cambridge"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "brian",
+     "pos": [
+      0.36,
+      0.8
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "dharmesh",
+     "pos": [
+      0.56,
+      0.8
+     ],
+     "flip": true,
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "building",
+     "pos": [
+      0.84,
+      0.92
+     ],
+     "label": "HUBSPOT",
+     "enterAt": 2.0
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.5,
+      0.24
+     ],
+     "text": "STOP INTERRUPTING",
+     "size": 56,
+     "color": "#c4302b",
+     "enterAt": 4.6
+    },
+    {
+     "type": "laptop",
+     "pos": [
+      0.46,
+      0.84
+     ],
+     "enterAt": 8.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -73.0,
+     41.6
+    ],
+    "scale": 2600,
+    "states": true,
+    "pins": [
+     {
+      "lonlat": [
+       -71.06,
+       42.36
+      ],
+      "label": "Boston"
+     },
+     {
+      "lonlat": [
+       -74.01,
+       40.71
+      ],
+      "label": "New York"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "brian",
+     "pos": [
+      0.22,
+      0.82
+     ],
+     "mouth": "smile"
+    },
+    {
+     "id": "dharmesh",
+     "pos": [
+      0.78,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "pos": [
+      0.5,
+      0.18
+     ],
+     "text": "INBOUND MARKETING",
+     "size": 56,
+     "color": "#2f63c6",
+     "enterAt": 2.2
+    },
+    {
+     "type": "board",
+     "pos": [
+      0.5,
+      0.64
+     ],
+     "title": "THE BET",
+     "lines": [
+      "HELPFUL BLOG POST",
+      "beats",
+      "COLD CALL"
+     ],
+     "enterAt": 6.4
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -40,
+     40
+    ],
+    "scale": 300,
+    "pins": [
+     {
+      "lonlat": [
+       -71.06,
+       42.36
+      ],
+      "label": "Boston"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "brian",
+     "pos": [
+      0.3,
+      0.82
+     ]
+    },
+    {
+     "id": "dharmesh",
+     "pos": [
+      0.46,
+      0.82
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "bubble",
+     "text": "Inbound!",
+     "near": 1,
+     "enterAt": 3.0
+    },
+    {
+     "type": "laptop",
+     "pos": [
+      0.6,
+      0.84
+     ],
+     "enterAt": 7.0
+    },
+    {
+     "type": "crowd",
+     "at": [
+      -71.5,
+      41.5
+     ],
+     "count": 12,
+     "enterAt": 9.6
+    }
+   ]
+  },
+  {
+   "date": "SEP 2014",
+   "map": {
+    "center": [
+     -71.1,
+     42.36
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -71.094,
+       42.36
+      ],
+      "label": "MIT"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "brian",
+     "pos": [
+      0.4,
+      0.8
+     ],
+     "mouth": "grin",
+     "brows": "raised"
+    },
+    {
+     "id": "dharmesh",
+     "pos": [
+      0.6,
+      0.8
+     ],
+     "flip": true,
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "pos": [
+      0.26,
+      0.3
+     ],
+     "text": "CRM",
+     "size": 96,
+     "enterAt": 3.6
+    },
+    {
+     "type": "stamp",
+     "pos": [
+      0.74,
+      0.3
+     ],
+     "text": "FREE",
+     "enterAt": 8.6
+    }
+   ]
+  },
+  {
+   "date": "OCT 2014",
+   "map": {
+    "center": [
+     -73.0,
+     41.6
+    ],
+    "scale": 2600,
+    "states": true,
+    "pins": [
+     {
+      "lonlat": [
+       -71.06,
+       42.36
+      ],
+      "label": "Boston"
+     },
+     {
+      "lonlat": [
+       -74.01,
+       40.71
+      ],
+      "label": "New York"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "brian",
+     "pos": [
+      0.42,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "dharmesh",
+     "pos": [
+      0.58,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "arrow",
+     "from": [
+      -71.11,
+      42.37
+     ],
+     "to": [
+      -74.01,
+      40.71
+     ],
+     "enterAt": 1.2
+    },
+    {
+     "type": "building",
+     "pos": [
+      0.16,
+      0.92
+     ],
+     "label": "NYSE",
+     "enterAt": 2.6
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.28,
+      0.3
+     ],
+     "text": "$25",
+     "sub": "A SHARE",
+     "enterAt": 5.4
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.74,
+      0.3
+     ],
+     "text": "$125 MILLION",
+     "sub": "RAISED",
+     "count": true,
+     "enterAt": 7.6
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "dharmesh",
+     "pos": [
+      0.2,
+      0.84
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "building",
+     "pos": [
+      0.55,
+      0.92
+     ],
+     "label": "FREE TOOLS",
+     "enterAt": 1.6
+    },
+    {
+     "type": "crowd",
+     "pos": [
+      0.55,
+      0.5
+     ],
+     "count": 12,
+     "enterAt": 3.6
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.84,
+      0.3
+     ],
+     "text": "UPGRADE",
+     "sub": "PAID TOOLS",
+     "enterAt": 7.6
+    },
+    {
+     "type": "stamp",
+     "pos": [
+      0.28,
+      0.28
+     ],
+     "text": "INBOUND, AGAIN",
+     "enterAt": 9.4
+    }
+   ]
+  },
+  {
+   "date": "2024",
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true,
+    "pins": [
+     {
+      "lonlat": [
+       -122.08,
+       37.39
+      ],
+      "label": "Mountain View"
+     },
+     {
+      "lonlat": [
+       -71.11,
+       42.37
+      ],
+      "label": "Cambridge"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "brian",
+     "pos": [
+      0.5,
+      0.84
+     ],
+     "mouth": "open",
+     "brows": "raised"
+    },
+    {
+     "id": "investor",
+     "pos": [
+      0.78,
+      0.84
+     ],
+     "flip": true,
+     "mouth": "smirk",
+     "enterAt": 4.0
+    }
+   ],
+   "props": [
+    {
+     "type": "arrow",
+     "from": [
+      -122.08,
+      37.39
+     ],
+     "to": [
+      -71.11,
+      42.37
+     ],
+     "enterAt": 2.4
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.5,
+      0.28
+     ],
+     "text": "ALPHABET?",
+     "sub": "TALKS TO BUY",
+     "enterAt": 5.8
+    }
+   ]
+  },
+  {
+   "date": "JUL 10, 2024",
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "investor",
+     "pos": [
+      0.3,
+      0.84
+     ],
+     "mouth": "sad"
+    },
+    {
+     "id": "brian",
+     "pos": [
+      0.56,
+      0.84
+     ],
+     "mouth": "neutral",
+     "brows": "worried"
+    }
+   ],
+   "props": [
+    {
+     "type": "stamp",
+     "pos": [
+      0.5,
+      0.28
+     ],
+     "text": "DEAL OFF",
+     "enterAt": 3.8
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.8,
+      0.36
+     ],
+     "text": "-19%",
+     "sub": "THAT DAY",
+     "color": "#c4302b",
+     "enterAt": 9.0
+    }
+   ],
+   "dim": 0.2
+  },
+  {
+   "map": {
+    "center": [
+     -71.1,
+     42.36
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -71.094,
+       42.36
+      ],
+      "label": "MIT"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "dharmesh",
+     "pos": [
+      0.34,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "engineer",
+     "pos": [
+      0.66,
+      0.82
+     ],
+     "flip": true,
+     "enterAt": 1.4
+    }
+   ],
+   "props": [
+    {
+     "type": "stamp",
+     "pos": [
+      0.24,
+      0.18
+     ],
+     "text": "KEEP BUILDING",
+     "enterAt": 1.6
+    },
+    {
+     "type": "laptop",
+     "pos": [
+      0.5,
+      0.84
+     ],
+     "enterAt": 3.0
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.78,
+      0.26
+     ],
+     "text": "AI AGENT",
+     "enterAt": 4.8
+    },
+    {
+     "type": "bubble",
+     "text": "It answers customer questions!",
+     "near": 0,
+     "enterAt": 5.6
+    }
+   ]
+  },
+  {
+   "date": "2025",
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "dharmesh",
+     "pos": [
+      0.14,
+      0.84
+     ],
+     "mouth": "grin",
+     "brows": "raised"
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "pos": [
+      0.5,
+      0.64
+     ],
+     "title": "REVENUE",
+     "chart": "up",
+     "enterAt": 0.5
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.22,
+      0.3
+     ],
+     "text": "$3.13 BILLION",
+     "count": true,
+     "size": 56,
+     "enterAt": 3.4
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.5,
+      0.2
+     ],
+     "text": "+19%",
+     "size": 56,
+     "enterAt": 5.6
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.8,
+      0.3
+     ],
+     "text": "288,706",
+     "sub": "CUSTOMERS",
+     "count": true,
+     "size": 56,
+     "enterAt": 7.4
+    }
+   ]
+  },
+  {
+   "date": "2026",
+   "map": {
+    "center": [
+     -74.0,
+     40.72
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -74.009,
+       40.706
+      ],
+      "label": "Wall Street"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "investor",
+     "pos": [
+      0.25,
+      0.84
+     ],
+     "mouth": "sad",
+     "brows": "worried"
+    },
+    {
+     "id": "dharmesh",
+     "pos": [
+      0.74,
+      0.84
+     ],
+     "flip": true,
+     "mouth": "neutral",
+     "brows": "raised"
+    }
+   ],
+   "props": [
+    {
+     "type": "stamp",
+     "pos": [
+      0.5,
+      0.24
+     ],
+     "text": "AI FEAR",
+     "enterAt": 1.6
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.25,
+      0.38
+     ],
+     "text": "REPLACE?",
+     "color": "#c4302b",
+     "enterAt": 7.8
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.75,
+      0.38
+     ],
+     "text": "OR POWER?",
+     "color": "#3f8f5a",
+     "enterAt": 9.0
+    }
+   ],
+   "dim": 0.15
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "user",
+     "pos": [
+      0.38,
+      0.84
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.54,
+      0.86
+     ],
+     "enterAt": 0.5
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.5,
+      0.2
+     ],
+     "text": "FREE CRM",
+     "color": "#2f63c6",
+     "enterAt": 2.8
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.8,
+      0.38
+     ],
+     "text": "NO EXPIRATION DATE",
+     "size": 44,
+     "color": "#55606e",
+     "enterAt": 7.8
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "user",
+     "pos": [
+      0.2,
+      0.84
+     ]
+    },
+    {
+     "id": "person",
+     "pos": [
+      0.36,
+      0.84
+     ],
+     "enterAt": 0.6
+    },
+    {
+     "id": "engineer",
+     "pos": [
+      0.52,
+      0.84
+     ],
+     "enterAt": 1.0
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "pos": [
+      0.36,
+      0.24
+     ],
+     "text": "SMALL TEAMS",
+     "sub": "+ FREELANCERS",
+     "size": 56,
+     "enterAt": 1.4
+    },
+    {
+     "type": "board",
+     "pos": [
+      0.8,
+      0.62
+     ],
+     "title": "PAID PLANS",
+     "lines": [
+      "+ AUTOMATION",
+      "+ REPORTING"
+     ],
+     "enterAt": 6.2
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -71.7,
+     41.0
+    ],
+    "scale": 6000,
+    "states": true,
+    "highlight": [
+     {
+      "state": "Massachusetts"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       -71.11,
+       42.37
+      ],
+      "label": "Cambridge"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "brian",
+     "pos": [
+      0.2,
+      0.84
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "dharmesh",
+     "pos": [
+      0.8,
+      0.84
+     ],
+     "flip": true,
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "pos": [
+      0.5,
+      0.5
+     ],
+     "text": "LINK IN DESCRIPTION",
+     "scale": 1.3,
+     "color": "#ffd36a"
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.5,
+      0.2
+     ],
+     "text": "AFFILIATE LINK",
+     "size": 40,
+     "color": "#55606e",
+     "enterAt": 2.5
+    }
+   ]
+  }
+ ]
+}

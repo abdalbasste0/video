@@ -1,0 +1,10 @@
+{
+ "name": "Krish Ramineni",
+ "role": "Fireflies.ai co-founder and CEO",
+ "note": "From memory of public photos; web search was blocked in this session. Fairly sure: young, light-brown skin, short black hair, clean-shaven. Guessed: outfit (dark blazer over a light tee, startup-casual). Owner to confirm.",
+ "skin": "#c99470",
+ "hair": {"style": "short-side", "color": "#16110e"},
+ "facialHair": "none",
+ "face": {"mouth": "smile", "brows": "normal", "browColor": "#16110e"},
+ "outfit": {"type": "blazer", "color": "#24485e", "accent": "#e8e6e1"}
+}

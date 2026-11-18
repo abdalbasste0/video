@@ -1,0 +1,11 @@
+{
+ "name": "Sam Udotong",
+ "role": "Fireflies.ai co-founder and CTO",
+ "note": "From memory of public photos; web search was blocked in this session. Fairly sure: dark-brown skin, short close-cropped black hair. Less sure: light beard (drawn as stubble), outfit (drawn as a hoodie, startup-casual). Owner to confirm with a reference photo.",
+ "skin": "#7b4f35",
+ "hair": {"style": "buzz", "color": "#141010"},
+ "facialHair": "stubble",
+ "facialHairColor": "#141010",
+ "face": {"mouth": "smile", "brows": "normal", "browColor": "#141010"},
+ "outfit": {"type": "hoodie", "color": "#7a3fa0", "accent": "#efe8f5"}
+}

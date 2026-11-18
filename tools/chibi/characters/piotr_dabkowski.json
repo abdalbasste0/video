@@ -1,0 +1,21 @@
+{
+ "name": "Piotr Dabkowski",
+ "role": "ElevenLabs co-founder and CTO, ex-Google ML engineer",
+ "note": "Web search blocked in this session (proxy 403). Low confidence: few public photos. Fair skin and brown hair are likely; short beard, glasses-free face and hoodie are guesses chosen to tell him apart from Mati on screen. Owner to confirm.",
+ "skin": "#efcbab",
+ "hair": {
+  "style": "short-side",
+  "color": "#5a3f2b"
+ },
+ "facialHair": "trimmed",
+ "facialHairColor": "#5a3f2b",
+ "face": {
+  "mouth": "smile",
+  "brows": "normal"
+ },
+ "outfit": {
+  "type": "hoodie",
+  "color": "#4b5d78",
+  "accent": "#e8e2d4"
+ }
+}

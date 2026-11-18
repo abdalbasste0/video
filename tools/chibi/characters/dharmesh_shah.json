@@ -1,0 +1,10 @@
+{
+ "name": "Dharmesh Shah",
+ "role": "HubSpot co-founder and CTO",
+ "note": "From memory of public photos; web search was blocked in this session. Fairly sure: medium-brown skin, shaved/bald head, clean-shaven, very casual (t-shirts, often HubSpot orange). Less sure: glasses (drawn as rectangular; remove if the reference photo shows none). Orange shirt is a plain colour, no logo.",
+ "skin": "#c79070",
+ "hair": {"style": "bald", "color": "#2a1f1a"},
+ "facialHair": "none",
+ "face": {"mouth": "smile", "brows": "normal", "glasses": "rect", "browColor": "#2a1f1a"},
+ "outfit": {"type": "tshirt", "color": "#e8743b"}
+}

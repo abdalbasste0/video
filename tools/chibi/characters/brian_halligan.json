@@ -1,0 +1,10 @@
+{
+ "name": "Brian Halligan",
+ "role": "HubSpot co-founder, former CEO, executive chairman",
+ "note": "From memory of public photos; web search was blocked in this session. Fairly sure: light skin, short grey-brown (salt-and-pepper) hair, clean-shaven, business-casual blazer with open collar. Guessed: exact hair shade and blazer colour. Owner to confirm.",
+ "skin": "#f0cdb0",
+ "hair": {"style": "short-side", "color": "#8a7f74"},
+ "facialHair": "none",
+ "face": {"mouth": "smile", "brows": "normal"},
+ "outfit": {"type": "blazer", "color": "#2f3c5c", "accent": "#e9eef5"}
+}

@@ -1,0 +1,1209 @@
+{
+ "story": "fireflies",
+ "cast": {
+  "krish": "krish_ramineni",
+  "sam": "sam_udotong"
+ },
+ "scenes": [
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "user",
+     "pos": [
+      0.2,
+      0.82
+     ],
+     "mouth": "smile"
+    },
+    {
+     "id": "krish",
+     "pos": [
+      0.6,
+      0.82
+     ],
+     "enterAt": 8.6,
+     "mouth": "neutral"
+    },
+    {
+     "id": "sam",
+     "pos": [
+      0.76,
+      0.82
+     ],
+     "enterAt": 8.9,
+     "flip": true,
+     "mouth": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.36,
+      0.84
+     ],
+     "enterAt": 0.4
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.3,
+      0.3
+     ],
+     "text": "FRED: AI?",
+     "sub": "NOTE-TAKER",
+     "enterAt": 3.0
+    },
+    {
+     "type": "laptop",
+     "pos": [
+      0.88,
+      0.86
+     ],
+     "enterAt": 9.6
+    },
+    {
+     "type": "stamp",
+     "pos": [
+      0.7,
+      0.28
+     ],
+     "text": "HUMANS!",
+     "enterAt": 9.4
+    }
+   ],
+   "dim": 0.1
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "krish",
+     "pos": [
+      0.38,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "sam",
+     "pos": [
+      0.6,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "pos": [
+      0.5,
+      0.28
+     ],
+     "text": "$1 BILLION+",
+     "sub": "VALUATION (COMPANY SAYS)",
+     "count": true,
+     "enterAt": 4.2
+    }
+   ],
+   "dim": 0.2,
+   "camera": {
+    "zoom": 1.1
+   }
+  },
+  {
+   "date": "2016",
+   "map": {
+    "center": [
+     -113.0,
+     37.2
+    ],
+    "scale": 2600,
+    "states": true,
+    "highlight": [
+     {
+      "state": "California"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "San Francisco"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "krish",
+     "pos": [
+      0.5,
+      0.8
+     ],
+     "mouth": "smile",
+     "enterAt": 2.2
+    },
+    {
+     "id": "sam",
+     "pos": [
+      0.88,
+      0.8
+     ],
+     "flip": true,
+     "mouth": "smile",
+     "enterAt": 3.4
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "pos": [
+      0.69,
+      0.62
+     ],
+     "title": "IDEA #1",
+     "lines": [
+      "SUMMARIZE:",
+      "EMAILS, CHATS",
+      "TICKETS"
+     ],
+     "enterAt": 6.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -121.2,
+     37.0
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "San Francisco"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "krish",
+     "pos": [
+      0.38,
+      0.82
+     ],
+     "mouth": "sad",
+     "brows": "worried"
+    },
+    {
+     "id": "sam",
+     "pos": [
+      0.6,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "sad",
+     "brows": "worried"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "pos": [
+      0.18,
+      0.38
+     ],
+     "text": "PIVOT",
+     "size": 56,
+     "color": "#c4302b",
+     "enterAt": 2.6
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.44,
+      0.3
+     ],
+     "text": "PIVOT",
+     "size": 56,
+     "color": "#c4302b",
+     "enterAt": 3.4
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.78,
+      0.3
+     ],
+     "text": "5-7 PIVOTS",
+     "sub": "REPORTS VARY",
+     "size": 56,
+     "enterAt": 6.8
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -121.2,
+     37.0
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "San Francisco"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "user",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "sad",
+     "brows": "worried"
+    },
+    {
+     "id": "person",
+     "pos": [
+      0.5,
+      0.82
+     ],
+     "mouth": "neutral",
+     "brows": "worried"
+    },
+    {
+     "id": "engineer",
+     "pos": [
+      0.7,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "open",
+     "brows": "raised"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "pos": [
+      0.5,
+      0.18
+     ],
+     "text": "MEETINGS",
+     "color": "#2f63c6",
+     "enterAt": 2.0
+    },
+    {
+     "type": "bubble",
+     "text": "Who promised what?",
+     "near": 2,
+     "side": "left",
+     "enterAt": 6.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -121.2,
+     37.0
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "San Francisco"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "krish",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "sam",
+     "pos": [
+      0.46,
+      0.82
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.62,
+      0.84
+     ],
+     "enterAt": 0.6
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.3,
+      0.3
+     ],
+     "text": "$100",
+     "sub": "A MONTH",
+     "count": true,
+     "enterAt": 3.8
+    },
+    {
+     "type": "stamp",
+     "pos": [
+      0.72,
+      0.3
+     ],
+     "text": "AI NOT READY",
+     "enterAt": 8.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "user",
+     "pos": [
+      0.18,
+      0.82
+     ],
+     "mouth": "smile"
+    },
+    {
+     "id": "krish",
+     "pos": [
+      0.56,
+      0.82
+     ],
+     "mouth": "neutral",
+     "enterAt": 1.0
+    },
+    {
+     "id": "sam",
+     "pos": [
+      0.72,
+      0.82
+     ],
+     "mouth": "neutral",
+     "enterAt": 1.3
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "pos": [
+      0.5,
+      0.2
+     ],
+     "text": "FRED FROM FIREFLIES",
+     "size": 48,
+     "enterAt": 4.4
+    },
+    {
+     "type": "laptop",
+     "pos": [
+      0.88,
+      0.86
+     ],
+     "enterAt": 6.0
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.2,
+      0.36
+     ],
+     "text": "CLIENTS KNEW",
+     "sub": "HUMAN HELPED",
+     "size": 48,
+     "color": "#55606e",
+     "enterAt": 11.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -121.2,
+     37.0
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "San Francisco"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "krish",
+     "pos": [
+      0.4,
+      0.82
+     ],
+     "mouth": "sad",
+     "brows": "worried"
+    },
+    {
+     "id": "sam",
+     "pos": [
+      0.58,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "pos": [
+      0.5,
+      0.24
+     ],
+     "text": "100+",
+     "sub": "MEETINGS",
+     "count": true,
+     "enterAt": 2.4
+    },
+    {
+     "type": "sign",
+     "pos": [
+      0.82,
+      0.86
+     ],
+     "text": "PIZZA",
+     "color": "#e0a03f",
+     "enterAt": 4.0
+    },
+    {
+     "type": "money",
+     "pos": [
+      0.18,
+      0.82
+     ],
+     "text": "RENT",
+     "enterAt": 7.8
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "krish",
+     "pos": [
+      0.4,
+      0.82
+     ],
+     "mouth": "neutral",
+     "brows": "worried"
+    },
+    {
+     "id": "sam",
+     "pos": [
+      0.6,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "neutral",
+     "brows": "worried"
+    }
+   ],
+   "props": [
+    {
+     "type": "stamp",
+     "pos": [
+      0.5,
+      0.18
+     ],
+     "text": "FAKE?",
+     "enterAt": 0.3
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.22,
+      0.36
+     ],
+     "text": "HUMAN-ASSISTED",
+     "sub": "AI TESTING",
+     "size": 48,
+     "enterAt": 4.2
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.8,
+      0.36
+     ],
+     "text": "PRIVACY?",
+     "color": "#c4302b",
+     "size": 52,
+     "enterAt": 6.6
+    }
+   ],
+   "dim": 0.25
+  },
+  {
+   "date": "2017",
+   "map": {
+    "center": [
+     -121.2,
+     37.0
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "San Francisco"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "krish",
+     "pos": [
+      0.36,
+      0.82
+     ],
+     "mouth": "grin",
+     "brows": "raised"
+    },
+    {
+     "id": "sam",
+     "pos": [
+      0.64,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.5,
+      0.86
+     ],
+     "enterAt": 0.5
+    },
+    {
+     "type": "stamp",
+     "pos": [
+      0.5,
+      0.3
+     ],
+     "text": "AUTOMATED",
+     "enterAt": 4.8
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -122.3,
+     37.6
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -122.18,
+       37.45
+      ],
+      "label": "Menlo Park"
+     },
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "San Francisco"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "investor",
+     "pos": [
+      0.2,
+      0.82
+     ],
+     "mouth": "smirk"
+    },
+    {
+     "id": "krish",
+     "pos": [
+      0.56,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "sam",
+     "pos": [
+      0.72,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "pos": [
+      0.3,
+      0.3
+     ],
+     "text": "KHOSLA + CANAAN",
+     "size": 48,
+     "enterAt": 1.4
+    },
+    {
+     "type": "crowd",
+     "pos": [
+      0.72,
+      0.38
+     ],
+     "count": 6,
+     "enterAt": 4.8
+    }
+   ]
+  },
+  {
+   "date": "MAY 2021",
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "krish",
+     "pos": [
+      0.28,
+      0.84
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "sam",
+     "pos": [
+      0.42,
+      0.84
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "pos": [
+      0.62,
+      0.32
+     ],
+     "text": "$14 MILLION",
+     "sub": "SERIES A (REPORTED)",
+     "count": true,
+     "enterAt": 2.6
+    },
+    {
+     "type": "crowd",
+     "at": [
+      -74.0,
+      40.7
+     ],
+     "count": 5,
+     "enterAt": 6.2
+    },
+    {
+     "type": "crowd",
+     "at": [
+      -87.6,
+      41.9
+     ],
+     "count": 5,
+     "enterAt": 6.6
+    },
+    {
+     "type": "crowd",
+     "at": [
+      -97.7,
+      30.3
+     ],
+     "count": 5,
+     "enterAt": 7.0
+    },
+    {
+     "type": "crowd",
+     "at": [
+      -122.3,
+      47.6
+     ],
+     "count": 5,
+     "enterAt": 7.4
+    }
+   ]
+  },
+  {
+   "date": "2023",
+   "map": {
+    "center": [
+     -121.2,
+     37.0
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "San Francisco"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "krish",
+     "pos": [
+      0.4,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "sam",
+     "pos": [
+      0.58,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "pos": [
+      0.24,
+      0.3
+     ],
+     "text": "STOPS RAISING",
+     "size": 48,
+     "color": "#55606e",
+     "enterAt": 2.6
+    },
+    {
+     "type": "stamp",
+     "pos": [
+      0.7,
+      0.3
+     ],
+     "text": "PROFITABLE",
+     "enterAt": 6.4
+    }
+   ]
+  },
+  {
+   "date": "JUN 2025",
+   "map": {
+    "center": [
+     -121.2,
+     37.0
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "San Francisco"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "krish",
+     "pos": [
+      0.28,
+      0.82
+     ],
+     "mouth": "grin",
+     "brows": "raised"
+    },
+    {
+     "id": "sam",
+     "pos": [
+      0.44,
+      0.82
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "crowd",
+     "pos": [
+      0.76,
+      0.52
+     ],
+     "count": 10,
+     "enterAt": 2.4
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.5,
+      0.3
+     ],
+     "text": "$1 BILLION+",
+     "sub": "VALUATION",
+     "count": true,
+     "enterAt": 5.6
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.84,
+      0.34
+     ],
+     "text": "NO NEW VC",
+     "sub": "SINCE 2021",
+     "size": 44,
+     "color": "#55606e",
+     "enterAt": 7.8
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     10,
+     25
+    ],
+    "scale": 160
+   },
+   "characters": [
+    {
+     "id": "krish",
+     "pos": [
+      0.5,
+      0.86
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "crowd",
+     "at": [
+      -98,
+      40
+     ],
+     "count": 6,
+     "enterAt": 0.4
+    },
+    {
+     "type": "crowd",
+     "at": [
+      10,
+      50
+     ],
+     "count": 6,
+     "enterAt": 0.7
+    },
+    {
+     "type": "crowd",
+     "at": [
+      78,
+      22
+     ],
+     "count": 6,
+     "enterAt": 1.0
+    },
+    {
+     "type": "crowd",
+     "at": [
+      -50,
+      -10
+     ],
+     "count": 6,
+     "enterAt": 1.3
+    },
+    {
+     "type": "crowd",
+     "at": [
+      135,
+      -25
+     ],
+     "count": 6,
+     "enterAt": 1.6
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.22,
+      0.28
+     ],
+     "text": "20M+",
+     "sub": "PEOPLE",
+     "count": true,
+     "enterAt": 2.0
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.78,
+      0.28
+     ],
+     "text": "500,000+",
+     "sub": "ORGANIZATIONS",
+     "count": true,
+     "enterAt": 4.0
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.5,
+      0.14
+     ],
+     "text": "3 OUT OF 4",
+     "sub": "FORTUNE 500",
+     "size": 52,
+     "color": "#2f63c6",
+     "enterAt": 6.6
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "user",
+     "pos": [
+      0.3,
+      0.84
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.46,
+      0.86
+     ],
+     "enterAt": 0.5
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.5,
+      0.2
+     ],
+     "text": "FREE PLAN",
+     "color": "#2f63c6",
+     "enterAt": 2.4
+    },
+    {
+     "type": "sign",
+     "pos": [
+      0.76,
+      0.84
+     ],
+     "text": "ZOOM / MEET / TEAMS",
+     "enterAt": 5.4
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "user",
+     "pos": [
+      0.18,
+      0.84
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "pos": [
+      0.52,
+      0.62
+     ],
+     "title": "AFTER THE CALL",
+     "lines": [
+      "TRANSCRIPT",
+      "(SEARCHABLE)",
+      "SUMMARY"
+     ],
+     "enterAt": 0.8
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.84,
+      0.3
+     ],
+     "text": "STORAGE LIMITS",
+     "size": 40,
+     "color": "#55606e",
+     "enterAt": 4.8
+    },
+    {
+     "type": "bubble",
+     "text": "Heads up: I'm recording.",
+     "near": 0,
+     "enterAt": 7.4
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -121.2,
+     37.0
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "San Francisco"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "krish",
+     "pos": [
+      0.2,
+      0.84
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "sam",
+     "pos": [
+      0.8,
+      0.84
+     ],
+     "flip": true,
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "pos": [
+      0.5,
+      0.5
+     ],
+     "text": "LINK IN DESCRIPTION",
+     "scale": 1.3,
+     "color": "#ffd36a"
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.5,
+      0.2
+     ],
+     "text": "AFFILIATE LINK",
+     "size": 40,
+     "color": "#55606e",
+     "enterAt": 2.5
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1325 @@
+{
+ "story": "synthesia",
+ "cast": {
+  "victor": "victor_riparbelli",
+  "matthias": "matthias_niessner",
+  "steffen": "steffen_tjerrild",
+  "lourdes": "lourdes_agapito"
+ },
+ "scenes": [
+  {
+   "date": "JAN 2026",
+   "map": {
+    "center": [
+     -2.5,
+     53.5
+    ],
+    "scale": 2000,
+    "highlight": [
+     {
+      "country": "United Kingdom"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       -0.13,
+       51.51
+      ],
+      "label": "London"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "victor",
+     "pos": [
+      0.42,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "investor",
+     "pos": [
+      0.62,
+      0.82
+     ],
+     "flip": true,
+     "enterAt": 1.0
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "$200M",
+     "sub": "NEW ROUND",
+     "count": true,
+     "pos": [
+      0.25,
+      0.36
+     ],
+     "enterAt": 2.2
+    },
+    {
+     "type": "card",
+     "text": "$4B",
+     "sub": "VALUATION",
+     "count": true,
+     "pos": [
+      0.75,
+      0.36
+     ],
+     "enterAt": 5.0
+    },
+    {
+     "type": "stamp",
+     "text": "NO",
+     "pos": [
+      0.5,
+      0.3
+     ],
+     "enterAt": 8.6
+    }
+   ],
+   "camera": {
+    "zoom": 1.1,
+    "focus": [
+     -0.13,
+     51.51
+    ]
+   }
+  },
+  {
+   "map": {
+    "center": [
+     8,
+     50
+    ],
+    "scale": 700
+   },
+   "dim": 0.3,
+   "characters": [
+    {
+     "id": "victor",
+     "pos": [
+      0.4,
+      0.84
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "title",
+     "lines": [
+      "SYNTHESIA",
+      "the startup that made videos talk"
+     ],
+     "pos": [
+      0.5,
+      0.22
+     ]
+    },
+    {
+     "type": "laptop",
+     "pos": [
+      0.58,
+      0.86
+     ],
+     "enterAt": 2.5
+    },
+    {
+     "type": "bubble",
+     "text": "Hi! I'm an AI presenter",
+     "pos": [
+      0.66,
+      0.62
+     ],
+     "enterAt": 3.5
+    }
+   ]
+  },
+  {
+   "date": "2016",
+   "map": {
+    "center": [
+     8,
+     50
+    ],
+    "scale": 700,
+    "highlight": [
+     {
+      "country": "Denmark"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       12.57,
+       55.68
+      ],
+      "label": "Copenhagen"
+     },
+     {
+      "lonlat": [
+       11.58,
+       48.14
+      ],
+      "label": "Munich"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "victor",
+     "pos": [
+      0.3,
+      0.82
+     ]
+    },
+    {
+     "id": "matthias",
+     "pos": [
+      0.72,
+      0.82
+     ],
+     "flip": true,
+     "enterAt": 4.6
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "RESEARCH PAPER",
+     "lines": [
+      "AI + VIDEO"
+     ],
+     "pos": [
+      0.52,
+      0.86
+     ],
+     "enterAt": 1.0,
+     "scale": 0.8
+    },
+    {
+     "type": "bubble",
+     "text": "There's a business in this!",
+     "near": 0,
+     "enterAt": 7.5
+    }
+   ]
+  },
+  {
+   "date": "2017",
+   "map": {
+    "center": [
+     4,
+     48.5
+    ],
+    "scale": 1500,
+    "highlight": [
+     {
+      "country": "United Kingdom"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       -0.13,
+       51.51
+      ],
+      "label": "London"
+     },
+     {
+      "lonlat": [
+       12.57,
+       55.68
+      ],
+      "label": "Copenhagen"
+     },
+     {
+      "lonlat": [
+       11.58,
+       48.14
+      ],
+      "label": "Munich"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "victor",
+     "pos": [
+      0.2,
+      0.84
+     ],
+     "scale": 0.85
+    },
+    {
+     "id": "steffen",
+     "pos": [
+      0.4,
+      0.84
+     ],
+     "scale": 0.85,
+     "enterAt": 2.6
+    },
+    {
+     "id": "lourdes",
+     "pos": [
+      0.6,
+      0.84
+     ],
+     "scale": 0.85,
+     "enterAt": 3.8
+    },
+    {
+     "id": "matthias",
+     "pos": [
+      0.8,
+      0.84
+     ],
+     "scale": 0.85,
+     "flip": true,
+     "enterAt": 0.6
+    }
+   ],
+   "props": [
+    {
+     "type": "arrow",
+     "from": [
+      12.57,
+      55.68
+     ],
+     "to": [
+      -0.13,
+      51.51
+     ],
+     "enterAt": 0.6
+    },
+    {
+     "type": "arrow",
+     "from": [
+      11.58,
+      48.14
+     ],
+     "to": [
+      -0.13,
+      51.51
+     ],
+     "enterAt": 1.2
+    },
+    {
+     "type": "card",
+     "text": "4 CO-FOUNDERS",
+     "pos": [
+      0.25,
+      0.3
+     ],
+     "enterAt": 6.4,
+     "color": "#7a4ad8",
+     "size": 60
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -0.12,
+     51.5
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -0.13,
+       51.51
+      ],
+      "label": "London"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "victor",
+     "pos": [
+      0.3,
+      0.82
+     ]
+    },
+    {
+     "id": "person",
+     "pos": [
+      0.66,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "open"
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "AI DUBBING",
+     "pos": [
+      0.5,
+      0.86
+     ],
+     "enterAt": 1.5
+    },
+    {
+     "type": "bubble",
+     "text": "Hello!",
+     "pos": [
+      0.6,
+      0.42
+     ],
+     "enterAt": 3.5
+    },
+    {
+     "type": "bubble",
+     "text": "Hola!",
+     "pos": [
+      0.78,
+      0.4
+     ],
+     "enterAt": 5.0
+    },
+    {
+     "type": "bubble",
+     "text": "Bonjour!",
+     "pos": [
+      0.88,
+      0.55
+     ],
+     "enterAt": 6.2
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -0.12,
+     51.5
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -0.13,
+       51.51
+      ],
+      "label": "London"
+     }
+    ]
+   },
+   "dim": 0.15,
+   "characters": [
+    {
+     "id": "victor",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "sad",
+     "brows": "worried"
+    },
+    {
+     "id": "investor",
+     "pos": [
+      0.6,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "neutral"
+    },
+    {
+     "id": "investor",
+     "pos": [
+      0.78,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "neutral",
+     "enterAt": 1.0
+    }
+   ],
+   "props": [
+    {
+     "type": "stamp",
+     "text": "NO",
+     "pos": [
+      0.42,
+      0.34
+     ],
+     "enterAt": 1.4
+    },
+    {
+     "type": "bubble",
+     "text": "Hmm... not for us.",
+     "near": 1,
+     "side": "left",
+     "enterAt": 5.5
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -2.5,
+     53.5
+    ],
+    "scale": 2000,
+    "highlight": [
+     {
+      "country": "United Kingdom"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       -0.13,
+       51.51
+      ],
+      "label": "London"
+     }
+    ]
+   },
+   "dim": 0.4,
+   "characters": [
+    {
+     "id": "victor",
+     "pos": [
+      0.42,
+      0.82
+     ],
+     "mouth": "sad",
+     "brows": "worried"
+    },
+    {
+     "id": "steffen",
+     "pos": [
+      0.6,
+      0.82
+     ],
+     "mouth": "neutral",
+     "brows": "worried",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.25,
+      0.84
+     ]
+    },
+    {
+     "type": "sign",
+     "text": "FUTURE?",
+     "pos": [
+      0.8,
+      0.86
+     ],
+     "enterAt": 6.0,
+     "color": "#d9d2c0"
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -45,
+     44
+    ],
+    "scale": 300,
+    "pins": [
+     {
+      "lonlat": [
+       -96.8,
+       32.78
+      ],
+      "label": "Dallas"
+     },
+     {
+      "lonlat": [
+       -0.13,
+       51.51
+      ],
+      "label": "London"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "investor",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "smile"
+    },
+    {
+     "id": "victor",
+     "pos": [
+      0.68,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "MARK CUBAN",
+     "pos": [
+      0.13,
+      0.86
+     ],
+     "enterAt": 1.0
+    },
+    {
+     "type": "arrow",
+     "from": [
+      -96.8,
+      32.78
+     ],
+     "to": [
+      -0.13,
+      51.51
+     ],
+     "enterAt": 3.0
+    },
+    {
+     "type": "bubble",
+     "text": "A cold email!",
+     "near": 1,
+     "enterAt": 6.5
+    }
+   ]
+  },
+  {
+   "date": "APR 2019",
+   "map": {
+    "center": [
+     0,
+     25
+    ],
+    "scale": 160
+   },
+   "characters": [
+    {
+     "id": "person",
+     "pos": [
+      0.5,
+      0.8
+     ],
+     "mouth": "open"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "9 LANGUAGES",
+     "pos": [
+      0.5,
+      0.26
+     ],
+     "enterAt": 3.0,
+     "color": "#7a4ad8",
+     "size": 64
+    },
+    {
+     "type": "bubble",
+     "text": "Hello!",
+     "pos": [
+      0.24,
+      0.56
+     ],
+     "enterAt": 4.0
+    },
+    {
+     "type": "bubble",
+     "text": "Hola!",
+     "pos": [
+      0.78,
+      0.56
+     ],
+     "enterAt": 4.6
+    },
+    {
+     "type": "bubble",
+     "text": "Ciao!",
+     "pos": [
+      0.82,
+      0.72
+     ],
+     "enterAt": 5.2
+    },
+    {
+     "type": "crowd",
+     "count": 14,
+     "pos": [
+      0.22,
+      0.86
+     ],
+     "enterAt": 7.0
+    }
+   ],
+   "camera": {
+    "zoom": 1.06
+   }
+  },
+  {
+   "date": "APR 2019",
+   "map": {
+    "center": [
+     -0.12,
+     51.5
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -0.13,
+       51.51
+      ],
+      "label": "London"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "victor",
+     "pos": [
+      0.28,
+      0.82
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "$3.1M",
+     "sub": "SEED ROUND",
+     "count": true,
+     "pos": [
+      0.5,
+      0.34
+     ],
+     "enterAt": 2.6
+    },
+    {
+     "type": "crowd",
+     "count": 8,
+     "pos": [
+      0.66,
+      0.84
+     ],
+     "enterAt": 5.6
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -0.12,
+     51.5
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -0.13,
+       51.51
+      ],
+      "label": "London"
+     }
+    ],
+    "dim": 0
+   },
+   "characters": [
+    {
+     "id": "victor",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.46,
+      0.84
+     ]
+    },
+    {
+     "type": "board",
+     "title": "TYPE A SCRIPT",
+     "lines": [
+      "GET A VIDEO"
+     ],
+     "pos": [
+      0.7,
+      0.84
+     ],
+     "enterAt": 2.5
+    },
+    {
+     "type": "stamp",
+     "text": "NO CAMERA",
+     "pos": [
+      0.5,
+      0.3
+     ],
+     "enterAt": 6.8
+    }
+   ]
+  },
+  {
+   "date": "DEC 2021",
+   "map": {
+    "center": [
+     -2.5,
+     53.5
+    ],
+    "scale": 2000,
+    "highlight": [
+     {
+      "country": "United Kingdom"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       -0.13,
+       51.51
+      ],
+      "label": "London"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "victor",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "$300M",
+     "sub": "VALUATION",
+     "count": true,
+     "pos": [
+      0.5,
+      0.34
+     ],
+     "enterAt": 3.0
+    },
+    {
+     "type": "crowd",
+     "count": 10,
+     "pos": [
+      0.68,
+      0.84
+     ],
+     "enterAt": 5.5
+    },
+    {
+     "type": "sign",
+     "text": "TRAINING VIDEOS",
+     "pos": [
+      0.88,
+      0.86
+     ],
+     "enterAt": 6.0
+    }
+   ]
+  },
+  {
+   "date": "JUN 2023",
+   "map": {
+    "center": [
+     -45,
+     44
+    ],
+    "scale": 300,
+    "pins": [
+     {
+      "lonlat": [
+       -121.96,
+       37.35
+      ],
+      "label": "Nvidia"
+     },
+     {
+      "lonlat": [
+       -0.13,
+       51.51
+      ],
+      "label": "London"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "victor",
+     "pos": [
+      0.4,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "investor",
+     "pos": [
+      0.6,
+      0.82
+     ],
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "$90M",
+     "sub": "LED BY ACCEL",
+     "count": true,
+     "pos": [
+      0.25,
+      0.36
+     ],
+     "enterAt": 2.0
+    },
+    {
+     "type": "arrow",
+     "from": [
+      -121.96,
+      37.35
+     ],
+     "to": [
+      -0.13,
+      51.51
+     ],
+     "enterAt": 4.4
+    },
+    {
+     "type": "card",
+     "text": "$1B",
+     "sub": "UNICORN",
+     "count": true,
+     "pos": [
+      0.75,
+      0.36
+     ],
+     "enterAt": 7.0,
+     "color": "#7a4ad8"
+    }
+   ],
+   "camera": {
+    "zoom": 1.08
+   }
+  },
+  {
+   "date": "JAN 2025",
+   "map": {
+    "center": [
+     8,
+     50
+    ],
+    "scale": 700,
+    "highlight": [
+     {
+      "country": "United Kingdom"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "victor",
+     "pos": [
+      0.36,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "investor",
+     "pos": [
+      0.18,
+      0.82
+     ]
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "$180M",
+     "sub": "LED BY NEA",
+     "count": true,
+     "pos": [
+      0.3,
+      0.32
+     ],
+     "enterAt": 2.4
+    },
+    {
+     "type": "board",
+     "title": "VALUATION",
+     "chart": "bars",
+     "pos": [
+      0.66,
+      0.84
+     ],
+     "enterAt": 4.0
+    },
+    {
+     "type": "card",
+     "text": "$2.1B",
+     "count": true,
+     "pos": [
+      0.78,
+      0.3
+     ],
+     "enterAt": 6.0
+    }
+   ]
+  },
+  {
+   "date": "APR 2025",
+   "map": {
+    "center": [
+     0,
+     25
+    ],
+    "scale": 160,
+    "pins": [
+     {
+      "lonlat": [
+       -121.89,
+       37.34
+      ],
+      "label": "San Jose"
+     },
+     {
+      "lonlat": [
+       -0.13,
+       51.51
+      ],
+      "label": "London"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "victor",
+     "pos": [
+      0.4,
+      0.82
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "$100M ARR",
+     "sub": "COMPANY SAYS",
+     "count": true,
+     "pos": [
+      0.5,
+      0.32
+     ],
+     "enterAt": 3.0,
+     "size": 64
+    },
+    {
+     "type": "money",
+     "pos": [
+      0.6,
+      0.84
+     ],
+     "enterAt": 3.5
+    },
+    {
+     "type": "arrow",
+     "from": [
+      -121.89,
+      37.34
+     ],
+     "to": [
+      -0.13,
+      51.51
+     ],
+     "enterAt": 6.5
+    },
+    {
+     "type": "sign",
+     "text": "ADOBE VENTURES",
+     "pos": [
+      0.82,
+      0.86
+     ],
+     "enterAt": 7.0
+    }
+   ]
+  },
+  {
+   "date": "JAN 2026",
+   "map": {
+    "center": [
+     -45,
+     44
+    ],
+    "scale": 300,
+    "pins": [
+     {
+      "lonlat": [
+       -122.08,
+       37.39
+      ],
+      "label": "GV"
+     },
+     {
+      "lonlat": [
+       -0.13,
+       51.51
+      ],
+      "label": "London"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "investor",
+     "pos": [
+      0.36,
+      0.82
+     ]
+    },
+    {
+     "id": "victor",
+     "pos": [
+      0.6,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "arrow",
+     "from": [
+      -122.08,
+      37.39
+     ],
+     "to": [
+      -0.13,
+      51.51
+     ],
+     "enterAt": 1.5
+    },
+    {
+     "type": "card",
+     "text": "$200M",
+     "sub": "LED BY GV",
+     "count": true,
+     "pos": [
+      0.25,
+      0.34
+     ],
+     "enterAt": 5.5
+    },
+    {
+     "type": "card",
+     "text": "$4B",
+     "count": true,
+     "pos": [
+      0.75,
+      0.3
+     ],
+     "enterAt": 8.0,
+     "color": "#7a4ad8"
+    }
+   ],
+   "camera": {
+    "zoom": 1.1,
+    "focus": [
+     -0.13,
+     51.51
+    ]
+   }
+  },
+  {
+   "map": {
+    "center": [
+     -0.12,
+     51.5
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -0.13,
+       51.51
+      ],
+      "label": "London"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "victor",
+     "pos": [
+      0.25,
+      0.82
+     ],
+     "mouth": "smile"
+    },
+    {
+     "id": "user",
+     "pos": [
+      0.7,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "open"
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "AI AGENTS",
+     "pos": [
+      0.45,
+      0.86
+     ],
+     "enterAt": 2.0
+    },
+    {
+     "type": "laptop",
+     "pos": [
+      0.56,
+      0.84
+     ],
+     "enterAt": 2.4
+    },
+    {
+     "type": "bubble",
+     "text": "How do I do this?",
+     "near": 1,
+     "side": "left",
+     "enterAt": 4.5
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     8,
+     50
+    ],
+    "scale": 700
+   },
+   "characters": [
+    {
+     "id": "user",
+     "pos": [
+      0.32,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.46,
+      0.84
+     ]
+    },
+    {
+     "type": "board",
+     "title": "FREE PLAN",
+     "lines": [
+      "1. TYPE A SCRIPT",
+      "2. PICK AN AVATAR",
+      "3. SHORT VIDEO"
+     ],
+     "pos": [
+      0.7,
+      0.84
+     ],
+     "enterAt": 1.5
+    },
+    {
+     "type": "stamp",
+     "text": "WATERMARK",
+     "pos": [
+      0.5,
+      0.3
+     ],
+     "enterAt": 8.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -45,
+     44
+    ],
+    "scale": 300
+   },
+   "characters": [
+    {
+     "id": "victor",
+     "pos": [
+      0.5,
+      0.84
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "LINK IN DESCRIPTION",
+     "pos": [
+      0.5,
+      0.5
+     ],
+     "scale": 1.3,
+     "color": "#ffd36a"
+    },
+    {
+     "type": "sign",
+     "text": "AFFILIATE LINK",
+     "pos": [
+      0.82,
+      0.86
+     ],
+     "color": "#d9d2c0",
+     "enterAt": 3.0
+    }
+   ],
+   "camera": {
+    "zoom": 1.08
+   }
+  }
+ ]
+}

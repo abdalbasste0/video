@@ -1,0 +1,18 @@
+{
+ "name": "Andrew Mason",
+ "role": "Groupon co-founder, Descript founder (now executive chairman)",
+ "note": "From memory of public photos; web search was blocked in this session (proxy 403), so not re-checked. Medium: light skin, short brown hair, mostly clean-shaven in 2013 photos, casual clothes. Guessed: outfit colour; he may wear a beard in recent photos.",
+ "skin": "#f2d0b4",
+ "hair": {
+  "style": "short-side",
+  "color": "#5a3f2a"
+ },
+ "face": {
+  "mouth": "smile"
+ },
+ "outfit": {
+  "type": "hoodie",
+  "color": "#3f6a8a",
+  "accent": "#e8e2d4"
+ }
+}

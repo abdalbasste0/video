@@ -1,0 +1,18 @@
+{
+ "name": "Lourdes Agapito",
+ "role": "Synthesia co-founder, UCL professor",
+ "note": "From memory of public photos; web search was blocked in this session (proxy 403), so not re-checked. Medium-low: light/olive skin, dark-brown shoulder-length hair. Guessed: outfit colour, no glasses.",
+ "skin": "#ecc6a0",
+ "hair": {
+  "style": "bob",
+  "color": "#3a2a20"
+ },
+ "face": {
+  "mouth": "smile"
+ },
+ "outfit": {
+  "type": "blazer",
+  "color": "#6b2f3a",
+  "accent": "#f2ece2"
+ }
+}

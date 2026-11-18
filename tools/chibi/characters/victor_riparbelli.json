@@ -1,0 +1,19 @@
+{
+ "name": "Victor Riparbelli",
+ "role": "Synthesia co-founder and CEO",
+ "note": "From memory of public photos; web search was blocked in this session (proxy 403), so not re-checked. Fairly sure: light skin, short medium-brown hair, light beard/stubble, casual dark top. Guessed: exact shade and outfit colour.",
+ "skin": "#f2d0b4",
+ "hair": {
+  "style": "short-side",
+  "color": "#6b4f36"
+ },
+ "facialHair": "stubble",
+ "facialHairColor": "#6b4f36",
+ "face": {
+  "mouth": "smile"
+ },
+ "outfit": {
+  "type": "tshirt",
+  "color": "#4a505c"
+ }
+}

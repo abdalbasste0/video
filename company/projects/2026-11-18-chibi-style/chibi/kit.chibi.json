@@ -1,0 +1,1131 @@
+{
+ "story": "kit",
+ "cast": {
+  "nathan": "nathan_barry"
+ },
+ "scenes": [
+  {
+   "date": "OCT 2014",
+   "map": {
+    "center": [
+     -108.0,
+     44.4
+    ],
+    "scale": 2600,
+    "states": true,
+    "highlight": [
+     {
+      "state": "Idaho"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       -116.2,
+       43.62
+      ],
+      "label": "Boise"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "nathan",
+     "pos": [
+      0.6,
+      0.82
+     ],
+     "mouth": "sad",
+     "brows": "worried"
+    },
+    {
+     "id": "person",
+     "pos": [
+      0.8,
+      0.82
+     ],
+     "flip": true,
+     "enterAt": 7.2
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "pos": [
+      0.4,
+      0.3
+     ],
+     "text": "$1,300",
+     "sub": "A MONTH",
+     "count": true,
+     "enterAt": 5.0
+    },
+    {
+     "type": "bubble",
+     "text": "Shut it down, or double down?",
+     "near": 1,
+     "side": "left",
+     "enterAt": 8.3
+    }
+   ],
+   "camera": {
+    "zoom": 1.08
+   }
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "nathan",
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "title",
+     "pos": [
+      0.5,
+      0.2
+     ],
+     "lines": [
+      "CONVERTKIT",
+      "now called Kit"
+     ],
+     "enterAt": 1.0
+    }
+   ],
+   "dim": 0.25
+  },
+  {
+   "date": "2012",
+   "map": {
+    "center": [
+     -108.0,
+     44.4
+    ],
+    "scale": 2600,
+    "states": true,
+    "highlight": [
+     {
+      "state": "Idaho"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       -116.2,
+       43.62
+      ],
+      "label": "Boise"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "nathan",
+     "pos": [
+      0.56,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.7,
+      0.84
+     ],
+     "enterAt": 3.0
+    },
+    {
+     "type": "board",
+     "pos": [
+      0.85,
+      0.62
+     ],
+     "title": "EBOOKS",
+     "lines": [
+      "HIS OWN",
+      "SOLD BY EMAIL"
+     ],
+     "enterAt": 4.2
+    }
+   ]
+  },
+  {
+   "date": "2013",
+   "map": {
+    "center": [
+     -115.2,
+     43.05
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -116.2,
+       43.62
+      ],
+      "label": "Boise"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "nathan",
+     "pos": [
+      0.38,
+      0.8
+     ],
+     "mouth": "grin",
+     "brows": "raised"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.54,
+      0.82
+     ],
+     "enterAt": 1.0
+    },
+    {
+     "type": "bubble",
+     "text": "Building it in public!",
+     "near": 0,
+     "enterAt": 2.6
+    },
+    {
+     "type": "sign",
+     "pos": [
+      0.78,
+      0.84
+     ],
+     "text": "CONVERTKIT",
+     "enterAt": 8.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -115.2,
+     43.05
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -116.2,
+       43.62
+      ],
+      "label": "Boise"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "nathan",
+     "pos": [
+      0.4,
+      0.82
+     ],
+     "mouth": "neutral",
+     "brows": "worried"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "pos": [
+      0.3,
+      0.3
+     ],
+     "text": "PART-TIME",
+     "color": "#55606e",
+     "size": 60,
+     "enterAt": 5.6
+    },
+    {
+     "type": "board",
+     "pos": [
+      0.72,
+      0.62
+     ],
+     "title": "GROWTH",
+     "lines": [
+      "slow...",
+      "still slow..."
+     ],
+     "enterAt": 7.4
+    }
+   ]
+  },
+  {
+   "date": "LATE 2014",
+   "map": {
+    "center": [
+     -108.0,
+     44.4
+    ],
+    "scale": 2600,
+    "states": true,
+    "highlight": [
+     {
+      "state": "Idaho"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       -116.2,
+       43.62
+      ],
+      "label": "Boise"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "nathan",
+     "pos": [
+      0.62,
+      0.82
+     ],
+     "mouth": "sad",
+     "brows": "worried"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "pos": [
+      0.42,
+      0.3
+     ],
+     "text": "$1,300",
+     "sub": "A MONTH",
+     "count": true,
+     "enterAt": 3.6
+    },
+    {
+     "type": "stamp",
+     "pos": [
+      0.76,
+      0.3
+     ],
+     "text": "NOT A SALARY",
+     "enterAt": 5.4
+    }
+   ],
+   "dim": 0.15
+  },
+  {
+   "map": {
+    "center": [
+     -115.2,
+     43.05
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -116.2,
+       43.62
+      ],
+      "label": "Boise"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "nathan",
+     "pos": [
+      0.45,
+      0.82
+     ],
+     "mouth": "neutral",
+     "brows": "worried"
+    }
+   ],
+   "props": [
+    {
+     "type": "building",
+     "pos": [
+      0.18,
+      0.92
+     ],
+     "label": "CONVERTKIT",
+     "enterAt": 0.5
+    },
+    {
+     "type": "bubble",
+     "text": "Bad idea, or did I never really try?",
+     "near": 0,
+     "enterAt": 4.4
+    }
+   ],
+   "dim": 0.2
+  },
+  {
+   "map": {
+    "center": [
+     -115.2,
+     43.05
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -116.2,
+       43.62
+      ],
+      "label": "Boise"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "nathan",
+     "pos": [
+      0.36,
+      0.8
+     ],
+     "mouth": "grin",
+     "brows": "raised"
+    },
+    {
+     "id": "engineer",
+     "pos": [
+      0.6,
+      0.8
+     ],
+     "flip": true,
+     "enterAt": 3.4
+    }
+   ],
+   "props": [
+    {
+     "type": "stamp",
+     "pos": [
+      0.5,
+      0.24
+     ],
+     "text": "DOUBLE DOWN",
+     "enterAt": 0.3
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.8,
+      0.36
+     ],
+     "text": "$50,000",
+     "sub": "HIS OWN MONEY",
+     "count": true,
+     "enterAt": 6.4
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "nathan",
+     "pos": [
+      0.14,
+      0.84
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "pos": [
+      0.5,
+      0.18
+     ],
+     "text": "PROFESSIONAL BLOGGERS",
+     "size": 52,
+     "color": "#2f63c6",
+     "enterAt": 4.4
+    },
+    {
+     "type": "crowd",
+     "at": [
+      -74.0,
+      40.7
+     ],
+     "count": 6,
+     "enterAt": 4.8
+    },
+    {
+     "type": "crowd",
+     "at": [
+      -87.6,
+      41.9
+     ],
+     "count": 6,
+     "enterAt": 5.1
+    },
+    {
+     "type": "crowd",
+     "at": [
+      -97.7,
+      30.3
+     ],
+     "count": 6,
+     "enterAt": 5.4
+    },
+    {
+     "type": "arrow",
+     "from": [
+      -116.2,
+      43.62
+     ],
+     "to": [
+      -87.6,
+      41.9
+     ],
+     "enterAt": 6.6
+    },
+    {
+     "type": "arrow",
+     "from": [
+      -116.2,
+      43.62
+     ],
+     "to": [
+      -97.7,
+      30.3
+     ],
+     "enterAt": 7.2
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "nathan",
+     "pos": [
+      0.26,
+      0.84
+     ],
+     "mouth": "smile"
+    },
+    {
+     "id": "engineer",
+     "pos": [
+      0.42,
+      0.84
+     ],
+     "enterAt": 2.4
+    },
+    {
+     "id": "user",
+     "pos": [
+      0.76,
+      0.84
+     ],
+     "flip": true,
+     "mouth": "grin",
+     "enterAt": 0.6
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.58,
+      0.86
+     ],
+     "enterAt": 3.4
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.5,
+      0.28
+     ],
+     "text": "FREE",
+     "sub": "LIST MOVING",
+     "enterAt": 5.2
+    },
+    {
+     "type": "bubble",
+     "text": "That was easy!",
+     "near": 2,
+     "side": "left",
+     "enterAt": 7.2
+    }
+   ]
+  },
+  {
+   "date": "2015",
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "nathan",
+     "pos": [
+      0.2,
+      0.84
+     ],
+     "mouth": "grin",
+     "brows": "raised"
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "pos": [
+      0.52,
+      0.64
+     ],
+     "title": "MONTHLY REVENUE",
+     "chart": "up",
+     "enterAt": 0.6
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.2,
+      0.3
+     ],
+     "text": "$3,000",
+     "sub": "JAN 2015",
+     "size": 60,
+     "enterAt": 2.6
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.82,
+      0.3
+     ],
+     "text": "$97,000",
+     "sub": "DEC 2015",
+     "count": true,
+     "enterAt": 5.0
+    }
+   ]
+  },
+  {
+   "date": "2018",
+   "map": {
+    "center": [
+     -108.0,
+     44.4
+    ],
+    "scale": 2600,
+    "states": true,
+    "highlight": [
+     {
+      "state": "Idaho"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       -116.2,
+       43.62
+      ],
+      "label": "Boise"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "nathan",
+     "pos": [
+      0.55,
+      0.82
+     ],
+     "mouth": "neutral",
+     "brows": "worried"
+    }
+   ],
+   "props": [
+    {
+     "type": "stamp",
+     "pos": [
+      0.3,
+      0.2
+     ],
+     "text": "BIG MISTAKE",
+     "enterAt": 1.6
+    },
+    {
+     "type": "sign",
+     "pos": [
+      0.8,
+      0.84
+     ],
+     "text": "SEVA",
+     "enterAt": 3.6
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.68,
+      0.34
+     ],
+     "text": "A SACRED WORD",
+     "sub": "SIKH AND HINDU",
+     "size": 52,
+     "color": "#55606e",
+     "enterAt": 6.0
+    }
+   ],
+   "dim": 0.1
+  },
+  {
+   "map": {
+    "center": [
+     -115.2,
+     43.05
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -116.2,
+       43.62
+      ],
+      "label": "Boise"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "nathan",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "sad",
+     "brows": "worried"
+    }
+   ],
+   "props": [
+    {
+     "type": "crowd",
+     "pos": [
+      0.72,
+      0.42
+     ],
+     "count": 16,
+     "enterAt": 0.8
+    },
+    {
+     "type": "bubble",
+     "text": "We got it wrong.",
+     "near": 0,
+     "enterAt": 2.8
+    },
+    {
+     "type": "sign",
+     "pos": [
+      0.56,
+      0.86
+     ],
+     "text": "CONVERTKIT",
+     "enterAt": 5.8
+    }
+   ]
+  },
+  {
+   "date": "2024",
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "nathan",
+     "pos": [
+      0.3,
+      0.84
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "user",
+     "pos": [
+      0.5,
+      0.84
+     ],
+     "flip": true,
+     "enterAt": 3.2
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.68,
+      0.86
+     ],
+     "enterAt": 4.6
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.42,
+      0.3
+     ],
+     "text": "KIT.COM",
+     "color": "#2f63c6",
+     "enterAt": 5.6
+    },
+    {
+     "type": "stamp",
+     "pos": [
+      0.78,
+      0.36
+     ],
+     "text": "NOW: KIT",
+     "enterAt": 7.4
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     10,
+     25
+    ],
+    "scale": 160
+   },
+   "characters": [
+    {
+     "id": "nathan",
+     "pos": [
+      0.12,
+      0.86
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "crowd",
+     "at": [
+      -98,
+      40
+     ],
+     "count": 8,
+     "enterAt": 0.6
+    },
+    {
+     "type": "crowd",
+     "at": [
+      10,
+      50
+     ],
+     "count": 8,
+     "enterAt": 1.0
+    },
+    {
+     "type": "crowd",
+     "at": [
+      -50,
+      -10
+     ],
+     "count": 6,
+     "enterAt": 1.4
+    },
+    {
+     "type": "crowd",
+     "at": [
+      78,
+      22
+     ],
+     "count": 6,
+     "enterAt": 1.8
+    },
+    {
+     "type": "crowd",
+     "at": [
+      135,
+      -25
+     ],
+     "count": 6,
+     "enterAt": 2.2
+    },
+    {
+     "type": "arrow",
+     "from": [
+      -116.2,
+      43.62
+     ],
+     "to": [
+      10,
+      50
+     ],
+     "enterAt": 1.0
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.5,
+      0.3
+     ],
+     "text": "$50 MILLION",
+     "sub": "A YEAR (ESTIMATE)",
+     "count": true,
+     "enterAt": 5.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "nathan",
+     "pos": [
+      0.5,
+      0.84
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "pos": [
+      0.22,
+      0.2
+     ],
+     "text": "$1,300",
+     "sub": "A MONTH",
+     "color": "#c4302b",
+     "enterAt": 3.0
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.78,
+      0.2
+     ],
+     "text": "TENS OF MILLIONS",
+     "sub": "A YEAR (ESTIMATE)",
+     "size": 52,
+     "enterAt": 6.2
+    },
+    {
+     "type": "stamp",
+     "pos": [
+      0.5,
+      0.38
+     ],
+     "text": "DOUBLE DOWN",
+     "enterAt": 9.8
+    }
+   ],
+   "camera": {
+    "zoom": 1.1
+   }
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "nathan",
+     "pos": [
+      0.36,
+      0.84
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.52,
+      0.86
+     ],
+     "enterAt": 0.5
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.5,
+      0.18
+     ],
+     "text": "FREE NEWSLETTER PLAN",
+     "size": 56,
+     "color": "#2f63c6",
+     "enterAt": 1.6
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.8,
+      0.38
+     ],
+     "text": "10,000",
+     "sub": "SUBSCRIBERS",
+     "count": true,
+     "enterAt": 5.2
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "nathan",
+     "pos": [
+      0.2,
+      0.84
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "pos": [
+      0.52,
+      0.62
+     ],
+     "title": "FREE: UNLIMITED",
+     "lines": [
+      "FORMS + PAGES",
+      "EMAIL SENDS",
+      "SELL PRODUCTS"
+     ],
+     "enterAt": 0.5
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.84,
+      0.3
+     ],
+     "text": "PAID PLANS",
+     "sub": "AUTOMATION",
+     "size": 44,
+     "color": "#55606e",
+     "enterAt": 7.6
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -108.0,
+     44.4
+    ],
+    "scale": 2600,
+    "states": true,
+    "highlight": [
+     {
+      "state": "Idaho"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       -116.2,
+       43.62
+      ],
+      "label": "Boise"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "nathan",
+     "pos": [
+      0.8,
+      0.84
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "pos": [
+      0.5,
+      0.5
+     ],
+     "text": "LINK IN DESCRIPTION",
+     "scale": 1.3,
+     "color": "#ffd36a"
+    },
+    {
+     "type": "card",
+     "pos": [
+      0.5,
+      0.2
+     ],
+     "text": "AFFILIATE LINK",
+     "size": 40,
+     "color": "#55606e",
+     "enterAt": 2.5
+    }
+   ]
+  }
+ ]
+}

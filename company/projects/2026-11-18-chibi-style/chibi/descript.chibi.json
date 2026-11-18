@@ -1,0 +1,1110 @@
+{
+ "story": "descript",
+ "cast": {
+  "andrew": "andrew_mason",
+  "laura": "laura_burkhauser"
+ },
+ "scenes": [
+  {
+   "date": "FEB 28, 2013",
+   "map": {
+    "center": [
+     -87.65,
+     41.88
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -87.63,
+       41.88
+      ],
+      "label": "Chicago"
+     }
+    ]
+   },
+   "dim": 0.35,
+   "characters": [
+    {
+     "id": "andrew",
+     "pos": [
+      0.42,
+      0.82
+     ],
+     "mouth": "sad",
+     "brows": "worried"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.6,
+      0.84
+     ],
+     "enterAt": 2.5
+    },
+    {
+     "type": "bubble",
+     "text": "I was fired today.",
+     "near": 0,
+     "enterAt": 6.0
+    },
+    {
+     "type": "stamp",
+     "text": "FIRED",
+     "pos": [
+      0.8,
+      0.34
+     ],
+     "enterAt": 7.8
+    }
+   ],
+   "camera": {
+    "zoom": 1.1
+   }
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "dim": 0.3,
+   "characters": [
+    {
+     "id": "andrew",
+     "pos": [
+      0.5,
+      0.84
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "title",
+     "lines": [
+      "DESCRIPT",
+      "the fired CEO who fixed editing"
+     ],
+     "pos": [
+      0.5,
+      0.22
+     ]
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -89.2,
+     40
+    ],
+    "scale": 2600,
+    "states": true,
+    "highlight": [
+     {
+      "state": "Illinois"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       -87.63,
+       41.88
+      ],
+      "label": "Chicago"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "investor",
+     "pos": [
+      0.6,
+      0.82
+     ],
+     "mouth": "neutral",
+     "brows": "angry",
+     "flip": true
+    },
+    {
+     "id": "investor",
+     "pos": [
+      0.78,
+      0.82
+     ],
+     "mouth": "neutral",
+     "brows": "angry",
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "-$81M",
+     "sub": "ONE QUARTER",
+     "count": true,
+     "color": "#c4302b",
+     "pos": [
+      0.3,
+      0.32
+     ],
+     "enterAt": 2.4
+    },
+    {
+     "type": "board",
+     "title": "STOCK",
+     "chart": "down",
+     "pos": [
+      0.3,
+      0.84
+     ],
+     "enterAt": 4.6
+    },
+    {
+     "type": "stamp",
+     "text": "NEW LEADER",
+     "pos": [
+      0.66,
+      0.3
+     ],
+     "enterAt": 7.4
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true,
+    "pins": [
+     {
+      "lonlat": [
+       -87.63,
+       41.88
+      ],
+      "label": "Chicago"
+     },
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "San Francisco"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "andrew",
+     "pos": [
+      0.6,
+      0.82
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "arrow",
+     "from": [
+      -87.63,
+      41.88
+     ],
+     "to": [
+      -122.42,
+      37.77
+     ],
+     "enterAt": 0.8
+    },
+    {
+     "type": "sign",
+     "text": "DETOUR",
+     "pos": [
+      0.84,
+      0.86
+     ],
+     "enterAt": 3.0,
+     "color": "#ffd36a"
+    },
+    {
+     "type": "bubble",
+     "text": "Turn left here!",
+     "near": 0,
+     "enterAt": 6.5
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -122.3,
+     37.65
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "San Francisco"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "andrew",
+     "pos": [
+      0.28,
+      0.82
+     ],
+     "mouth": "neutral",
+     "brows": "worried"
+    },
+    {
+     "id": "engineer",
+     "pos": [
+      0.72,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "sad"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.5,
+      0.84
+     ],
+     "enterAt": 1.0
+    },
+    {
+     "type": "card",
+     "text": "2x",
+     "sub": "EDIT TIME",
+     "pos": [
+      0.5,
+      0.32
+     ],
+     "enterAt": 6.5,
+     "color": "#c4302b"
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -122.3,
+     37.65
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "San Francisco"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "engineer",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "andrew",
+     "pos": [
+      0.72,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "open",
+     "brows": "raised"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.5,
+      0.84
+     ]
+    },
+    {
+     "type": "bubble",
+     "text": "Delete a word...",
+     "near": 0,
+     "enterAt": 4.5
+    },
+    {
+     "type": "bubble",
+     "text": "...and it's gone!",
+     "near": 1,
+     "side": "left",
+     "enterAt": 7.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -122.3,
+     37.65
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "San Francisco"
+     }
+    ]
+   },
+   "dim": 0.2,
+   "characters": [
+    {
+     "id": "andrew",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "sad"
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "DETOUR",
+     "chart": "down",
+     "pos": [
+      0.55,
+      0.84
+     ],
+     "enterAt": 1.2
+    },
+    {
+     "type": "laptop",
+     "pos": [
+      0.8,
+      0.84
+     ],
+     "enterAt": 5.5
+    },
+    {
+     "type": "sign",
+     "text": "THE BIGGER IDEA",
+     "pos": [
+      0.8,
+      0.62
+     ],
+     "enterAt": 6.0,
+     "color": "#ffd36a"
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -119.5,
+     37.2
+    ],
+    "scale": 2600,
+    "states": true,
+    "highlight": [
+     {
+      "state": "California"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "andrew",
+     "pos": [
+      0.4,
+      0.82
+     ],
+     "mouth": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.56,
+      0.84
+     ]
+    },
+    {
+     "type": "bubble",
+     "text": "It needs its own course.",
+     "near": 0,
+     "enterAt": 4.0
+    }
+   ],
+   "camera": {
+    "zoom": 1.08
+   }
+  },
+  {
+   "date": "DEC 2017",
+   "map": {
+    "center": [
+     -122.3,
+     37.65
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "San Francisco"
+     },
+     {
+      "lonlat": [
+       -122.18,
+       37.45
+      ],
+      "label": "Menlo Park"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "andrew",
+     "pos": [
+      0.36,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "investor",
+     "pos": [
+      0.66,
+      0.82
+     ],
+     "flip": true,
+     "enterAt": 4.0
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "DESCRIPT IS LIVE",
+     "pos": [
+      0.14,
+      0.86
+     ],
+     "enterAt": 1.5,
+     "color": "#ffd36a"
+    },
+    {
+     "type": "card",
+     "text": "$5M",
+     "sub": "SEED",
+     "count": true,
+     "pos": [
+      0.6,
+      0.32
+     ],
+     "enterAt": 4.6
+    }
+   ]
+  },
+  {
+   "date": "APR 2018",
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true,
+    "pins": [
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "Detour"
+     },
+     {
+      "lonlat": [
+       -71.42,
+       42.28
+      ],
+      "label": "Bose"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "andrew",
+     "pos": [
+      0.5,
+      0.82
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "arrow",
+     "from": [
+      -122.42,
+      37.77
+     ],
+     "to": [
+      -71.42,
+      42.28
+     ],
+     "enterAt": 3.0
+    },
+    {
+     "type": "stamp",
+     "text": "SOLD",
+     "pos": [
+      0.6,
+      0.32
+     ],
+     "enterAt": 4.4
+    },
+    {
+     "type": "sign",
+     "text": "ALL IN ON DESCRIPT",
+     "pos": [
+      0.8,
+      0.86
+     ],
+     "enterAt": 7.0,
+     "color": "#ffd36a"
+    }
+   ]
+  },
+  {
+   "date": "SEP 2019",
+   "map": {
+    "center": [
+     -96,
+     44
+    ],
+    "scale": 800,
+    "states": true,
+    "highlight": [
+     {
+      "country": "Canada"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       -73.57,
+       45.5
+      ],
+      "label": "Lyrebird"
+     },
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "San Francisco"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "andrew",
+     "pos": [
+      0.45,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "engineer",
+     "pos": [
+      0.72,
+      0.82
+     ],
+     "flip": true,
+     "enterAt": 4.5
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "$15M",
+     "count": true,
+     "pos": [
+      0.22,
+      0.32
+     ],
+     "enterAt": 2.6
+    },
+    {
+     "type": "arrow",
+     "from": [
+      -73.57,
+      45.5
+     ],
+     "to": [
+      -122.42,
+      37.77
+     ],
+     "enterAt": 4.6
+    },
+    {
+     "type": "bubble",
+     "text": "Type a word, hear your voice!",
+     "near": 1,
+     "side": "left",
+     "enterAt": 8.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "andrew",
+     "pos": [
+      0.22,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "crowd",
+     "count": 16,
+     "pos": [
+      0.62,
+      0.86
+     ],
+     "enterAt": 1.5
+    },
+    {
+     "type": "laptop",
+     "pos": [
+      0.36,
+      0.84
+     ],
+     "enterAt": 4.0
+    },
+    {
+     "type": "sign",
+     "text": "CREATORS",
+     "pos": [
+      0.88,
+      0.86
+     ],
+     "enterAt": 2.0
+    }
+   ]
+  },
+  {
+   "date": "NOV 2022",
+   "map": {
+    "center": [
+     -122.3,
+     37.65
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "San Francisco"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "andrew",
+     "pos": [
+      0.36,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "investor",
+     "pos": [
+      0.62,
+      0.82
+     ],
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "$50M",
+     "sub": "SERIES C",
+     "count": true,
+     "pos": [
+      0.25,
+      0.34
+     ],
+     "enterAt": 2.6
+    },
+    {
+     "type": "sign",
+     "text": "OPENAI STARTUP FUND",
+     "pos": [
+      0.84,
+      0.86
+     ],
+     "enterAt": 4.8
+    },
+    {
+     "type": "card",
+     "text": "~$550M",
+     "sub": "REPORTED",
+     "count": true,
+     "pos": [
+      0.72,
+      0.3
+     ],
+     "enterAt": 7.4,
+     "size": 60,
+     "color": "#2f63c6"
+    }
+   ]
+  },
+  {
+   "date": "2025",
+   "map": {
+    "center": [
+     -119.5,
+     37.2
+    ],
+    "scale": 2600,
+    "states": true,
+    "highlight": [
+     {
+      "state": "California"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "andrew",
+     "pos": [
+      0.34,
+      0.82
+     ],
+     "mouth": "smile"
+    },
+    {
+     "id": "laura",
+     "pos": [
+      0.62,
+      0.82
+     ],
+     "flip": true,
+     "enterAt": 3.5,
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "EXECUTIVE CHAIRMAN",
+     "pos": [
+      0.14,
+      0.86
+     ],
+     "enterAt": 1.8
+    },
+    {
+     "type": "card",
+     "text": "NEW CEO",
+     "pos": [
+      0.62,
+      0.32
+     ],
+     "enterAt": 5.5,
+     "color": "#2f63c6"
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "laura",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.46,
+      0.84
+     ]
+    },
+    {
+     "type": "board",
+     "title": "EDIT THE WORDS",
+     "lines": [
+      "THE VIDEO FOLLOWS"
+     ],
+     "pos": [
+      0.7,
+      0.84
+     ],
+     "enterAt": 4.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true,
+    "pins": [
+     {
+      "lonlat": [
+       -87.63,
+       41.88
+      ],
+      "label": "Chicago"
+     },
+     {
+      "lonlat": [
+       -122.42,
+       37.77
+      ],
+      "label": "San Francisco"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "andrew",
+     "pos": [
+      0.5,
+      0.82
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "2013",
+     "sub": "FIRED",
+     "pos": [
+      0.22,
+      0.34
+     ],
+     "enterAt": 0.8,
+     "color": "#c4302b"
+    },
+    {
+     "type": "arrow",
+     "from": [
+      -87.63,
+      41.88
+     ],
+     "to": [
+      -122.42,
+      37.77
+     ],
+     "enterAt": 2.0
+    },
+    {
+     "type": "card",
+     "text": "2017",
+     "sub": "DESCRIPT",
+     "pos": [
+      0.78,
+      0.34
+     ],
+     "enterAt": 3.2
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     8,
+     50
+    ],
+    "scale": 700
+   },
+   "characters": [
+    {
+     "id": "user",
+     "pos": [
+      0.32,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.46,
+      0.84
+     ]
+    },
+    {
+     "type": "board",
+     "title": "FREE PLAN",
+     "lines": [
+      "1. UPLOAD",
+      "2. TRANSCRIBE",
+      "3. DELETE WORDS"
+     ],
+     "pos": [
+      0.7,
+      0.84
+     ],
+     "enterAt": 2.5
+    }
+   ],
+   "camera": {
+    "zoom": 1.08
+   }
+  },
+  {
+   "map": {
+    "center": [
+     -45,
+     44
+    ],
+    "scale": 300
+   },
+   "characters": [
+    {
+     "id": "user",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "FREE PLAN LIMITS",
+     "lines": [
+      "SMALL ALLOWANCE",
+      "WATERMARK"
+     ],
+     "pos": [
+      0.58,
+      0.84
+     ],
+     "enterAt": 1.5
+    },
+    {
+     "type": "sign",
+     "text": "CHECK PRICING PAGE",
+     "pos": [
+      0.5,
+      0.42
+     ],
+     "enterAt": 7.0,
+     "color": "#ffd36a"
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -45,
+     44
+    ],
+    "scale": 300
+   },
+   "characters": [
+    {
+     "id": "andrew",
+     "pos": [
+      0.5,
+      0.84
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "LINK IN DESCRIPTION",
+     "pos": [
+      0.5,
+      0.5
+     ],
+     "scale": 1.3,
+     "color": "#ffd36a"
+    },
+    {
+     "type": "sign",
+     "text": "AFFILIATE LINK",
+     "pos": [
+      0.82,
+      0.86
+     ],
+     "color": "#d9d2c0",
+     "enterAt": 3.0
+    }
+   ],
+   "camera": {
+    "zoom": 1.08
+   }
+  }
+ ]
+}

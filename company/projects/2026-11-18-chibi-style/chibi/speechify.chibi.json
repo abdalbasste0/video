@@ -1,0 +1,883 @@
+{
+ "story": "speechify",
+ "cast": {
+  "cliff": "cliff_weitzman"
+ },
+ "scenes": [
+  {
+   "date": "JUN 2025",
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true,
+    "highlight": [
+     {
+      "state": "California"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       -122.03,
+       37.32
+      ],
+      "label": "Cupertino"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "cliff",
+     "pos": [
+      0.5,
+      0.82
+     ],
+     "mouth": "grin"
+    },
+    {
+     "id": "cliff",
+     "pos": [
+      0.7,
+      0.84
+     ],
+     "scale": 0.7,
+     "mouth": "sad",
+     "brows": "worried",
+     "enterAt": 7.0
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "APPLE DESIGN AWARD",
+     "pos": [
+      0.18,
+      0.86
+     ],
+     "enterAt": 2.0
+    },
+    {
+     "type": "stamp",
+     "text": "INCLUSIVITY",
+     "pos": [
+      0.5,
+      0.3
+     ],
+     "enterAt": 4.2
+    }
+   ],
+   "camera": {
+    "zoom": 1.08
+   }
+  },
+  {
+   "map": {
+    "center": [
+     0,
+     25
+    ],
+    "scale": 160
+   },
+   "dim": 0.3,
+   "characters": [
+    {
+     "id": "cliff",
+     "pos": [
+      0.5,
+      0.84
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "title",
+     "lines": [
+      "SPEECHIFY",
+      "the boy who learned by listening"
+     ],
+     "pos": [
+      0.5,
+      0.22
+     ]
+    }
+   ]
+  },
+  {
+   "date": "3RD GRADE",
+   "map": {
+    "center": [
+     20,
+     35
+    ],
+    "scale": 300
+   },
+   "characters": [
+    {
+     "id": "cliff",
+     "pos": [
+      0.32,
+      0.84
+     ],
+     "scale": 0.7,
+     "mouth": "sad",
+     "brows": "worried"
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "READING",
+     "lines": [
+      "b d p q ?"
+     ],
+     "pos": [
+      0.62,
+      0.84
+     ]
+    },
+    {
+     "type": "stamp",
+     "text": "DYSLEXIA",
+     "pos": [
+      0.5,
+      0.3
+     ],
+     "enterAt": 3.6
+    },
+    {
+     "type": "bubble",
+     "text": "Best day of my life!",
+     "near": 0,
+     "enterAt": 7.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     20,
+     35
+    ],
+    "scale": 300
+   },
+   "characters": [
+    {
+     "id": "cliff",
+     "pos": [
+      0.3,
+      0.84
+     ],
+     "scale": 0.7,
+     "mouth": "sad"
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "HARRY POTTER",
+     "lines": [
+      "TOO HARD"
+     ],
+     "pos": [
+      0.58,
+      0.84
+     ],
+     "enterAt": 2.0
+    },
+    {
+     "type": "sign",
+     "text": "AUDIOBOOK",
+     "pos": [
+      0.84,
+      0.86
+     ],
+     "enterAt": 7.5,
+     "color": "#ffd36a"
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     20,
+     35
+    ],
+    "scale": 300
+   },
+   "characters": [
+    {
+     "id": "cliff",
+     "pos": [
+      0.32,
+      0.84
+     ],
+     "scale": 0.7,
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "22 TIMES",
+     "sub": "IN A ROW",
+     "count": true,
+     "pos": [
+      0.6,
+      0.34
+     ],
+     "enterAt": 2.6
+    },
+    {
+     "type": "bubble",
+     "text": "Again!",
+     "near": 0,
+     "enterAt": 5.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true,
+    "highlight": [
+     {
+      "country": "United States of America"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "cliff",
+     "pos": [
+      0.18,
+      0.84
+     ],
+     "to": [
+      0.4,
+      0.84
+     ],
+     "scale": 0.85,
+     "mouth": "smile"
+    },
+    {
+     "id": "person",
+     "pos": [
+      0.72,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "smirk",
+     "enterAt": 5.0
+    }
+   ],
+   "props": [
+    {
+     "type": "bubble",
+     "text": "Dyslexia? A myth.",
+     "near": 1,
+     "side": "left",
+     "enterAt": 6.2
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -71.4,
+     41.8
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -71.41,
+       41.82
+      ],
+      "label": "Brown University"
+     }
+    ]
+   },
+   "dim": 0.2,
+   "characters": [
+    {
+     "id": "cliff",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "sad",
+     "brows": "worried"
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "READING LIST",
+     "lines": [
+      "WAY TOO LONG"
+     ],
+     "pos": [
+      0.62,
+      0.84
+     ],
+     "enterAt": 1.5
+    },
+    {
+     "type": "stamp",
+     "text": "TOO SLOW",
+     "pos": [
+      0.5,
+      0.3
+     ],
+     "enterAt": 6.5
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -71.4,
+     41.8
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -71.41,
+       41.82
+      ],
+      "label": "Brown University"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "cliff",
+     "pos": [
+      0.36,
+      0.82
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.52,
+      0.84
+     ],
+     "enterAt": 1.0
+    },
+    {
+     "type": "sign",
+     "text": "TEXT TO SPEECH",
+     "pos": [
+      0.78,
+      0.86
+     ],
+     "enterAt": 2.5
+    },
+    {
+     "type": "bubble",
+     "text": "Now I can listen!",
+     "near": 0,
+     "enterAt": 6.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "cliff",
+     "pos": [
+      0.35,
+      0.82
+     ],
+     "mouth": "smile"
+    },
+    {
+     "id": "user",
+     "pos": [
+      0.6,
+      0.82
+     ],
+     "flip": true,
+     "enterAt": 3.0
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "SPEECHIFY",
+     "pos": [
+      0.15,
+      0.86
+     ],
+     "enterAt": 2.6,
+     "color": "#ffd36a"
+    },
+    {
+     "type": "crowd",
+     "count": 6,
+     "pos": [
+      0.82,
+      0.84
+     ],
+     "enterAt": 5.0
+    }
+   ]
+  },
+  {
+   "date": "JAN 2017",
+   "map": {
+    "center": [
+     -73,
+     41.5
+    ],
+    "scale": 2600,
+    "states": true,
+    "highlight": [
+     {
+      "state": "Rhode Island"
+     }
+    ],
+    "pins": [
+     {
+      "lonlat": [
+       -71.41,
+       41.82
+      ],
+      "label": "Providence"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "cliff",
+     "pos": [
+      0.4,
+      0.82
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "30 UNDER 30",
+     "sub": "FORBES",
+     "pos": [
+      0.5,
+      0.32
+     ],
+     "enterAt": 2.4,
+     "color": "#2a7ab8"
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "dim": 0.35,
+   "characters": [
+    {
+     "id": "cliff",
+     "pos": [
+      0.32,
+      0.82
+     ],
+     "mouth": "neutral",
+     "brows": "worried"
+    },
+    {
+     "id": "user",
+     "pos": [
+      0.7,
+      0.82
+     ],
+     "flip": true,
+     "mouth": "smirk"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.5,
+      0.84
+     ]
+    },
+    {
+     "type": "sign",
+     "text": "FREE, BUILT IN",
+     "pos": [
+      0.88,
+      0.86
+     ],
+     "enterAt": 3.0
+    },
+    {
+     "type": "bubble",
+     "text": "Why pay?",
+     "near": 1,
+     "side": "left",
+     "enterAt": 6.5
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -40,
+     30
+    ],
+    "scale": 300
+   },
+   "characters": [
+    {
+     "id": "cliff",
+     "pos": [
+      0.24,
+      0.82
+     ],
+     "mouth": "smile"
+    },
+    {
+     "id": "engineer",
+     "pos": [
+      0.78,
+      0.82
+     ],
+     "flip": true
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "DO IT BETTER",
+     "lines": [
+      "NATURAL AI VOICES",
+      "FASTER SPEEDS",
+      "PDF + WEB + PHOTOS"
+     ],
+     "pos": [
+      0.5,
+      0.84
+     ],
+     "enterAt": 1.5
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     0,
+     25
+    ],
+    "scale": 160
+   },
+   "characters": [
+    {
+     "id": "cliff",
+     "pos": [
+      0.18,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.32,
+      0.84
+     ],
+     "enterAt": 0.8
+    },
+    {
+     "type": "sign",
+     "text": "PHONE + COMPUTER + WEB",
+     "pos": [
+      0.5,
+      0.62
+     ],
+     "enterAt": 1.5
+    },
+    {
+     "type": "crowd",
+     "count": 16,
+     "pos": [
+      0.66,
+      0.84
+     ],
+     "enterAt": 4.0
+    }
+   ]
+  },
+  {
+   "date": "2025",
+   "map": {
+    "center": [
+     0,
+     25
+    ],
+    "scale": 160
+   },
+   "characters": [
+    {
+     "id": "cliff",
+     "pos": [
+      0.22,
+      0.82
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "card",
+     "text": "50M+ USERS",
+     "sub": "COMPANY FIGURE",
+     "count": true,
+     "pos": [
+      0.5,
+      0.34
+     ],
+     "enterAt": 2.8,
+     "size": 64
+    },
+    {
+     "type": "crowd",
+     "count": 24,
+     "pos": [
+      0.66,
+      0.86
+     ],
+     "enterAt": 4.0
+    }
+   ],
+   "camera": {
+    "zoom": 1.08
+   }
+  },
+  {
+   "date": "JUN 2025",
+   "map": {
+    "center": [
+     -122.03,
+     37.32
+    ],
+    "scale": 9000,
+    "pins": [
+     {
+      "lonlat": [
+       -122.03,
+       37.32
+      ],
+      "label": "Cupertino"
+     }
+    ]
+   },
+   "characters": [
+    {
+     "id": "cliff",
+     "pos": [
+      0.4,
+      0.82
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "APPLE DESIGN AWARD",
+     "pos": [
+      0.16,
+      0.86
+     ],
+     "enterAt": 2.5
+    },
+    {
+     "type": "stamp",
+     "text": "WINNER",
+     "pos": [
+      0.5,
+      0.3
+     ],
+     "enterAt": 4.5
+    },
+    {
+     "type": "crowd",
+     "count": 10,
+     "pos": [
+      0.72,
+      0.86
+     ],
+     "enterAt": 5.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -98,
+     39
+    ],
+    "scale": 900,
+    "states": true
+   },
+   "characters": [
+    {
+     "id": "cliff",
+     "pos": [
+      0.3,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "board",
+     "title": "VOICE AI",
+     "lines": [
+      "WORK",
+      "SCHOOL",
+      "FUN"
+     ],
+     "pos": [
+      0.56,
+      0.84
+     ],
+     "enterAt": 1.5
+    },
+    {
+     "type": "crowd",
+     "count": 12,
+     "pos": [
+      0.84,
+      0.86
+     ],
+     "enterAt": 7.0
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -45,
+     44
+    ],
+    "scale": 300
+   },
+   "characters": [
+    {
+     "id": "user",
+     "pos": [
+      0.32,
+      0.82
+     ],
+     "mouth": "smile"
+    }
+   ],
+   "props": [
+    {
+     "type": "laptop",
+     "pos": [
+      0.46,
+      0.84
+     ]
+    },
+    {
+     "type": "board",
+     "title": "FREE VERSION",
+     "lines": [
+      "WEB PAGE",
+      "PDF",
+      "DOCUMENT"
+     ],
+     "pos": [
+      0.7,
+      0.84
+     ],
+     "enterAt": 3.0
+    },
+    {
+     "type": "bubble",
+     "text": "Read it to me!",
+     "near": 0,
+     "enterAt": 6.5
+    }
+   ]
+  },
+  {
+   "map": {
+    "center": [
+     -45,
+     44
+    ],
+    "scale": 300
+   },
+   "characters": [
+    {
+     "id": "cliff",
+     "pos": [
+      0.5,
+      0.84
+     ],
+     "mouth": "grin"
+    }
+   ],
+   "props": [
+    {
+     "type": "sign",
+     "text": "LINK IN DESCRIPTION",
+     "pos": [
+      0.5,
+      0.5
+     ],
+     "scale": 1.3,
+     "color": "#ffd36a"
+    },
+    {
+     "type": "sign",
+     "text": "AFFILIATE LINK",
+     "pos": [
+      0.82,
+      0.86
+     ],
+     "color": "#d9d2c0",
+     "enterAt": 3.0
+    }
+   ],
+   "camera": {
+    "zoom": 1.08
+   }
+  }
+ ]
+}

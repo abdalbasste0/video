@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-18T14:00:14+00:00",
+  "updated": "2026-11-18T14:18:40+00:00",
   "agents": {
     "ceo": {
       "status": "idle",
@@ -56,11 +56,10 @@
       "since": "2026-11-17T08:59:52+00:00"
     },
     "thumbnail-designer": {
-      "status": "working",
-      "task": "Chibi maps: synthesia, speechify, descript",
-      "bubble": "Chibi maps: synthesia, speechify, descript",
-      "since": "2026-11-18T14:00:14+00:00",
-      "task_id": "T-002"
+      "status": "idle",
+      "task": null,
+      "bubble": "Handed to Yasmin ✓",
+      "since": "2026-11-18T14:18:40+00:00"
     },
     "recording-producer": {
       "status": "idle",
@@ -183,7 +182,8 @@
         "company/projects/2026-11-17-affiliate-pixel-stories/10-qa-stories-A.md",
         "company/projects/2026-11-17-affiliate-pixel-stories/10-qa-stories-B.md",
         "company/projects/2026-11-17-affiliate-pixel-stories/08-seo-and-calendar.md",
-        "company/projects/2026-11-17-affiliate-pixel-stories/brief.md"
+        "company/projects/2026-11-17-affiliate-pixel-stories/brief.md",
+        "company/projects/2026-11-18-chibi-style/chibi/synthesia.chibi.json"
       ],
       "notes": [
         {
@@ -353,6 +353,14 @@
       "task": "T-002",
       "done": false,
       "created": "2026-11-17T17:03:00+00:00"
+    },
+    "N-020": {
+      "id": "N-020",
+      "text": "Check 7 chibi looks (Riparbelli, Niessner, Tjerrild, Agapito, Weitzman, Mason, Burkhauser) against real photos; web search was blocked, so the looks come from memory. Tjerrild and Burkhauser are guesses.",
+      "from": "thumbnail-designer",
+      "task": "T-002",
+      "done": false,
+      "created": "2026-11-18T14:18:40+00:00"
     }
   },
   "log": [
@@ -1237,10 +1245,31 @@
       "kind": "start",
       "text": "Chibi maps: synthesia, speechify, descript",
       "task": "T-002"
+    },
+    {
+      "t": "2026-11-18T14:18:40+00:00",
+      "agent": "thumbnail-designer",
+      "kind": "done",
+      "text": "Chibi maps for synthesia/speechify/descript + 7 cast files → company/projects/2026-11-18-chibi-style/chibi/synthesia.chibi.json",
+      "task": "T-002"
+    },
+    {
+      "t": "2026-11-18T14:18:40+00:00",
+      "agent": "thumbnail-designer",
+      "kind": "xp",
+      "text": "+10 XP: delivered: Chibi maps for synthesia/speechify/descript + 7 ca",
+      "task": null
+    },
+    {
+      "t": "2026-11-18T14:18:40+00:00",
+      "agent": "thumbnail-designer",
+      "kind": "needs-you",
+      "text": "Check 7 chibi looks (Riparbelli, Niessner, Tjerrild, Agapito, Weitzman, Mason, Burkhauser) against real photos; web search was blocked, so the looks come from memory. Tjerrild and Burkhauser are guesses.",
+      "task": "T-002"
     }
   ],
   "counters": {
     "task": 2,
-    "need": 19
+    "need": 20
   }
 }
