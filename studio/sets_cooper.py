@@ -431,7 +431,10 @@ def bg_note(c, t, W, H, o):
     for y in range(-200, 260, 56):
         c.drawLine(-430, y, 430, y, paint(0x332E6BB0, 2))
     lines = o.get("lines", ["I HAVE A BOMB", "IN MY BRIEFCASE."])
-    f = font(78, "Bold")
+    size = 78
+    while max(font(size, "Bold").measureText(l) for l in lines) > 820 and size > 30:
+        size -= 2
+    f = font(size, "Bold")
     shown = int(min(len("".join(lines)), o.get("_lt", t) * 18))
     n = 0
     for i, line in enumerate(lines):

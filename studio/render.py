@@ -257,7 +257,7 @@ def draw_world(c, s, lt, T, story):
             pz["shL"] = 78 - pz["torso"] + math.sin(T * 1.9) * 3
             pz["elL"] = -6
         sc = a.get("scale", 1.0)
-        if act not in ("lie",):  # soft contact shadow
+        if act not in ("lie", "fall", "hang") and bgname != "sky":  # soft contact shadow
             sp = skia.Paint(AntiAlias=True)
             sp.setShader(skia.GradientShader.MakeRadial((x, scenes.GROUND), 130 * sc, [0x88000000, 0x00000000]))
             c.save()
@@ -267,7 +267,7 @@ def draw_world(c, s, lt, T, story):
             c.restore()
         prop = sets_cooper.PROPS.get(a.get("prop"))
         if a.get("chute"):  # parachute canopy above the jumper
-            sets_cooper.parachute(c, x, y - ch.TORSO * sc, sc)
+            sets_cooper.parachute(c, x, y - ch.TORSO * sc, sc * 1.5)
         if a.get("prop") == "phone":
             prop = scenes.phone_prop
         elif a.get("prop") == "flashlight":
