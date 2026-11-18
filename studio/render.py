@@ -29,13 +29,34 @@ ACTION_Y = {"sit_desk": 745, "sit_desk_slump": 745, "sit_edge": 790, "lie": 676,
 
 
 # ------------------------------------------------------------------ timeline
+def series_shots(story):
+    """For a series episode: add a 'previously' recap, a PART title card and a 'to be continued' end."""
+    se = story.get("series")
+    if not se:
+        return story["shots"]
+    n = se["part"]
+    head = []
+    if se.get("previously"):
+        head.append({"bg": "void", "bg_opts": {"color": "0xFF404860"}, "say": "Previously. " + se["previously"],
+                     "caption": "PREVIOUSLY...", "caption_size": 80, "cam": {"zoom": [1.0, 1.05]},
+                     "fade_in": 0.6, "grade": "noir"})
+    head.append({"bg": "void", "bg_opts": {"color": "0xFFFFD08A"}, "say": f"Part {n}. {se['episode_title']}.",
+                 "caption": se["name"].upper(), "caption_y": 470, "caption_size": 130,
+                 "subtitle_override": f"PART {n}: {se['episode_title'].upper()}", "tail": 0.8, "cut": True})
+    tail = [{"bg": "void", "bg_opts": {"color": "0xFF2EE6FF" if se.get("final") else "0xFF6070A0"},
+             "say": "The end." if se.get("final") else "To be continued.",
+             "caption": "THE END." if se.get("final") else "TO BE CONTINUED...", "caption_y": 540,
+             "caption_size": 110, "tail": 1.5, "fade_out": 1.2}]
+    return head + story["shots"] + tail
+
+
 def build_timeline(story, workdir, cache=True):
     os.makedirs(workdir, exist_ok=True)
     voice = story.get("voice", "am_michael")
     speed = story.get("speed", 0.92)
     t = 0.0
     shots = []
-    for i, s in enumerate(story["shots"]):
+    for i, s in enumerate(series_shots(story)):
         s = dict(s)
         lead = s.get("lead", 0.35)
         tail = s.get("tail", 0.45)
@@ -98,6 +119,10 @@ def caption_draw(c, s, lt):
 
 
 def subtitles_draw(c, s, lt):
+    if s.get("subtitle_override"):
+        draw_text_center(c, s["subtitle_override"], W / 2, H - 260 if MAXW[0] >= 1000 else H - 300, 64,
+                         0xFFFFFFFF, 12, "Black")
+        return
     if not s.get("say") or s.get("no_subs"):
         return
     chunks = subtitle_chunks(s["say"], 2 if MAXW[0] < 1000 else 4)
@@ -210,7 +235,7 @@ def draw_world(c, s, lt, T, story):
         lights = lights + scenes.desk_front(c, T, o)
     hands = {}
     for i, a in enumerate(_actor_list(s)):
-        ch.set_look(a.get("look_as", story.get("hero", "stick")))
+        ch.set_look(a.get("look_as", story.get("hero", "detective")))
         act = a.get("action", "stand")
         x0 = a.get("x", W / 2)
         x1 = a.get("move_to", x0)
@@ -251,7 +276,7 @@ def draw_world(c, s, lt, T, story):
         if a.get("prop") == "phone":
             lights = lights + [(x - 150 if act == "lie" else x + 40, y - 200 if act != "lie" else y - 60,
                                 360, 0xFF8EC9FF, 0.9)]
-    ch.set_look(story.get("hero", "stick"))
+    ch.set_look(story.get("hero", "detective"))
     if bgname == "bedroom" and any(a.get("action") == "lie" for a in _actor_list(s)):
         scenes.blanket(c, o)
     for (lx, ly, r, colr, inten) in lights:
@@ -432,6 +457,10 @@ def main():
                         "-shortest", os.path.join(out, name)], check=True)
         print("wrote", os.path.join(out, name))
     meta = {k: story[k] for k in ("title", "description", "tags") if k in story}
+    se = story.get("series")
+    if se:
+        meta["title"] = f"{se['name'].upper()} | Part {se['part']}: {se['episode_title']}"[:100]
+        meta["playlist"] = se["name"]
     json.dump(meta, open(os.path.join(out, "metadata.json"), "w"), indent=2, ensure_ascii=False)
 
 
