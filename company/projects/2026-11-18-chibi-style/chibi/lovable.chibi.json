@@ -1099,7 +1099,7 @@
     {
      "id": "user",
      "pos": [
-      0.32,
+      0.2,
       0.82
      ],
      "mouth": "grin"
@@ -1109,7 +1109,7 @@
     {
      "type": "laptop",
      "pos": [
-      0.48,
+      0.36,
       0.84
      ],
      "enterAt": 0.4
@@ -1136,8 +1136,8 @@
      "type": "stamp",
      "text": "CHECK PRICING",
      "pos": [
-      0.66,
-      0.36
+      0.68,
+      0.3
      ],
      "enterAt": 8.4
     }
