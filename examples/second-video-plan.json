@@ -1,0 +1,728 @@
+{
+ "topic": "Why do prices end in .99?",
+ "settings": {
+  "channel": {
+   "language": "en",
+   "name": "Origin Puzzles"
+  },
+  "voice": {
+   "provider": "piper",
+   "piper_model": "voices/en_US-ryan-high.onnx",
+   "piper_length_scale": 1.3
+  }
+ },
+ "steps": {
+  "trend_scout": {
+   "ideas": [
+    {
+     "title": "Why do prices end in .99?",
+     "everyday_mystery": "every price tag ends in .99",
+     "hidden_lesson": "left-digit bias and pricing psychology",
+     "why_viral": "everyone sees it daily"
+    }
+   ]
+  },
+  "idea_judge": {
+   "topic": "Why do prices end in .99?",
+   "angle": "A legend, a brain shortcut, and a billion-dollar mistake",
+   "everyday_mystery": "Almost nothing costs exactly $10",
+   "lesson": "Prices are messages written for mental shortcuts",
+   "reason": "universal, visual, has a dramatic real-world case (J.C. Penney)"
+  },
+  "researcher": {
+   "facts": [
+    {
+     "claim": "Cash-register/anti-theft origin of .99 pricing",
+     "detail": "Widely repeated, little documentary evidence; treat as legend",
+     "year": "late 1800s",
+     "source": "https://www.wweek.com/news/dr-know/2026/07/26/does-pricing-stuff-at-399-really-still-work-on-the-modern-consumer/"
+    },
+    {
+     "claim": "Left-digit effect: 9-ending prices can seem smaller than one cent more, mainly when the left digit changes",
+     "detail": "Thomas & Morwitz, 5 experiments, J. Consumer Research",
+     "year": "2005",
+     "source": "https://ideas.repec.org/a/oup/jconrs/v32y2005i1p54-64.html"
+    },
+    {
+     "claim": "Catalog test: $49 outsold $44 and $54 for the same item",
+     "detail": "Anderson & Simester, women's clothing catalog",
+     "year": "2003",
+     "source": "https://www.chicagobooth.edu/review/yours-only-1999"
+    },
+    {
+     "claim": "9 endings increased demand in all three field studies; larger for new items",
+     "detail": "",
+     "year": "2003",
+     "source": "https://www.kellogg.northwestern.edu/faculty/research/detail/2003/effects-of-9-price-endings-on-retail-sales-evidence"
+    },
+    {
+     "claim": "J.C. Penney Fair and Square: sales events cut from ~590 to 12; whole-dollar prices",
+     "detail": "",
+     "year": "2012",
+     "source": "https://abcnews.go.com/blogs/business/2012/01/what-to-expect-j-c-penneys-new-pricing-strategy"
+    },
+    {
+     "claim": "J.C. Penney comparable sales down ~25% and net loss of $985 million in fiscal 2012",
+     "detail": "",
+     "year": "2012",
+     "source": "https://www.jckonline.com/2013/02/28/jc-penney-lost-nearly-1-billion-in-2012"
+    },
+    {
+     "claim": "Ron Johnson left after about 17 months; promotions returned",
+     "detail": "",
+     "year": "2013",
+     "source": "https://money.cnn.com/2013/02/27/news/companies/jc-penney/"
+    },
+    {
+     "claim": "Rounded prices 'feel right' for feeling-driven purchases; non-rounded for cognition-driven ones",
+     "detail": "Wadhwa & Zhang, J. Consumer Research",
+     "year": "2015",
+     "source": "https://ideas.repec.org/a/oup/jconrs/doi10.1086-678484.html"
+    }
+   ],
+   "timeline": [
+    {
+     "year": "late 1800s",
+     "event": "Cash-register/anti-theft origin of .99 pricing"
+    },
+    {
+     "year": "2005",
+     "event": "Left-digit effect: 9-ending prices can seem smaller than one cent more, mainly when the left digit changes"
+    },
+    {
+     "year": "2003",
+     "event": "Catalog test: $49 outsold $44 and $54 for the same item"
+    },
+    {
+     "year": "2003",
+     "event": "9 endings increased demand in all three field studies; larger for new items"
+    },
+    {
+     "year": "2012",
+     "event": "J.C. Penney Fair and Square: sales events cut from ~590 to 12; whole-dollar prices"
+    },
+    {
+     "year": "2012",
+     "event": "J.C. Penney comparable sales down ~25% and net loss of $985 million in fiscal 2012"
+    },
+    {
+     "year": "2013",
+     "event": "Ron Johnson left after about 17 months; promotions returned"
+    },
+    {
+     "year": "2015",
+     "event": "Rounded prices 'feel right' for feeling-driven purchases; non-rounded for cognition-driven ones"
+    }
+   ],
+   "conflict": "Honest round prices vs psychological .99 prices",
+   "economic_concept": "left-digit bias / psychological pricing",
+   "simple_equation_or_logic": "Perceived price is anchored on the first digit",
+   "surprise": "$49 outsold the cheaper $44",
+   "global_parallel": "J.C. Penney 2012",
+   "real_event_proof": "J.C. Penney's Fair and Square failure"
+  },
+  "fact_checker": {
+   "verified_facts": [
+    {
+     "claim": "Cash-register/anti-theft origin of .99 pricing",
+     "detail": "Widely repeated, little documentary evidence; treat as legend",
+     "year": "late 1800s",
+     "source": "https://www.wweek.com/news/dr-know/2026/07/26/does-pricing-stuff-at-399-really-still-work-on-the-modern-consumer/"
+    },
+    {
+     "claim": "Left-digit effect: 9-ending prices can seem smaller than one cent more, mainly when the left digit changes",
+     "detail": "Thomas & Morwitz, 5 experiments, J. Consumer Research",
+     "year": "2005",
+     "source": "https://ideas.repec.org/a/oup/jconrs/v32y2005i1p54-64.html"
+    },
+    {
+     "claim": "Catalog test: $49 outsold $44 and $54 for the same item",
+     "detail": "Anderson & Simester, women's clothing catalog",
+     "year": "2003",
+     "source": "https://www.chicagobooth.edu/review/yours-only-1999"
+    },
+    {
+     "claim": "9 endings increased demand in all three field studies; larger for new items",
+     "detail": "",
+     "year": "2003",
+     "source": "https://www.kellogg.northwestern.edu/faculty/research/detail/2003/effects-of-9-price-endings-on-retail-sales-evidence"
+    },
+    {
+     "claim": "J.C. Penney Fair and Square: sales events cut from ~590 to 12; whole-dollar prices",
+     "detail": "",
+     "year": "2012",
+     "source": "https://abcnews.go.com/blogs/business/2012/01/what-to-expect-j-c-penneys-new-pricing-strategy"
+    },
+    {
+     "claim": "J.C. Penney comparable sales down ~25% and net loss of $985 million in fiscal 2012",
+     "detail": "",
+     "year": "2012",
+     "source": "https://www.jckonline.com/2013/02/28/jc-penney-lost-nearly-1-billion-in-2012"
+    },
+    {
+     "claim": "Ron Johnson left after about 17 months; promotions returned",
+     "detail": "",
+     "year": "2013",
+     "source": "https://money.cnn.com/2013/02/27/news/companies/jc-penney/"
+    },
+    {
+     "claim": "Rounded prices 'feel right' for feeling-driven purchases; non-rounded for cognition-driven ones",
+     "detail": "Wadhwa & Zhang, J. Consumer Research",
+     "year": "2015",
+     "source": "https://ideas.repec.org/a/oup/jconrs/doi10.1086-678484.html"
+    }
+   ],
+   "removed": [
+    {
+     "claim": "Melville Stone / newspaper origin of odd pricing",
+     "reason": "no source found"
+    },
+    {
+     "claim": "$39 beat $34 and $44",
+     "reason": "secondary sources disagree; used $44/$49/$54 from Chicago Booth Review"
+    }
+   ],
+   "cautions": [
+    "Cash register theory framed as legend",
+    "J.C. Penney figures given as 'about a quarter' and 'nearly a billion'"
+   ]
+  },
+  "hook_writer": {
+   "hooks": [
+    {
+     "text": "Walk into any store and look at the price tags. Nine ninety-nine. Nineteen ninety-nine. Four ninety-nine. Almost nothing costs exactly ten dollars.",
+     "technique": "everyday observation"
+    }
+   ],
+   "best": 0
+  },
+  "scriptwriter": {
+   "title_working": "Why Do Prices End in .99?",
+   "chapters": [
+    {
+     "title": "The Puzzle",
+     "text": "Walk into any store and look at the price tags. Nine ninety-nine. Nineteen ninety-nine. Four ninety-nine. Almost nothing costs exactly ten dollars. One cent less. That is all it is. Nobody gets rich or poor from a single penny. So why does nearly every store do it? The answer is a mix of an old story about thieves, a strange quirk in how your brain reads numbers, and one very expensive mistake by a famous American store."
+    },
+    {
+     "title": "The Cash Register Story",
+     "text": "The most famous explanation goes back to the late eighteen hundreds, and the cash register. If something cost exactly one dollar, a dishonest clerk could take your dollar, skip the register, and quietly keep it. But at ninety-nine cents, they had to open the drawer to give you change. And opening the drawer rang a bell, and left a record. It is a great story. But there is little hard evidence that stores really chose odd prices for that reason. Today, it is best treated as a legend. And even if it was true once, it does not explain why online stores, with no cashiers at all, still charge nine ninety-nine. For that, we need to look inside your head."
+    },
+    {
+     "title": "The Left-Digit Trick",
+     "text": "We read numbers from left to right. And the first digit hits the hardest. In two thousand five, marketing researchers Manoj Thomas and Vicki Morwitz ran five experiments on this. They found that a price like two ninety-nine can feel noticeably smaller than three dollars, even though the gap is one cent. But the trick mostly works when the first digit changes. Three dollars to two ninety-nine feels like a real drop. Three sixty to three fifty-nine barely registers. Your brain does not do the subtraction. It grabs the first digit, takes a shortcut, and moves on. Stores simply design their prices around that shortcut."
+    },
+    {
+     "title": "The Catalog Experiment",
+     "text": "But does it actually change what people buy? In two thousand three, Eric Anderson and Duncan Simester tested it with a real women's clothing catalog. They printed different versions of the catalog. The same dress appeared at forty-four, forty-nine, or fifty-four dollars, depending on which copy you received. The result surprised a lot of people. The forty-nine dollar version sold the most. More than the cheaper price of forty-four. Across their three experiments, a nine at the end raised demand every time. And the effect was strongest on new items, where shoppers had no idea what a fair price was."
+    },
+    {
+     "title": "The Store That Said No",
+     "text": "So what happens if a store decides to stop playing the game? In twenty twelve, the American chain J.C. Penney found out. Its new boss, Ron Johnson, launched a plan called Fair and Square. Hundreds of sales events a year were cut to about a dozen, and a price like nineteen ninety-nine became a clean twenty dollars. It sounded honest. Customers hated it. That year, sales fell by about a quarter, and the company lost nearly a billion dollars. Within about a year and a half, Johnson was gone, and the sales and the old-style pricing came back."
+    },
+    {
+     "title": "The Lesson",
+     "text": "But round numbers are not always the enemy. In twenty fifteen, researchers Monica Wadhwa and Kuangjie Zhang found that round prices can feel right when we buy with our hearts, like a holiday or a gift, while precise prices suit practical purchases. That is why a luxury handbag often says two thousand dollars, while a bottle of shampoo says four ninety-nine. So a price is never just a number. It is a message, written for the shortcuts in your brain. And now you know how to read it. If you enjoyed this, subscribe so you don't miss the next puzzle. And tell us in the comments: what is the strangest price you have ever seen?"
+    }
+   ]
+  },
+  "script_editor": {
+   "title_working": "Why Do Prices End in .99?",
+   "chapters": [
+    {
+     "title": "The Puzzle",
+     "text": "Walk into any store and look at the price tags. Nine ninety-nine. Nineteen ninety-nine. Four ninety-nine. Almost nothing costs exactly ten dollars. One cent less. That is all it is. Nobody gets rich or poor from a single penny. So why does nearly every store do it? The answer is a mix of an old story about thieves, a strange quirk in how your brain reads numbers, and one very expensive mistake by a famous American store."
+    },
+    {
+     "title": "The Cash Register Story",
+     "text": "The most famous explanation goes back to the late eighteen hundreds, and the cash register. If something cost exactly one dollar, a dishonest clerk could take your dollar, skip the register, and quietly keep it. But at ninety-nine cents, they had to open the drawer to give you change. And opening the drawer rang a bell, and left a record. It is a great story. But there is little hard evidence that stores really chose odd prices for that reason. Today, it is best treated as a legend. And even if it was true once, it does not explain why online stores, with no cashiers at all, still charge nine ninety-nine. For that, we need to look inside your head."
+    },
+    {
+     "title": "The Left-Digit Trick",
+     "text": "We read numbers from left to right. And the first digit hits the hardest. In two thousand five, marketing researchers Manoj Thomas and Vicki Morwitz ran five experiments on this. They found that a price like two ninety-nine can feel noticeably smaller than three dollars, even though the gap is one cent. But the trick mostly works when the first digit changes. Three dollars to two ninety-nine feels like a real drop. Three sixty to three fifty-nine barely registers. Your brain does not do the subtraction. It grabs the first digit, takes a shortcut, and moves on. Stores simply design their prices around that shortcut."
+    },
+    {
+     "title": "The Catalog Experiment",
+     "text": "But does it actually change what people buy? In two thousand three, Eric Anderson and Duncan Simester tested it with a real women's clothing catalog. They printed different versions of the catalog. The same dress appeared at forty-four, forty-nine, or fifty-four dollars, depending on which copy you received. The result surprised a lot of people. The forty-nine dollar version sold the most. More than the cheaper price of forty-four. Across their three experiments, a nine at the end raised demand every time. And the effect was strongest on new items, where shoppers had no idea what a fair price was."
+    },
+    {
+     "title": "The Store That Said No",
+     "text": "So what happens if a store decides to stop playing the game? In twenty twelve, the American chain J.C. Penney found out. Its new boss, Ron Johnson, launched a plan called Fair and Square. Hundreds of sales events a year were cut to about a dozen, and a price like nineteen ninety-nine became a clean twenty dollars. It sounded honest. Customers hated it. That year, sales fell by about a quarter, and the company lost nearly a billion dollars. Within about a year and a half, Johnson was gone, and the sales and the old-style pricing came back."
+    },
+    {
+     "title": "The Lesson",
+     "text": "But round numbers are not always the enemy. In twenty fifteen, researchers Monica Wadhwa and Kuangjie Zhang found that round prices can feel right when we buy with our hearts, like a holiday or a gift, while precise prices suit practical purchases. That is why a luxury handbag often says two thousand dollars, while a bottle of shampoo says four ninety-nine. So a price is never just a number. It is a message, written for the shortcuts in your brain. And now you know how to read it. If you enjoyed this, subscribe so you don't miss the next puzzle. And tell us in the comments: what is the strangest price you have ever seen?"
+    }
+   ]
+  },
+  "storyboarder": {
+   "series_tag": "The .99 Puzzle",
+   "scenes": [
+    {
+     "chapter": 0,
+     "narration": "Walk into any store and look at the price tags. Nine ninety-nine. Nineteen ninety-nine. Four ninety-nine. Almost nothing costs exactly ten dollars.",
+     "title": "Why always .99?",
+     "highlight": ".99?",
+     "block": "big_number",
+     "main": "$9.99",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "$19.99",
+      "$4.99"
+     ],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: Why always .99?"
+    },
+    {
+     "chapter": 0,
+     "narration": "One cent less. That is all it is. Nobody gets rich or poor from a single penny. So why does nearly every store do it?",
+     "title": "Just one cent?",
+     "highlight": "one cent?",
+     "block": "compare",
+     "main": "",
+     "left_label": "$10.00",
+     "left_value": "10.00",
+     "right_label": "$9.99",
+     "right_value": "9.99",
+     "labels": [],
+     "stamp": "Same thing?",
+     "date_tag": "",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: Just one cent?"
+    },
+    {
+     "chapter": 0,
+     "narration": "The answer is a mix of an old story about thieves, a strange quirk in how your brain reads numbers, and one very expensive mistake by a famous American store.",
+     "title": "Three clues",
+     "highlight": "",
+     "block": "labels",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "Thieves",
+      "Your brain",
+      "A costly mistake"
+     ],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "dark",
+     "visual_prompt": "flat 2D vector explainer illustration: Three clues"
+    },
+    {
+     "chapter": 1,
+     "narration": "The most famous explanation goes back to the late eighteen hundreds, and the cash register.",
+     "title": "Blame the cashier?",
+     "highlight": "cashier?",
+     "block": "none",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [],
+     "stamp": "Old story",
+     "date_tag": "America · 1800s",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: Blame the cashier?"
+    },
+    {
+     "chapter": 1,
+     "narration": "If something cost exactly one dollar, a dishonest clerk could take your dollar, skip the register, and quietly keep it. But at ninety-nine cents, they had to open the drawer to give you change. And opening the drawer rang a bell, and left a record.",
+     "title": "Open the drawer",
+     "highlight": "drawer",
+     "block": "labels",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "$1.00: keep it",
+      "99 cents: make change"
+     ],
+     "stamp": "Ding!",
+     "date_tag": "",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: Open the drawer"
+    },
+    {
+     "chapter": 1,
+     "narration": "It is a great story. But there is little hard evidence that stores really chose odd prices for that reason. Today, it is best treated as a legend.",
+     "title": "Great story… weak evidence",
+     "highlight": "weak evidence",
+     "block": "none",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [],
+     "stamp": "Legend?",
+     "date_tag": "",
+     "accent": "blue",
+     "visual_prompt": "flat 2D vector explainer illustration: Great story… weak evidence"
+    },
+    {
+     "chapter": 1,
+     "narration": "And even if it was true once, it does not explain why online stores, with no cashiers at all, still charge nine ninety-nine. For that, we need to look inside your head.",
+     "title": "Online stores still do it",
+     "highlight": "still",
+     "block": "labels",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "No cashier",
+      "Still .99"
+     ],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "dark",
+     "visual_prompt": "flat 2D vector explainer illustration: Online stores still do it"
+    },
+    {
+     "chapter": 2,
+     "narration": "We read numbers from left to right. And the first digit hits the hardest.",
+     "title": "The first digit wins",
+     "highlight": "first digit",
+     "block": "big_number",
+     "main": "2.99",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "Read left to right"
+     ],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: The first digit wins"
+    },
+    {
+     "chapter": 2,
+     "narration": "In two thousand five, marketing researchers Manoj Thomas and Vicki Morwitz ran five experiments on this. They found that a price like two ninety-nine can feel noticeably smaller than three dollars, even though the gap is one cent.",
+     "title": "Penny wise, pound foolish",
+     "highlight": "pound foolish",
+     "block": "labels",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "Thomas & Morwitz",
+      "5 experiments"
+     ],
+     "stamp": "",
+     "date_tag": "USA · 2005",
+     "accent": "dark",
+     "visual_prompt": "flat 2D vector explainer illustration: Penny wise, pound foolish"
+    },
+    {
+     "chapter": 2,
+     "narration": "But the trick mostly works when the first digit changes. Three dollars to two ninety-nine feels like a real drop. Three sixty to three fifty-nine barely registers.",
+     "title": "When the first digit changes",
+     "highlight": "changes",
+     "block": "labels",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "3.00 to 2.99",
+      "3.60 to 3.59"
+     ],
+     "stamp": "Only one works",
+     "date_tag": "",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: When the first digit changes"
+    },
+    {
+     "chapter": 2,
+     "narration": "Your brain does not do the subtraction. It grabs the first digit, takes a shortcut, and moves on. Stores simply design their prices around that shortcut.",
+     "title": "Your brain takes a shortcut",
+     "highlight": "shortcut",
+     "block": "none",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [],
+     "stamp": "Shortcut",
+     "date_tag": "",
+     "accent": "green",
+     "visual_prompt": "flat 2D vector explainer illustration: Your brain takes a shortcut"
+    },
+    {
+     "chapter": 3,
+     "narration": "But does it actually change what people buy? In two thousand three, Eric Anderson and Duncan Simester tested it with a real women's clothing catalog.",
+     "title": "A real-world test",
+     "highlight": "real-world",
+     "block": "labels",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "Clothing catalog",
+      "Real customers"
+     ],
+     "stamp": "",
+     "date_tag": "USA · 2003",
+     "accent": "dark",
+     "visual_prompt": "flat 2D vector explainer illustration: A real-world test"
+    },
+    {
+     "chapter": 3,
+     "narration": "They printed different versions of the catalog. The same dress appeared at forty-four, forty-nine, or fifty-four dollars, depending on which copy you received.",
+     "title": "Same dress, three prices",
+     "highlight": "three prices",
+     "block": "labels",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "$44",
+      "$49",
+      "$54"
+     ],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: Same dress, three prices"
+    },
+    {
+     "chapter": 3,
+     "narration": "The result surprised a lot of people. The forty-nine dollar version sold the most. More than the cheaper price of forty-four.",
+     "title": "The higher price won",
+     "highlight": "won",
+     "block": "big_number",
+     "main": "$49",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "Beat $44"
+     ],
+     "stamp": "Sold the most",
+     "date_tag": "",
+     "accent": "green",
+     "visual_prompt": "flat 2D vector explainer illustration: The higher price won"
+    },
+    {
+     "chapter": 3,
+     "narration": "Across their three experiments, a nine at the end raised demand every time. And the effect was strongest on new items, where shoppers had no idea what a fair price was.",
+     "title": "Nine wins again",
+     "highlight": "Nine",
+     "block": "labels",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "3 experiments",
+      "Strongest on new items"
+     ],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: Nine wins again"
+    },
+    {
+     "chapter": 4,
+     "narration": "So what happens if a store decides to stop playing the game? In twenty twelve, the American chain J.C. Penney found out.",
+     "title": "A store that said no",
+     "highlight": "said no",
+     "block": "none",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [],
+     "stamp": "No more games",
+     "date_tag": "USA · 2012",
+     "accent": "dark",
+     "visual_prompt": "flat 2D vector explainer illustration: A store that said no"
+    },
+    {
+     "chapter": 4,
+     "narration": "Its new boss, Ron Johnson, launched a plan called Fair and Square. Hundreds of sales events a year were cut to about a dozen, and a price like nineteen ninety-nine became a clean twenty dollars.",
+     "title": "Fair and Square",
+     "highlight": "Square",
+     "block": "compare",
+     "main": "",
+     "left_label": "Before",
+     "left_value": "590 sales",
+     "right_label": "After",
+     "right_value": "12 sales",
+     "labels": [],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: Fair and Square"
+    },
+    {
+     "chapter": 4,
+     "narration": "It sounded honest. Customers hated it. That year, sales fell by about a quarter, and the company lost nearly a billion dollars.",
+     "title": "Customers hated it",
+     "highlight": "hated it",
+     "block": "big_number",
+     "main": "25%",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "Sales down",
+      "Nearly $1 billion lost"
+     ],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: Customers hated it"
+    },
+    {
+     "chapter": 4,
+     "narration": "Within about a year and a half, Johnson was gone, and the sales and the old-style pricing came back.",
+     "title": "The old prices came back",
+     "highlight": "came back",
+     "block": "none",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [],
+     "stamp": "Back to .99",
+     "date_tag": "",
+     "accent": "green",
+     "visual_prompt": "flat 2D vector explainer illustration: The old prices came back"
+    },
+    {
+     "chapter": 5,
+     "narration": "But round numbers are not always the enemy. In twenty fifteen, researchers Monica Wadhwa and Kuangjie Zhang found that round prices can feel right when we buy with our hearts, like a holiday or a gift, while precise prices suit practical purchases.",
+     "title": "When round numbers win",
+     "highlight": "round numbers",
+     "block": "compare",
+     "main": "",
+     "left_label": "Practical",
+     "left_value": "$98.76",
+     "right_label": "Emotional",
+     "right_value": "$100",
+     "labels": [],
+     "stamp": "",
+     "date_tag": "2015",
+     "accent": "green",
+     "visual_prompt": "flat 2D vector explainer illustration: When round numbers win"
+    },
+    {
+     "chapter": 5,
+     "narration": "That is why a luxury handbag often says two thousand dollars, while a bottle of shampoo says four ninety-nine.",
+     "title": "Luxury vs everyday",
+     "highlight": "Luxury",
+     "block": "labels",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "$2,000 handbag",
+      "$4.99 shampoo"
+     ],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "dark",
+     "visual_prompt": "flat 2D vector explainer illustration: Luxury vs everyday"
+    },
+    {
+     "chapter": 5,
+     "narration": "So a price is never just a number. It is a message, written for the shortcuts in your brain. And now you know how to read it.",
+     "title": "A price is a message",
+     "highlight": "message",
+     "block": "none",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [],
+     "stamp": "Read the price",
+     "date_tag": "",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: A price is a message"
+    },
+    {
+     "chapter": 5,
+     "narration": "If you enjoyed this, subscribe so you don't miss the next puzzle. And tell us in the comments: what is the strangest price you have ever seen?",
+     "title": "If you enjoyed this…",
+     "highlight": "",
+     "block": "cta",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "green",
+     "visual_prompt": "flat 2D vector explainer illustration: If you enjoyed this…"
+    }
+   ]
+  }
+ },
+ "answers": {
+  "thumbnail_designer": {
+   "text": "WHY $9.99?",
+   "sub": "The one-cent trick",
+   "accent": "red"
+  },
+  "seo_publisher": {
+   "title": "Why Do Prices End in .99? (The One-Cent Trick That Still Works)",
+   "description": "Almost nothing costs exactly $10. It's $9.99, $19.99, $4.99. One cent less, everywhere. Why?\n\nIn this video:\n{CHAPTERS}\n\nA price is never just a number. It's a message written for the shortcuts in your brain.\n\nWhat's the strangest price you've ever seen? Tell us in the comments.\n\nSources:\nhttps://www.kellogg.northwestern.edu/faculty/research/detail/2003/effects-of-9-price-endings-on-retail-sales-evidence\nhttps://www.chicagobooth.edu/review/yours-only-1999\nhttps://ideas.repec.org/a/oup/jconrs/v32y2005i1p54-64.html\nhttps://www.wweek.com/news/dr-know/2026/07/26/does-pricing-stuff-at-399-really-still-work-on-the-modern-consumer/\nhttps://www.jckonline.com/2013/02/28/jc-penney-lost-nearly-1-billion-in-2012\nhttps://money.cnn.com/2013/02/27/news/companies/jc-penney/\nhttps://abcnews.go.com/blogs/business/2012/01/what-to-expect-j-c-penneys-new-pricing-strategy\nhttps://ideas.repec.org/a/oup/jconrs/doi10.1086-678484.html",
+   "tags": [
+    "why do prices end in 99",
+    "99 cent pricing",
+    "charm pricing",
+    "psychological pricing",
+    "left digit effect",
+    "pricing psychology",
+    "jc penney fair and square",
+    "ron johnson jcpenney",
+    "behavioral economics",
+    "economics explained",
+    "marketing psychology",
+    "why $9.99",
+    "consumer psychology",
+    "price endings"
+   ],
+   "hashtags": [
+    "#economics",
+    "#psychology",
+    "#marketing",
+    "#explained"
+   ],
+   "pinned_comment": "What's the strangest price you've ever seen? 👇",
+   "short_title": "Why does everything cost $9.99?"
+  }
+ }
+}
