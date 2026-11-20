@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مصنع الفيديوهات</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4efe6;--card:#fffdf8;--ink:#222228;--muted:#6b6457;--line:#e4dccd;--navy:#1b2a4a;--red:#cd3430;--green:#2e8c57;--blue:#2866b8;--chip:#efe6d6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14161c;--card:#1d2029;--ink:#ece8df;--muted:#a49d90;--line:#2e3240;--navy:#9fb5e6;--chip:#262a35}}
+:root[data-theme="dark"]{--bg:#14161c;--card:#1d2029;--ink:#ece8df;--muted:#a49d90;--line:#2e3240;--navy:#9fb5e6;--chip:#262a35}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Cairo,system-ui,sans-serif;font-size:15px;line-height:1.6}
+header{padding:18px 16px 0;max-width:1100px;margin:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header h1{margin:0;font-size:22px;font-weight:800;color:var(--navy)}
+header .sub{color:var(--muted);font-size:13px}
+nav{max-width:1100px;margin:12px auto 0;padding:0 16px;display:flex;gap:6px;overflow-x:auto}
+nav button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 16px;font:inherit;cursor:pointer;white-space:nowrap}
+nav button.on{background:var(--navy);color:var(--bg);border-color:var(--navy)}
+main{max-width:1100px;margin:auto;padding:16px}
+section{display:none}section.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.card h2{margin:0 0 10px;font-size:17px}
+label{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px}
+input,select,textarea{width:100%;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:9px 11px;font:inherit}
+textarea{min-height:80px}
+input[type=checkbox]{width:auto;transform:scale(1.2);margin-inline-end:8px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0 14px}
+.btn{background:var(--navy);color:var(--bg);border:0;border-radius:10px;padding:10px 18px;font:inherit;font-weight:600;cursor:pointer}
+.btn.alt{background:var(--chip);color:var(--ink)}.btn.red{background:var(--red);color:#fff}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.help{font-size:12px;color:var(--muted)}
+.job{border-top:1px solid var(--line);padding:12px 0}
+.job:first-child{border-top:0}
+.job .t{font-weight:700}
+.dots{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0}
+.dot{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-size:11px;background:var(--chip);color:var(--muted)}
+.dot.done{background:var(--green);color:#fff}.dot.running{background:var(--blue);color:#fff;animation:p 1s infinite alternate}
+.dot.error{background:var(--red);color:#fff}.dot.skipped{opacity:.35}
+@keyframes p{to{opacity:.55}}
+.tag{display:inline-block;font-size:12px;padding:1px 10px;border-radius:999px;background:var(--chip)}
+.tag.done{background:var(--green);color:#fff}.tag.error{background:var(--red);color:#fff}.tag.running{background:var(--blue);color:#fff}
+.worker{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:start;border-top:1px solid var(--line);padding:10px 0}
+.worker:first-of-type{border-top:0}
+.num{width:30px;height:30px;border-radius:8px;background:var(--navy);color:var(--bg);display:grid;place-items:center;font-weight:800}
+.worker select{width:auto;padding:4px 8px}
+.conn{border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px}
+.conn .head{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+a{color:var(--blue)}
+.toast{position:fixed;bottom:16px;left:16px;right:16px;max-width:420px;margin:auto;background:var(--navy);color:var(--bg);padding:12px 16px;border-radius:12px;display:none;z-index:9}
+.res{font-size:13px;margin-top:6px}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏭 مصنع الفيديوهات</h1>
+  <span class="sub">15 عامل · فيديوهات شرح بدون وجه على طريقة «ليه أمريكا لسه على 120 فولت؟»</span>
+</header>
+<nav>
+  <button data-tab="run" class="on">التشغيل</button>
+  <button data-tab="workers">العمّال الـ15</button>
+  <button data-tab="links">الربط بالمنصات</button>
+  <button data-tab="settings">الإعدادات</button>
+</nav>
+<main>
+<section id="run" class="on">
+  <div class="card">
+    <h2>اطلب فيديوهات</h2>
+    <label>المواضيع (موضوع في كل سطر) — اتركها فاضية والمصنع يختار بنفسه</label>
+    <textarea id="topics" placeholder="ليه السواقة في إنجلترا على الشمال؟&#10;ليه الفيشة في كل بلد شكلها مختلف؟"></textarea>
+    <div class="row">
+      <div><label>عدد الفيديوهات لو المصنع هيختار</label><input id="count" type="number" min="1" max="20" value="1"></div>
+    </div>
+    <div class="btns">
+      <button class="btn" onclick="start(false)">ابدأ التصنيع</button>
+      <button class="btn alt" onclick="start(true)">تجربة بدون مفتاح API</button>
+    </div>
+  </div>
+  <div class="card"><h2>خط الإنتاج</h2><div id="jobs" class="help">لا يوجد شغل بعد.</div></div>
+</section>
+
+<section id="workers">
+  <div class="card"><h2>العمّال</h2>
+    <p class="help">"رئيسي" = النموذج الأقوى للكتابة. "سريع" = نموذج العمّال الخفاف (تقدر تغيّره من الإعدادات). العمّال الأساسيين ما ينفعش يتقفلوا.</p>
+    <div id="wlist"></div>
+    <div class="btns"><button class="btn" onclick="save()">حفظ</button></div>
+  </div>
+</section>
+
+<section id="links">
+  <div class="card"><h2>الربط بالمنصات والتطبيقات</h2>
+    <p class="help">كل رابط مفعّل بيستلم الفيديو أول ما يخلص. تقدر تضيف أكتر من رابط من نفس النوع، وتقفل وتفتح أي واحد. لأي تطبيق مش موجود: استخدم Webhook مع n8n أو Make أو Zapier، أو "أمر على الحاسوب".</p>
+    <div id="clist"></div>
+    <div class="row">
+      <div><label>إضافة رابط جديد</label><select id="newtype"></select></div>
+    </div>
+    <div class="btns"><button class="btn alt" onclick="addConn()">+ إضافة</button><button class="btn" onclick="save()">حفظ</button></div>
+  </div>
+  <div class="card"><h2>التحكم من الموبايل (بوت تيليجرام)</h2>
+    <div class="row">
+      <div><label>توكن البوت</label><input data-path="control.telegram_bot_token" type="password"></div>
+      <div><label>أرقام المحادثات المسموحة (مفصولة بفاصلة)</label><input data-path="control.allowed_chat_ids"></div>
+    </div>
+    <p class="help">ابعت للبوت: /video الموضوع — أو /auto 3 — أو /status. ابعت /id عشان تعرف رقم محادثتك.</p>
+    <div class="btns"><button class="btn" onclick="save()">حفظ</button></div>
+  </div>
+</section>
+
+<section id="settings">
+  <div class="card"><h2>العقل (Claude)</h2>
+    <div class="row">
+      <div><label>مفتاح Anthropic API</label><input data-path="anthropic_api_key" type="password" placeholder="sk-ant-..."></div>
+      <div><label>النموذج الرئيسي</label><select data-path="model_main"></select></div>
+      <div><label>النموذج السريع</label><select data-path="model_fast"></select></div>
+      <div><label>مستوى التفكير</label><select data-path="effort"><option>low</option><option>medium</option><option>high</option><option>xhigh</option><option>max</option></select></div>
+    </div>
+    <label><input type="checkbox" data-path="web_research">الباحث والمدقق يبحثوا على الإنترنت</label>
+  </div>
+  <div class="card"><h2>القناة</h2>
+    <div class="row">
+      <div><label>اسم القناة</label><input data-path="channel.name"></div>
+      <div><label>اللهجة</label><input data-path="channel.dialect"></div>
+      <div><label>مدة الفيديو (دقائق)</label><input type="number" step="0.5" data-path="channel.video_minutes"></div>
+    </div>
+    <label>المجال</label><textarea data-path="channel.niche"></textarea>
+    <label>الجمهور</label><input data-path="channel.audience">
+    <label>سؤال الكومنتات الافتراضي</label><input data-path="channel.cta_question">
+  </div>
+  <div class="card"><h2>الصوت</h2>
+    <div class="row">
+      <div><label>مزوّد الصوت</label><select data-path="voice.provider"><option value="edge">Edge (مجاني)</option><option value="elevenlabs">ElevenLabs</option><option value="silent">صامت (اختبار)</option></select></div>
+      <div><label>صوت Edge</label><select data-path="voice.edge_voice">
+        <option>ar-EG-ShakirNeural</option><option>ar-EG-SalmaNeural</option><option>ar-SA-HamedNeural</option><option>ar-SA-ZariyahNeural</option>
+        <option>ar-AE-HamdanNeural</option><option>ar-MA-JamalNeural</option><option>ar-IQ-BasselNeural</option><option>ar-JO-TaimNeural</option></select></div>
+      <div><label>سرعة الكلام</label><input data-path="voice.edge_rate"></div>
+      <div><label>ElevenLabs API key</label><input type="password" data-path="voice.elevenlabs_api_key"></div>
+      <div><label>ElevenLabs Voice ID</label><input data-path="voice.elevenlabs_voice_id"></div>
+    </div>
+  </div>
+  <div class="card"><h2>الصور</h2>
+    <div class="row">
+      <div><label>مصدر الصور</label><select data-path="images.provider"><option value="cards">بطاقات 2D محلية (مجاني)</option><option value="http">API صور خارجي</option></select></div>
+      <div><label>رابط API الصور</label><input data-path="images.http_url" placeholder="https://..."></div>
+      <div><label>هيدر التوثيق</label><input type="password" data-path="images.http_auth_header" placeholder="Authorization: Bearer ..."></div>
+    </div>
+    <label>أسلوب الرسم</label><textarea data-path="images.style_prompt"></textarea>
+  </div>
+  <div class="card"><h2>السرعة والإخراج</h2>
+    <div class="row">
+      <div><label>فيديوهات في نفس الوقت</label><input type="number" min="1" max="10" data-path="parallel_videos"></div>
+      <div><label>مشاهد بالتوازي داخل الفيديو</label><input type="number" min="1" max="16" data-path="parallel_scene_jobs"></div>
+      <div><label>مستوى صوت الموسيقى</label><input type="number" step="0.02" data-path="video.music_volume"></div>
+      <div><label>كلمة سر اللوحة</label><input type="password" data-path="dashboard_password"></div>
+    </div>
+    <label><input type="checkbox" data-path="video.burn_captions">ترجمة عربية محروقة على الفيديو</label>
+    <label><input type="checkbox" data-path="video.make_short">اعمل شورتس 9:16 تلقائياً</label>
+    <div class="btns"><button class="btn" onclick="save()">حفظ الإعدادات</button></div>
+  </div>
+</section>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+const MODELS=["claude-opus-5-5","claude-sonnet-5-5","claude-haiku-5-5","claude-fable-5-2"];
+let S=null,W=[],CT={},firstLoad=true;
+const $=q=>document.querySelector(q);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function toast(m){const t=$("#toast");t.textContent=m;t.style.display="block";clearTimeout(t._h);t._h=setTimeout(()=>t.style.display="none",3500)}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll("nav button,section").forEach(x=>x.classList.remove("on"));b.classList.add("on");$("#"+b.dataset.tab).classList.add("on");try{localStorage.setItem("tab",b.dataset.tab)}catch(e){}});
+try{const t=localStorage.getItem("tab");if(t)document.querySelector(`nav button[data-tab="${t}"]`)?.click()}catch(e){}
+const get=(o,p)=>p.split(".").reduce((a,k)=>a?.[k],o);
+function set(o,p,v){const ks=p.split(".");let a=o;ks.slice(0,-1).forEach(k=>a=a[k]??={});a[ks.at(-1)]=v}
+
+async function load(){
+  const r=await fetch("/api/state");const d=await r.json();
+  renderJobs(d.jobs);
+  if(!firstLoad)return;
+  firstLoad=false;S=d.settings;W=d.workers;CT=d.connector_types;
+  document.querySelectorAll("select[data-path^=model_]").forEach(s=>s.innerHTML=MODELS.map(m=>`<option>${m}</option>`).join(""));
+  document.querySelectorAll("[data-path]").forEach(el=>{const v=get(S,el.dataset.path);if(el.type==="checkbox")el.checked=!!v;else el.value=v??""});
+  $("#newtype").innerHTML=Object.entries(CT).map(([k,v])=>`<option value="${k}">${esc(v.label)}</option>`).join("");
+  renderWorkers();renderConns();
+}
+function collect(){
+  document.querySelectorAll("[data-path]").forEach(el=>{let v=el.type==="checkbox"?el.checked:el.value;if(el.type==="number")v=Number(v);set(S,el.dataset.path,v)});
+  document.querySelectorAll("[data-w]").forEach(el=>{const [id,k]=el.dataset.w.split(":");S.workers[id][k]=el.type==="checkbox"?el.checked:el.value});
+  document.querySelectorAll("[data-c]").forEach(el=>{const [i,k]=el.dataset.c.split(":");S.connectors[+i][k]=el.type==="checkbox"?el.checked:el.value});
+}
+async function save(){collect();const r=await fetch("/api/settings",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(S)});toast(r.ok?"اتحفظ ✅":"حصل خطأ في الحفظ")}
+function renderWorkers(){
+  $("#wlist").innerHTML=W.map(w=>`<div class="worker"><div class="num">${w.num}</div><div><b>${esc(w.name)}</b> <span class="tag">${w.kind==="llm"?"🧠 يفكر":"🎬 ينفّذ"}</span><div class="help">${esc(w.desc)}</div></div>
+   <div>${w.kind==="llm"?`<select data-w="${w.id}:model"><option value="main" ${S.workers[w.id].model==="main"?"selected":""}>رئيسي</option><option value="fast" ${S.workers[w.id].model==="fast"?"selected":""}>سريع</option></select>`:""}
+   <label style="margin:6px 0 0"><input type="checkbox" data-w="${w.id}:enabled" ${S.workers[w.id].enabled?"checked":""} ${w.required?"disabled":""}>${w.required?"أساسي":"شغّال"}</label></div></div>`).join("");
+}
+function renderConns(){
+  $("#clist").innerHTML=S.connectors.map((c,i)=>{const t=CT[c.type]||{label:c.type,fields:[]};
+    return `<div class="conn"><div class="head"><b>${esc(t.label)}</b>
+      <label style="margin:0"><input type="checkbox" data-c="${i}:enabled" ${c.enabled?"checked":""}>مفعّل</label></div>
+      <label>الاسم</label><input data-c="${i}:name" value="${esc(c.name)}">
+      ${t.fields.map(f=>f.type==="checkbox"?`<label><input type="checkbox" data-c="${i}:${f.key}" ${c[f.key]?"checked":""}>${esc(f.label)}</label>`:
+        `<label>${esc(f.label)}</label>${f.type==="textarea"?`<textarea data-c="${i}:${f.key}">${esc(c[f.key])}</textarea>`:`<input type="${f.type==="password"?"password":"text"}" data-c="${i}:${f.key}" value="${esc(c[f.key])}">`}${f.help?`<div class="help">${esc(f.help)}</div>`:""}`).join("")}
+      <div class="btns"><button class="btn alt" onclick="testConn(${i})">اختبار</button><button class="btn red" onclick="delConn(${i})">حذف</button></div>
+      <div class="res" id="res${i}"></div></div>`}).join("")||`<p class="help">مفيش روابط. ضيف واحد.</p>`;
+}
+function addConn(){collect();const t=$("#newtype").value;S.connectors.push({id:t+"-"+Date.now(),type:t,name:CT[t].label,enabled:true,send_video:true});renderConns()}
+function delConn(i){if(!confirm("حذف الرابط ده؟"))return;collect();S.connectors.splice(i,1);renderConns()}
+async function testConn(i){collect();$("#res"+i).textContent="جاري الاختبار…";
+  const r=await fetch("/api/connectors/test",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({connector:S.connectors[i]})});
+  const d=await r.json();$("#res"+i).textContent=(d.results||[]).map(x=>(x.ok?"✅ ":"❌ ")+x.msg).join(" | ")||"لا نتيجة"}
+async function start(demo){
+  const r=await fetch("/api/jobs",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({topics:$("#topics").value,count:$("#count").value,demo})});
+  const d=await r.json();toast(`👷 بدأ ${d.ids.length} فيديو`);$("#topics").value="";load()}
+async function act(id,what){await fetch(`/api/jobs/${id}/${what}`,{method:"POST"});toast("تم");load()}
+const ST={done:"خلص",running:"شغال",queued:"في الطابور",error:"وقف بخطأ",stopped:"متوقف"};
+function renderJobs(jobs){
+  if(!jobs.length)return;
+  $("#jobs").innerHTML=jobs.map(j=>`<div class="job"><div class="t">${esc(j.title||"موضوع يختاره المصنع…")} ${j.demo?'<span class="tag">تجربة</span>':""}</div>
+    <span class="tag ${j.status}">${ST[j.status]||j.status}</span> <span class="help">${new Date(j.created*1000).toLocaleString("ar-EG")}</span>
+    <div class="dots">${W.map(w=>{const s=j.steps[w.id]||{};return `<div class="dot ${s.status}" title="${esc(w.name)}${s.secs?" · "+s.secs+"ث":""}">${w.num}</div>`}).join("")}</div>
+    ${j.error?`<div class="help" style="color:var(--red)">${esc(j.error)}</div>`:""}
+    ${(j.publish||[]).map(p=>`<div class="help">${p.ok?"✅":"⚠️"} ${esc(p.connector)}: ${esc(p.msg)}</div>`).join("")}
+    <div class="btns">${j.files.map(f=>`<a class="btn alt" href="/files/${j.id}/${f}" target="_blank">${{"video.mp4":"🎬 الفيديو","short.mp4":"📱 الشورتس","thumbnail.jpg":"🖼️ الثامبنيل","captions.srt":"💬 الترجمة"}[f]}</a>`).join("")}
+    ${["error","stopped"].includes(j.status)?`<button class="btn" onclick="act('${j.id}','resume')">استكمال</button>`:""}
+    ${j.status==="done"?`<button class="btn alt" onclick="act('${j.id}','publish')">إعادة النشر</button>`:""}</div></div>`).join("");
+}
+load();setInterval(load,4000);
+</script>
+</body>
+</html>
