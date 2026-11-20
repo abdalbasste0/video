@@ -8,7 +8,7 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from pathlib import Path
 
-from . import connectors, settings as cfg
+from . import connectors, lang, settings as cfg
 from .roster import BY_ID, WORKERS
 from .workers import FUNCS
 
@@ -54,7 +54,10 @@ class Factory:
         p.write_text(json.dumps(job, ensure_ascii=False, indent=1), encoding="utf-8")
 
     # -------------------------------------------------------------- public API
-    def submit(self, topic=None, demo=False):
+    def submit(self, topic=None, demo=False, plan=None):
+        """plan (optional) = {"settings": {...overrides for this video...},
+                              "steps": {worker_id: ready output}} — lets you hand in your own
+        script/storyboard; workers with a ready output are skipped."""
         s = cfg.load()
         jid = datetime.now().strftime("%Y%m%d-%H%M%S-%f")[:-3] + "-" + _slug(topic)
         d = _root(s) / "jobs" / jid
@@ -62,6 +65,12 @@ class Factory:
         job = {"id": jid, "topic": (topic or "").strip() or None, "dir": str(d), "status": "queued", "demo": demo,
                "created": time.time(), "current": None, "error": None, "publish": [],
                "steps": {w["id"]: {"status": "waiting"} for w in WORKERS}}
+        if plan:
+            job["overrides"] = plan.get("settings") or {}
+            job["answers"] = plan.get("answers") or {}  # ready text answers for thumbnail_designer / seo_publisher
+            for wid, out in (plan.get("steps") or {}).items():
+                if wid in job["steps"]:
+                    job["steps"][wid] = {"status": "done", "output": out, "secs": 0, "from_plan": True}
         with self.lock:
             self.jobs[jid] = job
         self._save(job)
@@ -114,7 +123,8 @@ class Factory:
 
     def _run(self, jid):
         job = self.jobs[jid]
-        s = cfg.load()
+        s = cfg._merge(cfg.load(), job.get("overrides") or {})
+        lang.set_language(s["channel"].get("language", "ar"))
         if job.get("demo"):
             s["voice"]["provider"] = s["voice"]["provider"] if s["voice"]["provider"] != "elevenlabs" else "edge"
         job["status"] = "running"

@@ -48,7 +48,13 @@
 python run_factory.py make "ليه السواقة في إنجلترا على الشمال؟" "ليه الفيشة مختلفة في كل بلد؟"
 python run_factory.py auto -n 5      # المصنع يختار 5 مواضيع
 python run_factory.py demo           # تجربة كاملة بدون مفتاح
+python run_factory.py plan examples/first-video-plan.json   # أول فيديو (إنجليزي) من سكريبت جاهز
 ```
+
+### فيديو بالإنجليزي
+من الإعدادات ← القناة ← **لغة الفيديو = English**، واختار صوت إنجليزي (مثلاً `en-US-GuyNeural` في Edge).
+أو صوت مجاني بدون إنترنت: نزّل [Piper](https://huggingface.co/rhasspy/piper-voices/tree/main/en/en_US/ryan/high)
+(`en_US-ryan-high.onnx` + ملف `.json` بتاعه) في فولدر `voices/`، واختار مزوّد الصوت Piper.
 
 ## 🔌 تغيير الربط (المنصات والتطبيقات)
 من تبويب **الربط بالمنصات**: ضيف/احذف/اقفل أي رابط، وزرار **اختبار** لكل واحد. الأنواع:

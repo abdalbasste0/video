@@ -1,0 +1,793 @@
+{
+ "topic": "Why does Britain drive on the left?",
+ "settings": {
+  "channel": {
+   "language": "en",
+   "name": "Origin Puzzles"
+  },
+  "voice": {
+   "provider": "piper",
+   "piper_model": "voices/en_US-ryan-high.onnx",
+   "piper_length_scale": 1.3
+  }
+ },
+ "steps": {
+  "trend_scout": {
+   "ideas": [
+    {
+     "title": "Why does Britain drive on the left?",
+     "everyday_mystery": "London taxis drive on the left",
+     "hidden_lesson": "switching costs and network effects",
+     "why_viral": "everyone has noticed it abroad"
+    },
+    {
+     "title": "Why are keyboards QWERTY?",
+     "everyday_mystery": "the letter order",
+     "hidden_lesson": "path dependence",
+     "why_viral": "everyone types"
+    }
+   ]
+  },
+  "idea_judge": {
+   "topic": "Why does Britain drive on the left?",
+   "angle": "Two countries switched in opposite directions for the same reason: neighbors and money",
+   "everyday_mystery": "A London taxi driver sits on the right",
+   "lesson": "Switching costs and network effects decide the side of the road",
+   "reason": "concrete, visual, with a strong twist (Sweden vs Samoa)"
+  },
+  "researcher": {
+   "facts": [
+    {
+     "claim": "About a third of the world's people live in countries that drive on the left; about 75 countries/territories",
+     "detail": "Counts vary 75–78 depending on territories",
+     "year": "2020s",
+     "source": "https://www.statista.com/chart/9261/which-side-of-the-road-do-you-drive-on"
+    },
+    {
+     "claim": "General Highways Act encouraged keeping left",
+     "detail": "",
+     "year": "1773",
+     "source": "https://www.historic-uk.com/CultureUK/Why-do-the-British-drive-on-the-left"
+    },
+    {
+     "claim": "Highway Act made keeping left law; adopted across the Empire",
+     "detail": "",
+     "year": "1835",
+     "source": "https://www.historic-uk.com/CultureUK/Why-do-the-British-drive-on-the-left"
+    },
+    {
+     "claim": "Conestoga wagon driver rode the left rear horse, right hand for the whip; traffic kept right",
+     "detail": "Historian Lay: difference due to types of conveyance",
+     "year": "late 1700s",
+     "source": "https://ktvz.com/money/cnn-business-consumer/2024/03/02/heres-why-americans-drive-on-the-right-and-the-uk-drives-on-the-left/"
+    },
+    {
+     "claim": "Napoleon's armies spread keep-right (popular account, debated)",
+     "detail": "",
+     "year": "c. 1800",
+     "source": "https://ktvz.com/money/cnn-business-consumer/2024/03/02/heres-why-americans-drive-on-the-right-and-the-uk-drives-on-the-left/"
+    },
+    {
+     "claim": "Swedish non-binding referendum: about 83% against switching",
+     "detail": "82.9%",
+     "year": "1955",
+     "source": "https://en.wikipedia.org/wiki/1955_Swedish_driving_side_referendum"
+    },
+    {
+     "claim": "Dagen H: Sweden switched to the right; ~350,000 signs replaced",
+     "detail": "Switch at 05:00",
+     "year": "1967-09-03",
+     "source": "https://en.wikipedia.org/wiki/Dagen_H"
+    },
+    {
+     "claim": "Samoa switched from right to left so cheaper cars from Australia/NZ could be used",
+     "detail": "Protests and a failed court challenge",
+     "year": "2009-09",
+     "source": "https://www.aljazeera.com/news/2009/9/8/taking-sides-in-driving"
+    },
+    {
+     "claim": "Samoa fleet on 31 July 2009: 18,789 vehicles, 14,541 left-hand drive, 4,248 right-hand drive",
+     "detail": "Court filing",
+     "year": "2009",
+     "source": "https://lpr.adb.org/resource/jackson-vs-attorney-general-2009-wssc-122-samoa"
+    }
+   ],
+   "timeline": [
+    {
+     "year": "2020s",
+     "event": "About a third of the world's people live in countries that drive on the left; about 75 countries/territories"
+    },
+    {
+     "year": "1773",
+     "event": "General Highways Act encouraged keeping left"
+    },
+    {
+     "year": "1835",
+     "event": "Highway Act made keeping left law; adopted across the Empire"
+    },
+    {
+     "year": "late 1700s",
+     "event": "Conestoga wagon driver rode the left rear horse, right hand for the whip; traffic kept right"
+    },
+    {
+     "year": "c. 1800",
+     "event": "Napoleon's armies spread keep-right (popular account, debated)"
+    },
+    {
+     "year": "1955",
+     "event": "Swedish non-binding referendum: about 83% against switching"
+    },
+    {
+     "year": "1967-09-03",
+     "event": "Dagen H: Sweden switched to the right; ~350,000 signs replaced"
+    },
+    {
+     "year": "2009-09",
+     "event": "Samoa switched from right to left so cheaper cars from Australia/NZ could be used"
+    },
+    {
+     "year": "2009",
+     "event": "Samoa fleet on 31 July 2009: 18,789 vehicles, 14,541 left-hand drive, 4,248 right-hand drive"
+    }
+   ],
+   "conflict": "Keep-left (Britain) vs keep-right (wagons, Napoleon)",
+   "economic_concept": "switching cost + network effect",
+   "simple_equation_or_logic": "Switch only if benefit > cost of changing cars, signs and habits",
+   "surprise": "Samoa switched to the LEFT in 2009",
+   "global_parallel": "Sweden's Dagen H, 1967",
+   "real_event_proof": "Sweden 1967 and Samoa 2009"
+  },
+  "fact_checker": {
+   "verified_facts": [
+    {
+     "claim": "About a third of the world's people live in countries that drive on the left; about 75 countries/territories",
+     "detail": "Counts vary 75–78 depending on territories",
+     "year": "2020s",
+     "source": "https://www.statista.com/chart/9261/which-side-of-the-road-do-you-drive-on"
+    },
+    {
+     "claim": "General Highways Act encouraged keeping left",
+     "detail": "",
+     "year": "1773",
+     "source": "https://www.historic-uk.com/CultureUK/Why-do-the-British-drive-on-the-left"
+    },
+    {
+     "claim": "Highway Act made keeping left law; adopted across the Empire",
+     "detail": "",
+     "year": "1835",
+     "source": "https://www.historic-uk.com/CultureUK/Why-do-the-British-drive-on-the-left"
+    },
+    {
+     "claim": "Conestoga wagon driver rode the left rear horse, right hand for the whip; traffic kept right",
+     "detail": "Historian Lay: difference due to types of conveyance",
+     "year": "late 1700s",
+     "source": "https://ktvz.com/money/cnn-business-consumer/2024/03/02/heres-why-americans-drive-on-the-right-and-the-uk-drives-on-the-left/"
+    },
+    {
+     "claim": "Napoleon's armies spread keep-right (popular account, debated)",
+     "detail": "",
+     "year": "c. 1800",
+     "source": "https://ktvz.com/money/cnn-business-consumer/2024/03/02/heres-why-americans-drive-on-the-right-and-the-uk-drives-on-the-left/"
+    },
+    {
+     "claim": "Swedish non-binding referendum: about 83% against switching",
+     "detail": "82.9%",
+     "year": "1955",
+     "source": "https://en.wikipedia.org/wiki/1955_Swedish_driving_side_referendum"
+    },
+    {
+     "claim": "Dagen H: Sweden switched to the right; ~350,000 signs replaced",
+     "detail": "Switch at 05:00",
+     "year": "1967-09-03",
+     "source": "https://en.wikipedia.org/wiki/Dagen_H"
+    },
+    {
+     "claim": "Samoa switched from right to left so cheaper cars from Australia/NZ could be used",
+     "detail": "Protests and a failed court challenge",
+     "year": "2009-09",
+     "source": "https://www.aljazeera.com/news/2009/9/8/taking-sides-in-driving"
+    },
+    {
+     "claim": "Samoa fleet on 31 July 2009: 18,789 vehicles, 14,541 left-hand drive, 4,248 right-hand drive",
+     "detail": "Court filing",
+     "year": "2009",
+     "source": "https://lpr.adb.org/resource/jackson-vs-attorney-general-2009-wssc-122-samoa"
+    }
+   ],
+   "removed": [
+    {
+     "claim": "Sweden's accidents fell after the switch",
+     "reason": "not confirmed in checked sources"
+    },
+    {
+     "claim": "Exact cost of Dagen H",
+     "reason": "only one non-official source"
+    }
+   ],
+   "cautions": [
+    "Sword theory and Napoleon story are framed as popular/debated",
+    "Country count stated as 'around 75'"
+   ]
+  },
+  "hook_writer": {
+   "hooks": [
+    {
+     "text": "Take a taxi in London, and the driver sits on the right. Every single car on the road keeps to the left. Now cross the Channel to Paris, and everything flips. Same cars, same roads, same century. Opposite rules.",
+     "technique": "everyday contrast"
+    }
+   ],
+   "best": 0
+  },
+  "scriptwriter": {
+   "title_working": "Why Does Britain Drive on the Left?",
+   "chapters": [
+    {
+     "title": "The Puzzle",
+     "text": "Take a taxi in London, and the driver sits on the right. Every single car on the road keeps to the left. Now cross the Channel to Paris, and everything flips. Same cars, same roads, same century. Opposite rules. And London is not alone. Around seventy-five countries drive on the left, and roughly one in three people on Earth live in them. So if most of the world drives on the right, why do so many still keep left? The answer is not really about safety. It is about money… and about who your neighbors are. In this video: swords on old roads, giant American wagons, the morning Sweden switched sides, and the island that switched the other way."
+    },
+    {
+     "title": "Swords and Laws",
+     "text": "Let's start with the most popular theory. For centuries, travelers kept to the left. Most people are right-handed, so keeping left left your sword hand facing whoever came the other way. Historians argue about how true that story really is. But we do know exactly when Britain wrote the habit down. In seventeen seventy-three, the General Highways Act encouraged keeping left. Then the Highway Act of eighteen thirty-five made it the law. And as the British Empire spread, the rule travelled with it. To India, to Australia, to New Zealand, and to much of Africa."
+    },
+    {
+     "title": "Wagons and Napoleon",
+     "text": "So why did America end up on the right? Here, the story turns on a very large wagon. In the late seventeen hundreds, freight moved in huge Conestoga wagons, pulled by teams of horses. The driver often had no seat. He rode the rear horse on the left, so his right hand was free for the whip. Sitting on the left, he wanted oncoming wagons to pass on his left, where he could watch the wheels. So the wagons kept right. Britain had fewer giant wagons, and more small carriages and riders. In Europe, a popular story gives the credit to Napoleon. Where his armies went, people kept right. Historians still debate how much of that is legend. Either way, by the twentieth century the world had split into two camps. And once a country picks a side, something powerful happens."
+    },
+    {
+     "title": "The Price of Switching",
+     "text": "Every car is built for one side. Every road sign, bus door, motorway exit and traffic light faces one direction. So switching is not just a new rule on paper. It means changing millions of things at once. Economists call this a switching cost. And the more your neighbors drive on one side, the more it pays to match them. Trade, tourists and imported cars all flow more easily. That is called a network effect."
+    },
+    {
+     "title": "Sweden and Samoa",
+     "text": "Sweden drove on the left, while its land neighbors, Norway and Finland, drove on the right. In nineteen fifty-five, Swedes voted on switching. About eighty-three percent said no. The government switched anyway. On the third of September, nineteen sixty-seven, at five in the morning, the whole country moved to the right. About three hundred and fifty thousand signs had to change. Now the twist. In two thousand nine, the Pacific island of Samoa did the exact opposite. It switched from the right… to the left. Why? Its big neighbors, Australia and New Zealand, drive on the left. Their used cars are built for the left, and they were far cheaper to bring in. But about three in four cars on the island were still built for the right. There were protests, and even a court case. The switch went ahead anyway, in September two thousand nine."
+    },
+    {
+     "title": "The Lesson",
+     "text": "So the side of the road was never really about swords or safety. It is about what everyone around you already does, and what it would cost to change. Sweden paid a fortune to match its neighbors. Samoa switched to get cheaper cars. And Britain stays left, because changing would cost more than staying. If you enjoyed this, subscribe so you don't miss the next one. And tell us in the comments: what rule in your country makes no sense, but nobody can change?"
+    }
+   ]
+  },
+  "script_editor": {
+   "title_working": "Why Does Britain Drive on the Left?",
+   "chapters": [
+    {
+     "title": "The Puzzle",
+     "text": "Take a taxi in London, and the driver sits on the right. Every single car on the road keeps to the left. Now cross the Channel to Paris, and everything flips. Same cars, same roads, same century. Opposite rules. And London is not alone. Around seventy-five countries drive on the left, and roughly one in three people on Earth live in them. So if most of the world drives on the right, why do so many still keep left? The answer is not really about safety. It is about money… and about who your neighbors are. In this video: swords on old roads, giant American wagons, the morning Sweden switched sides, and the island that switched the other way."
+    },
+    {
+     "title": "Swords and Laws",
+     "text": "Let's start with the most popular theory. For centuries, travelers kept to the left. Most people are right-handed, so keeping left left your sword hand facing whoever came the other way. Historians argue about how true that story really is. But we do know exactly when Britain wrote the habit down. In seventeen seventy-three, the General Highways Act encouraged keeping left. Then the Highway Act of eighteen thirty-five made it the law. And as the British Empire spread, the rule travelled with it. To India, to Australia, to New Zealand, and to much of Africa."
+    },
+    {
+     "title": "Wagons and Napoleon",
+     "text": "So why did America end up on the right? Here, the story turns on a very large wagon. In the late seventeen hundreds, freight moved in huge Conestoga wagons, pulled by teams of horses. The driver often had no seat. He rode the rear horse on the left, so his right hand was free for the whip. Sitting on the left, he wanted oncoming wagons to pass on his left, where he could watch the wheels. So the wagons kept right. Britain had fewer giant wagons, and more small carriages and riders. In Europe, a popular story gives the credit to Napoleon. Where his armies went, people kept right. Historians still debate how much of that is legend. Either way, by the twentieth century the world had split into two camps. And once a country picks a side, something powerful happens."
+    },
+    {
+     "title": "The Price of Switching",
+     "text": "Every car is built for one side. Every road sign, bus door, motorway exit and traffic light faces one direction. So switching is not just a new rule on paper. It means changing millions of things at once. Economists call this a switching cost. And the more your neighbors drive on one side, the more it pays to match them. Trade, tourists and imported cars all flow more easily. That is called a network effect."
+    },
+    {
+     "title": "Sweden and Samoa",
+     "text": "Sweden drove on the left, while its land neighbors, Norway and Finland, drove on the right. In nineteen fifty-five, Swedes voted on switching. About eighty-three percent said no. The government switched anyway. On the third of September, nineteen sixty-seven, at five in the morning, the whole country moved to the right. About three hundred and fifty thousand signs had to change. Now the twist. In two thousand nine, the Pacific island of Samoa did the exact opposite. It switched from the right… to the left. Why? Its big neighbors, Australia and New Zealand, drive on the left. Their used cars are built for the left, and they were far cheaper to bring in. But about three in four cars on the island were still built for the right. There were protests, and even a court case. The switch went ahead anyway, in September two thousand nine."
+    },
+    {
+     "title": "The Lesson",
+     "text": "So the side of the road was never really about swords or safety. It is about what everyone around you already does, and what it would cost to change. Sweden paid a fortune to match its neighbors. Samoa switched to get cheaper cars. And Britain stays left, because changing would cost more than staying. If you enjoyed this, subscribe so you don't miss the next one. And tell us in the comments: what rule in your country makes no sense, but nobody can change?"
+    }
+   ]
+  },
+  "storyboarder": {
+   "series_tag": "The Left-Side Puzzle",
+   "scenes": [
+    {
+     "chapter": 0,
+     "narration": "Take a taxi in London, and the driver sits on the right. Every single car on the road keeps to the left.",
+     "title": "Same cars… wrong side?",
+     "highlight": "wrong side?",
+     "block": "labels",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "Driver on the right",
+      "Traffic on the left"
+     ],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: Same cars… wrong side?"
+    },
+    {
+     "chapter": 0,
+     "narration": "Now cross the Channel to Paris, and everything flips. Same cars, same roads, same century. Opposite rules.",
+     "title": "Two hours apart… opposite rules",
+     "highlight": "opposite rules",
+     "block": "compare",
+     "main": "",
+     "left_label": "Paris",
+     "left_value": "Right",
+     "right_label": "London",
+     "right_value": "Left",
+     "labels": [],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "green",
+     "visual_prompt": "flat 2D vector explainer illustration: Two hours apart… opposite rules"
+    },
+    {
+     "chapter": 0,
+     "narration": "And London is not alone. Around seventy-five countries drive on the left, and roughly one in three people on Earth live in them.",
+     "title": "Not just Britain",
+     "highlight": "",
+     "block": "big_number",
+     "main": "1 in 3",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "About 75 countries",
+      "India",
+      "Japan"
+     ],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: Not just Britain"
+    },
+    {
+     "chapter": 0,
+     "narration": "So if most of the world drives on the right, why do so many still keep left? The answer is not really about safety. It is about money… and about who your neighbors are.",
+     "title": "Safety… or money?",
+     "highlight": "money?",
+     "block": "none",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [],
+     "stamp": "Follow the money",
+     "date_tag": "",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: Safety… or money?"
+    },
+    {
+     "chapter": 0,
+     "narration": "In this video: swords on old roads, giant American wagons, the morning Sweden switched sides, and the island that switched the other way.",
+     "title": "Today's story",
+     "highlight": "",
+     "block": "labels",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "Swords",
+      "Wagons",
+      "Sweden and Samoa"
+     ],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "dark",
+     "visual_prompt": "flat 2D vector explainer illustration: Today's story"
+    },
+    {
+     "chapter": 1,
+     "narration": "Let's start with the most popular theory. For centuries, travelers kept to the left. Most people are right-handed, so keeping left left your sword hand facing whoever came the other way.",
+     "title": "Keep your sword hand free",
+     "highlight": "sword hand",
+     "block": "labels",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "Right-handed",
+      "Pass on the left"
+     ],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: Keep your sword hand free"
+    },
+    {
+     "chapter": 1,
+     "narration": "Historians argue about how true that story really is. But we do know exactly when Britain wrote the habit down.",
+     "title": "From habit… to law",
+     "highlight": "law",
+     "block": "none",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [],
+     "stamp": "Theory",
+     "date_tag": "",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: From habit… to law"
+    },
+    {
+     "chapter": 1,
+     "narration": "In seventeen seventy-three, the General Highways Act encouraged keeping left. Then the Highway Act of eighteen thirty-five made it the law.",
+     "title": "Britain writes it down",
+     "highlight": "",
+     "block": "big_number",
+     "main": "1835",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "1773: encouraged",
+      "1835: required"
+     ],
+     "stamp": "",
+     "date_tag": "Britain · 1835",
+     "accent": "dark",
+     "visual_prompt": "flat 2D vector explainer illustration: Britain writes it down"
+    },
+    {
+     "chapter": 1,
+     "narration": "And as the British Empire spread, the rule travelled with it. To India, to Australia, to New Zealand, and to much of Africa.",
+     "title": "The rule travels",
+     "highlight": "travels",
+     "block": "labels",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "India",
+      "Australia",
+      "New Zealand"
+     ],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "green",
+     "visual_prompt": "flat 2D vector explainer illustration: The rule travels"
+    },
+    {
+     "chapter": 2,
+     "narration": "So why did America end up on the right? Here, the story turns on a very large wagon.",
+     "title": "Why is America different?",
+     "highlight": "different?",
+     "block": "none",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [],
+     "stamp": "Big wagons",
+     "date_tag": "",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: Why is America different?"
+    },
+    {
+     "chapter": 2,
+     "narration": "In the late seventeen hundreds, freight moved in huge Conestoga wagons, pulled by teams of horses. The driver often had no seat. He rode the rear horse on the left, so his right hand was free for the whip.",
+     "title": "The Conestoga wagon",
+     "highlight": "",
+     "block": "labels",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "Team of horses",
+      "Driver on the left"
+     ],
+     "stamp": "",
+     "date_tag": "America · 1700s",
+     "accent": "dark",
+     "visual_prompt": "flat 2D vector explainer illustration: The Conestoga wagon"
+    },
+    {
+     "chapter": 2,
+     "narration": "Sitting on the left, he wanted oncoming wagons to pass on his left, where he could watch the wheels. So the wagons kept right. Britain had fewer giant wagons, and more small carriages and riders.",
+     "title": "Driver left… traffic right",
+     "highlight": "traffic right",
+     "block": "compare",
+     "main": "",
+     "left_label": "America",
+     "left_value": "Big wagons",
+     "right_label": "Britain",
+     "right_value": "Small carriages",
+     "labels": [],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "green",
+     "visual_prompt": "flat 2D vector explainer illustration: Driver left… traffic right"
+    },
+    {
+     "chapter": 2,
+     "narration": "In Europe, a popular story gives the credit to Napoleon. Where his armies went, people kept right. Historians still debate how much of that is legend.",
+     "title": "Napoleon's right turn?",
+     "highlight": "right turn?",
+     "block": "none",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [],
+     "stamp": "Legend?",
+     "date_tag": "",
+     "accent": "blue",
+     "visual_prompt": "flat 2D vector explainer illustration: Napoleon's right turn?"
+    },
+    {
+     "chapter": 2,
+     "narration": "Either way, by the twentieth century the world had split into two camps. And once a country picks a side, something powerful happens.",
+     "title": "Two camps",
+     "highlight": "",
+     "block": "compare",
+     "main": "",
+     "left_label": "Right",
+     "left_value": "Most countries",
+     "right_label": "Left",
+     "right_value": "About 75",
+     "labels": [],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "green",
+     "visual_prompt": "flat 2D vector explainer illustration: Two camps"
+    },
+    {
+     "chapter": 3,
+     "narration": "Every car is built for one side. Every road sign, bus door, motorway exit and traffic light faces one direction.",
+     "title": "Everything faces one way",
+     "highlight": "one way",
+     "block": "labels",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "Cars",
+      "Road signs",
+      "Bus doors"
+     ],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: Everything faces one way"
+    },
+    {
+     "chapter": 3,
+     "narration": "So switching is not just a new rule on paper. It means changing millions of things at once. Economists call this a switching cost.",
+     "title": "The price of switching",
+     "highlight": "switching",
+     "block": "equation",
+     "main": "Switch = Cars + Signs + Habits",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "blue",
+     "visual_prompt": "flat 2D vector explainer illustration: The price of switching"
+    },
+    {
+     "chapter": 3,
+     "narration": "And the more your neighbors drive on one side, the more it pays to match them. Trade, tourists and imported cars all flow more easily. That is called a network effect.",
+     "title": "Do what your neighbors do",
+     "highlight": "neighbors",
+     "block": "labels",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "Trade",
+      "Tourists",
+      "Imported cars"
+     ],
+     "stamp": "Network effect",
+     "date_tag": "",
+     "accent": "green",
+     "visual_prompt": "flat 2D vector explainer illustration: Do what your neighbors do"
+    },
+    {
+     "chapter": 4,
+     "narration": "Sweden drove on the left, while its land neighbors, Norway and Finland, drove on the right. In nineteen fifty-five, Swedes voted on switching. About eighty-three percent said no.",
+     "title": "Sweden says no",
+     "highlight": "no",
+     "block": "big_number",
+     "main": "83%",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "Voted no"
+     ],
+     "stamp": "",
+     "date_tag": "Sweden · 1955",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: Sweden says no"
+    },
+    {
+     "chapter": 4,
+     "narration": "The government switched anyway. On the third of September, nineteen sixty-seven, at five in the morning, the whole country moved to the right. About three hundred and fifty thousand signs had to change.",
+     "title": "Dagen H",
+     "highlight": "",
+     "block": "big_number",
+     "main": "1967",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "5 a.m.",
+      "350,000 signs"
+     ],
+     "stamp": "",
+     "date_tag": "Sweden · 3 Sep 1967",
+     "accent": "dark",
+     "visual_prompt": "flat 2D vector explainer illustration: Dagen H"
+    },
+    {
+     "chapter": 4,
+     "narration": "Now the twist. In two thousand nine, the Pacific island of Samoa did the exact opposite. It switched from the right… to the left.",
+     "title": "Then Samoa did the opposite",
+     "highlight": "opposite",
+     "block": "none",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [],
+     "stamp": "To the left!",
+     "date_tag": "Samoa · 2009",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: Then Samoa did the opposite"
+    },
+    {
+     "chapter": 4,
+     "narration": "Why? Its big neighbors, Australia and New Zealand, drive on the left. Their used cars are built for the left, and they were far cheaper to bring in.",
+     "title": "Follow the cheap cars",
+     "highlight": "cheap cars",
+     "block": "labels",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "Australia",
+      "New Zealand",
+      "Used cars"
+     ],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "green",
+     "visual_prompt": "flat 2D vector explainer illustration: Follow the cheap cars"
+    },
+    {
+     "chapter": 4,
+     "narration": "But about three in four cars on the island were still built for the right. There were protests, and even a court case. The switch went ahead anyway, in September two thousand nine.",
+     "title": "Protests… and a switch",
+     "highlight": "switch",
+     "block": "compare",
+     "main": "",
+     "left_label": "Built for right",
+     "left_value": "14,541",
+     "right_label": "Built for left",
+     "right_value": "4,248",
+     "labels": [],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: Protests… and a switch"
+    },
+    {
+     "chapter": 5,
+     "narration": "So the side of the road was never really about swords or safety. It is about what everyone around you already does, and what it would cost to change.",
+     "title": "The real reason",
+     "highlight": "real reason",
+     "block": "labels",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "Your neighbors",
+      "Cost of change"
+     ],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "dark",
+     "visual_prompt": "flat 2D vector explainer illustration: The real reason"
+    },
+    {
+     "chapter": 5,
+     "narration": "Sweden paid a fortune to match its neighbors. Samoa switched to get cheaper cars. And Britain stays left, because changing would cost more than staying.",
+     "title": "Stay… or switch?",
+     "highlight": "switch?",
+     "block": "labels",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [
+      "Sweden: switched",
+      "Samoa: switched",
+      "Britain: stayed"
+     ],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "red",
+     "visual_prompt": "flat 2D vector explainer illustration: Stay… or switch?"
+    },
+    {
+     "chapter": 5,
+     "narration": "If you enjoyed this, subscribe so you don't miss the next one. And tell us in the comments: what rule in your country makes no sense, but nobody can change?",
+     "title": "If you enjoyed this…",
+     "highlight": "",
+     "block": "cta",
+     "main": "",
+     "left_label": "",
+     "left_value": "",
+     "right_label": "",
+     "right_value": "",
+     "labels": [],
+     "stamp": "",
+     "date_tag": "",
+     "accent": "green",
+     "visual_prompt": "flat 2D vector explainer illustration: If you enjoyed this…"
+    }
+   ]
+  }
+ },
+ "answers": {
+  "thumbnail_designer": {
+   "text": "WHY LEFT?",
+   "sub": "Sweden vs Samoa",
+   "accent": "red"
+  },
+  "seo_publisher": {
+   "title": "Why Does Britain Drive on the Left? (And Why Samoa Switched)",
+   "description": "A London taxi driver sits on the right, and all traffic keeps left. Cross to Paris and everything flips. Why?\n\nIn this video:\n{CHAPTERS}\n\nThe side of the road is decided less by safety than by switching costs and your neighbors.\n\nWhat rule in your country makes no sense, but nobody can change? Tell us in the comments.\n\nSources:\nhttps://www.historic-uk.com/CultureUK/Why-do-the-British-drive-on-the-left\nhttps://ktvz.com/money/cnn-business-consumer/2024/03/02/heres-why-americans-drive-on-the-right-and-the-uk-drives-on-the-left/\nhttps://en.wikipedia.org/wiki/Dagen_H\nhttps://en.wikipedia.org/wiki/1955_Swedish_driving_side_referendum\nhttps://www.aljazeera.com/news/2009/9/8/taking-sides-in-driving\nhttps://lpr.adb.org/resource/jackson-vs-attorney-general-2009-wssc-122-samoa\nhttps://www.statista.com/chart/9261/which-side-of-the-road-do-you-drive-on",
+   "tags": [
+    "why does britain drive on the left",
+    "driving on the left",
+    "left hand traffic",
+    "right hand traffic",
+    "dagen h",
+    "sweden 1967",
+    "samoa 2009",
+    "conestoga wagon",
+    "highway act 1835",
+    "switching costs",
+    "network effect",
+    "economics explained",
+    "history explained",
+    "why uk drives on the left"
+   ],
+   "hashtags": [
+    "#history",
+    "#economics",
+    "#driving",
+    "#explained"
+   ],
+   "pinned_comment": "Which rule in your country makes no sense, but nobody can change? 👇",
+   "short_title": "Why does Britain drive on the LEFT?"
+  }
+ }
+}

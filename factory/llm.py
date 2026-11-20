@@ -49,6 +49,9 @@ def _ask(settings, worker_id, role, task, schema, web, max_tokens):
             f"القناة: {ch['name']} | المجال: {ch['niche']} | اللهجة: {ch['dialect']} | الجمهور: {ch['audience']}\n"
             f"أنت عامل في مصنع فيديوهات. دورك: {role}\n"
             "اشتغل على دورك بس، وسلّم نتيجة جاهزة للعامل اللي بعدك. ممنوع تخترع حقائق أو أرقام أو مصادر."
+            + ("\nVIDEO LANGUAGE: ENGLISH. Write every narration line, title, label, stamp, caption, thumbnail text and "
+               "SEO field in natural spoken English (ignore the dialect line above). Keep the same structure and style."
+               if ch.get("language") == "en" else "")
         ), "cache_control": {"type": "ephemeral"}},
     ]
     params = dict(

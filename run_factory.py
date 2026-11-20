@@ -4,7 +4,9 @@
   python run_factory.py make "موضوع"    فيديو واحد من سطر الأوامر
   python run_factory.py auto -n 3       المصنع يختار 3 مواضيع بنفسه
   python run_factory.py demo            تجربة كاملة بدون مفتاح API
+  python run_factory.py plan plan.json  فيديو من سكريبت/ستوري بورد جاهز (العمّال اللي ليهم نتيجة جاهزة بيتخطّوا)
 """
+import json
 import argparse
 import sys
 import time
@@ -46,6 +48,8 @@ def main():
     a = sub.add_parser("auto")
     a.add_argument("-n", type=int, default=1)
     sub.add_parser("demo")
+    pl = sub.add_parser("plan")
+    pl.add_argument("path")
     args = ap.parse_args()
 
     if not media.have_ffmpeg():
@@ -58,6 +62,10 @@ def main():
         sys.exit(wait([get_factory().submit(t) for t in args.topics]))
     elif args.cmd == "auto":
         sys.exit(wait([get_factory().submit(None) for _ in range(args.n)]))
+    elif args.cmd == "plan":
+        with open(args.path, encoding="utf-8") as f:
+            plan = json.load(f)
+        sys.exit(wait([get_factory().submit(plan.get("topic"), plan=plan)]))
     elif args.cmd == "demo":
         sys.exit(wait([get_factory().submit("ليه الكيبورد مترتب QWERTY؟", demo=True)]))
 

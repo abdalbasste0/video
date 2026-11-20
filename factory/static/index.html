@@ -120,6 +120,7 @@ a{color:var(--blue)}
   <div class="card"><h2>القناة</h2>
     <div class="row">
       <div><label>اسم القناة</label><input data-path="channel.name"></div>
+      <div><label>لغة الفيديو</label><select data-path="channel.language"><option value="ar">العربية</option><option value="en">English</option></select></div>
       <div><label>اللهجة</label><input data-path="channel.dialect"></div>
       <div><label>مدة الفيديو (دقائق)</label><input type="number" step="0.5" data-path="channel.video_minutes"></div>
     </div>
@@ -129,10 +130,13 @@ a{color:var(--blue)}
   </div>
   <div class="card"><h2>الصوت</h2>
     <div class="row">
-      <div><label>مزوّد الصوت</label><select data-path="voice.provider"><option value="edge">Edge (مجاني)</option><option value="elevenlabs">ElevenLabs</option><option value="silent">صامت (اختبار)</option></select></div>
+      <div><label>مزوّد الصوت</label><select data-path="voice.provider"><option value="edge">Edge (مجاني)</option><option value="elevenlabs">ElevenLabs</option><option value="piper">Piper (بدون إنترنت)</option><option value="silent">صامت (اختبار)</option></select></div>
       <div><label>صوت Edge</label><select data-path="voice.edge_voice">
         <option>ar-EG-ShakirNeural</option><option>ar-EG-SalmaNeural</option><option>ar-SA-HamedNeural</option><option>ar-SA-ZariyahNeural</option>
-        <option>ar-AE-HamdanNeural</option><option>ar-MA-JamalNeural</option><option>ar-IQ-BasselNeural</option><option>ar-JO-TaimNeural</option></select></div>
+        <option>ar-AE-HamdanNeural</option><option>ar-MA-JamalNeural</option><option>ar-IQ-BasselNeural</option><option>ar-JO-TaimNeural</option>
+        <option>en-US-GuyNeural</option><option>en-US-AndrewNeural</option><option>en-US-AriaNeural</option><option>en-GB-RyanNeural</option><option>en-GB-SoniaNeural</option></select></div>
+      <div><label>ملف صوت Piper (.onnx)</label><input data-path="voice.piper_model" placeholder="C:/voices/en_US-ryan-high.onnx"></div>
+      <div><label>بطء Piper (1 = عادي)</label><input type="number" step="0.05" data-path="voice.piper_length_scale"></div>
       <div><label>سرعة الكلام</label><input data-path="voice.edge_rate"></div>
       <div><label>ElevenLabs API key</label><input type="password" data-path="voice.elevenlabs_api_key"></div>
       <div><label>ElevenLabs Voice ID</label><input data-path="voice.elevenlabs_voice_id"></div>

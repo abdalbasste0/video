@@ -19,6 +19,7 @@ from functools import lru_cache
 
 from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont
 
+from . import lang
 from .media import FONTS, _RAQM, _shape, _text_kwargs, draw_block
 
 C = {
@@ -57,6 +58,22 @@ def sans(px, black=False):
 
 def tw(d, text, font):
     return d.textlength(_shape(text), font=font, **_text_kwargs())
+
+
+def segments_c(d, parts, font, cx, y):
+    """Draw differently coloured text segments as one centred line, in reading order
+    (right-to-left for Arabic, left-to-right for English)."""
+    total = sum(tw(d, p, font) for p, _ in parts)
+    if lang.rtl():
+        x = cx + total / 2
+        for seg, col in parts:
+            x -= tw(d, seg, font)
+            d.text((x, y), _shape(seg), font=font, fill=col, **_text_kwargs())
+    else:
+        x = cx - total / 2
+        for seg, col in parts:
+            d.text((x, y), seg, font=font, fill=col, **_text_kwargs())
+            x += tw(d, seg, font)
 
 
 def text_c(d, xy, text, font, fill):
@@ -122,13 +139,7 @@ def title(img, text, highlight):
         a = text.index(highlight)
         parts = [(text[:a], C["ink"]), (highlight, C["red"]), (text[a + len(highlight):], C["ink"])]
     parts = [p for p in parts if p[0]]
-    total = sum(tw(d, p, f) for p, _ in parts)
-    x_right = w / 2 + total / 2
-    y = 92 * k
-    for seg, col in parts:  # RTL: first logical segment sits on the right
-        sw = tw(d, seg, f)
-        x_right -= sw
-        d.text((x_right, y), _shape(seg), font=f, fill=col, **_text_kwargs())
+    segments_c(d, parts, f, w / 2, 92 * k)
 
 
 def tag(img, text, cx, cy, size=22, border=C["ink"], color=C["ink"], fill=C["tag"]):
@@ -237,12 +248,7 @@ def equation(img, text):
         else:
             parts.append((t, cols[n % len(cols)]))
             n += 1
-    total = sum(tw(d, p, f) for p, _ in parts)
-    x = w / 2 + total / 2
-    for seg, col in parts:
-        sw = tw(d, seg, f)
-        x -= sw
-        d.text((x, h * 0.40), _shape(seg), font=f, fill=col, **_text_kwargs())
+    segments_c(d, parts, f, w / 2, h * 0.40)
 
 
 def label_column(img, labels, upto, x_frac=0.80):
@@ -294,7 +300,7 @@ def cta(img, step):
     f = sans(22 * k)
     y = h * 0.42
     sub_col = C["red"] if step < 2 else (140, 136, 128)
-    for cx, label, col in ((w * 0.57, "اشترك" if step < 2 else "مشترك", sub_col), (w * 0.43, "لايك", C["blue"] if step >= 1 else C["tag"])):
+    for cx, label, col in ((w * 0.57, lang.t("subscribe") if step < 2 else lang.t("subscribed"), sub_col), (w * 0.43, lang.t("like"), C["blue"] if step >= 1 else C["tag"])):
         box = (cx - 80 * k, y - 26 * k, cx + 80 * k, y + 26 * k)
         d.rounded_rectangle(box, radius=26 * k, fill=col, outline=C["ink"], width=max(1, int(1.5 * k)))
         text_c(d, (cx, y - 2 * k), label, f, C["white"] if col != C["tag"] else C["ink"])
@@ -306,7 +312,7 @@ def cta(img, step):
     if step >= 1:
         box = (w * 0.33, y + 50 * k, w * 0.67, y + 100 * k)
         d.rounded_rectangle(box, radius=25 * k, fill=C["tag"], outline=C["ink"], width=max(1, int(1.5 * k)))
-        text_c(d, (w / 2, y + 73 * k), "قولنا في الكومنتات …", sans(20 * k), C["green"])
+        text_c(d, (w / 2, y + 73 * k), lang.t("comments"), sans(20 * k), C["green"])
 
 
 # ------------------------------------------------------------------ composition
@@ -361,7 +367,7 @@ def chapter_card(w, h, number, name):
     img = ImageChops.add(img, Image.merge("RGB", [noise] * 3))
     d = ImageDraw.Draw(img)
     k = h / 720
-    text_c(d, (w / 2, h * 0.335), f"الفصل {number}", sans(26 * k), C["gold"])
+    text_c(d, (w / 2, h * 0.335), lang.t("chapter", n=number), sans(26 * k), C["gold"])
     size = 64 * k
     while tw(d, name, serif(size)) > w * 0.8 and size > 30 * k:
         size -= 4 * k

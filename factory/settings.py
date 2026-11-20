@@ -24,18 +24,21 @@ DEFAULTS = {
     "channel": {
         "name": "قناتي",
         "niche": "ألغاز من الحياة اليومية لها جذور في الاقتصاد والتاريخ (فولت الكهربا، شكل الفيشة، لوحة المفاتيح، الأسعار...)",
+        "language": "ar",                 # ar = Arabic video, en = English video
         "dialect": "مصري",
         "audience": "شباب عرب فضوليين بيحبوا المعلومة المبسطة",
         "video_minutes": 5.5,
         "cta_question": "إيه الحاجة اللي شغالة عندنا غلط ومحدش قادر يغيّرها؟",
     },
     "voice": {
-        "provider": "edge",                 # edge (free) / elevenlabs / silent (testing)
-        "edge_voice": "ar-EG-ShakirNeural",  # ar-EG-SalmaNeural, ar-SA-HamedNeural, ...
+        "provider": "edge",                 # edge (free) / elevenlabs / piper (offline) / silent (testing)
+        "edge_voice": "ar-EG-ShakirNeural",  # ar-EG-SalmaNeural, ar-SA-HamedNeural, en-US-GuyNeural, en-GB-RyanNeural...
         "edge_rate": "+5%",
         "elevenlabs_api_key": "",
         "elevenlabs_voice_id": "",
         "elevenlabs_model": "eleven_multilingual_v2",
+        "piper_model": "",          # path to a Piper .onnx voice (free, offline)
+        "piper_length_scale": 1.0,  # >1 = slower speech
     },
     "images": {
         "provider": "cards",  # cards (offline 2D cards) / http (any image API you connect)

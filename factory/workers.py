@@ -291,7 +291,7 @@ def shorts_maker(job, s):
 def thumbnail_designer(job, s):
     topic, _ = _topic(job)
     schema = obj({"text": S, "sub": S, "accent": {"type": "string", "enum": ["red", "green", "blue"]}})
-    t = ask(s, "thumbnail_designer", "مصمم ثامبنيل",
+    t = (job.get("answers") or {}).get("thumbnail_designer") or ask(s, "thumbnail_designer", "مصمم ثامبنيل",
             f"الموضوع: {topic}\nاكتب نص ثامبنيل من 2–4 كلمات بالعربي يصدم ويثير الفضول (رقم أو تناقض)، "
             "ونص فرعي قصير جداً (1–3 كلمات)، واختار لون التمييز.\nالمشاهد:\n"
             + json.dumps([sc.get("title") or sc.get("main") for sc in _scenes(job)], ensure_ascii=False), schema=schema)
@@ -313,7 +313,7 @@ def seo_publisher(job, s):
             stamps.append(f"{int(t // 60)}:{int(t % 60):02d} {titles[ch]}")
     chapters = "\n".join(stamps)
     schema = obj({"title": S, "description": S, "tags": arr(S), "hashtags": arr(S), "pinned_comment": S, "short_title": S})
-    meta = ask(s, "seo_publisher", "خبير SEO يوتيوب عربي",
+    meta = dict((job.get("answers") or {}).get("seo_publisher") or {}) or ask(s, "seo_publisher", "خبير SEO يوتيوب عربي",
                f"الموضوع: {topic}\nالسكريبت:\n{json.dumps(_script(job), ensure_ascii=False)}\n\n"
                "اكتب: عنوان (أقل من 70 حرف) سؤال صادم يجمع قوة + ضعف غريب؛ وصف: سطرين يعيدوا اللغز ثم السطر "
                "'في الفيديو ده:' ثم مكان الفصول اكتب حرفياً {CHAPTERS} ثم جملة الدرس ثم سؤال الكومنتات؛ "

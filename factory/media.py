@@ -33,7 +33,8 @@ _RAQM = features.check("raqm")
 
 # ---------------------------------------------------------------- Arabic text
 def _shape(text):
-    if _RAQM:
+    from . import lang
+    if _RAQM or not lang.rtl():
         return text
     import arabic_reshaper
     from bidi.algorithm import get_display
@@ -49,7 +50,10 @@ def _font(size, black=False):
 
 
 def _text_kwargs():
-    return {"direction": "rtl", "language": "ar"} if _RAQM else {}
+    from . import lang
+    if not _RAQM:
+        return {}
+    return {"direction": "rtl", "language": "ar"} if lang.rtl() else {"direction": "ltr", "language": "en"}
 
 
 def _width(draw, text, font):
@@ -163,6 +167,16 @@ def tts(path, text, settings):
         )
         r.raise_for_status()
         Path(path).write_bytes(r.content)
+    elif provider == "piper":  # free, offline neural voice (https://github.com/rhasspy/piper)
+        import sys
+        wav = Path(path).with_suffix(".wav")
+        p = subprocess.run([sys.executable, "-m", "piper", "-m", v["piper_model"], "-f", str(wav),
+                            "--length-scale", str(v.get("piper_length_scale", 1.0)), "--sentence-silence", "0.35"],
+                           input=text, capture_output=True, text=True)
+        if p.returncode:
+            raise RuntimeError(f"piper failed: {p.stderr[-500:]}")
+        run(["ffmpeg", "-y", "-i", str(wav), "-b:a", "160k", str(path)])
+        wav.unlink()
     elif provider == "silent":  # testing without a voice service: ~2.4 words/second
         secs = max(2.0, len(text.split()) / 2.4)
         run(["ffmpeg", "-y", "-f", "lavfi", "-i", "anullsrc=r=44100:cl=mono", "-t", f"{secs:.2f}", "-q:a", "9", str(path)])
