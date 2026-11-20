@@ -4,7 +4,7 @@ import json
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-from . import media
+from . import media, scene_art
 from .llm import I, S, arr, ask, obj
 
 
@@ -130,17 +130,32 @@ def _script(job):
 
 
 # 8 ------------------------------------------------------------------ storyboard
+BLOCKS = ["none", "big_number", "compare", "equation", "labels", "cta"]
+
+
 def storyboarder(job, s):
-    schema = obj({"scenes": arr(obj({
-        "chapter": I, "narration": S, "on_screen_text": S, "visual_prompt": S,
+    schema = obj({"series_tag": S, "scenes": arr(obj({
+        "chapter": I, "narration": S, "title": S, "highlight": S,
+        "block": {"type": "string", "enum": BLOCKS},
+        "main": S, "left_label": S, "left_value": S, "right_label": S, "right_value": S,
+        "labels": arr(S), "stamp": S, "date_tag": S,
         "accent": {"type": "string", "enum": ["red", "green", "blue", "dark"]},
+        "visual_prompt": S,
     }))})
-    out = ask(s, "storyboarder", "مخرج مشاهد لفيديو رسوم 2D",
-              "قسّم السكريبت لمشاهد. كل مشهد 25–45 كلمة من التعليق (10–20 ثانية). "
-              "narration = نص التعليق حرفياً بالترتيب، ولازم مجموع المشاهد يغطي السكريبت كله بدون حذف أو إضافة. "
-              "chapter = رقم الفصل من 0. on_screen_text = 2–6 كلمات قوية (رقم، تاريخ، اسم مفهوم). "
-              "visual_prompt = وصف إنجليزي لرسمة 2D فيكتور (خريطة، شخصية تاريخية، أعمدة مقارنة، سهم…). "
-              "accent: أحمر لأمريكا/الخطر، أخضر لأوروبا/الحل، أزرق للمعلومة، dark للفصول.\n\n"
+    out = ask(s, "storyboarder", "مخرج مشاهد لفيديو شرح 2D على طريقة الفيديو المرجعي",
+              "قسّم السكريبت لمشاهد. كل مشهد 20–40 كلمة من التعليق (8–15 ثانية).\n"
+              "narration = نص التعليق حرفياً بالترتيب، ومجموع المشاهد يغطي السكريبت كله بدون حذف أو إضافة.\n"
+              "chapter = رقم الفصل من 0 (أول مشهد في كل فصل جديد بيظهر قبله كارت الفصل تلقائياً).\n"
+              "series_tag = اسم السلسلة القصير اللي هيفضل في الركن طول الفيديو (2–3 كلمات زي «لغز 120 فولت»).\n"
+              "لكل مشهد اختار عناصر الشاشة (بتظهر واحد ورا التاني مع الكلام):\n"
+              "- title: سطر قصير فوق (3–6 كلمات) غالباً سؤال، و highlight = الكلمة/الجزء اللي يتلوّن أحمر (لازم يكون جزء حرفي من title).\n"
+              "- block: big_number (main = رقم كبير زي 120V أو 1882) | compare (عمودين: right = الحالة الغريبة/الأضعف بالأحمر، "
+              "left = المقارنة بالأخضر، والقيم أرقام لو أمكن) | equation (main زي «القدرة = الفولت × التيار») | "
+              "labels (2–3 بطاقات قصيرة في labels) | none | cta (آخر مشهد فقط: لايك واشتراك وكومنتات).\n"
+              "- labels: 0–3 بطاقات من 1–3 كلمات. stamp: ختم مائل قصير (2–3 كلمات) لمفاجأة أو حكم، أو فاضي. "
+              "date_tag: «مدينة · سنة» لو المشهد فيه تاريخ، أو فاضي.\n"
+              "- الحقول اللي مش مستخدمة تبقى نص فاضي. accent: لون التمييز. visual_prompt: وصف إنجليزي لرسمة 2D مسطحة للمشهد.\n"
+              "نوّع العناصر: ما تكررش نفس الـ block أكتر من مرتين ورا بعض.\n\n"
               + json.dumps(_script(job), ensure_ascii=False), schema=schema)
     if not out.get("scenes"):
         raise ValueError("مخرج المشاهد ما طلّعش مشاهد")
@@ -156,25 +171,42 @@ def _chapter_titles(job):
 
 
 # 9 ------------------------------------------------------------------ images
+def _series(job):
+    sb = _o(job, "storyboarder") or {}
+    return sb.get("series_tag") or scene_art.series_from(_topic(job)[0])
+
+
 def illustrator(job, s):
+    """Draws every scene as build states (elements pop in one by one) + navy chapter cards."""
     d = Path(job["dir"]) / "images"
     d.mkdir(parents=True, exist_ok=True)
     scenes, titles = _scenes(job), _chapter_titles(job)
     w, h = s["video"]["width"], s["video"]["height"]
+    series = _series(job)
+    use_api = s["images"]["provider"] == "http" and s["images"].get("http_url")
 
     def one(i):
         sc = scenes[i]
-        path = d / f"scene_{i:03d}.png"
         ch = min(sc.get("chapter", 0), len(titles) - 1)
-        start = i == 0 or scenes[i - 1].get("chapter") != sc.get("chapter")
-        if s["images"]["provider"] == "http" and s["images"].get("http_url") and not start:
-            media.scene_from_api(path, sc, s, w, h)
-        else:
-            media.scene_card(path, sc, i, len(scenes), titles[ch], start and i != 0, w, h)
-        return str(path)
+        ill = None
+        if use_api and sc.get("block", "none") == "none":
+            try:
+                ill = media.fetch_illustration(sc, s, w, h)
+            except Exception:
+                ill = None  # a failed picture must not stop the video
+        paths = []
+        for k, img in enumerate(scene_art.build_states(sc, w, h, series, titles[ch], ill)):
+            p = d / f"scene_{i:03d}_{k}.png"
+            img.save(p)
+            paths.append(str(p))
+        card = None
+        if i > 0 and sc.get("chapter") != scenes[i - 1].get("chapter"):
+            card = str(d / f"card_{i:03d}.png")
+            scene_art.chapter_card(w, h, ch + 1, titles[ch]).save(card)
+        return {"states": paths, "card": card}
 
     with ThreadPoolExecutor(s.get("parallel_scene_jobs", 6)) as ex:
-        return {"images": list(ex.map(one, range(len(scenes))))}
+        return {"scenes": list(ex.map(one, range(len(scenes))))}
 
 
 # 10 ----------------------------------------------------------------- voice
@@ -192,7 +224,12 @@ def narrator(job, s):
 
 
 def _timed_scenes(job):
-    return [dict(sc, **c) for sc, c in zip(_scenes(job), _o(job, "narrator")["clips"])]
+    """Scenes + voice length + chapter-card lead time (2s silence under each chapter card)."""
+    out = []
+    for i, (sc, c) in enumerate(zip(_scenes(job), _o(job, "narrator")["clips"])):
+        new_chapter = i > 0 and sc.get("chapter") != out[-1].get("chapter")
+        out.append(dict(sc, **c, lead=media.CARD if new_chapter else 0.0))
+    return out
 
 
 # 11 ----------------------------------------------------------------- sound
@@ -206,18 +243,23 @@ def editor(job, s):
     jd = Path(job["dir"])
     (jd / "clips").mkdir(exist_ok=True)
     v = s["video"]
-    scenes, images = _timed_scenes(job), _o(job, "illustrator")["images"]
+    scenes, art = _timed_scenes(job), _o(job, "illustrator")["scenes"]
     audio = (_o(job, "sound_engineer") or {}).get("audio")
     if not audio:  # sound engineer switched off: narration only, no music
         audio = str(media.build_audio(jd, scenes, s, music=False)[0])
 
     def one(i):
+        outs = []
+        if scenes[i]["lead"] and art[i].get("card"):
+            c = jd / "clips" / f"card_{i:03d}.mp4"
+            media.card_clip(art[i]["card"], c, scenes[i]["lead"], v["fps"])
+            outs.append(str(c))
         out = jd / "clips" / f"clip_{i:03d}.mp4"
-        media.scene_clip(images[i], out, scenes[i]["duration"] + 0.35, i, v["width"], v["height"], v["fps"])
-        return str(out)
+        media.build_clip(art[i]["states"], out, scenes[i]["duration"] + media.GAP, v["fps"])
+        return outs + [str(out)]
 
     with ThreadPoolExecutor(min(3, s.get("parallel_scene_jobs", 6))) as ex:
-        clips = list(ex.map(one, range(len(scenes))))
+        clips = [c for group in ex.map(one, range(len(scenes))) for c in group]
     srt, ass = jd / "captions.srt", jd / "captions.ass"
     media.write_srt(srt, scenes)
     media.write_ass(ass, scenes, v["width"], v["height"])
@@ -230,16 +272,16 @@ def editor(job, s):
 def shorts_maker(job, s):
     if not s["video"].get("make_short", True):
         return {"skipped_reason": "معطّل من الإعدادات"}
-    t, secs = 0.0, 0.0
-    for sc in _timed_scenes(job):
-        if t + sc["duration"] + 0.35 > 58:
+    scenes, secs = _timed_scenes(job), 0.0
+    for sc, (start, _) in zip(scenes, media.segments(scenes)):
+        end = start + sc["lead"] + sc["duration"] + media.GAP
+        if end > 58:
             break
-        t += sc["duration"] + 0.35
-        secs = t
+        secs = end
     secs = secs or min(58, _o(job, "editor")["seconds"])
     jd = Path(job["dir"])
     ass = jd / "captions_short.ass"
-    media.write_ass(ass, _timed_scenes(job), 1080, 1920, words_per_line=4, margin_v=0.2, size=0.04)
+    media.write_ass(ass, scenes, 1080, 1920, words_per_line=3, center_y=0.76, size=0.034)
     out = jd / "short.mp4"
     media.make_short(jd / "clips" / "joined.mp4", _o(job, "editor")["audio"], ass, out, secs)
     return {"short": str(out), "seconds": round(secs, 1)}
@@ -252,10 +294,10 @@ def thumbnail_designer(job, s):
     t = ask(s, "thumbnail_designer", "مصمم ثامبنيل",
             f"الموضوع: {topic}\nاكتب نص ثامبنيل من 2–4 كلمات بالعربي يصدم ويثير الفضول (رقم أو تناقض)، "
             "ونص فرعي قصير جداً (1–3 كلمات)، واختار لون التمييز.\nالمشاهد:\n"
-            + json.dumps([sc["on_screen_text"] for sc in _scenes(job)], ensure_ascii=False), schema=schema)
-    images = (_o(job, "illustrator") or {}).get("images") or []
+            + json.dumps([sc.get("title") or sc.get("main") for sc in _scenes(job)], ensure_ascii=False), schema=schema)
+    art = (_o(job, "illustrator") or {}).get("scenes") or []
     out = Path(job["dir"]) / "thumbnail.jpg"
-    media.thumbnail(out, t["text"], t["sub"], t["accent"], images[1] if len(images) > 1 else None)
+    media.thumbnail(out, t["text"], t["sub"], t["accent"], art[0]["states"][-1] if art else None)
     return dict(t, thumbnail=str(out))
 
 
@@ -263,13 +305,12 @@ def thumbnail_designer(job, s):
 def seo_publisher(job, s):
     topic, _ = _topic(job)
     scenes, titles = _timed_scenes(job), _chapter_titles(job)
-    stamps, t, seen = [], 0.0, set()
-    for sc in scenes:
+    stamps, seen = [], set()
+    for sc, (t, _) in zip(scenes, media.segments(scenes)):
         ch = sc.get("chapter", 0)
         if ch not in seen and ch < len(titles):
             seen.add(ch)
             stamps.append(f"{int(t // 60)}:{int(t % 60):02d} {titles[ch]}")
-        t += sc["duration"] + 0.35
     chapters = "\n".join(stamps)
     schema = obj({"title": S, "description": S, "tags": arr(S), "hashtags": arr(S), "pinned_comment": S, "short_title": S})
     meta = ask(s, "seo_publisher", "خبير SEO يوتيوب عربي",

@@ -88,52 +88,10 @@ def draw_block(draw, text, box, size, color, black=False, stroke=0, stroke_color
         y += line_h
 
 
-# ---------------------------------------------------------------- scene images
-def scene_card(path, scene, idx, total, chapter_title, is_chapter_start, w, h):
-    """Offline 2D explainer card in the reference palette."""
-    rnd = random.Random(idx * 7919)
-    accent = PALETTE.get(scene.get("accent", "blue"), PALETTE["blue"])
-    if is_chapter_start:
-        img = Image.new("RGB", (w, h), PALETTE["navy"])
-        d = ImageDraw.Draw(img)
-        for _ in range(6):
-            r = rnd.randint(h // 10, h // 3)
-            cx, cy = rnd.randint(0, w), rnd.randint(0, h)
-            d.ellipse((cx - r, cy - r, cx + r, cy + r), outline=(52, 70, 110), width=6)
-        d.rectangle((w * 0.42, h * 0.30, w * 0.58, h * 0.31), fill=accent)
-        draw_block(d, chapter_title, (w * 0.1, h * 0.33, w * 0.9, h * 0.62), int(h * 0.11), PALETTE["white"], black=True)
-        draw_block(d, scene.get("on_screen_text", ""), (w * 0.15, h * 0.64, w * 0.85, h * 0.80), int(h * 0.05), (210, 216, 230))
-    else:
-        img = Image.new("RGB", (w, h), PALETTE["bg"])
-        d = ImageDraw.Draw(img)
-        # soft decorative shapes so cards don't look identical
-        for _ in range(5):
-            r = rnd.randint(h // 12, h // 4)
-            cx, cy = rnd.randint(0, w), rnd.randint(0, h)
-            tint = tuple(int(c * 0.12 + b * 0.88) for c, b in zip(accent, PALETTE["bg"]))
-            d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=tint)
-        for _ in range(3):
-            y = rnd.randint(int(h * 0.15), int(h * 0.85))
-            d.line((0, y, w, y + rnd.randint(-80, 80)), fill=(222, 210, 188), width=4)
-        # chapter pill (top-right, RTL)
-        pill_font = _font(int(h * 0.035))
-        pw = _width(d, chapter_title, pill_font) + 60
-        d.rounded_rectangle((w - pw - 50, 40, w - 50, 40 + h * 0.07), radius=30, fill=PALETTE["navy"])
-        draw_block(d, chapter_title, (w - pw - 50, 40, w - 50, 40 + h * 0.07), int(h * 0.035), PALETTE["white"])
-        # main statement box
-        box = (w * 0.12, h * 0.30, w * 0.88, h * 0.70)
-        d.rounded_rectangle((box[0] + 14, box[1] + 14, box[2] + 14, box[3] + 14), radius=40, fill=(205, 192, 168))
-        d.rounded_rectangle(box, radius=40, fill=PALETTE["white"], outline=accent, width=10)
-        d.rectangle((box[2] - 40, box[1] + 40, box[2] - 22, box[3] - 40), fill=accent)
-        draw_block(d, scene.get("on_screen_text", ""), (box[0] + 60, box[1] + 30, box[2] - 80, box[3] - 30),
-                   int(h * 0.085), PALETTE["ink"], black=True)
-    # progress bar
-    d.rectangle((0, h - 12, w * (idx + 1) / total, h), fill=accent)
-    img.save(path)
-
-
-def scene_from_api(path, scene, settings, w, h):
-    """Use any image API you connect. POST JSON {prompt,width,height}; accepts image bytes or JSON with b64/url."""
+# ---------------------------------------------------------------- illustrations (optional image API)
+def fetch_illustration(scene, settings, w, h):
+    """Any image API you connect. POST JSON {prompt,width,height}; accepts image bytes or JSON with b64/url.
+    The picture is placed inside the explainer layout (scene_art), not full screen."""
     cfg = settings["images"]
     headers = {"Content-Type": "application/json"}
     if cfg.get("http_auth_header"):
@@ -151,22 +109,8 @@ def scene_from_api(path, scene, settings, w, h):
             data = base64.b64decode(j.get("b64_json") or j.get("image_base64") or j.get("b64"))
         else:
             data = requests.get(j.get("url") or j["image_url"], timeout=120).content
-    raw = Path(path).with_suffix(".raw")
-    raw.write_bytes(data)
-    img = Image.open(raw).convert("RGB")
-    raw.unlink()
-    # cover-fit, then lay the on-screen text in a band at the bottom
-    scale = max(w / img.width, h / img.height)
-    img = img.resize((int(img.width * scale) + 1, int(img.height * scale) + 1))
-    left, top = (img.width - w) // 2, (img.height - h) // 2
-    img = img.crop((left, top, left + w, top + h))
-    text = scene.get("on_screen_text")
-    if text:
-        d = ImageDraw.Draw(img, "RGBA")
-        accent = PALETTE.get(scene.get("accent", "blue"), PALETTE["blue"])
-        d.rounded_rectangle((w * 0.2, h * 0.74, w * 0.8, h * 0.92), radius=30, fill=accent + (235,))
-        draw_block(d, text, (w * 0.22, h * 0.75, w * 0.78, h * 0.91), int(h * 0.06), PALETTE["white"], black=True)
-    img.save(path)
+    import io
+    return Image.open(io.BytesIO(data)).convert("RGB")
 
 
 def thumbnail(path, text, sub, accent_name, bg_image=None, w=1280, h=720):
@@ -227,12 +171,29 @@ def tts(path, text, settings):
     return duration(path)
 
 
-def build_audio(job_dir, scenes, settings, gap=0.35, music=True):
-    """Pad each narration clip to its scene length, join them, add ducked music."""
+GAP = 0.35          # breath after each scene (the reference pauses ~0.6s on average)
+CARD = 2.0          # chapter card length (reference: ~2s navy card between chapters)
+
+
+def segments(scenes):
+    """Timeline: each scene = [chapter card lead][voice][gap]. Returns (start_of_segment, voice_start)."""
+    t, out = 0.0, []
+    for sc in scenes:
+        lead = sc.get("lead", 0.0)
+        out.append((t, t + lead))
+        t += lead + sc["duration"] + GAP
+    return out
+
+
+def build_audio(job_dir, scenes, settings, music=True):
+    """Voice per scene (with silence under chapter cards), joined, optional quiet ducked music,
+    then loudness-normalised to -14 LUFS like the reference."""
     parts = []
     for i, sc in enumerate(scenes):
         out = job_dir / "audio" / f"pad_{i:03d}.wav"
-        run(["ffmpeg", "-y", "-i", str(sc["audio"]), "-af", "apad", "-t", f"{sc['duration'] + gap:.3f}",
+        lead_ms = int(sc.get("lead", 0) * 1000)
+        af = (f"adelay={lead_ms}:all=1," if lead_ms else "") + "apad"
+        run(["ffmpeg", "-y", "-i", str(sc["audio"]), "-af", af, "-t", f"{sc.get('lead', 0) + sc['duration'] + GAP:.3f}",
              "-ar", "44100", "-ac", "2", str(out)])
         parts.append(out)
     lst = job_dir / "audio" / "list.txt"
@@ -241,30 +202,54 @@ def build_audio(job_dir, scenes, settings, gap=0.35, music=True):
     run(["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", str(lst), "-c", "copy", str(voice)])
 
     final = job_dir / "audio" / "mix.m4a"
+    norm = "loudnorm=I=-14:TP=-1.5:LRA=7"
     tracks = sorted([p for p in MUSIC.glob("*") if p.suffix.lower() in (".mp3", ".wav", ".m4a", ".ogg")]) if music and MUSIC.exists() else []
     if not tracks:
-        run(["ffmpeg", "-y", "-i", str(voice), "-c:a", "aac", "-b:a", "192k", str(final)])
+        run(["ffmpeg", "-y", "-i", str(voice), "-af", norm, "-ar", "44100", "-c:a", "aac", "-b:a", "192k", str(final)])
         return final, None
     track = random.choice(tracks)
     total = duration(voice)
-    vol = settings["video"].get("music_volume", 0.22)
+    vol = settings["video"].get("music_volume", 0.06)
     fc = (f"[1:a]volume={vol},afade=t=in:d=2,afade=t=out:st={max(0, total - 3):.2f}:d=3[m];"
           f"[0:a]asplit[v1][v2];[m][v1]sidechaincompress=threshold=0.04:ratio=6:attack=20:release=400[duck];"
-          f"[v2][duck]amix=inputs=2:duration=first:normalize=0[out]")
+          f"[v2][duck]amix=inputs=2:duration=first:normalize=0,{norm}[out]")
     run(["ffmpeg", "-y", "-i", str(voice), "-stream_loop", "-1", "-i", str(track), "-filter_complex", fc,
-         "-map", "[out]", "-c:a", "aac", "-b:a", "192k", "-t", f"{total:.2f}", str(final)])
+         "-map", "[out]", "-ar", "44100", "-c:a", "aac", "-b:a", "192k", "-t", f"{total:.2f}", str(final)])
     return final, track.name
 
 
 # ---------------------------------------------------------------- video
-def scene_clip(img, out, secs, idx, w, h, fps):
-    frames = max(1, int(secs * fps))
-    zoom_in = idx % 2 == 0
-    z = f"min(1+0.10*on/{frames},1.10)" if zoom_in else f"max(1.10-0.10*on/{frames},1.0)"
-    vf = (f"scale={int(w * 1.5)}:-2,zoompan=z='{z}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
-          f":d=1:s={w}x{h}:fps={fps},format=yuv420p")
-    run(["ffmpeg", "-y", "-loop", "1", "-framerate", str(fps), "-i", str(img), "-vf", vf, "-t", f"{secs:.3f}",
-         "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-r", str(fps), str(out)])
+def _enc(fps):
+    return ["-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p", "-r", str(fps)]
+
+
+def build_clip(states, out, secs, fps, xf=0.3):
+    """Scene clip where elements appear one after another (soft cross-fades between build states).
+    The first state shows briefly, later states arrive during the first ~70% of the narration."""
+    n = len(states)
+    if n == 1 or secs < 1.5:
+        run(["ffmpeg", "-y", "-loop", "1", "-framerate", str(fps), "-t", f"{secs:.3f}", "-i", str(states[-1])] + _enc(fps) + [str(out)])
+        return
+    build = secs * 0.7
+    first = min(1.2, build / n)
+    rest = (build - first) / (n - 1)
+    shown = [first] + [rest] * (n - 2) + [secs - first - rest * (n - 2)]
+    cmd = ["ffmpeg", "-y"]
+    for i, (img, t) in enumerate(zip(states, shown)):
+        cmd += ["-loop", "1", "-framerate", str(fps), "-t", f"{t + (xf if i < n - 1 else 0):.3f}", "-i", str(img)]
+    chain, prev, off = [], "0:v", 0.0
+    for i in range(1, n):
+        off += shown[i - 1]
+        tag = f"x{i}"
+        chain.append(f"[{prev}][{i}:v]xfade=transition=fade:duration={xf}:offset={off:.3f}[{tag}]")
+        prev = tag
+    run(cmd + ["-filter_complex", ";".join(chain), "-map", f"[{prev}]", "-t", f"{secs:.3f}"] + _enc(fps) + [str(out)])
+
+
+def card_clip(img, out, secs, fps):
+    """Chapter card with a short fade in/out."""
+    run(["ffmpeg", "-y", "-loop", "1", "-framerate", str(fps), "-t", f"{secs:.3f}", "-i", str(img), "-vf",
+         f"fade=t=in:d=0.35,fade=t=out:st={secs - 0.3:.2f}:d=0.3"] + _enc(fps) + [str(out)])
 
 
 def srt_time(t):
@@ -272,39 +257,48 @@ def srt_time(t):
     return f"{ms // 3600000:02d}:{ms // 60000 % 60:02d}:{ms // 1000 % 60:02d},{ms % 1000:03d}"
 
 
-def _cues(scenes, gap=0.35, words_per_line=7):
-    cues, t = [], 0.0
-    for sc in scenes:
+def _cues(scenes, words_per_line=4):
+    """Short caption chunks (the reference shows 3-5 words at a time) with per-word timings."""
+    cues = []
+    for sc, (_, v0) in zip(scenes, segments(scenes)):
         words = sc["narration"].split()
-        chunks = [" ".join(words[i:i + words_per_line]) for i in range(0, len(words), words_per_line)] or [""]
-        total_chars = sum(len(c) for c in chunks) or 1
-        start = t
+        chunks = [words[i:i + words_per_line] for i in range(0, len(words), words_per_line)] or [[""]]
+        total_chars = sum(len(w) + 1 for c in chunks for w in c) or 1
+        t = v0
         for c in chunks:
-            dur = sc["duration"] * len(c) / total_chars
-            cues.append((start, start + dur, c))
-            start += dur
-        t += sc["duration"] + gap
+            wt = [sc["duration"] * (len(w) + 1) / total_chars for w in c]
+            cues.append((t, t + sum(wt), c, wt))
+            t += sum(wt)
     return cues
 
 
 def write_srt(path, scenes):
-    cues = _cues(scenes)
-    Path(path).write_text("\n".join(f"{i}\n{srt_time(a)} --> {srt_time(b)}\n{c}\n" for i, (a, b, c) in enumerate(cues, 1)),
+    cues = _cues(scenes, 7)
+    Path(path).write_text("\n".join(f"{i}\n{srt_time(a)} --> {srt_time(b)}\n{' '.join(c)}\n" for i, (a, b, c, _) in enumerate(cues, 1)),
                           encoding="utf-8")
 
 
-def write_ass(path, scenes, w, h, words_per_line=7, margin_v=0.05, size=0.048):
+def write_ass(path, scenes, w, h, words_per_line=4, center_y=0.9, size=0.045):
+    """Short caption chunks on a dark box centred in the sand band under the ground line
+    (as in the reference). Per-word karaoke tags are not used: libass breaks Arabic word
+    order and the box when a line is split into karaoke segments."""
     def ts(t):
         cs = int(round(t * 100))
         return f"{cs // 360000}:{cs // 6000 % 60:02d}:{cs // 100 % 60:02d}.{cs % 100:02d}"
+    fs = int(h * size)
+    margin_v = int(h * (1 - center_y) - fs * 0.65)
     head = (f"[Script Info]\nScriptType: v4.00+\nPlayResX: {w}\nPlayResY: {h}\nWrapStyle: 0\n\n[V4+ Styles]\n"
             "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, "
             "StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n"
-            f"Style: Default,Cairo,{int(h * size)},&H00FFFFFF,&H00FFFFFF,&HB4141414,&HB4141414,-1,0,0,0,100,100,0,0,3,"
-            f"{int(h * 0.009)},0,2,{int(w * 0.08)},{int(w * 0.08)},{int(h * margin_v)},1\n\n"
+            # primary = spoken (white), secondary = not yet spoken (grey), box = dark grey
+            f"Style: Default,Cairo,{fs},&H00FFFFFF,&H00A0A0A0,&H1E3A3A3C,&H1E3A3A3C,-1,0,0,0,100,100,0,0,3,"
+            f"{max(4, int(fs * 0.38))},0,2,{int(w * 0.1)},{int(w * 0.1)},{margin_v},-1\n\n"
             "[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n")
-    body = "".join(f"Dialogue: 0,{ts(a)},{ts(b)},Default,,0,0,0,,{c}\n" for a, b, c in _cues(scenes, words_per_line=words_per_line))
-    Path(path).write_text(head + body, encoding="utf-8")
+    lines = []
+    for a, b, words, wt in _cues(scenes, words_per_line):
+        text = "{\\fad(120,0)}" + " ".join(words)
+        lines.append(f"Dialogue: 0,{ts(a)},{ts(b)},Default,,0,0,0,,{text}\n")
+    Path(path).write_text(head + "".join(lines), encoding="utf-8")
 
 
 def assemble(job_dir, clips, audio, ass, out, burn, fps):
@@ -317,7 +311,7 @@ def assemble(job_dir, clips, audio, ass, out, burn, fps):
         esc = lambda p: str(Path(p).resolve()).replace("\\", "/").replace(":", "\\:").replace("'", "\\'")
         # complex shaping = correct joined Arabic letters
         cmd += ["-vf", f"ass='{esc(ass)}':fontsdir='{esc(FONTS)}':shaping=complex",
-                "-c:v", "libx264", "-preset", "veryfast", "-crf", "20"]
+                "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p"]
     else:
         cmd += ["-c:v", "copy"]
     cmd += ["-c:a", "aac", "-b:a", "192k", "-map", "0:v", "-map", "1:a", "-shortest", "-r", str(fps),

@@ -47,7 +47,7 @@ DEFAULTS = {
         "width": 1920, "height": 1080, "fps": 30,
         "burn_captions": True,
         "make_short": True,
-        "music_volume": 0.22,
+        "music_volume": 0.06,  # reference: voice-first, music barely audible
     },
     "workers": {w["id"]: {"enabled": True, "model": w["model"]} for w in WORKERS},
     "connectors": [
