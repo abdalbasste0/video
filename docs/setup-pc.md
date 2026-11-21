@@ -9,19 +9,28 @@ winget install Git.Git
 ```
 اقفل PowerShell وافتحه تاني.
 
-## 2) تنزيل المصنع
+## 2) تنزيل المصنع (أسهل طريقة، بدون Git)
+1. افتح الرابط ده في المتصفح، وهيحمّل ملف ZIP:
+   **https://github.com/abdalbasste0/video/archive/refs/heads/ccr-9aa7a850-kxiet8.zip**
+2. اضغط على الملف كليك يمين ← **Extract All / استخراج الكل** ← استخراج.
+3. ادخل الفولدر اللي طلع (اسمه `video-ccr-9aa7a850-kxiet8`).
+
+## 3) التشغيل
+- اضغط دبل كليك على **`start.bat`**.
+  - لو ظهرت رسالة «Windows protected your PC» اضغط **More info** ← **Run anyway**.
+  - أول مرة بياخد كام دقيقة عشان يسطّب المكتبات، وبعد كده بيفتح على طول.
+  - لو Python أو ffmpeg مش متسطبين، الشاشة السودا هتقولك بالظبط تكتب إيه.
+- المتصفح هيفتح لوحده على **http://localhost:8765**، ولو ما فتحش افتحه انت.
+- **سيب الشاشة السودا مفتوحة** طول ما انت شغال، لأن قفلها بيقفل المصنع.
+
+### الطريقة التانية (بالأوامر)
+لو حابب تستخدم Git، اكتب كل سطر لوحده في **PowerShell** واستنى لحد ما يخلص:
 ```powershell
 cd $HOME\Desktop
 git clone -b ccr-9aa7a850-kxiet8 https://github.com/abdalbasste0/video.git video-factory
 cd video-factory
-pip install -r requirements.txt
+.\start.bat
 ```
-
-## 3) التشغيل
-```powershell
-python run_factory.py
-```
-افتح المتصفح على **http://localhost:8765**.
 
 ## 4) الإعدادات (تبويب «الإعدادات»)
 | الخانة | القيمة |
@@ -57,6 +66,8 @@ python run_factory.py
 - في `job.json`، الخانة `ai_images` بتقولك كام صورة اتولدت بالذكاء الاصطناعي. أي صورة فشلت بتترسم ستيك مان بسيط بدالها، عشان الفيديو ما يقفش.
 
 ## مشاكل شائعة
-- **«ffmpeg مش متسطب»** ← اقفل PowerShell وافتحه تاني بعد التسطيب.
+- **`git` أو `pip` أو `python` «is not recognized»** ← استخدم طريقة الـ ZIP و `start.bat`، فهي مش محتاجة الأوامر دي.
+- **`python` بيفتح Microsoft Store** ← سطّب Python من python.org وعلّم على «Add python.exe to PATH».
+- **«ffmpeg is not installed»** ← في PowerShell اكتب `winget install Gyan.FFmpeg`، وبعدين اعمل ريستارت للجهاز.
 - **الصور كلها ستيك مان** ← اضغط «جرّب توليد صورة» واقرا رسالة الخطأ (غالباً المفتاح غلط أو الرصيد خلص).
 - **عايز تشوف اللوحة من الموبايل** ← نفس الواي فاي، وافتح الرابط اللي بيظهر في الشاشة. حط كلمة سر للوحة الأول.
