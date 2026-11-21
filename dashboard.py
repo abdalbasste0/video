@@ -72,6 +72,28 @@ def new_jobs():
     return jsonify(ids=ids)
 
 
+@app.post("/api/plan")
+@guarded
+def run_plan():
+    """Start a video from a ready plan file (script + storyboard written elsewhere, e.g. by Claude in chat).
+    Needs no Claude API credit: workers that already have an output in the plan are skipped."""
+    import json
+    f = request.files.get("plan")
+    if not f:
+        return jsonify(error="اختار ملف الخطة (.json)"), 400
+    try:
+        plan = json.loads(f.read().decode("utf-8-sig"))
+    except ValueError:
+        return jsonify(error="الملف مش JSON صالح"), 400
+    steps = plan.get("steps") or {}
+    if "storyboarder" not in steps or not (steps["storyboarder"] or {}).get("scenes"):
+        return jsonify(error="الخطة ناقصة: مفيش storyboarder.scenes"), 400
+    # voice/model paths inside a plan refer to the machine it was written on; use this PC's settings instead
+    (plan.get("settings") or {}).pop("voice", None)
+    jid = get_factory().submit(plan.get("topic"), plan=plan)
+    return jsonify(ids=[jid])
+
+
 @app.post("/api/jobs/<jid>/resume")
 @guarded
 def resume(jid):

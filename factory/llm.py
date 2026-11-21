@@ -40,6 +40,17 @@ def _client(settings):
     return _clients[key]
 
 
+NO_CREDIT = ("Your Anthropic API account has no credit. Add credit at https://console.anthropic.com/settings/billing "
+             "(API credit is separate from a claude.ai subscription), or make the video from a ready plan "
+             "(Run tab → «📄 فيديو من خطة جاهزة»). | الرصيد خلص: اشحن من صفحة Billing أو استخدم خطة جاهزة.")
+
+
+def _status_message(e):
+    if "credit balance" in str(e.message).lower():
+        return NO_CREDIT
+    return f"Claude API error {e.status_code}: {e.message}"
+
+
 def check_key(settings):
     """Tiny request to confirm the key works. Returns (ok, message)."""
     try:
@@ -53,7 +64,7 @@ def check_key(settings):
     except anthropic.PermissionDeniedError as e:
         return False, f"Key has no access to this model or no credit: {e.message}"
     except anthropic.APIStatusError as e:
-        return False, f"Claude API error {e.status_code}: {e.message}"
+        return False, _status_message(e)
     except anthropic.APIConnectionError:
         return False, "Could not reach api.anthropic.com. Check your internet connection."
 
@@ -114,7 +125,7 @@ def _ask(settings, worker_id, role, task, schema, web, max_tokens):
         except anthropic.RateLimitError as e:
             raise LLMError("تم تجاوز حد الطلبات - قلّل عدد الفيديوهات المتوازية أو انتظر قليلاً.") from e
         except anthropic.APIStatusError as e:
-            raise LLMError(f"خطأ من Claude API ({e.status_code}): {e.message}") from e
+            raise LLMError(_status_message(e)) from e
         except anthropic.APIConnectionError as e:
             raise LLMError("تعذر الاتصال بـ Claude API - تأكد من الإنترنت.") from e
 

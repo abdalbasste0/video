@@ -75,6 +75,7 @@ a{color:var(--blue)}
     <div class="btns">
       <button class="btn" onclick="start(false)">ابدأ التصنيع</button>
       <button class="btn alt" onclick="start(true)">تجربة بدون مفتاح API</button>
+      <label class="btn alt" style="margin:0">📄 فيديو من خطة جاهزة<input type="file" accept=".json" style="display:none" onchange="uploadPlan(this)"></label>
     </div>
   </div>
   <div class="card"><h2>خط الإنتاج</h2><div id="jobs" class="help">لا يوجد شغل بعد.</div></div>
@@ -238,6 +239,10 @@ function delConn(i){if(!confirm("حذف الرابط ده؟"))return;collect();S
 async function testConn(i){collect();$("#res"+i).textContent="جاري الاختبار…";
   const r=await fetch("/api/connectors/test",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({connector:S.connectors[i]})});
   const d=await r.json();$("#res"+i).textContent=(d.results||[]).map(x=>(x.ok?"✅ ":"❌ ")+x.msg).join(" | ")||"لا نتيجة"}
+async function uploadPlan(inp){
+  if(!inp.files.length)return; const fd=new FormData(); fd.append("plan",inp.files[0]);
+  const r=await fetch("/api/plan",{method:"POST",body:fd}); const d=await r.json(); inp.value="";
+  if(!r.ok){alert(d.error);return} toast("👷 بدأ الفيديو من الخطة"); load()}
 async function testClaude(){
   await save();$("#claudres").textContent="جاري التجربة…";
   const d=await (await fetch("/api/claude/test",{method:"POST"})).json();
