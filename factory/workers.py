@@ -13,6 +13,10 @@ def _o(job, wid):
     return step.get("output")
 
 
+def _story(s):
+    return s["channel"].get("format") == "story"
+
+
 def _words(s):
     return int(s["channel"].get("video_minutes", 5.5) * 135)
 
@@ -28,9 +32,13 @@ def trend_scout(job, s):
         return {"skipped_reason": "الموضوع محدد من المستخدم", "ideas": [{"title": job["topic"]}]}
     done = "\n".join(_history(s["output_dir"])) or "لا يوجد"
     schema = obj({"ideas": arr(obj({"title": S, "everyday_mystery": S, "hidden_lesson": S, "why_viral": S}))})
+    if _story(s):
+        intro = ("اقترح 8 أفكار فيديوهات قصة جديدة. كل فكرة سؤال «ليش ما…؟» عن شيء مشهور (مكان/حدث/مشروع) إجابته كومة "
+                 "مشاكل حقيقية تكبر واحدة ورا الثانية ونهايتها إنسانية، وفيها حدث درامي حقيقي.\n")
+    else:
+        intro = "اقترح 8 أفكار فيديوهات جديدة في مجال القناة. كل فكرة لازم تبدأ بلغز يومي ملموس وتنتهي بدرس اقتصادي/تاريخي.\n"
     return ask(s, "trend_scout", "كشّاف أفكار فيروسية",
-               f"اقترح 8 أفكار فيديوهات جديدة في مجال القناة. كل فكرة لازم تبدأ بلغز يومي ملموس وتنتهي بدرس اقتصادي/تاريخي.\n"
-               f"ابحث عن مواضيع رائجة الآن لو تقدر.\nمواضيع اتعملت قبل كده (ما تكررهاش):\n{done}",
+               intro + f"ابحث عن مواضيع رائجة الآن لو تقدر.\nمواضيع اتعملت قبل كده (ما تكررهاش):\n{done}",
                schema=schema, web=True)
 
 
@@ -106,6 +114,15 @@ def scriptwriter(job, s):
     topic, j = _topic(job)
     h = _o(job, "hook_writer")
     hook = h["hooks"][min(h["best"], len(h["hooks"]) - 1)]["text"] if h and h.get("hooks") else "(اكتب أنت الافتتاحية)"
+    if _story(s):
+        return ask(s, "scriptwriter", "كاتب قصص فيديو",
+                   f"اكتب سكريبت تعليق صوتي كامل لفيديو قصة عن: {topic}\nالزاوية: {j.get('angle', '')}\n"
+                   f"ابدأ بالافتتاحية دي (ممكن تعدّلها بسيط):\n{hook}\n\n"
+                   f"الطول: حوالي {_words(s)} كلمة. امشِ على هيكل دليل أسلوب القصة: هوك، ثم مشاكل متتالية كل واحدة أكبر "
+                   "(«طيب خلّنا نفترض حليت هذي…»)، حلول مجنونة تسقط، قصة حقيقية داخل القصة بتواريخ، مشكلة الطبيعة/الوقت، "
+                   "ثم المشكلة الإنسانية، وخاتمة هادية بجمل قصيرة جداً ثم طلب الدعم والاشتراك.\n"
+                   "كل فصل = مشكلة أو مرحلة، بعنوان قصير (2–4 كلمات). استخدم تشبيهات من حياة المشاهد اليومية.\n"
+                   "استخدم الحقائق دي بس:\n" + _facts(job), schema=CHAPTERS)
     return ask(s, "scriptwriter", "كاتب سيناريو فيديوهات شرح",
                f"اكتب سكريبت تعليق صوتي كامل عن: {topic}\nالزاوية: {j.get('angle', '')}\nالدرس: {j.get('lesson', '')}\n"
                f"ابدأ بالافتتاحية دي (ممكن تعدّلها بسيط):\n{hook}\n\n"
@@ -117,6 +134,11 @@ def scriptwriter(job, s):
 # 7 ------------------------------------------------------------------ edit
 def script_editor(job, s):
     draft = _o(job, "scriptwriter")
+    if _story(s):
+        return ask(s, "script_editor", "محرر إيقاع قصص",
+                   f"حسّن السكريبت ده للتعليق باللهجة {s['channel']['dialect']}: جمل قصيرة جداً ومتصلة، كرر الرقم الصادم مرة، "
+                   "«ليش؟» قبل كل كشف، خلي آخر دقيقتين أبطأ بجمل من كلمتين أو ثلاث. نفس الفصول والحقائق وطول قريب من "
+                   f"{_words(s)} كلمة.\n\n" + json.dumps(draft, ensure_ascii=False), schema=CHAPTERS)
     out = ask(s, "script_editor", "محرر إيقاع ولهجة",
               f"حسّن السكريبت ده للتعليق الصوتي باللهجة {s['channel']['dialect']}: جمل أقصر، وقفات (…) قبل المعلومة المهمة، "
               "سؤال أو معلومة جديدة كل 30 ثانية، انتقالات تفتح فضول للفصل الجاي، شيل أي حشو. "
@@ -133,7 +155,34 @@ def _script(job):
 BLOCKS = ["none", "big_number", "compare", "equation", "labels", "cta"]
 
 
+POSES = ["thinking", "pointing", "shocked", "happy", "standing"]
+BGS = ["cream", "white", "navy", "blue", "sand", "dark"]
+
+
+def story_storyboard(job, s):
+    """Story format: one shot per 6–14 spoken words (~3–4 s), each an illustration or a big-word card."""
+    schema = obj({"series_tag": S, "scenes": arr(obj({
+        "chapter": I, "narration": S,
+        "kind": {"type": "string", "enum": ["illustration", "text"]},
+        "text": S, "pose": {"type": "string", "enum": POSES}, "bg": {"type": "string", "enum": BGS},
+        "visual_prompt": S,
+    }))})
+    out = ask(s, "storyboarder", "مخرج لقطات لفيديو قصة بالرسوم",
+              "قسّم السكريبت للقطات قصيرة: كل لقطة 6–14 كلمة من التعليق (3–4 ثواني). narration = النص حرفياً بالترتيب "
+              "ومجموع اللقطات يغطي السكريبت كله. chapter = رقم الفصل من 0.\n"
+              "kind: illustration (رسمة كرتون للمشهد) أو text (كارت كلمة كبيرة لرقم صادم أو عنوان مشكلة، حوالي لقطة من كل 4–5).\n"
+              "text: للكارت = الكلمة/الرقم (1–5 كلمات). للرسمة = تسمية قصيرة اختيارية تظهر تحت الصورة أو فاضي.\n"
+              "visual_prompt: وصف إنجليزي دقيق للرسمة بأسلوب ستيك مان (الشخصيات، الفعل، المكان، الأشياء)، بدون أي كتابة داخل الصورة.\n"
+              "pose: وضعية شخصية الستيك مان لو مفيش مولّد صور. bg: cream/white للشرح، navy/dark للأعماق واللحظات المظلمة، blue للبحر/السماء.\n"
+              "series_tag: فاضي.\n\n" + json.dumps(_script(job), ensure_ascii=False), schema=schema)
+    if not out.get("scenes"):
+        raise ValueError("مخرج اللقطات ما طلّعش لقطات")
+    return out
+
+
 def storyboarder(job, s):
+    if _story(s):
+        return story_storyboard(job, s)
     schema = obj({"series_tag": S, "scenes": arr(obj({
         "chapter": I, "narration": S, "title": S, "highlight": S,
         "block": {"type": "string", "enum": BLOCKS},
@@ -185,6 +234,22 @@ def illustrator(job, s):
     series = _series(job)
     use_api = s["images"]["provider"] == "http" and s["images"].get("http_url")
 
+    if _story(s):
+        def shot(i):
+            sc = scenes[i]
+            ill = None
+            if use_api and sc.get("kind") != "text":
+                try:
+                    ill = media.fetch_illustration(sc, s, w, h)
+                except Exception:
+                    ill = None  # falls back to the offline stick figure
+            p = d / f"shot_{i:03d}.png"
+            scene_art.story_frame(sc, w, h, ill).save(p)
+            return {"states": [str(p)], "card": None, "ai": ill is not None}
+
+        with ThreadPoolExecutor(s.get("parallel_scene_jobs", 6)) as ex:
+            return {"scenes": list(ex.map(shot, range(len(scenes))))}
+
     def one(i):
         sc = scenes[i]
         ch = min(sc.get("chapter", 0), len(titles) - 1)
@@ -225,11 +290,20 @@ def narrator(job, s):
 
 def _timed_scenes(job):
     """Scenes + voice length + chapter-card lead time (2s silence under each chapter card)."""
+    story = _story(_job_settings(job))
     out = []
     for i, (sc, c) in enumerate(zip(_scenes(job), _o(job, "narrator")["clips"])):
         new_chapter = i > 0 and sc.get("chapter") != out[-1].get("chapter")
-        out.append(dict(sc, **c, lead=media.CARD if new_chapter else 0.0))
+        if story:  # story: continuous narration, no chapter cards, tiny breath between shots
+            out.append(dict(sc, **c, lead=0.0, gap=0.12))
+        else:
+            out.append(dict(sc, **c, lead=media.CARD if new_chapter else 0.0))
     return out
+
+
+def _job_settings(job):
+    from . import settings as cfg
+    return cfg._merge(cfg.load(), job.get("overrides") or {})
 
 
 # 11 ----------------------------------------------------------------- sound
@@ -244,6 +318,7 @@ def editor(job, s):
     (jd / "clips").mkdir(exist_ok=True)
     v = s["video"]
     scenes, art = _timed_scenes(job), _o(job, "illustrator")["scenes"]
+    story = _story(s)
     audio = (_o(job, "sound_engineer") or {}).get("audio")
     if not audio:  # sound engineer switched off: narration only, no music
         audio = str(media.build_audio(jd, scenes, s, music=False)[0])
@@ -255,7 +330,11 @@ def editor(job, s):
             media.card_clip(art[i]["card"], c, scenes[i]["lead"], v["fps"])
             outs.append(str(c))
         out = jd / "clips" / f"clip_{i:03d}.mp4"
-        media.build_clip(art[i]["states"], out, scenes[i]["duration"] + media.GAP, v["fps"])
+        secs = scenes[i]["duration"] + scenes[i].get("gap", media.GAP)
+        if story:
+            media.zoom_clip(art[i]["states"][0], out, secs, v["fps"], i)
+        else:
+            media.build_clip(art[i]["states"], out, secs, v["fps"])
         return outs + [str(out)]
 
     with ThreadPoolExecutor(min(3, s.get("parallel_scene_jobs", 6))) as ex:
@@ -264,7 +343,8 @@ def editor(job, s):
     media.write_srt(srt, scenes)
     media.write_ass(ass, scenes, v["width"], v["height"])
     final = jd / "video.mp4"
-    media.assemble(jd, clips, audio, ass, final, v.get("burn_captions", True), v["fps"])
+    burn = v.get("story_captions", False) if story else v.get("burn_captions", True)  # the story reference has no captions
+    media.assemble(jd, clips, audio, ass, final, burn, v["fps"])
     return {"video": str(final), "srt": str(srt), "audio": str(audio), "seconds": round(media.duration(final), 1)}
 
 
@@ -274,7 +354,7 @@ def shorts_maker(job, s):
         return {"skipped_reason": "معطّل من الإعدادات"}
     scenes, secs = _timed_scenes(job), 0.0
     for sc, (start, _) in zip(scenes, media.segments(scenes)):
-        end = start + sc["lead"] + sc["duration"] + media.GAP
+        end = start + sc["lead"] + sc["duration"] + sc.get("gap", media.GAP)
         if end > 58:
             break
         secs = end

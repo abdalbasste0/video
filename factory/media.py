@@ -101,7 +101,8 @@ def fetch_illustration(scene, settings, w, h):
     if cfg.get("http_auth_header"):
         name, _, value = cfg["http_auth_header"].partition(":")
         headers[name.strip()] = value.strip()
-    prompt = f"{cfg.get('style_prompt', '')}. {scene.get('visual_prompt', '')}"
+    style = cfg.get("story_style_prompt") if settings["channel"].get("format") == "story" else cfg.get("style_prompt")
+    prompt = f"{style or ''}. {scene.get('visual_prompt', '')}"
     r = requests.post(cfg["http_url"], json={"prompt": prompt, "width": w, "height": h}, headers=headers, timeout=180)
     r.raise_for_status()
     if r.headers.get("content-type", "").startswith("image/"):
@@ -195,7 +196,7 @@ def segments(scenes):
     for sc in scenes:
         lead = sc.get("lead", 0.0)
         out.append((t, t + lead))
-        t += lead + sc["duration"] + GAP
+        t += lead + sc["duration"] + sc.get("gap", GAP)
     return out
 
 
@@ -207,7 +208,7 @@ def build_audio(job_dir, scenes, settings, music=True):
         out = job_dir / "audio" / f"pad_{i:03d}.wav"
         lead_ms = int(sc.get("lead", 0) * 1000)
         af = (f"adelay={lead_ms}:all=1," if lead_ms else "") + "apad"
-        run(["ffmpeg", "-y", "-i", str(sc["audio"]), "-af", af, "-t", f"{sc.get('lead', 0) + sc['duration'] + GAP:.3f}",
+        run(["ffmpeg", "-y", "-i", str(sc["audio"]), "-af", af, "-t", f"{sc.get('lead', 0) + sc['duration'] + sc.get('gap', GAP):.3f}",
              "-ar", "44100", "-ac", "2", str(out)])
         parts.append(out)
     lst = job_dir / "audio" / "list.txt"
@@ -223,7 +224,8 @@ def build_audio(job_dir, scenes, settings, music=True):
         return final, None
     track = random.choice(tracks)
     total = duration(voice)
-    vol = settings["video"].get("music_volume", 0.06)
+    story = settings["channel"].get("format") == "story"
+    vol = settings["video"].get("story_music_volume", 0.14) if story else settings["video"].get("music_volume", 0.06)
     fc = (f"[1:a]volume={vol},afade=t=in:d=2,afade=t=out:st={max(0, total - 3):.2f}:d=3[m];"
           f"[0:a]asplit[v1][v2];[m][v1]sidechaincompress=threshold=0.04:ratio=6:attack=20:release=400[duck];"
           f"[v2][duck]amix=inputs=2:duration=first:normalize=0,{norm}[out]")
@@ -258,6 +260,18 @@ def build_clip(states, out, secs, fps, xf=0.3):
         chain.append(f"[{prev}][{i}:v]xfade=transition=fade:duration={xf}:offset={off:.3f}[{tag}]")
         prev = tag
     run(cmd + ["-filter_complex", ";".join(chain), "-map", f"[{prev}]", "-t", f"{secs:.3f}"] + _enc(fps) + [str(out)])
+
+
+def zoom_clip(img, out, secs, fps, idx=0, amount=0.05):
+    """Story shots: one illustration with a slow, gentle push-in (alternating in/out)."""
+    with Image.open(img) as im:
+        w, h = im.size
+    frames = max(1, int(secs * fps))
+    z = f"1+{amount}*on/{frames}" if idx % 2 == 0 else f"{1 + amount}-{amount}*on/{frames}"
+    vf = (f"scale={int(w * 1.25)}:-2,zoompan=z='{z}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
+          f":d=1:s={w}x{h}:fps={fps}")
+    run(["ffmpeg", "-y", "-loop", "1", "-framerate", str(fps), "-i", str(img), "-vf", vf,
+         "-t", f"{secs:.3f}"] + _enc(fps) + [str(out)])
 
 
 def card_clip(img, out, secs, fps):

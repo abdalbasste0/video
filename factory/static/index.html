@@ -120,6 +120,7 @@ a{color:var(--blue)}
   <div class="card"><h2>القناة</h2>
     <div class="row">
       <div><label>اسم القناة</label><input data-path="channel.name"></div>
+      <div><label>نوع الفيديو</label><select data-path="channel.format"><option value="explainer">شرح (لغز + درس)</option><option value="story">قصة (مشاكل متتالية + رسوم)</option></select></div>
       <div><label>لغة الفيديو</label><select data-path="channel.language"><option value="ar">العربية</option><option value="en">English</option></select></div>
       <div><label>اللهجة</label><input data-path="channel.dialect"></div>
       <div><label>مدة الفيديو (دقائق)</label><input type="number" step="0.5" data-path="channel.video_minutes"></div>
@@ -148,7 +149,8 @@ a{color:var(--blue)}
       <div><label>رابط API الصور</label><input data-path="images.http_url" placeholder="https://..."></div>
       <div><label>هيدر التوثيق</label><input type="password" data-path="images.http_auth_header" placeholder="Authorization: Bearer ..."></div>
     </div>
-    <label>أسلوب الرسم</label><textarea data-path="images.style_prompt"></textarea>
+    <label>أسلوب الرسم (فيديوهات الشرح)</label><textarea data-path="images.style_prompt"></textarea>
+    <label>أسلوب الرسم (فيديوهات القصة)</label><textarea data-path="images.story_style_prompt"></textarea>
   </div>
   <div class="card"><h2>السرعة والإخراج</h2>
     <div class="row">
@@ -159,6 +161,8 @@ a{color:var(--blue)}
     </div>
     <label><input type="checkbox" data-path="video.burn_captions">ترجمة عربية محروقة على الفيديو</label>
     <label><input type="checkbox" data-path="video.make_short">اعمل شورتس 9:16 تلقائياً</label>
+    <label><input type="checkbox" data-path="video.story_captions">ترجمة على فيديوهات القصة كمان</label>
+    <label>مستوى موسيقى فيديوهات القصة</label><input type="number" step="0.02" data-path="video.story_music_volume">
     <div class="btns"><button class="btn" onclick="save()">حفظ الإعدادات</button></div>
   </div>
 </section>

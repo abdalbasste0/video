@@ -4,6 +4,7 @@
   python run_factory.py make "موضوع"    فيديو واحد من سطر الأوامر
   python run_factory.py auto -n 3       المصنع يختار 3 مواضيع بنفسه
   python run_factory.py demo            تجربة كاملة بدون مفتاح API
+  python run_factory.py demo --story    تجربة نوع «القصة» (لقطات سريعة + رسوم ستيك مان)
   python run_factory.py plan plan.json  فيديو من سكريبت/ستوري بورد جاهز (العمّال اللي ليهم نتيجة جاهزة بيتخطّوا)
 """
 import json
@@ -47,7 +48,8 @@ def main():
     m.add_argument("topics", nargs="+")
     a = sub.add_parser("auto")
     a.add_argument("-n", type=int, default=1)
-    sub.add_parser("demo")
+    dm = sub.add_parser("demo")
+    dm.add_argument("--story", action="store_true", help="تجربة نوع القصة")
     pl = sub.add_parser("plan")
     pl.add_argument("path")
     args = ap.parse_args()
@@ -66,6 +68,11 @@ def main():
         with open(args.path, encoding="utf-8") as f:
             plan = json.load(f)
         sys.exit(wait([get_factory().submit(plan.get("topic"), plan=plan)]))
+    elif args.cmd == "demo" and args.story:
+        from factory.demo import STORY_PLAN
+        plan = json.loads(json.dumps(STORY_PLAN))
+        plan["settings"].setdefault("voice", {})["provider"] = "silent"  # no voice service needed for the demo
+        sys.exit(wait([get_factory().submit(plan["topic"], plan=plan)]))
     elif args.cmd == "demo":
         sys.exit(wait([get_factory().submit("ليه الكيبورد مترتب QWERTY؟", demo=True)]))
 

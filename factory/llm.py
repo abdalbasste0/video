@@ -4,7 +4,7 @@ import os
 
 import anthropic
 
-from .style import STYLE_GUIDE
+from .style import STORY_GUIDE, STYLE_GUIDE
 
 FALLBACK_BETA = "server-side-fallback-2026-07-01"
 # Models that accept server-side refusal fallbacks ("default" routing).
@@ -44,7 +44,7 @@ def _ask(settings, worker_id, role, task, schema, web, max_tokens):
     model = model_for(settings, worker_id)
     ch = settings["channel"]
     system = [
-        {"type": "text", "text": STYLE_GUIDE},
+        {"type": "text", "text": STORY_GUIDE if ch.get("format") == "story" else STYLE_GUIDE},
         {"type": "text", "text": (
             f"القناة: {ch['name']} | المجال: {ch['niche']} | اللهجة: {ch['dialect']} | الجمهور: {ch['audience']}\n"
             f"أنت عامل في مصنع فيديوهات. دورك: {role}\n"

@@ -66,3 +66,50 @@ def _seo(job):
             "description": "ليه أول حروف الكيبورد QWERTY؟\n\nفي الفيديو ده:\n0:00 اللغز\n\n#اقتصاد #معلومات",
             "tags": ["QWERTY", "الكيبورد", "الاعتماد على المسار"], "hashtags": ["#اقتصاد", "#معلومات"],
             "pinned_comment": "إيه الحاجة اللي شغالة غلط ومحدش قادر يغيّرها؟", "short_title": "سر ترتيب الكيبورد", "chapters": ""}
+
+
+# ------------------------------------------------------------------ story-format demo
+def _shot(ch, narration, kind="illustration", text="", pose="standing", bg="cream", prompt=""):
+    return {"chapter": ch, "narration": narration, "kind": kind, "text": text, "pose": pose, "bg": bg,
+            "visual_prompt": prompt or "stick figure cartoon scene"}
+
+
+_STORY_SHOTS = [
+    _shot(0, "الأرض تحت رجلينا… وعارفين إن في قلبها نواة نار.", text="", pose="pointing", bg="cream"),
+    _shot(0, "طيب ليه عمرنا ما حفرنا لحد هناك؟", text="ليه ما حفرنا؟", pose="thinking"),
+    _shot(0, "كل محاولة وقفت في نص الطريق… وفي الفيديو ده هنعرف ليه.", kind="text", text="كل محاولة وقفت", bg="white"),
+    _shot(1, "أعمق حفرة عملها الإنسان اسمها بئر كولا الفائق العمق، في روسيا.", text="بئر كولا", pose="pointing", bg="sand"),
+    _shot(1, "الحفر بدأ سنة ألف تسعمية وسبعين، والهدف كان خمستاشر ألف متر.", kind="text", text="1970 · الهدف 15 ألف متر", bg="cream"),
+    _shot(1, "بعد حوالي عشرين سنة… وصلوا اثناشر ألف ومتين واتنين وستين متر بس.", kind="text", text="12,262 متر", bg="navy"),
+    _shot(2, "والمشكلة؟ الحرارة. تحت هناك الصخر كان حوالي مية وتمانين درجة.", text="180 درجة", pose="shocked", bg="dark"),
+    _shot(2, "الصخر بقى يتصرف زي البلاستيك… والحفرة تقفل على نفسها.", text="الصخر بيلين", pose="shocked", bg="navy"),
+    _shot(3, "طيب احسبها: نص قطر الأرض حوالي ستة آلاف وتلتمية كيلو.", kind="text", text="6,371 كيلو", bg="white"),
+    _shot(3, "يعني أعمق حفرة في التاريخ… أقل من اتنين من عشرة في المية من الطريق.", kind="text", text="أقل من 0.2%", bg="navy"),
+    _shot(4, "يمكن الأرض لسه محتفظة بأسرارها… ويمكن ده أحسن.", text="", pose="thinking", bg="dark"),
+    _shot(4, "لو القصة عجبتك… اشتراكك ودعمك بيفرق معايا كتير.", text="دعمك يفرق", pose="happy", bg="cream"),
+]
+
+STORY_TOPIC = "ليه ما حفرناش لحد مركز الأرض؟"
+_STORY_CH = ["الهوك", "بئر كولا", "الحرارة", "الحساب", "النهاية"]
+_story_script = {"title_working": STORY_TOPIC, "chapters": [
+    {"title": t, "text": " ".join(x["narration"] for x in _STORY_SHOTS if x["chapter"] == i)} for i, t in enumerate(_STORY_CH)]}
+
+STORY_PLAN = {
+    "topic": STORY_TOPIC,
+    "settings": {"channel": {"format": "story", "language": "ar"}},
+    "steps": {
+        "trend_scout": {"ideas": [{"title": STORY_TOPIC, "everyday_mystery": "", "hidden_lesson": "", "why_viral": ""}]},
+        "idea_judge": {"topic": STORY_TOPIC, "angle": "demo", "everyday_mystery": "", "lesson": "", "reason": "demo"},
+        "researcher": {"facts": [], "timeline": [], "conflict": "", "economic_concept": "", "simple_equation_or_logic": "",
+                       "surprise": "", "global_parallel": "", "real_event_proof": ""},
+        "fact_checker": {"verified_facts": [], "removed": [], "cautions": ["نسخة تجريبية"]},
+        "hook_writer": {"hooks": [{"text": _STORY_SHOTS[0]["narration"], "technique": "سؤال"}], "best": 0},
+        "scriptwriter": _story_script, "script_editor": _story_script,
+        "storyboarder": {"series_tag": "", "scenes": _STORY_SHOTS},
+    },
+    "answers": {
+        "thumbnail_designer": {"text": "ليه ما حفرنا؟", "sub": "12 كيلو بس", "accent": "red"},
+        "seo_publisher": {"title": "ليه ما حفرناش لحد مركز الأرض؟", "description": "{CHAPTERS}", "tags": ["بئر كولا"],
+                          "hashtags": ["#قصص"], "pinned_comment": "", "short_title": "أعمق حفرة في التاريخ"},
+    },
+}

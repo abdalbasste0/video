@@ -380,3 +380,118 @@ def series_from(topic):
     """Short series tag for the corner, e.g. «لغز QWERTY»."""
     t = re.sub(r"[؟?!.]", "", topic or "").strip()
     return t if len(t) <= 18 else " ".join(t.split()[:3])
+
+
+# ================================================================== story format
+# Measured from the second reference (story video, 8:42): a new full-frame picture every ~3.6 s,
+# stick-figure cartoon illustrations, big-word text cards on cream/white, navy for the deep/dark
+# moments, hard cuts, no captions band, continuous music bed.
+STORY_BG = {
+    "cream": (246, 241, 226), "white": (252, 252, 250), "navy": (31, 43, 74),
+    "blue": (74, 128, 186), "sand": (232, 222, 198), "dark": (40, 40, 44),
+}
+
+
+def _bg_ink(bg):
+    return (245, 243, 236) if bg in ("navy", "blue", "dark") else (24, 24, 26)
+
+
+def stickman(img, pose, cx, ground, scale=1.0, ink=(24, 24, 26)):
+    """Original simple stick figure: big round white head, dot eyes, thin black limbs."""
+    d = ImageDraw.Draw(img)
+    k = img.size[1] / 720 * scale
+    lw = max(3, int(4 * k))
+    head_r = 46 * k
+    hip = (cx, ground - 110 * k)
+    neck = (cx, ground - 230 * k)
+    hc = (cx, neck[1] - head_r + 4 * k)
+    # legs
+    d.line((hip, (cx - 32 * k, ground)), fill=ink, width=lw)
+    d.line((hip, (cx + 32 * k, ground)), fill=ink, width=lw)
+    d.line((hip, neck), fill=ink, width=lw)
+    sh = (cx, neck[1] + 22 * k)
+    arms = {
+        "thinking": [((cx - 55 * k, sh[1] + 70 * k),), ((cx + 30 * k, sh[1] + 40 * k), (cx + 14 * k, hc[1] + 36 * k))],
+        "pointing": [((cx - 50 * k, sh[1] + 80 * k),), ((cx + 120 * k, sh[1] - 10 * k),)],
+        "shocked": [((cx - 40 * k, sh[1] + 30 * k), (cx - 26 * k, hc[1] + 30 * k)), ((cx + 40 * k, sh[1] + 30 * k), (cx + 26 * k, hc[1] + 30 * k))],
+        "happy": [((cx - 50 * k, sh[1] + 80 * k),), ((cx + 70 * k, sh[1] - 40 * k), (cx + 86 * k, sh[1] - 100 * k))],
+        "standing": [((cx - 45 * k, sh[1] + 90 * k),), ((cx + 45 * k, sh[1] + 90 * k),)],
+    }.get(pose, None) or [((cx - 45 * k, sh[1] + 90 * k),), ((cx + 45 * k, sh[1] + 90 * k),)]
+    for arm in arms:
+        pts = [sh] + list(arm)
+        d.line(pts, fill=ink, width=lw, joint="curve")
+    # head (face always drawn in dark ink so it shows on dark backgrounds too)
+    face = (24, 24, 26)
+    d.ellipse((hc[0] - head_r, hc[1] - head_r, hc[0] + head_r, hc[1] + head_r), fill=(255, 255, 255), outline=face, width=lw)
+    for ex in (-16, 16):
+        er = 13 * k
+        ec = (hc[0] + ex * k, hc[1] - 6 * k)
+        d.ellipse((ec[0] - er, ec[1] - er, ec[0] + er, ec[1] + er), fill=(255, 255, 255), outline=face, width=max(2, lw - 1))
+        pr = 5 * k
+        d.ellipse((ec[0] - pr, ec[1] - pr, ec[0] + pr, ec[1] + pr), fill=face)
+    mouth_y = hc[1] + 22 * k
+    if pose == "shocked":
+        d.ellipse((hc[0] - 9 * k, mouth_y - 8 * k, hc[0] + 9 * k, mouth_y + 12 * k), outline=face, width=lw)
+        for sx in (-1, 1):  # shock lines
+            d.line((hc[0] + sx * 70 * k, hc[1] - 50 * k, hc[0] + sx * 84 * k, hc[1] - 66 * k), fill=ink, width=lw)
+    elif pose == "happy":
+        d.arc((hc[0] - 16 * k, mouth_y - 14 * k, hc[0] + 16 * k, mouth_y + 8 * k), 20, 160, fill=face, width=lw)
+    else:
+        d.line((hc[0] - 10 * k, mouth_y, hc[0] + 10 * k, mouth_y), fill=face, width=lw)
+    if pose == "thinking":
+        text_c(d, (hc[0] + 95 * k, hc[1] - 60 * k), "?", sans(70 * k, black=True), C["blue"])
+    d.line((cx - 200 * k, ground, cx + 200 * k, ground), fill=ink, width=max(2, lw - 1))  # ground
+
+
+def _fit_text(d, text, max_w, size, black=True):
+    while size > 24 and tw(d, text, sans(size, black)) > max_w:
+        size -= 4
+    return sans(size, black)
+
+
+def text_card(w, h, text, bg="cream", sub=""):
+    """Big keyword on a plain background (e.g. «العمق», «52 ألف طن»)."""
+    img = Image.new("RGB", (w, h), STORY_BG.get(bg, STORY_BG["cream"]))
+    d = ImageDraw.Draw(img)
+    ink = _bg_ink(bg)
+    k = h / 720
+    draw_block(d, text, (w * 0.1, h * 0.25, w * 0.9, h * (0.62 if sub else 0.75)), int(110 * k), ink, black=True)
+    if sub:
+        draw_block(d, sub, (w * 0.15, h * 0.64, w * 0.85, h * 0.80), int(44 * k), ink)
+    return img
+
+
+def story_frame(shot, w, h, illustration=None):
+    """One story shot. With an image API: the illustration fills the frame (plus an optional label).
+    Without one: an offline stick-figure scene so the video can still be made."""
+    bg = shot.get("bg") or "cream"
+    text = shot.get("text") or ""
+    if shot.get("kind") == "text":
+        return text_card(w, h, text, bg)
+    k = h / 720
+    if illustration is not None:
+        img = Image.new("RGB", (w, h), STORY_BG.get(bg, STORY_BG["cream"]))
+        ill = illustration.copy()
+        scale = max(w / ill.width, h / ill.height)
+        ill = ill.resize((int(ill.width * scale) + 1, int(ill.height * scale) + 1))
+        img.paste(ill, ((w - ill.width) // 2, (h - ill.height) // 2))
+        if text:
+            d = ImageDraw.Draw(img, "RGBA")
+            f = _fit_text(d, text, w * 0.7, int(54 * k))
+            tw_ = tw(d, text, f)
+            box = (w / 2 - tw_ / 2 - 30 * k, h * 0.84, w / 2 + tw_ / 2 + 30 * k, h * 0.84 + 80 * k)
+            d.rounded_rectangle(box, radius=18 * k, fill=(255, 255, 255, 225))
+            text_c(d, (w / 2, (box[1] + box[3]) / 2 - 4 * k), text, f, (24, 24, 26))
+        return img
+    # offline fallback
+    img = Image.new("RGB", (w, h), STORY_BG.get(bg, STORY_BG["cream"]))
+    ink = _bg_ink(bg)
+    pose = shot.get("pose") or "standing"
+    rtl = lang.rtl()
+    man_x = w * (0.30 if rtl else 0.70) if text else w / 2
+    stickman(img, pose, man_x, h * 0.86, 1.25, ink)
+    if text:
+        d = ImageDraw.Draw(img)
+        x0, x1 = (w * 0.45, w * 0.92) if rtl else (w * 0.08, w * 0.55)
+        draw_block(d, text, (x0, h * 0.25, x1, h * 0.70), int(92 * k), ink, black=True)
+    return img

@@ -25,6 +25,7 @@ DEFAULTS = {
         "name": "قناتي",
         "niche": "ألغاز من الحياة اليومية لها جذور في الاقتصاد والتاريخ (فولت الكهربا، شكل الفيشة، لوحة المفاتيح، الأسعار...)",
         "language": "ar",                 # ar = Arabic video, en = English video
+        "format": "explainer",            # explainer (لغز + درس، تقسيمة ثابتة) / story (قصة بمشاكل متتالية + رسوم ستيك مان)
         "dialect": "مصري",
         "audience": "شباب عرب فضوليين بيحبوا المعلومة المبسطة",
         "video_minutes": 5.5,
@@ -45,11 +46,15 @@ DEFAULTS = {
         "http_url": "",
         "http_auth_header": "",
         "style_prompt": "flat 2D vector explainer illustration, muted beige background, bold red green and blue accents, clean shapes, no text",
+        "story_style_prompt": ("simple hand-drawn webcomic cartoon, stick figure characters with big round white heads and large round eyes, "
+                               "thin black outlines, flat muted colors, clean uncluttered background, 16:9, no text, no watermark"),
     },
     "video": {
         "width": 1920, "height": 1080, "fps": 30,
         "burn_captions": True,
         "make_short": True,
+        "story_captions": False,      # the story reference shows no captions
+        "story_music_volume": 0.14,   # story reference: music bed audible under the whole narration
         "music_volume": 0.06,  # reference: voice-first, music barely audible
     },
     "workers": {w["id"]: {"enabled": True, "model": w["model"]} for w in WORKERS},
