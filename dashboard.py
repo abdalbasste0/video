@@ -100,6 +100,27 @@ def test_connector():
     return jsonify(results=connectors.publish_all(s, pkg, only_id=c.get("id")))
 
 
+@app.post("/api/images/test")
+@guarded
+def test_image():
+    """Generate one sample picture with the chosen image service and show it in the dashboard."""
+    import base64
+    import io
+    from factory import image_providers
+    s = cfg.load()
+    if not image_providers.enabled(s["images"]):
+        return jsonify(ok=False, error="اختار مولّد صور وحط المفتاح الأول")
+    story = s["channel"].get("format") == "story"
+    style = s["images"]["story_style_prompt"] if story else s["images"]["style_prompt"]
+    try:
+        img = image_providers.generate("a stick figure scientist looking at a deep sea submarine. Style: " + style, s["images"], 1280, 720, seed=7)
+    except Exception as e:
+        return jsonify(ok=False, error=str(e)[:400])
+    buf = io.BytesIO()
+    img.convert("RGB").resize((640, int(640 * img.height / img.width))).save(buf, "JPEG", quality=85)
+    return jsonify(ok=True, image=base64.b64encode(buf.getvalue()).decode())
+
+
 @app.get("/files/<jid>/<name>")
 @guarded
 def files(jid, name):

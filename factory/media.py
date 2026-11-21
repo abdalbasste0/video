@@ -93,29 +93,13 @@ def draw_block(draw, text, box, size, color, black=False, stroke=0, stroke_color
 
 
 # ---------------------------------------------------------------- illustrations (optional image API)
-def fetch_illustration(scene, settings, w, h):
-    """Any image API you connect. POST JSON {prompt,width,height}; accepts image bytes or JSON with b64/url.
-    The picture is placed inside the explainer layout (scene_art), not full screen."""
+def fetch_illustration(scene, settings, w, h, seed=None):
+    """Generate the scene picture with the image service chosen in settings (see image_providers.py)."""
+    from . import image_providers
     cfg = settings["images"]
-    headers = {"Content-Type": "application/json"}
-    if cfg.get("http_auth_header"):
-        name, _, value = cfg["http_auth_header"].partition(":")
-        headers[name.strip()] = value.strip()
     style = cfg.get("story_style_prompt") if settings["channel"].get("format") == "story" else cfg.get("style_prompt")
-    prompt = f"{style or ''}. {scene.get('visual_prompt', '')}"
-    r = requests.post(cfg["http_url"], json={"prompt": prompt, "width": w, "height": h}, headers=headers, timeout=180)
-    r.raise_for_status()
-    if r.headers.get("content-type", "").startswith("image/"):
-        data = r.content
-    else:
-        j = r.json()
-        j = j.get("data", [j])[0] if isinstance(j.get("data"), list) else j
-        if j.get("b64_json") or j.get("image_base64") or j.get("b64"):
-            data = base64.b64decode(j.get("b64_json") or j.get("image_base64") or j.get("b64"))
-        else:
-            data = requests.get(j.get("url") or j["image_url"], timeout=120).content
-    import io
-    return Image.open(io.BytesIO(data)).convert("RGB")
+    prompt = f"{scene.get('visual_prompt', '')}. Style: {style or ''}"
+    return image_providers.generate(prompt, cfg, w, h, seed)
 
 
 def thumbnail(path, text, sub, accent_name, bg_image=None, w=1280, h=720):

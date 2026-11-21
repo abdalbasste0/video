@@ -42,7 +42,11 @@ DEFAULTS = {
         "piper_length_scale": 1.0,  # >1 = slower speech
     },
     "images": {
-        "provider": "cards",  # cards (offline 2D cards) / http (any image API you connect)
+        "provider": "cards",  # cards / pollinations / openai / stability / fal / a1111 / http  (see image_providers.py)
+        "api_key": "",
+        "model": "",          # optional: override the provider's default model
+        "base_url": "",       # optional: custom server address (e.g. your own Stable Diffusion)
+        "parallel": 3,        # images generated at the same time (free services need low numbers)
         "http_url": "",
         "http_auth_header": "",
         "style_prompt": "flat 2D vector explainer illustration, muted beige background, bold red green and blue accents, clean shapes, no text",

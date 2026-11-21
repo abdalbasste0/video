@@ -4,7 +4,7 @@ import json
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-from . import media, scene_art
+from . import image_providers, media, scene_art
 from .llm import I, S, arr, ask, obj
 
 
@@ -232,23 +232,31 @@ def illustrator(job, s):
     scenes, titles = _scenes(job), _chapter_titles(job)
     w, h = s["video"]["width"], s["video"]["height"]
     series = _series(job)
-    use_api = s["images"]["provider"] == "http" and s["images"].get("http_url")
+    use_api = image_providers.enabled(s["images"])
 
     if _story(s):
         def shot(i):
             sc = scenes[i]
             ill = None
+            err = None
             if use_api and sc.get("kind") != "text":
-                try:
-                    ill = media.fetch_illustration(sc, s, w, h)
-                except Exception:
-                    ill = None  # falls back to the offline stick figure
+                for attempt in range(2):
+                    try:
+                        ill = media.fetch_illustration(sc, s, w, h, seed=1000 + i + attempt)
+                        break
+                    except Exception as e:  # falls back to the offline stick figure
+                        err = str(e)[:200]
             p = d / f"shot_{i:03d}.png"
             scene_art.story_frame(sc, w, h, ill).save(p)
-            return {"states": [str(p)], "card": None, "ai": ill is not None}
+            return {"states": [str(p)], "card": None, "ai": ill is not None, "error": err}
 
-        with ThreadPoolExecutor(s.get("parallel_scene_jobs", 6)) as ex:
-            return {"scenes": list(ex.map(shot, range(len(scenes))))}
+        workers = min(s.get("parallel_scene_jobs", 6), int(s["images"].get("parallel", 3))) if use_api else 6
+        with ThreadPoolExecutor(max(1, workers)) as ex:
+            shots = list(ex.map(shot, range(len(scenes))))
+        wanted = sum(1 for sc in scenes if sc.get("kind") != "text") if use_api else 0
+        made = sum(1 for x in shots if x["ai"])
+        errors = [x["error"] for x in shots if x.get("error")]
+        return {"scenes": shots, "ai_images": f"{made}/{wanted}", "first_error": errors[0] if errors else None}
 
     def one(i):
         sc = scenes[i]
