@@ -2,6 +2,6 @@ anthropic>=2.11
 flask>=3.0
 pillow>=10.0
 requests>=2.31
-edge-tts>=6.1
+edge-tts>=7.3
 arabic-reshaper>=3.0
 python-bidi>=0.4

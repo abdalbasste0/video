@@ -136,12 +136,16 @@ a{color:var(--blue)}
         <option>ar-EG-ShakirNeural</option><option>ar-EG-SalmaNeural</option><option>ar-SA-HamedNeural</option><option>ar-SA-ZariyahNeural</option>
         <option>ar-AE-HamdanNeural</option><option>ar-MA-JamalNeural</option><option>ar-IQ-BasselNeural</option><option>ar-JO-TaimNeural</option>
         <option>en-US-GuyNeural</option><option>en-US-AndrewNeural</option><option>en-US-AriaNeural</option><option>en-GB-RyanNeural</option><option>en-GB-SoniaNeural</option></select></div>
-      <div><label>ملف صوت Piper (.onnx)</label><input data-path="voice.piper_model" placeholder="C:/voices/en_US-ryan-high.onnx"></div>
+      <div><label>ملف صوت Piper (.onnx)</label><input data-path="voice.piper_model" placeholder="فاضي = يتحمّل لوحده حسب اللغة"></div>
       <div><label>بطء Piper (1 = عادي)</label><input type="number" step="0.05" data-path="voice.piper_length_scale"></div>
       <div><label>سرعة الكلام</label><input data-path="voice.edge_rate"></div>
       <div><label>ElevenLabs API key</label><input type="password" data-path="voice.elevenlabs_api_key"></div>
       <div><label>ElevenLabs Voice ID</label><input data-path="voice.elevenlabs_voice_id"></div>
     </div>
+  </div>
+  <div class="card"><h2>اختبار الصوت</h2>
+    <div class="btns"><button class="btn alt" onclick="testVoice()">🔊 جرّب الصوت</button></div>
+    <div class="res" id="voiceres"></div><audio id="voiceprev" controls style="display:none;width:100%;margin-top:8px"></audio>
   </div>
   <div class="card"><h2>الصور</h2>
     <div class="row">
@@ -228,6 +232,11 @@ function delConn(i){if(!confirm("حذف الرابط ده؟"))return;collect();S
 async function testConn(i){collect();$("#res"+i).textContent="جاري الاختبار…";
   const r=await fetch("/api/connectors/test",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({connector:S.connectors[i]})});
   const d=await r.json();$("#res"+i).textContent=(d.results||[]).map(x=>(x.ok?"✅ ":"❌ ")+x.msg).join(" | ")||"لا نتيجة"}
+async function testVoice(){
+  await save();$("#voiceres").textContent="جاري التجربة…";$("#voiceprev").style.display="none";
+  const d=await (await fetch("/api/voice/test",{method:"POST"})).json();
+  if(d.ok){$("#voiceres").textContent="✅ الصوت شغال ("+d.seconds+" ثانية)";$("#voiceprev").src="data:audio/mpeg;base64,"+d.audio;$("#voiceprev").style.display="block"}
+  else $("#voiceres").textContent="❌ "+d.error}
 async function testImage(){
   await save();$("#imgres").textContent="جاري التوليد… (ممكن ياخد دقيقة)";$("#imgprev").style.display="none";
   const r=await fetch("/api/images/test",{method:"POST"});const d=await r.json();

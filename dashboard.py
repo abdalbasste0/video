@@ -121,6 +121,26 @@ def test_image():
     return jsonify(ok=True, image=base64.b64encode(buf.getvalue()).decode())
 
 
+@app.post("/api/voice/test")
+@guarded
+def test_voice():
+    """Speak one sentence with the chosen voice settings, so voice problems show up before a whole video."""
+    import base64
+    import tempfile
+    from factory import media
+    s = cfg.load()
+    text = ("This is a quick test of the factory voice." if s["channel"].get("language") == "en"
+            else "ده اختبار سريع لصوت المصنع.")
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Path(tmp) / "test.mp3"
+            secs = media.tts(p, text, s)
+            data = base64.b64encode(p.read_bytes()).decode()
+    except Exception as e:
+        return jsonify(ok=False, error=str(e)[:500])
+    return jsonify(ok=True, seconds=round(secs, 1), audio=data)
+
+
 @app.get("/files/<jid>/<name>")
 @guarded
 def files(jid, name):

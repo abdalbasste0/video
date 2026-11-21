@@ -4,7 +4,10 @@ import base64
 import json
 import random
 import shutil
+import re
 import subprocess
+import threading
+import time
 from pathlib import Path
 
 import requests
@@ -135,14 +138,83 @@ def duration(path):
     return float(json.loads(out)["format"]["duration"])
 
 
+EDGE_VOICES = {  # first = default for the language, the rest are backups
+    "ar": ["ar-SA-HamedNeural", "ar-EG-ShakirNeural", "ar-EG-SalmaNeural", "ar-AE-HamdanNeural"],
+    "en": ["en-US-GuyNeural", "en-US-AndrewNeural", "en-GB-RyanNeural", "en-US-AriaNeural"],
+}
+PIPER_VOICES = {  # downloaded automatically into voices/ the first time
+    "en": "en/en_US/ryan/high/en_US-ryan-high",
+    "ar": "ar/ar_JO/kareem/medium/ar_JO-kareem-medium",
+}
+_edge_slots = threading.Semaphore(2)  # Microsoft throttles many parallel requests
+
+
+def _edge_rate(rate):
+    """Edge only accepts rates like +5% / -10%. Fix common typos (5, 5%, ' +5 % ')."""
+    r = (rate or "").replace(" ", "")
+    if re.fullmatch(r"[+-]\d{1,3}%", r):
+        return r
+    m = re.fullmatch(r"([+-]?)(\d{1,3})%?", r)
+    return f"{m.group(1) or '+'}{m.group(2)}%" if m else "+0%"
+
+
+def _speakable(text):
+    return bool(re.search(r"[A-Za-z0-9\u0600-\u06FF\u0660-\u0669]", text or ""))
+
+
+def _edge(path, text, v, lang):
+    import edge_tts
+    chosen = (v.get("edge_voice") or "").strip()
+    if not chosen.lower().startswith(lang + "-"):  # e.g. an Arabic voice on an English video
+        chosen = EDGE_VOICES[lang][0]
+    voices = list(dict.fromkeys([chosen] + EDGE_VOICES[lang]))
+    rate = _edge_rate(v.get("edge_rate"))
+    last = None
+    for voice in voices:
+        for attempt in range(3):
+            try:
+                with _edge_slots:
+                    asyncio.run(edge_tts.Communicate(text, voice, rate=rate).save(str(path)))
+                if Path(path).exists() and Path(path).stat().st_size > 1000:
+                    return
+                last = "empty audio file"
+            except Exception as e:  # NoAudioReceived, network errors, throttling
+                last = f"{type(e).__name__}: {e}"
+            time.sleep(2 * (attempt + 1))
+    raise RuntimeError(
+        "صوت Edge المجاني ما رجّعش صوت بعد كذا محاولة وكذا صوت. "
+        "غالباً خدمة مايكروسوفت محجوبة أو مضغوطة على شبكتك. الحل: الإعدادات ← الصوت ← مزوّد الصوت = Piper (بدون إنترنت)، "
+        f"وبيتحمّل لوحده أول مرة. آخر خطأ: {last}")
+
+
+def _piper_model(v, lang):
+    if v.get("piper_model") and Path(v["piper_model"]).exists():
+        return v["piper_model"]
+    rel = PIPER_VOICES[lang]
+    folder = ROOT / "voices"
+    folder.mkdir(exist_ok=True)
+    onnx = folder / (rel.rsplit("/", 1)[1] + ".onnx")
+    for suffix in (".onnx", ".onnx.json"):
+        target = onnx.with_suffix(suffix) if suffix == ".onnx" else Path(str(onnx) + ".json")
+        if not target.exists():
+            url = f"https://huggingface.co/rhasspy/piper-voices/resolve/main/{rel}{suffix}"
+            r = requests.get(url, timeout=600)
+            r.raise_for_status()
+            target.write_bytes(r.content)
+    return str(onnx)
+
+
 def tts(path, text, settings):
+    from . import lang as _lang
     v = settings["voice"]
     provider = v.get("provider", "edge")
+    lang = settings["channel"].get("language") or _lang.code()
+    lang = lang if lang in EDGE_VOICES else "ar"
+    if not _speakable(text):  # e.g. a scene that is only "…": short pause instead of an API error
+        run(["ffmpeg", "-y", "-f", "lavfi", "-i", "anullsrc=r=44100:cl=mono", "-t", "0.6", "-q:a", "9", str(path)])
+        return duration(path)
     if provider == "edge":
-        import edge_tts
-        async def _go():
-            await edge_tts.Communicate(text, v.get("edge_voice", "ar-EG-ShakirNeural"), rate=v.get("edge_rate", "+0%")).save(str(path))
-        asyncio.run(_go())
+        _edge(path, text, v, lang)
     elif provider == "elevenlabs":
         r = requests.post(
             f"https://api.elevenlabs.io/v1/text-to-speech/{v['elevenlabs_voice_id']}",
@@ -153,9 +225,12 @@ def tts(path, text, settings):
         r.raise_for_status()
         Path(path).write_bytes(r.content)
     elif provider == "piper":  # free, offline neural voice (https://github.com/rhasspy/piper)
+        import importlib.util
         import sys
+        if importlib.util.find_spec("piper") is None:  # installed on first use, so it never blocks start-up
+            subprocess.run([sys.executable, "-m", "pip", "install", "-q", "piper-tts"], check=True)
         wav = Path(path).with_suffix(".wav")
-        p = subprocess.run([sys.executable, "-m", "piper", "-m", v["piper_model"], "-f", str(wav),
+        p = subprocess.run([sys.executable, "-m", "piper", "-m", _piper_model(v, lang), "-f", str(wav),
                             "--length-scale", str(v.get("piper_length_scale", 1.0)), "--sentence-silence", "0.35"],
                            input=text, capture_output=True, text=True)
         if p.returncode:
