@@ -63,6 +63,9 @@ def new_jobs():
     body = request.get_json(force=True)
     topics = [t.strip() for t in (body.get("topics") or "").splitlines() if t.strip()]
     count = max(1, min(int(body.get("count") or 1), 20))
+    from factory import llm
+    if not body.get("demo") and not llm.has_key(cfg.load()):
+        return jsonify(error=llm.NO_KEY), 400
     f = get_factory()
     ids = [f.submit(t, demo=bool(body.get("demo"))) for t in topics] if topics else \
           [f.submit(None, demo=bool(body.get("demo"))) for _ in range(count)]
@@ -119,6 +122,14 @@ def test_image():
     buf = io.BytesIO()
     img.convert("RGB").resize((640, int(640 * img.height / img.width))).save(buf, "JPEG", quality=85)
     return jsonify(ok=True, image=base64.b64encode(buf.getvalue()).decode())
+
+
+@app.post("/api/claude/test")
+@guarded
+def test_claude():
+    from factory import llm
+    ok, msg = llm.check_key(cfg.load())
+    return jsonify(ok=ok, message=msg)
 
 
 @app.post("/api/voice/test")

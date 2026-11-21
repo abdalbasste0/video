@@ -17,11 +17,45 @@ class LLMError(RuntimeError):
     pass
 
 
+NO_KEY = ("No Claude API key. Open the dashboard → Settings (الإعدادات) → «مفتاح Anthropic API», paste your key "
+          "from https://console.anthropic.com/settings/keys (it starts with sk-ant-), press Save, then press "
+          "«🔑 جرّب مفتاح Claude». | مفيش مفتاح Claude: حطه في الإعدادات واضغط حفظ.")
+
+
+def api_key(settings):
+    """The key from the dashboard (spaces/newlines from copy-paste removed) or the environment."""
+    return "".join((settings.get("anthropic_api_key") or os.environ.get("ANTHROPIC_API_KEY") or "").split())
+
+
+def has_key(settings):
+    return bool(api_key(settings) or os.environ.get("ANTHROPIC_AUTH_TOKEN"))
+
+
 def _client(settings):
-    key = settings.get("anthropic_api_key") or os.environ.get("ANTHROPIC_API_KEY") or None
+    key = api_key(settings)
+    if not has_key(settings):
+        raise LLMError(NO_KEY)
     if key not in _clients:
         _clients[key] = anthropic.Anthropic(api_key=key, max_retries=4) if key else anthropic.Anthropic(max_retries=4)
     return _clients[key]
+
+
+def check_key(settings):
+    """Tiny request to confirm the key works. Returns (ok, message)."""
+    try:
+        r = _client(settings).messages.create(model=settings["model_main"], max_tokens=16,
+                                               messages=[{"role": "user", "content": "Reply with the word OK."}])
+        return True, f"OK ({r.model})"
+    except LLMError as e:
+        return False, str(e)
+    except anthropic.AuthenticationError:
+        return False, "The key was rejected (invalid or revoked). Create a new key at console.anthropic.com. | المفتاح غلط."
+    except anthropic.PermissionDeniedError as e:
+        return False, f"Key has no access to this model or no credit: {e.message}"
+    except anthropic.APIStatusError as e:
+        return False, f"Claude API error {e.status_code}: {e.message}"
+    except anthropic.APIConnectionError:
+        return False, "Could not reach api.anthropic.com. Check your internet connection."
 
 
 def model_for(settings, worker_id):
