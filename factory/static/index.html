@@ -123,7 +123,7 @@ a{color:var(--blue)}
     <div class="row">
       <div><label>اسم القناة</label><input data-path="channel.name"></div>
       <div><label>نوع الفيديو</label><select data-path="channel.format"><option value="explainer">شرح (لغز + درس)</option><option value="story">قصة (مشاكل متتالية + رسوم)</option></select></div>
-      <div><label>لغة الفيديو</label><select data-path="channel.language"><option value="ar">العربية</option><option value="en">English</option></select></div>
+      <div><label>لغة الفيديو</label><select data-path="channel.language" onchange="langChanged(this.value)"><option value="ar">العربية</option><option value="en">English (صوت وكلام إنجليزي)</option></select></div>
       <div><label>اللهجة</label><input data-path="channel.dialect"></div>
       <div><label>مدة الفيديو (دقائق)</label><input type="number" step="0.5" data-path="channel.video_minutes"></div>
     </div>
@@ -208,6 +208,10 @@ async function load(){
   $("#newtype").innerHTML=Object.entries(CT).map(([k,v])=>`<option value="${k}">${esc(v.label)}</option>`).join("");
   renderWorkers();renderConns();
 }
+function langChanged(code){  // keep the voice in the same language as the video
+  const v=document.querySelector('[data-path="voice.edge_voice"]');
+  if(v && !v.value.toLowerCase().startsWith(code+"-")) v.value = code==="en" ? "en-US-GuyNeural" : "ar-SA-HamedNeural";
+  toast(code==="en" ? "✅ English: script + voice in English. Press Save." : "✅ العربية: السكريبت والصوت بالعربي. اضغط حفظ.")}
 function collect(){
   document.querySelectorAll("[data-path]").forEach(el=>{let v=el.type==="checkbox"?el.checked:el.value;if(el.type==="number")v=Number(v);set(S,el.dataset.path,v)});
   document.querySelectorAll("[data-w]").forEach(el=>{const [id,k]=el.dataset.w.split(":");S.workers[id][k]=el.type==="checkbox"?el.checked:el.value});

@@ -158,6 +158,15 @@ def _edge_rate(rate):
     return f"{m.group(1) or '+'}{m.group(2)}%" if m else "+0%"
 
 
+def text_language(text):
+    """Which language the words really are in (an English voice can't read Arabic and vice versa)."""
+    ar = len(re.findall(r"[\u0600-\u06FF]", text or ""))
+    en = len(re.findall(r"[A-Za-z]", text or ""))
+    if ar == en == 0:
+        return None
+    return "ar" if ar > en else "en"
+
+
 def _speakable(text):
     return bool(re.search(r"[A-Za-z0-9\u0600-\u06FF\u0660-\u0669]", text or ""))
 
@@ -208,7 +217,7 @@ def tts(path, text, settings):
     from . import lang as _lang
     v = settings["voice"]
     provider = v.get("provider", "edge")
-    lang = settings["channel"].get("language") or _lang.code()
+    lang = text_language(text) or settings["channel"].get("language") or _lang.code()
     lang = lang if lang in EDGE_VOICES else "ar"
     if not _speakable(text):  # e.g. a scene that is only "…": short pause instead of an API error
         run(["ffmpeg", "-y", "-f", "lavfi", "-i", "anullsrc=r=44100:cl=mono", "-t", "0.6", "-q:a", "9", str(path)])
