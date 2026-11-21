@@ -35,9 +35,15 @@ def _client(settings):
     key = api_key(settings)
     if not has_key(settings):
         raise LLMError(NO_KEY)
-    if key not in _clients:
-        _clients[key] = anthropic.Anthropic(api_key=key, max_retries=4) if key else anthropic.Anthropic(max_retries=4)
-    return _clients[key]
+    ws = "".join((settings.get("anthropic_workspace_id") or os.environ.get("ANTHROPIC_WORKSPACE_ID") or "").split())
+    if key.startswith("sk-ant-admin"):
+        raise LLMError(ADMIN_KEY)
+    cache = (key, ws)
+    if cache not in _clients:
+        extra = {"default_headers": {"anthropic-workspace-id": ws}} if ws else {}
+        _clients[cache] = (anthropic.Anthropic(api_key=key, max_retries=4, **extra) if key
+                           else anthropic.Anthropic(max_retries=4, **extra))
+    return _clients[cache]
 
 
 NO_CREDIT = ("Your Anthropic API account has no credit. Add credit at https://console.anthropic.com/settings/billing "
@@ -45,9 +51,19 @@ NO_CREDIT = ("Your Anthropic API account has no credit. Add credit at https://co
              "(Run tab → «📄 فيديو من خطة جاهزة»). | الرصيد خلص: اشحن من صفحة Billing أو استخدم خطة جاهزة.")
 
 
+NO_WORKSPACE = ("This API key is not inside a workspace. Easiest fix: Console → Workspaces → open «Default» → API keys → "
+                "Create Key, and paste the new key. Or paste your Workspace ID (starts with wrkspc_) into "
+                "Settings → «Workspace ID». | المفتاح مش جوه workspace: اعمل مفتاح من جوه Default workspace أو حط الـ Workspace ID.")
+ADMIN_KEY = ("This is an Admin key (sk-ant-admin…), which cannot call Claude. Create a normal API key at "
+             "https://console.anthropic.com/settings/keys | ده مفتاح أدمن، اعمل مفتاح API عادي.")
+
+
 def _status_message(e):
-    if "credit balance" in str(e.message).lower():
+    msg = str(e.message).lower()
+    if "credit balance" in msg:
         return NO_CREDIT
+    if "workspace" in msg and ("scoped" in msg or "anthropic-workspace-id" in msg):
+        return NO_WORKSPACE
     return f"Claude API error {e.status_code}: {e.message}"
 
 

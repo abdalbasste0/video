@@ -13,6 +13,7 @@ _lock = threading.Lock()
 
 DEFAULTS = {
     "anthropic_api_key": "",          # or set ANTHROPIC_API_KEY in the environment
+    "anthropic_workspace_id": "",     # only for keys that are not scoped to a workspace (wrkspc_...)
     "model_main": "claude-opus-5-5",  # brains of the writing workers
     "model_fast": "claude-opus-5-5",  # light workers (ideas, thumbnail text, SEO) - switch to a faster model for speed
     "effort": "high",                 # low / medium / high / xhigh / max
