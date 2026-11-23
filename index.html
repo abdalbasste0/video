@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!--ARTIFACT-START-->
+<title>لِسان</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lalezar&family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap">
+<style>
+/* Layout: a phrasebook — one column of study cards, each card reads target text → Arabic sound → syllables → meaning */
+:root{
+  --bg:#eef2f4; --surface:#ffffff; --sunk:#e2e8ec; --ink:#16212b; --muted:#5a6873; --line:#cfd8de;
+  --de:#b5651d; --de-soft:#f6e6d6; --en:#1d6f7a; --en-soft:#d6ecee;
+  --good:#2e7d4f; --bad:#b23b3b;
+  --accent:var(--de); --accent-soft:var(--de-soft);
+  --f-display:"Lalezar","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Arabic",system-ui,"Segoe UI",Tahoma,sans-serif;
+  --f-latin:"Literata",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#10171d; --surface:#18222a; --sunk:#0c1216; --ink:#e7edf1; --muted:#9aa8b2; --line:#2a3844;
+  --de:#e39a55; --de-soft:#3a2a1b; --en:#5cc0cc; --en-soft:#143338; --good:#5cc489; --bad:#ec7b7b; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#10171d; --surface:#18222a; --sunk:#0c1216; --ink:#e7edf1; --muted:#9aa8b2; --line:#2a3844;
+  --de:#e39a55; --de-soft:#3a2a1b; --en:#5cc0cc; --en-soft:#143338; --good:#5cc489; --bad:#ec7b7b; color-scheme:dark }
+body.lang-en{ --accent:var(--en); --accent-soft:var(--en-soft); }
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink)}
+body{margin:0;font-family:var(--f-body);font-size:16px;line-height:1.7;direction:rtl;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:760px;margin:0 auto}
+header{padding-block:22px 10px;display:flex;flex-direction:column;gap:14px}
+.brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.brand h1{font-family:var(--f-display);font-weight:400;font-size:2.4rem;line-height:1;margin:0;color:var(--accent)}
+.brand p{margin:0;color:var(--muted);font-size:.95rem}
+.langs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.langbtn{border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:14px;padding:10px 14px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:flex-start;gap:0;font:inherit;text-align:right}
+.langbtn b{font-family:var(--f-latin);font-size:1.25rem;direction:ltr}
+.langbtn span{font-size:.85rem;color:var(--muted)}
+.langbtn[aria-pressed="true"][data-l="de"]{border-color:var(--de);background:var(--de-soft)}
+.langbtn[aria-pressed="true"][data-l="en"]{border-color:var(--en);background:var(--en-soft)}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5;padding-top:8px}
+.tab{flex:0 0 auto;border:0;background:transparent;color:var(--muted);font:inherit;font-weight:500;padding:8px 14px;border-radius:999px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+button:focus-visible,.chip:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.progress{display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--muted)}
+.bar{flex:1;height:6px;background:var(--sunk);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-block:14px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:.92rem;padding:6px 14px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.lead{color:var(--muted);margin:4px 0 12px}
+.cards{display:flex;flex-direction:column;gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.card.learned{border-color:var(--good)}
+.target{font-family:var(--f-latin);font-weight:700;font-size:1.55rem;line-height:1.3;direction:ltr;text-align:left;margin:0}
+.pron{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.lbl{font-size:.72rem;letter-spacing:.04em;color:var(--muted);background:var(--sunk);padding:1px 8px;border-radius:6px}
+.pron .ar{font-size:1.35rem;font-weight:700;color:var(--accent)}
+.syl{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.syl s{text-decoration:none;font-size:1.05rem;padding:2px 10px;border-radius:8px;background:var(--sunk)}
+.syl s.st{background:var(--accent-soft);color:var(--accent);font-weight:700;box-shadow:inset 0 -2px 0 var(--accent)}
+.syl .gap{width:10px}
+.mean{font-size:1.1rem;font-weight:500}
+.tip{font-size:.92rem;color:var(--muted);border-right:3px solid var(--accent);padding-right:10px;margin:0}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:.92rem;
+  padding:7px 14px;border-radius:10px;cursor:pointer;min-height:40px}
+.btn svg{width:18px;height:18px;flex:0 0 auto}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.on{background:var(--good);border-color:var(--good);color:#fff}
+.btn.rec{background:var(--bad);border-color:var(--bad);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.result{font-size:.95rem;border-radius:10px;padding:8px 12px;background:var(--sunk)}
+.result .heard{font-family:var(--f-latin);direction:ltr;display:inline-block}
+.w-ok{color:var(--good);font-weight:700}.w-no{color:var(--bad);text-decoration:underline wavy}
+.legend{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 18px;font-size:.92rem}
+.legend h3{margin:0 0 6px;font-size:1rem}
+.legend dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:0}
+.legend dt{font-weight:700;color:var(--accent);font-size:1.1rem}
+.legend dd{margin:0;color:var(--muted)}
+.dialog{display:flex;flex-direction:column;gap:10px}
+.line{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:start}
+.who{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:700;background:var(--accent-soft);color:var(--accent);font-family:var(--f-latin)}
+.line.b .who{background:var(--sunk);color:var(--ink)}
+.bubble{background:var(--sunk);border-radius:14px;padding:10px 14px;min-width:0;display:flex;flex-direction:column;gap:2px}
+.bubble .target{font-size:1.2rem}
+.bubble .ar{color:var(--accent);font-weight:700}
+.bubble .mean{font-size:.98rem;color:var(--muted);font-weight:400}
+.bubble.playing{outline:2px solid var(--accent)}
+.ex{display:flex;flex-wrap:wrap;gap:8px}
+.exw{display:inline-flex;align-items:baseline;gap:8px;background:var(--sunk);border-radius:10px;padding:4px 6px 4px 12px;border:0;font:inherit;color:var(--ink);cursor:pointer}
+.exw b{font-family:var(--f-latin);direction:ltr}
+.exw em{font-style:normal;color:var(--accent);font-weight:700}
+.exw small{color:var(--muted)}
+.quiz{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:14px;align-items:stretch}
+.quiz .q{font-family:var(--f-latin);font-size:1.8rem;font-weight:700;direction:ltr;text-align:center;margin:0}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:460px){.opts{grid-template-columns:1fr}}
+.opt{border:2px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:1.05rem;padding:12px;border-radius:12px;cursor:pointer;text-align:center}
+.opt.ok{border-color:var(--good);background:color-mix(in srgb,var(--good) 15%,var(--surface))}
+.opt.no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--surface))}
+.score{display:flex;justify-content:space-between;color:var(--muted);font-size:.9rem;font-variant-numeric:tabular-nums}
+textarea{width:100%;min-height:90px;font:inherit;font-size:1.05rem;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);resize:vertical}
+.muted{color:var(--muted)}
+.note{font-size:.85rem;color:var(--muted);margin:12px 0 0}
+.hide{display:none!important}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<!--ARTIFACT-HEAD-END-->
+</head>
+<body>
+<!--ARTIFACT-BODY-START-->
+<div class="wrap">
+<header>
+  <div class="brand"><h1>لِسان</h1><p>تعلّم الكلام والنطق خطوة خطوة، وكل كلمة مكتوبة بحروف عربية</p></div>
+  <div class="langs" role="group" aria-label="اختر اللغة">
+    <button class="langbtn" data-l="de" aria-pressed="true" id="lang-de"><b>Deutsch</b><span>الألمانية</span></button>
+    <button class="langbtn" data-l="en" aria-pressed="false" id="lang-en"><b>English</b><span>الإنجليزية</span></button>
+  </div>
+  <div class="progress"><span id="progTxt">حفظت 0 من 0</span><div class="bar"><i id="progBar"></i></div></div>
+</header>
+<nav class="tabs" role="tablist">
+  <button class="tab" role="tab" data-v="lessons" aria-selected="true" id="tab-lessons">الدروس</button>
+  <button class="tab" role="tab" data-v="talk" aria-selected="false" id="tab-talk">محادثات</button>
+  <button class="tab" role="tab" data-v="sounds" aria-selected="false" id="tab-sounds">أصوات صعبة</button>
+  <button class="tab" role="tab" data-v="quiz" aria-selected="false" id="tab-quiz">اختبر نفسك</button>
+  <button class="tab" role="tab" data-v="ask" aria-selected="false" id="tab-ask">ترجم جملتك</button>
+</nav>
+<main id="view"></main>
+</div>
+<script>
+/* ===================== المحتوى =====================
+   كل عبارة: [النص, النطق بالعربية, المقاطع (* = المقطع المشدد، - بين المقاطع، مسافة بين الكلمات), المعنى, نصيحة اختيارية] */
+const DATA = {
+ de:{
+  name:"الألمانية", code:"de-DE", short:"de",
+  lessons:[
+   {id:"greet",title:"التحيات",items:[
+    ["Hallo","هالو","*ها-لو","مرحباً"],
+    ["Guten Morgen","گُوتِن مورگِن","*گُو-تِن *مور-گِن","صباح الخير","حرف G في الألمانية يُنطق دائماً مثل الجيم المصرية (گ)، وليس جيماً."],
+    ["Guten Tag","گُوتِن تاك","*گُو-تِن *تاك","نهارك سعيد (تحية النهار)","حرف g في آخر الكلمة يُنطق ك: Tag = تاك."],
+    ["Guten Abend","گُوتِن آبِنت","*گُو-تِن *آ-بِنت","مساء الخير","حرف d في آخر الكلمة يُنطق ت: Abend = آبِنت."],
+    ["Gute Nacht","گُوتِه ناخت","*گُو-تِه *ناخت","تصبح على خير","ch بعد a تُنطق خاء: Nacht = ناخت."],
+    ["Tschüss","تشُوس","*تشُوس","مع السلامة (بين الأصدقاء)","ü: قل «إي» وأنت تدوّر شفتيك كأنك تقول «أو»."],
+    ["Auf Wiedersehen","آوف ڤيدَر-زيئِن","آوف *ڤي-دَر-زي-ئِن","إلى اللقاء (رسمي)","W تُنطق ڤ (فاء مع اهتزاز)، و ie = ياء طويلة."],
+    ["Wie geht es dir?","ڤي گيت إس دير؟","ڤي *گيت إس *دير","كيف حالك؟"],
+    ["Mir geht es gut, danke.","مير گيت إس گُوت، دانكِه","مير *گيت إس *گُوت *دان-كِه","أنا بخير، شكراً"],
+    ["Danke schön","دانكِه شُون","*دان-كِه *شُون","شكراً جزيلاً","ö: قل «إيه» مع تدوير الشفتين."],
+    ["Bitte","بِتِّه","*بِت-تِه","من فضلك / عفواً"],
+    ["Entschuldigung","إنتشولديگونگ","إنت-*شُول-دي-گونگ","عذراً / لو سمحت","ng في الآخر: نون من الأنف بدون گ واضحة."]
+   ]},
+   {id:"me",title:"عرّف بنفسك",items:[
+    ["Ich heiße Ahmed.","إِش هايسِه أحمد","إِش *هاي-سِه *أح-مد","اسمي أحمد","ich: صوت بين «ش» و«خ» خفيفة، والشفاه مبتسمة. و ei = آي."],
+    ["Wie heißt du?","ڤي هايست دو؟","ڤي *هايست دو","ما اسمك؟","ß تُنطق سين."],
+    ["Ich komme aus Ägypten.","إِش كومِّه آوس إيگيپتِن","إِش *كوم-مِه آوس إي-*گيپ-تِن","أنا من مصر","ä = «إيه» مفتوحة."],
+    ["Ich bin zwanzig Jahre alt.","إِش بِن تسڤانتسِش يارِه آلت","إِش بِن *تسڤان-تسِش *يا-رِه *آلت","عمري عشرون سنة","z = تس، و J = ي."],
+    ["Ich wohne in Berlin.","إِش ڤونِه إن بيرلين","إِش *ڤو-نِه إن بير-*لين","أسكن في برلين","h بعد حرف العلة لا تُنطق، فقط تطيل الصوت."],
+    ["Ich lerne Deutsch.","إِش ليرنِه دويتش","إِش *لير-نِه *دويتش","أتعلم الألمانية","eu = أوي."],
+    ["Freut mich!","فرويت مِش","*فرويت مِش","تشرفت بمعرفتك"],
+    ["Ich spreche ein bisschen Deutsch.","إِش شپرِشِه آين بِسشِن دويتش","إِش *شپرِ-شِه آين *بِس-شِن *دويتش","أتكلم قليلاً من الألمانية","sp في أول الكلمة = شپ."]
+   ]},
+   {id:"num",title:"الأرقام",items:[
+    ["eins","آينس","*آينس","واحد (1)"],
+    ["zwei","تسڤاي","*تسڤاي","اثنان (2)","z = تس، و w = ڤ."],
+    ["drei","دراي","*دراي","ثلاثة (3)"],
+    ["vier","فير","*فير","أربعة (4)","v في الألمانية تُنطق ف."],
+    ["fünf","فُونف","*فُونف","خمسة (5)"],
+    ["sechs","زِكس","*زِكس","ستة (6)","s في أول الكلمة قبل حرف علة = ز، و chs = كس."],
+    ["sieben","زيبِن","*زي-بِن","سبعة (7)"],
+    ["acht","آخت","*آخت","ثمانية (8)"],
+    ["neun","نوين","*نوين","تسعة (9)"],
+    ["zehn","تسين","*تسين","عشرة (10)"]
+   ]},
+   {id:"daily",title:"عبارات يومية",items:[
+    ["Ja","يا","*يا","نعم"],
+    ["Nein","ناين","*ناين","لا"],
+    ["Ich verstehe nicht.","إِش فِرشتيئِه نِشت","إِش فِر-*شتي-ئِه *نِشت","لا أفهم","st في أول المقطع = شت."],
+    ["Können Sie das wiederholen?","كُونِن زي داس ڤيدَرهولِن؟","*كُو-نِن زي داس ڤي-دَر-*هو-لِن","هل يمكنك إعادة ذلك؟"],
+    ["Sprechen Sie Englisch?","شپرِشِن زي إنگليش؟","*شپرِ-شِن زي *إنگ-ليش","هل تتكلم الإنجليزية؟"],
+    ["Ich weiß nicht.","إِش ڤايس نِشت","إِش *ڤايس *نِشت","لا أعرف"],
+    ["Kein Problem.","كاين پروبليم","*كاين پرو-*بليم","لا مشكلة","P = پ (باء مع نفخة هواء)."],
+    ["Ich habe Hunger.","إِش هابِه هُونگَر","إِش *ها-بِه *هُون-گَر","أنا جائع","er في آخر الكلمة تُنطق «أَ» خفيفة تقريباً."]
+   ]},
+   {id:"shop",title:"المطعم والتسوق",items:[
+    ["Was kostet das?","ڤاس كوستِت داس؟","ڤاس *كوس-تِت داس","بكم هذا؟"],
+    ["Ich möchte einen Kaffee, bitte.","إِش مُوشتِه آينِن كافيه، بِتِّه","إِش *مُوش-تِه آي-نِن *كا-فيه *بِت-تِه","أريد قهوة من فضلك"],
+    ["Die Rechnung, bitte.","دي رِشنونگ، بِتِّه","دي *رِش-نونگ *بِت-تِه","الحساب من فضلك"],
+    ["Wasser","ڤاسَر","*ڤا-سَر","ماء"],
+    ["Brot","بروت","*بروت","خبز","R الألمانية من الحلق، قريبة من الغين الخفيفة."],
+    ["Das ist zu teuer.","داس إِست تسو تويَر","داس إِست تسو *تو-يَر","هذا غالٍ جداً"],
+    ["Kann ich mit Karte zahlen?","كان إِش مِت كارتِه تسالِن؟","كان إِش مِت *كار-تِه *تسا-لِن","هل يمكنني الدفع بالبطاقة؟"]
+   ]},
+   {id:"travel",title:"السفر والاتجاهات",items:[
+    ["Wo ist der Bahnhof?","ڤو إِست دير بانهوف؟","ڤو إِست دير *بان-هوف","أين محطة القطار؟"],
+    ["Wo ist die Toilette?","ڤو إِست دي تُوالِتِّه؟","ڤو إِست دي تُوا-*لِت-تِه","أين الحمّام؟"],
+    ["links","لِنكس","*لِنكس","يسار"],
+    ["rechts","رِشتس","*رِشتس","يمين"],
+    ["geradeaus","گِرادِه-آوس","گِ-را-دِه-*آوس","إلى الأمام مباشرة"],
+    ["Ich brauche Hilfe.","إِش براوخِه هِلفِه","إِش *براو-خِه *هِل-فِه","أحتاج مساعدة","au = آو، و ch بعدها = خ."],
+    ["Eine Fahrkarte nach München, bitte.","آينِه فاركارتِه ناخ مُونشِن، بِتِّه","آي-نِه *فار-كار-تِه ناخ *مُون-شِن *بِت-تِه","تذكرة إلى ميونخ من فضلك"]
+   ]}
+  ],
+  talks:[
+   {title:"في المقهى",lines:[
+    ["A","Guten Tag! Was möchten Sie?","گُوتِن تاك! ڤاس مُوشتِن زي؟","نهارك سعيد! ماذا تريد؟"],
+    ["B","Einen Kaffee, bitte.","آينِن كافيه، بِتِّه","قهوة من فضلك."],
+    ["A","Mit Milch?","مِت مِلش؟","مع حليب؟"],
+    ["B","Ja, gerne.","يا، گيرنِه","نعم، بكل سرور."],
+    ["A","Das macht drei Euro.","داس ماخت دراي أويرو","المبلغ ثلاثة يورو."],
+    ["B","Hier, bitte. Danke!","هير، بِتِّه. دانكِه!","تفضل. شكراً!"]
+   ]},
+   {title:"التعارف",lines:[
+    ["A","Hallo! Ich heiße Lena. Und du?","هالو! إِش هايسِه لينا. أُونت دو؟","مرحباً! اسمي لينا. وأنت؟"],
+    ["B","Ich heiße Omar.","إِش هايسِه عُمر","اسمي عمر."],
+    ["A","Woher kommst du?","ڤوهير كومست دو؟","من أين أنت؟"],
+    ["B","Ich komme aus Jordanien.","إِش كومِّه آوس يوردانيئِن","أنا من الأردن."],
+    ["A","Freut mich! Sprichst du Deutsch?","فرويت مِش! شپرِشست دو دويتش؟","تشرفت! هل تتكلم الألمانية؟"],
+    ["B","Ein bisschen. Ich lerne noch.","آين بِسشِن. إِش ليرنِه نوخ","قليلاً. ما زلت أتعلم."]
+   ]},
+   {title:"السؤال عن الطريق",lines:[
+    ["A","Entschuldigung, wo ist der Bahnhof?","إنتشولديگونگ، ڤو إِست دير بانهوف؟","عذراً، أين محطة القطار؟"],
+    ["B","Geradeaus und dann links.","گِرادِه-آوس أُونت دان لِنكس","إلى الأمام ثم يساراً."],
+    ["A","Ist es weit?","إِست إس ڤايت؟","هل هي بعيدة؟"],
+    ["B","Nein, nur fünf Minuten.","ناين، نُور فُونف مينوتِن","لا، خمس دقائق فقط."],
+    ["A","Vielen Dank!","فيلِن دانك!","شكراً جزيلاً!"]
+   ]}
+  ],
+  sounds:[
+   {t:"ch بعد a / o / u / au",ar:"خ",d:"تُنطق خاءً عربية مثل «خبز».",ex:[["Nacht","ناخت","ليلة"],["Buch","بوخ","كتاب"],["auch","آوخ","أيضاً"]]},
+   {t:"ch بعد i / e / ä / ü / ei / eu",ar:"ش خفيفة",d:"صوت بين الشين والخاء. ابتسم وقل «ش» بهمس خفيف من وسط اللسان. لا يوجد في العربية، فاكتبه ش.",ex:[["ich","إِش","أنا"],["nicht","نِشت","لا / ليس"],["Milch","مِلش","حليب"]]},
+   {t:"ü",ar:"يُو",d:"قل «إي» طويلة، ثم دوّر شفتيك للأمام كأنك ستقول «أو» دون أن تحرك لسانك.",ex:[["Tschüss","تشُوس","مع السلامة"],["fünf","فُونف","خمسة"],["über","يُوبَر","فوق / عن"]]},
+   {t:"ö",ar:"أُو مدورة",d:"قل «إيه» ثم دوّر شفتيك. مثل صوت eu في الفرنسية.",ex:[["schön","شُون","جميل"],["möchte","مُوشتِه","أودّ"],["Köln","كُولن","كولونيا"]]},
+   {t:"ä",ar:"إيه",d:"مثل الفتحة الممالة نحو الياء، كما في «بيت» باللهجة.",ex:[["Mädchen","ميدشِن","بنت"],["Käse","كيزِه","جبن"]]},
+   {t:"ei و ie",ar:"آي / إي",d:"قاعدة ذهبية: اقرأ الحرف الثاني. ei = آي، و ie = إي طويلة.",ex:[["nein","ناين","لا"],["drei","دراي","ثلاثة"],["vier","فير","أربعة"],["Liebe","ليبِه","حب"]]},
+   {t:"eu و äu",ar:"أوي",d:"كلاهما يُنطق «أوي».",ex:[["neun","نوين","تسعة"],["Deutsch","دويتش","ألماني"],["Häuser","هويزَر","بيوت"]]},
+   {t:"w و v",ar:"ڤ / ف",d:"w تُنطق ڤ (فاء بصوت اهتزاز)، و v تُنطق غالباً فاء عادية.",ex:[["Wasser","ڤاسَر","ماء"],["wo","ڤو","أين"],["Vater","فاتَر","أب"]]},
+   {t:"z",ar:"تس",d:"دائماً «تس» معاً بسرعة، ولا تُنطق زاياً أبداً.",ex:[["zehn","تسين","عشرة"],["Zeit","تسايت","وقت"]]},
+   {t:"s قبل حرف علة",ar:"ز",d:"في أول الكلمة أو بين حرفي علة تُنطق زاياً.",ex:[["Sie","زي","حضرتك"],["sieben","زيبِن","سبعة"],["Sonne","زونِّه","شمس"]]},
+   {t:"sch / sp / st",ar:"ش / شپ / شت",d:"sch = ش. وفي أول الكلمة sp = شپ و st = شت.",ex:[["Schule","شولِه","مدرسة"],["sprechen","شپرِشِن","يتكلم"],["Straße","شتراسِه","شارع"]]},
+   {t:"r",ar:"ر حلقية",d:"تخرج من آخر الحلق، قريبة من غين خفيفة جداً. وفي آخر الكلمة بعد حرف علة تكاد تختفي: er = «أَ».",ex:[["rot","روت","أحمر"],["Brot","بروت","خبز"],["Vater","فاتَر","أب"]]},
+   {t:"b / d / g في آخر الكلمة",ar:"پ / ت / ك",d:"تفقد صوتها في نهاية الكلمة.",ex:[["Tag","تاك","يوم"],["Hund","هُونت","كلب"],["gelb","گِلپ","أصفر"]]},
+   {t:"j",ar:"ي",d:"دائماً ياء.",ex:[["ja","يا","نعم"],["Jahr","يار","سنة"]]}
+  ]
+ },
+ en:{
+  name:"الإنجليزية", code:"en-US", short:"en",
+  lessons:[
+   {id:"greet",title:"التحيات",items:[
+    ["Hello","هَلُو","هَ-*لُو","مرحباً"],
+    ["Hi","هاي","*هاي","أهلاً (غير رسمي)"],
+    ["Good morning","گُود مورنِنگ","گُود *مور-نِنگ","صباح الخير","G = گ مثل الجيم المصرية."],
+    ["Good afternoon","گُود آفتَرنُون","گُود آف-تَر-*نُون","مساء الخير (بعد الظهر)"],
+    ["Good evening","گُود إيڤنِنگ","گُود *إيڤ-نِنگ","مساء الخير","V = ڤ: عض شفتك السفلى بخفة واصنع صوتاً."],
+    ["Good night","گُود نايت","گُود *نايت","تصبح على خير","gh في night لا تُنطق."],
+    ["How are you?","هاو آر يُو؟","*هاو آر *يُو","كيف حالك؟"],
+    ["I'm fine, thank you.","آيم فاين، ثانك يُو","آيم *فاين *ثانك يُو","أنا بخير، شكراً","th = ث: ضع طرف لسانك بين أسنانك."],
+    ["Nice to meet you.","نايس تُو ميت يُو","*نايس تُو *ميت يُو","تشرفت بمعرفتك"],
+    ["See you later.","سي يُو ليتَر","*سي يُو *لي-تَر","أراك لاحقاً","في اللهجة الأمريكية t بين حرفي علة تُنطق قريبة من «د» سريعة: ليدَر."],
+    ["Goodbye","گُود باي","گُود-*باي","مع السلامة"],
+    ["Excuse me","إكسكيُوز مي","إكس-*كيُوز مي","لو سمحت / عذراً"]
+   ]},
+   {id:"me",title:"عرّف بنفسك",items:[
+    ["My name is Ahmed.","ماي نيم إز أحمد","ماي *نيم إز *أح-مد","اسمي أحمد","e في آخر name لا تُنطق، لكنها تجعل a تُقرأ «إي»."],
+    ["What's your name?","ووتس يور نيم؟","*ووتس يور *نيم","ما اسمك؟"],
+    ["I'm from Egypt.","آيم فروم إيجِپت","آيم فروم *إي-جِپت","أنا من مصر","P = پ مع نفخة هواء، وليست باء."],
+    ["I'm twenty years old.","آيم توِنتي ييرز أولد","آيم *توِن-تي *ييرز *أولد","عمري عشرون سنة"],
+    ["I live in London.","آي لِڤ إن لاندَن","آي *لِڤ إن *لان-دَن","أسكن في لندن","o في London تُنطق قريبة من «آ» قصيرة."],
+    ["I'm learning English.","آيم لِرنِنگ إنگلِش","آيم *لِر-نِنگ *إنگ-لِش","أتعلم الإنجليزية"],
+    ["Nice to meet you too.","نايس تُو ميت يُو تُو","*نايس تُو *ميت يُو *تُو","وأنا أيضاً تشرفت"],
+    ["I speak a little English.","آي سپيك أ لِتِل إنگلِش","آي *سپيك أ *لِ-تِل *إنگ-لِش","أتكلم قليلاً من الإنجليزية"]
+   ]},
+   {id:"num",title:"الأرقام",items:[
+    ["one","وَن","*وَن","واحد (1)","تُكتب one وتُنطق «وَن»."],
+    ["two","تُو","*تُو","اثنان (2)","w لا تُنطق."],
+    ["three","ثري","*ثري","ثلاثة (3)","th = ث، وليست «ت» أو «س»."],
+    ["four","فور","*فور","أربعة (4)"],
+    ["five","فايڤ","*فايڤ","خمسة (5)"],
+    ["six","سِكس","*سِكس","ستة (6)"],
+    ["seven","سِڤِن","*سِ-ڤِن","سبعة (7)"],
+    ["eight","إيت","*إيت","ثمانية (8)","gh لا تُنطق."],
+    ["nine","ناين","*ناين","تسعة (9)"],
+    ["ten","تِن","*تِن","عشرة (10)"]
+   ]},
+   {id:"daily",title:"عبارات يومية",items:[
+    ["Yes","يِس","*يِس","نعم"],
+    ["No","نُو","*نُو","لا"],
+    ["I don't understand.","آي دونت أندَرستاند","آي *دونت أن-دَر-*ستاند","لا أفهم"],
+    ["Can you repeat that, please?","كان يُو ريپيت ذات، پليز؟","كان يُو ري-*پيت *ذات *پليز","هل يمكنك إعادة ذلك من فضلك؟","th في that = ذ."],
+    ["Do you speak Arabic?","دو يُو سپيك أرابِك؟","دو يُو *سپيك *أ-را-بِك","هل تتكلم العربية؟"],
+    ["I don't know.","آي دونت نُو","آي *دونت *نُو","لا أعرف","k في أول know لا تُنطق."],
+    ["No problem.","نُو پرابلَم","*نُو *پرا-بلَم","لا مشكلة"],
+    ["I'm hungry.","آيم هانگري","آيم *هان-گري","أنا جائع"]
+   ]},
+   {id:"shop",title:"المطعم والتسوق",items:[
+    ["How much is this?","هاو ماتش إز ذِس؟","هاو *ماتش إز *ذِس","بكم هذا؟"],
+    ["I'd like a coffee, please.","آيد لايك أ كوفي، پليز","آيد *لايك أ *كو-في *پليز","أريد قهوة من فضلك"],
+    ["The bill, please.","ذَ بِل، پليز","ذَ *بِل *پليز","الحساب من فضلك"],
+    ["Water","ووتَر","*وو-تَر","ماء","الأمريكيون ينطقونها قريبة من «وودَر»."],
+    ["Bread","برِد","*برِد","خبز","ea هنا تُنطق «إِ» قصيرة."],
+    ["It's too expensive.","إتس تُو إكسپِنسِڤ","إتس *تُو إكس-*پِن-سِڤ","هذا غالٍ جداً"],
+    ["Can I pay by card?","كان آي پاي باي كارد؟","كان آي *پاي باي *كارد","هل يمكنني الدفع بالبطاقة؟"]
+   ]},
+   {id:"travel",title:"السفر والاتجاهات",items:[
+    ["Where is the station?","وير إز ذَ ستيشَن؟","*وير إز ذَ *ستي-شَن","أين المحطة؟","tion في آخر الكلمة = «شَن»."],
+    ["Where is the bathroom?","وير إز ذَ باثروم؟","*وير إز ذَ *باث-روم","أين الحمّام؟"],
+    ["Left","لِفت","*لِفت","يسار"],
+    ["Right","رايت","*رايت","يمين / صحيح","gh لا تُنطق."],
+    ["Straight ahead","ستريت أَهِد","*ستريت أَ-*هِد","إلى الأمام مباشرة"],
+    ["I need help.","آي نيد هِلپ","آي *نيد *هِلپ","أحتاج مساعدة"],
+    ["One ticket to London, please.","وَن تِكِت تُو لاندَن، پليز","*وَن *تِ-كِت تُو *لان-دَن *پليز","تذكرة إلى لندن من فضلك"]
+   ]}
+  ],
+  talks:[
+   {title:"في المقهى",lines:[
+    ["A","Hi! What can I get you?","هاي! ووت كان آي گِت يُو؟","أهلاً! ماذا أحضر لك؟"],
+    ["B","A coffee, please.","أ كوفي، پليز","قهوة من فضلك."],
+    ["A","With milk?","وِذ مِلك؟","مع حليب؟"],
+    ["B","Yes, please.","يِس، پليز","نعم، من فضلك."],
+    ["A","That's three dollars.","ذاتس ثري دولَرز","المبلغ ثلاثة دولارات."],
+    ["B","Here you go. Thanks!","هير يُو گُو. ثانكس!","تفضل. شكراً!"]
+   ]},
+   {title:"التعارف",lines:[
+    ["A","Hello! My name is Sarah. What's your name?","هَلُو! ماي نيم إز سارا. ووتس يور نيم؟","مرحباً! اسمي سارة. ما اسمك؟"],
+    ["B","I'm Omar.","آيم عُمر","أنا عمر."],
+    ["A","Where are you from?","وير آر يُو فروم؟","من أين أنت؟"],
+    ["B","I'm from Jordan.","آيم فروم جوردَن","أنا من الأردن."],
+    ["A","Nice to meet you! Do you speak English?","نايس تُو ميت يُو! دو يُو سپيك إنگلِش؟","تشرفت! هل تتكلم الإنجليزية؟"],
+    ["B","A little. I'm still learning.","أ لِتِل. آيم ستِل لِرنِنگ","قليلاً. ما زلت أتعلم."]
+   ]},
+   {title:"السؤال عن الطريق",lines:[
+    ["A","Excuse me, where is the station?","إكسكيُوز مي، وير إز ذَ ستيشَن؟","لو سمحت، أين المحطة؟"],
+    ["B","Go straight ahead, then turn left.","گُو ستريت أَهِد، ذِن تِرن لِفت","امشِ إلى الأمام، ثم انعطف يساراً."],
+    ["A","Is it far?","إز إت فار؟","هل هي بعيدة؟"],
+    ["B","No, only five minutes.","نُو، أونلي فايڤ مِنِتس","لا، خمس دقائق فقط."],
+    ["A","Thank you so much!","ثانك يُو سو ماتش!","شكراً جزيلاً!"]
+   ]}
+  ],
+  sounds:[
+   {t:"th في think",ar:"ث",d:"ضع طرف لسانك بين أسنانك وانفخ. ليست «ت» ولا «س».",ex:[["think","ثِنك","يفكر"],["three","ثري","ثلاثة"],["thank you","ثانك يُو","شكراً"]]},
+   {t:"th في this",ar:"ذ",d:"نفس الوضع لكن مع صوت، مثل الذال العربية.",ex:[["this","ذِس","هذا"],["the","ذَ","أداة التعريف"],["mother","ماذَر","أم"]]},
+   {t:"p و b",ar:"پ / ب",d:"p ليست باء! أغلق شفتيك ثم افتحهما بنفخة هواء قوية بلا صوت. جرّب ورقة أمام فمك: تتحرك مع p فقط.",ex:[["park","پارك","حديقة"],["bark","بارك","نباح"],["pen","پِن","قلم"]]},
+   {t:"v و f",ar:"ڤ / ف",d:"v: عض شفتك السفلى بخفة واصنع صوتاً (ڤ). f بدون صوت.",ex:[["very","ڤِري","جداً"],["have","هاڤ","يملك"],["fan","فان","مروحة"]]},
+   {t:"w",ar:"و",d:"دوّر شفتيك كأنك ستقبّل، ثم افتحهما. لا تعض شفتك (هذا v).",ex:[["we","وي","نحن"],["water","ووتَر","ماء"],["west","وِست","غرب"]]},
+   {t:"i القصيرة و ee الطويلة",ar:"إِ / إي",d:"الفرق يغيّر المعنى! i قصيرة ومسترخية، و ee طويلة والشفاه مبتسمة.",ex:[["ship","شِپ","سفينة"],["sheep","شيپ","خروف"],["sit","سِت","يجلس"],["seat","سيت","مقعد"]]},
+   {t:"r الإنجليزية",ar:"ر بلا تكرار",d:"لا تضرب اللسان في سقف الفم كالراء العربية. اسحب لسانك للخلف قليلاً دون أن يلمس شيئاً.",ex:[["red","رِد","أحمر"],["car","كار","سيارة"],["right","رايت","يمين"]]},
+   {t:"حروف صامتة",ar:"لا تُنطق",d:"بعض الحروف تُكتب ولا تُقرأ: k قبل n، و w قبل r، و gh في وسط الكلمة، و h أحياناً.",ex:[["know","نُو","يعرف"],["write","رايت","يكتب"],["night","نايت","ليل"],["hour","آوَر","ساعة"]]},
+   {t:"ng",ar:"نگ خفيفة",d:"صوت من الأنف، بدون گ واضحة في الآخر.",ex:[["sing","سِنگ","يغني"],["morning","مورنِنگ","صباح"]]},
+   {t:"نهاية ed-",ar:"ت / د / إد",d:"بعد الأصوات المهموسة = ت، وبعد المجهورة = د، وبعد t أو d = إد.",ex:[["worked","وِركت","عمل"],["played","پليد","لعب"],["wanted","وونتِد","أراد"]]},
+   {t:"الحرف الخامل (schwa)",ar:"أَ خفيفة",d:"أكثر صوت شائع في الإنجليزية: حركة قصيرة جداً مسترخية في المقاطع غير المشددة.",ex:[["about","أَباوت","عن"],["banana","بَنانَ","موز"],["the","ذَ","الـ"]]},
+   {t:"tion و sion",ar:"شَن / ژَن",d:"tion في آخر الكلمة = «شَن».",ex:[["station","ستيشَن","محطة"],["nation","نيشَن","أمة"],["vision","ڤِژَن","رؤية"]]}
+  ]
+ }
+};
+
+/* ===================== الحالة ===================== */
+const S = {lang:"de", view:"lessons", cat:"greet", learned:{}, quiz:null};
+function load(){ try{ const j=JSON.parse(localStorage.getItem("lisan")||"{}"); Object.assign(S,{lang:j.lang||"de",learned:j.learned||{}}); }catch(e){} }
+function save(){ try{ localStorage.setItem("lisan",JSON.stringify({lang:S.lang,learned:S.learned})); }catch(e){} }
+const L = () => DATA[S.lang];
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ICON = {
+  play:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>',
+  slow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/><path d="M10 2h4"/></svg>',
+  mic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v5"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>'
+};
+
+/* ===================== الصوت: النطق ===================== */
+let tts=null, dict=null, sample=null;
+if (window.claude && claude.use){
+  claude.use("tts").then(t=>{tts=t}).catch(()=>{});
+  claude.use("dictation").then(d=>{dict=d; if(d){ d.onPartial(e=>onHeard(e.text,false)); d.onFinal(e=>onHeard(e.text,true)); d.onState(e=>{ if(e.state==="idle") endListen(); }); } render(); }).catch(()=>{});
+  claude.use("sample").then(s=>{sample=s; if(S.view==="ask") render();}).catch(()=>{});
+}
+function browserVoice(code){
+  if(!("speechSynthesis" in window)) return null;
+  const vs=speechSynthesis.getVoices(); const p=code.slice(0,2);
+  return vs.find(v=>v.lang===code) || vs.find(v=>v.lang && v.lang.startsWith(p)) || null;
+}
+if("speechSynthesis" in window){ speechSynthesis.onvoiceschanged=()=>{}; speechSynthesis.getVoices(); }
+function speakBrowser(text,rate){
+  return new Promise((res,rej)=>{
+    if(!("speechSynthesis" in window)) return rej();
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text); u.lang=L().code; u.rate=rate;
+    const v=browserVoice(L().code); if(v) u.voice=v;
+    u.onend=()=>res(); u.onerror=()=>rej(); speechSynthesis.speak(u);
+  });
+}
+async function say(text,slow){
+  const rate = slow?0.7:0.95;
+  // صوت المتصفح أولاً إذا عنده صوت للغة (أدق للألمانية)، وإلا صوت Claude
+  if(browserVoice(L().code)){ try{ await speakBrowser(text,rate); return; }catch(e){} }
+  if(tts){ try{ await tts.speak(text,{language:L().short,rate}); return; }catch(e){} }
+  try{ await speakBrowser(text,rate); }catch(e){ toast("لا يوجد صوت متاح في هذا المتصفح. جرّب Chrome."); }
+}
+
+/* ===================== الميكروفون: تمرين النطق ===================== */
+let listening=null; // {idx, target, final:""}
+let rec=null;
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+function canListen(){ return !!dict || !!SR; }
+function startListen(idx,target){
+  if(listening){ stopListen(); return; }
+  listening={idx,target,final:"",partial:""};
+  showResult(idx,'<span class="muted">أنا أسمعك… انطق الجملة الآن</span>');
+  setRecBtn(idx,true);
+  if(dict){
+    dict.start({language:L().short}).catch(e=>{
+      if(SR) return startSR();
+      showResult(idx, e&&e.code==="not_granted" ? "لم يُسمح باستخدام الميكروفون." : "الميكروفون غير متاح الآن."); listening=null; setRecBtn(idx,false);
+    });
+  } else startSR();
+}
+function startSR(){
+  try{
+    rec=new SR(); rec.lang=L().code; rec.interimResults=true; rec.maxAlternatives=1;
+    rec.onresult=e=>{ let f="",p=""; for(const r of e.results){ (r.isFinal? (f+=r[0].transcript+" ") : (p+=r[0].transcript)); } if(f) onHeard(f.trim(),true,true); else onHeard(p,false); };
+    rec.onend=()=>endListen(); rec.onerror=()=>endListen();
+    rec.start();
+  }catch(e){ endListen(); }
+}
+function stopListen(){ if(dict && dict.active && dict.active()) dict.stop().catch(()=>{}); if(rec){ try{rec.stop()}catch(e){} } }
+function onHeard(text,isFinal,replace){
+  if(!listening) return;
+  if(isFinal){ listening.final = replace? text : (listening.final+" "+text).trim(); listening.partial=""; }
+  else listening.partial=text;
+  const shown=(listening.final+" "+listening.partial).trim();
+  showResult(listening.idx,'سمعت: <span class="heard">'+esc(shown||"…")+'</span>');
+  if(isFinal && dict) stopListen();
+}
+function endListen(){
+  if(!listening) return; const {idx,target}=listening; const heard=(listening.final||listening.partial||"").trim();
+  listening=null; rec=null; setRecBtn(idx,false);
+  if(!heard){ showResult(idx,"لم أسمع شيئاً. اضغط «انطق أنت» وتكلم بوضوح قريباً من الميكروفون."); return; }
+  showResult(idx, grade(target,heard));
+}
+const norm = s => s.toLowerCase().replace(/ß/g,"ss").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9' ]/g," ").replace(/\s+/g," ").trim();
+const NUMW = {"1":"eins one","2":"zwei two","3":"drei three","4":"vier four","5":"funf five","6":"sechs six","7":"sieben seven","8":"acht eight","9":"neun nine","10":"zehn ten"};
+function grade(target,heard){
+  const tw=norm(target).split(" "); let hw=norm(heard).split(" ").flatMap(w=>NUMW[w]?NUMW[w].split(" "):[w]);
+  const hs=new Set(hw); let ok=0;
+  const words=target.replace(/[?!.,]/g,"").split(/\s+/).map((w,i)=>{ const hit=hs.has(tw[i]); if(hit) ok++; return '<span class="'+(hit?"w-ok":"w-no")+'">'+esc(w)+'</span>'; });
+  const pct=Math.round(ok/tw.length*100);
+  const msg = pct>=90?"ممتاز! نطقك واضح.": pct>=60?"جيد جداً، ركّز على الكلمات المسطّرة.":"حاول مرة أخرى ببطء. استمع أولاً بالسرعة البطيئة.";
+  return '<b>'+pct+'%</b> — '+msg+'<br><span class="heard" dir="ltr">'+words.join(" ")+'</span><br><span class="muted">سمعت: </span><span class="heard">'+esc(heard)+'</span>';
+}
+function showResult(idx,html){ const el=document.getElementById("res-"+idx); if(el){ el.classList.remove("hide"); el.innerHTML=html; } }
+function setRecBtn(idx,on){ const b=document.getElementById("rec-"+idx); if(b){ b.classList.toggle("rec",on); b.lastChild.textContent=on?" توقف":" انطق أنت"; } }
+
+/* ===================== العرض ===================== */
+function sylHTML(s){
+  return s.split(" ").map(w=>w.split("-").map(x=>x.startsWith("*")?'<s class="st">'+esc(x.slice(1))+'</s>':'<s>'+esc(x)+'</s>').join("")).join('<span class="gap"></span>');
+}
+function allItems(){ return L().lessons.flatMap(l=>l.items.map(it=>({it,key:S.lang+":"+it[0]}))); }
+function progress(){
+  const all=allItems(); const n=all.filter(x=>S.learned[x.key]).length;
+  document.getElementById("progTxt").textContent="حفظت "+n+" من "+all.length+" في "+L().name;
+  document.getElementById("progBar").style.width=(all.length? n/all.length*100:0)+"%";
+}
+function card(it,idx){
+  const key=S.lang+":"+it[0]; const done=!!S.learned[key];
+  return '<article class="card'+(done?" learned":"")+'">'+
+   '<p class="target" lang="'+S.lang+'">'+esc(it[0])+'</p>'+
+   '<div class="pron"><span class="lbl">النطق</span><span class="ar">'+esc(it[1])+'</span></div>'+
+   '<div class="syl" aria-label="المقاطع">'+sylHTML(it[2])+'</div>'+
+   '<div class="mean">'+esc(it[3])+'</div>'+
+   (it[4]?'<p class="tip">'+esc(it[4])+'</p>':'')+
+   '<div class="actions">'+
+    '<button class="btn primary" data-say="'+idx+'">'+ICON.play+' استمع</button>'+
+    '<button class="btn" data-slow="'+idx+'">'+ICON.slow+' ببطء</button>'+
+    (canListen()?'<button class="btn" id="rec-'+idx+'" data-rec="'+idx+'">'+ICON.mic+'<span> انطق أنت</span></button>':'')+
+    '<button class="btn'+(done?" on":"")+'" data-learn="'+idx+'">'+ICON.check+' '+(done?"حفظتها":"حفظتها؟")+'</button>'+
+   '</div><div class="result hide" id="res-'+idx+'"></div></article>';
+}
+let current=[]; // العبارات الظاهرة الآن
+function vLessons(){
+  const ls=L().lessons; const lesson=ls.find(l=>l.id===S.cat)||ls[0];
+  current=lesson.items;
+  return '<div class="chips">'+ls.map(l=>'<button class="chip" data-cat="'+l.id+'" aria-pressed="'+(l.id===lesson.id)+'">'+l.title+'</button>').join("")+'</div>'+
+   '<p class="lead">اضغط «استمع» ثم «ببطء»، واقرأ النطق العربي. المقطع الملوّن هو المقطع الذي تضغط عليه بصوتك.'+(canListen()?' بعدها اضغط «انطق أنت» لأقيّم نطقك.':'')+'</p>'+
+   '<div class="cards">'+lesson.items.map(card).join("")+'</div>'+legend();
+}
+function legend(){
+  return '<aside class="legend" style="margin-top:16px"><h3>حروف خاصة في النطق العربي</h3><dl>'+
+   '<dt>پ</dt><dd>P: مثل الباء لكن بنفخة هواء بلا صوت</dd>'+
+   '<dt>ڤ</dt><dd>V: مثل الفاء لكن مع اهتزاز الصوت</dd>'+
+   '<dt>گ</dt><dd>G: مثل الجيم المصرية في «جميل»</dd>'+
+   '<dt>ژ</dt><dd>مثل الجيم الشامية الخفيفة في «جاري»</dd>'+
+   '<dt>ـِ ـُ</dt><dd>الكسرة والضمة القصيرة توضح الحركة المقصودة</dd></dl></aside>';
+}
+function vTalk(){
+  current=[];
+  return '<p class="lead">محادثات قصيرة من الحياة اليومية. اضغط على أي سطر لتسمعه، أو شغّل المحادثة كاملة.</p>'+
+   L().talks.map((t,ti)=>'<section class="card"><div class="actions" style="justify-content:space-between;align-items:center"><h3 style="margin:0">'+t.title+'</h3>'+
+   '<button class="btn primary" data-talk="'+ti+'">'+ICON.play+' شغّل المحادثة</button></div><div class="dialog">'+
+   t.lines.map((l,li)=>'<div class="line '+(l[0]==="B"?"b":"")+'"><div class="who">'+l[0]+'</div>'+
+     '<div class="bubble" role="button" tabindex="0" id="ln-'+ti+'-'+li+'" data-line="'+ti+'-'+li+'"><span class="target" lang="'+S.lang+'">'+esc(l[1])+'</span>'+
+     '<span class="ar">'+esc(l[2])+'</span><span class="mean">'+esc(l[3])+'</span></div></div>').join("")+
+   '</div></section>').join('<div style="height:14px"></div>');
+}
+function vSounds(){
+  return '<p class="lead">هذه هي الأصوات التي يخطئ فيها العرب غالباً. اضغط على أي كلمة لتسمعها.</p><div class="cards">'+
+   L().sounds.map(s=>'<article class="card"><div class="pron"><span class="target" style="font-size:1.3rem">'+esc(s.t)+'</span><span class="ar">= '+esc(s.ar)+'</span></div>'+
+     '<p class="tip">'+esc(s.d)+'</p><div class="ex">'+s.ex.map(e=>'<button class="exw" data-word="'+esc(e[0])+'"><b>'+esc(e[0])+'</b><em>'+esc(e[1])+'</em><small>'+esc(e[2])+'</small></button>').join("")+'</div></article>').join("")+'</div>';
+}
+function newQ(){
+  const all=allItems().map(x=>x.it); const pick=all[Math.floor(Math.random()*all.length)];
+  const others=all.filter(x=>x[3]!==pick[3]).sort(()=>Math.random()-.5).slice(0,3);
+  const opts=[pick,...others].sort(()=>Math.random()-.5);
+  S.quiz={...(S.quiz||{ok:0,total:0}),item:pick,opts,answered:null,hidden:S.quiz?S.quiz.hidden:false};
+}
+function vQuiz(){
+  if(!S.quiz||!S.quiz.item||!allItems().some(x=>x.it===S.quiz.item)) newQ();
+  const q=S.quiz;
+  return '<div class="quiz"><div class="score"><span>اختر المعنى الصحيح</span><span>'+q.ok+' / '+q.total+'</span></div>'+
+   '<p class="q" lang="'+S.lang+'">'+(q.hidden&&!q.answered?'؟ ؟ ؟':esc(q.item[0]))+'</p>'+
+   '<div class="actions" style="justify-content:center"><button class="btn primary" id="qplay">'+ICON.play+' استمع</button>'+
+   '<button class="btn" id="qhide">'+(q.hidden?"أظهر الكلمة":"اختبار بالسمع فقط")+'</button></div>'+
+   '<div class="opts">'+q.opts.map((o,i)=>{ let c=""; if(q.answered!=null){ if(o===q.item) c=" ok"; else if(i===q.answered) c=" no"; } return '<button class="opt'+c+'" data-opt="'+i+'" '+(q.answered!=null?"disabled":"")+'>'+esc(o[3])+'</button>'; }).join("")+'</div>'+
+   (q.answered!=null?'<div class="pron" style="justify-content:center"><span class="lbl">النطق</span><span class="ar">'+esc(q.item[1])+'</span></div><button class="btn primary" id="qnext" style="align-self:center">السؤال التالي</button>':'')+
+   '</div>';
+}
+let askState={busy:false,res:null,err:null,text:""};
+function vAsk(){
+  if(!sample) return '<div class="card"><h3 style="margin:0">ترجم أي جملة</h3><p class="muted" style="margin:0">هذه الميزة تعمل عند فتح التطبيق داخل Claude، حيث يترجم Claude جملتك ويكتب نطقها بالعربية. في هذه الأثناء يمكنك استخدام الدروس والمحادثات بالكامل.</p></div>';
+  current = askState.res? [askState.res.card] : [];
+  return '<div class="card"><h3 style="margin:0">اكتب أي جملة بالعربية أو بال'+L().name.replace("ال","")+'</h3>'+
+   '<p class="muted" style="margin:0">سأترجمها إلى '+L().name+'، وأكتب لك نطقها بالحروف العربية، وأقسّمها لمقاطع، وأشرح الكلمات.</p>'+
+   '<textarea id="askIn" placeholder="مثال: أين أقرب صيدلية؟">'+esc(askState.text)+'</textarea>'+
+   '<div class="actions"><button class="btn primary" id="askGo" '+(askState.busy?"disabled":"")+'>'+(askState.busy?"أترجم الآن…":"ترجم وعلّمني النطق")+'</button></div>'+
+   (askState.err?'<p class="tip" style="border-color:var(--bad)">'+esc(askState.err)+'</p>':'')+'</div>'+
+   (askState.res? '<div class="cards" style="margin-top:14px">'+card(askState.res.card,0)+
+     (askState.res.words&&askState.res.words.length?'<article class="card"><h3 style="margin:0">الكلمات</h3><div class="ex">'+askState.res.words.map(w=>'<button class="exw" data-word="'+esc(w.w)+'"><b>'+esc(w.w)+'</b><em>'+esc(w.pron)+'</em><small>'+esc(w.meaning)+'</small></button>').join("")+'</div></article>':'')+'</div>' : '');
+}
+async function doAsk(){
+  const text=(document.getElementById("askIn").value||"").trim(); askState.text=text;
+  if(!text){ askState.err="اكتب جملة أولاً."; render(); return; }
+  askState={...askState,busy:true,err:null}; render();
+  const lang=L().name;
+  const prompt='أنت أستاذ لغات لطلاب عرب مبتدئين. الطالب كتب: «'+text+'».\n'+
+   'إذا كانت الجملة بالعربية فترجمها إلى '+lang+' بأسلوب طبيعي بسيط. إذا كانت ب'+lang+' فصحّحها إن لزم واشرحها.\n'+
+   'أعد JSON فقط بهذا الشكل:\n{"target":"الجملة ب'+lang+'","pron":"نطقها بحروف عربية مع الحركات، استخدم پ للحرف P و ڤ للحرف V و گ للحرف G","syll":"المقاطع بالحروف العربية، افصل المقاطع بشرطة - والكلمات بمسافة، وضع * قبل المقطع المشدد في كل كلمة","meaning":"المعنى بالعربية","tip":"نصيحة نطق واحدة قصيرة بالعربية لأصعب صوت في الجملة","words":[{"w":"كلمة","pron":"نطقها بالعربية","meaning":"معناها"}]}';
+  try{
+    const r=await sample.json(prompt,{modelTier:"default"});
+    askState.res={card:[r.target,r.pron,r.syll||r.pron,r.meaning,r.tip],words:r.words||[]};
+  }catch(e){ askState.err = e&&e.code==="not_granted"?"لم يُسمح بهذه الميزة.": e&&e.code==="rate_limited"?"طلبات كثيرة، انتظر قليلاً ثم حاول.":"تعذرت الترجمة الآن، حاول مرة أخرى."; }
+  askState.busy=false; render();
+}
+let toastT;
+function toast(m){ let t=document.getElementById("toast"); if(!t){ t=document.createElement("div"); t.id="toast"; t.style.cssText="position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;z-index:20;max-width:90vw"; document.body.appendChild(t);} t.textContent=m; t.hidden=false; clearTimeout(toastT); toastT=setTimeout(()=>t.hidden=true,3500); }
+
+function render(){
+  document.body.classList.toggle("lang-en",S.lang==="en");
+  document.querySelectorAll(".langbtn").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===S.lang));
+  document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===S.view));
+  const v={lessons:vLessons,talk:vTalk,sounds:vSounds,quiz:vQuiz,ask:vAsk}[S.view]();
+  document.getElementById("view").innerHTML=v; progress();
+}
+
+/* ===================== التفاعل ===================== */
+let talkRun=0;
+async function playTalk(ti){
+  const run=++talkRun; const lines=L().talks[ti].lines;
+  for(let i=0;i<lines.length;i++){
+    if(run!==talkRun) return;
+    const el=document.getElementById("ln-"+ti+"-"+i); el&&el.classList.add("playing");
+    await say(lines[i][1],false); el&&el.classList.remove("playing");
+    await new Promise(r=>setTimeout(r,350));
+  }
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button,[data-line]"); if(!b) return; const d=b.dataset;
+  if(d.l){ S.lang=d.l; S.cat=L().lessons[0].id; S.quiz=null; askState.res=null; save(); render(); return; }
+  if(d.v){ S.view=d.v; render(); return; }
+  if(d.cat){ S.cat=d.cat; render(); return; }
+  if(d.say!=null) return say(current[+d.say][0],false);
+  if(d.slow!=null) return say(current[+d.slow][0],true);
+  if(d.rec!=null) return startListen(+d.rec,current[+d.rec][0]);
+  if(d.learn!=null){ const k=S.lang+":"+current[+d.learn][0]; if(S.learned[k]) delete S.learned[k]; else S.learned[k]=1; save(); render(); return; }
+  if(d.word) return say(d.word,false);
+  if(d.talk!=null) return playTalk(+d.talk);
+  if(d.line){ const [ti,li]=d.line.split("-").map(Number); talkRun++; return say(L().talks[ti].lines[li][1],false); }
+  if(d.opt!=null){ const q=S.quiz; q.answered=+d.opt; q.total++; if(q.opts[+d.opt]===q.item) q.ok++; render(); say(q.item[0],false); return; }
+  if(b.id==="qplay") return say(S.quiz.item[0],false);
+  if(b.id==="qhide"){ S.quiz.hidden=!S.quiz.hidden; render(); return; }
+  if(b.id==="qnext"){ newQ(); render(); if(S.quiz.hidden) say(S.quiz.item[0],false); return; }
+  if(b.id==="askGo") return doAsk();
+});
+document.addEventListener("keydown",e=>{ if((e.key==="Enter"||e.key===" ") && e.target.dataset && e.target.dataset.line){ e.preventDefault(); e.target.click(); } });
+document.addEventListener("input",e=>{ if(e.target.id==="askIn") askState.text=e.target.value; });
+load(); render();
+</script>
+<!--ARTIFACT-BODY-END-->
+</body>
+</html>
