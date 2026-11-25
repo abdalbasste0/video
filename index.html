@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1f5eff">
+  <meta name="description" content="مسح المستندات بالكاميرا وتحويل الصور إلى PDF مباشرة على جهازك">
+  <title>ماسح PDF</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- الشاشة الرئيسية -->
+  <section id="home" class="screen active">
+    <header class="topbar">
+      <h1>📄 ماسح PDF</h1>
+      <button id="clearAll" class="ghost small" hidden>مسح الكل</button>
+    </header>
+
+    <main>
+      <div id="empty" class="empty">
+        <div class="empty-icon">📷</div>
+        <h2>ابدأ بمسح مستند</h2>
+        <p>صوّر الورقة أو اختر صوراً من المعرض، وسيتم قص الحواف وتحسين الصورة تلقائياً، ثم حوّلها إلى ملف PDF.</p>
+        <p class="note">🔒 كل المعالجة تتم على جهازك، ولا تُرفع أي صورة إلى الإنترنت.</p>
+      </div>
+      <ol id="pages" class="pages"></ol>
+    </main>
+
+    <footer class="actions">
+      <label class="btn primary">
+        📷 تصوير
+        <input id="camInput" type="file" accept="image/*" capture="environment" hidden>
+      </label>
+      <label class="btn">
+        🖼️ المعرض
+        <input id="galInput" type="file" accept="image/*" multiple hidden>
+      </label>
+      <button id="exportBtn" class="btn success" disabled>⬇️ PDF</button>
+    </footer>
+  </section>
+
+  <!-- شاشة التحرير -->
+  <section id="editor" class="screen">
+    <header class="topbar">
+      <button id="edCancel" class="ghost">✕ إلغاء</button>
+      <h1 id="edTitle">تعديل الصفحة</h1>
+      <button id="edSave" class="ghost strong">✓ حفظ</button>
+    </header>
+
+    <div class="tabs">
+      <button data-step="crop" class="tab active">✂️ القص</button>
+      <button data-step="filter" class="tab">🎨 الفلتر</button>
+    </div>
+
+    <div id="cropStage" class="stage">
+      <div id="cropWrap" class="crop-wrap">
+        <canvas id="cropCanvas"></canvas>
+        <svg id="cropSvg"></svg>
+      </div>
+      <canvas id="loupe" class="loupe" width="110" height="110" hidden></canvas>
+    </div>
+    <div id="filterStage" class="stage" hidden>
+      <canvas id="previewCanvas"></canvas>
+    </div>
+
+    <div id="cropTools" class="toolbar">
+      <button id="autoBtn" class="chip">🪄 كشف تلقائي</button>
+      <button id="fullBtn" class="chip">⬜ الصورة كاملة</button>
+    </div>
+    <div id="filterTools" class="toolbar" hidden>
+      <button data-filter="enhance" class="chip">✨ محسّن</button>
+      <button data-filter="color" class="chip">🖼️ أصلي</button>
+      <button data-filter="gray" class="chip">◐ رمادي</button>
+      <button data-filter="bw" class="chip">◼︎ أبيض وأسود</button>
+      <button id="rotL" class="chip">⟲</button>
+      <button id="rotR" class="chip">⟳</button>
+    </div>
+  </section>
+
+  <!-- نافذة التصدير -->
+  <dialog id="exportDlg">
+    <form method="dialog" class="dlg">
+      <h2>تصدير PDF</h2>
+      <label>اسم الملف
+        <input id="fileName" type="text" autocomplete="off">
+      </label>
+      <label>حجم الصفحة
+        <select id="pageSize">
+          <option value="a4">A4</option>
+          <option value="letter">Letter</option>
+          <option value="fit">بحجم الصورة</option>
+        </select>
+      </label>
+      <label>الجودة
+        <select id="quality">
+          <option value="0.92">عالية</option>
+          <option value="0.8" selected>متوسطة (موصى بها)</option>
+          <option value="0.6">حجم صغير</option>
+        </select>
+      </label>
+      <div class="dlg-actions">
+        <button value="cancel" class="btn">إلغاء</button>
+        <button id="doShare" value="share" class="btn" hidden>📤 مشاركة</button>
+        <button id="doDownload" value="download" class="btn success">⬇️ تنزيل</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="busy" class="busy" hidden><div class="spinner"></div><p id="busyText">جارٍ المعالجة…</p></div>
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="scanner.js"></script>
+  <script src="pdf.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
